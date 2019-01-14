@@ -1,2 +1,2 @@
 # JaviS
-## JAVascrIpt Study
+## Javascript In-comms Study
