@@ -8,7 +8,20 @@
 		
 	</style>
 	<script type="text/javascript">
-	
+		var test_Number = prompt('숫자를 입력해주세요');
+		
+		if(test_Number > 101 || test_Number < 50){
+			alert('평가 점수는 60 ~ 100점 사이로 작성해주세요.')
+		}else if(100 >= test_Number && test_Number >= 90){
+			alert('평가 등급 : A')
+		}else if(89 >= test_Number && test_Number >= 70){
+			alert('평가 등급 : B')
+		}else if(69 >= test_Number && test_Number >= 60){
+			alert('평가 등급 : C')
+		}else{
+			alert('평가 등급 : D')
+		}
+
 	</script>
 </head>
 <body>
