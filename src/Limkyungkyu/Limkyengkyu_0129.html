@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="ko">
+
+<head>
+    <meta charset="utf-8">
+    <title>등급계산</title>
+    <script>
+        function call(){
+            var grade=document.getElementById("grade").value
+            if(grade>100)
+                document.getElementById('result').value ="100이하의 숫자를 입력하세요";// 100초과 입력시
+            else if(grade>=90)
+                document.getElementById('result').value ="S";// 100~90 입력시
+            else if(grade>=80)
+                document.getElementById('result').value ="A";// 89~80 입력시
+            else if(grade>=70)
+                document.getElementById('result').value ="B";// 79~70 입력시
+            else if(grade>=60)
+                document.getElementById('result').value ="C";// 69~60 입력시
+            else if(grade>=0)
+                document.getElementById('result').value ="D";// 59~0 입력시
+            else
+                 document.getElementById('result').value ="0이상의 숫자를 입력하세요";// 0~100 제외한 값 입력시
+        }
+
+    </script>
+</head>
+
+<body>
+    <h1>등급계산기</h1>
+    <P>평가점수를 입력해주세요(0~100사이 숫자)</P>
+    <form name='sumform'>
+        <input type='text' name='grade' id='grade' onkeyup='call()'>
+        <input type='text' name='result' id='result' style="min-width:200px;">
+    </form>
+
+</body>
+
+</html>
