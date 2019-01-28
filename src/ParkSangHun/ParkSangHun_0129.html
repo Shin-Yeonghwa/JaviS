@@ -1,0 +1,35 @@
+<!doctype html>
+<html lang="ko">
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width,initial-scale=1.0,maximum-scale=1.0,minimum-scale=1.0,user-scalable=no">
+	<title>학점계산기</title>
+	<!-- [Tip] html5에서는 type 선언이 필요없음 -->
+	<!-- <script type="text/javascript"> -->
+	<script type="text/javascript">
+		// 1. 평균 점수 입력받기.
+		// prompt는 문자열 - https://www.w3schools.com/jsref/met_win_prompt.asp
+		var value = window.prompt("점수를 입력해주세요.");
+		// 2. 문자를 숫자로.
+		// 문자열 변수를 숫자로 변경 필요 - https://www.w3schools.com/jsref/jsref_parseint.asp
+		value=parseInt(value);
+		// 3. 학점 계산 후 학점 출력
+		if(value>=90 && value<=100)
+			// console.log(value);
+			alert(value+ " 점에 해당하는 학점은 A 입니다.");
+		else if(value>=80 && value<=89)
+			alert(value+ " 점에 해당하는 학점은 B 입니다.");
+		else if(value>=70 && value<=79)
+			alert(value+ " 점에 해당하는 학점은 C 입니다.");
+		else if(value>=60 && value<=69)
+			alert(value+ " 점에 해당하는 학점은 D 입니다.");
+		else
+			alert(value+ " 점에 해당하는 학점은 F 입니다.");
+	</script>
+</head>
+<body>
+	<p>
+		학점계산기(if문)
+	</p>
+</body>
+</html>
