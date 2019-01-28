@@ -1,0 +1,35 @@
+<!doctype html>
+<html>
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width,initial-scale=1">
+	<meta http-equiv="x-ua-compatible" content="IE=edge">
+	<title>TEST_0129_평가등급</title>
+</head>
+<body>
+	<h1>평가 등급 확인</h1>
+	<form action="#" id="form">
+		<input type="number" name="inputNum" placeholder="점수를 입력하세요.">
+		<input type="submit" value="확인">
+	</form>
+	<p id="output"></p>
+	<script>
+		document.getElementById('form').onsubmit = function() {
+			var score = document.getElementById('form').inputNum.value;
+
+			if(100 >= score && score >= 90) {
+				document.getElementById('output').textContent = score + '점에 대한 평가 등급은 "A" 입니다.';
+			} else if(89 >= score && score >= 70) {
+				document.getElementById('output').textContent = score + '점에 대한 평가 등급은 "B" 입니다.';
+			} else if(69 >= score && score >= 60) {
+				document.getElementById('output').textContent = score + '점에 대한 평가 등급은 "C" 입니다.';
+			} else if(59 >= score && score >= 0) {
+				document.getElementById('output').textContent = score + '점에 대한 평가 등급은 "D" 입니다.';
+			} else {
+				alert('0~100 범위 내 점수를 입력해주세요.');
+			}
+			return false;
+		}
+	</script>
+</body>
+</html>
