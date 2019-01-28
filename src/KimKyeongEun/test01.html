@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    <form action="#" id="testForm">
+        <label for="inputNumber">점수입력</label>
+        <input type="number" id="inputNumber" name="gradeInput">
+        <input type="submit" id="btn" value="확인">
+    </form>
+
+    <p class="grade_result"></p>
+
+    <script>
+        var form = document.getElementById('testForm');
+        var grade = null;
+        var gradeContent = document.querySelector('.grade_result');
+
+        form.onsubmit = function(){
+            //input check
+            var inputNum = Number(form.gradeInput.value);
+
+            if(inputCheck()){
+                if(inputNum < 60){
+                    grade = 'D';
+                }else if(inputNum < 70){
+                    grade = 'C';
+                }else if(inputNum < 80){
+                    grade = 'B';
+                }else if(inputNum < 90){
+                    grade = 'A';
+                }else{
+                    grade = 'S';
+                }
+                gradeContent.textContent = '평가 '+ inputNum +'에 대한 등급은' + grade + '입니다';
+            }else{
+                alert('0 ~ 100 사이의 숫자를 써주세요');
+            } 
+
+            form.reset();
+
+            return false;
+        }
+
+        var inputCheck = function(){
+            var inputNum = Number(form.gradeInput.value);
+
+            if((inputNum >= 0) && (inputNum <= 100)){
+                return true;
+            }else{
+                return false;
+            }
+        }
+
+    </script>
+</body>
+</html>
