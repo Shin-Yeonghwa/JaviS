@@ -1,0 +1,39 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta http-equiv="x-ua-compatible" content="IE=edge">
+<title>0128_JSTEST</title>
+</head>
+<body>
+<header>
+<div class="header-contents">
+<h1>평가표만들기</h1>
+<h2>평가점수 확인하기</h2>
+</div><!-- /.header-contents -->
+</header>
+<div class="main-wrapper">
+<section>
+<form name="test">
+점수<input type="text" name="grade" id="grade">
+<input type="button" value="확인하기" onclick="inpt_grade()">
+</form>
+</section>
+</div><!-- /.main-wrapper -->
+<script>
+function inpt_grade(){
+  var grade = document.test.grade.value;
+    if(grade >= 90){
+      alert('해당 점수의 등급은: ' + 'A' );
+    }else if(grade >= 70){
+      alert('해당 점수의 등급은: ' + 'B' );
+    }else if(grade >= 60){
+      alert('해당 점수의 등급은: ' + 'C' );
+    }else{
+      alert('해당 점수의 등급은: ' + 'D' );
+  }
+}
+</script>
+</body>
+</html>
