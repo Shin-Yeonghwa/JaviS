@@ -1,0 +1,42 @@
+<!doctype html>
+<html lang="ko">
+
+<head>
+<meta charset="utf-8">
+<title>실습::학점계산기</title>
+</head>
+
+<body>
+<h1>학점등급조회</h1>
+
+<form action="#" id="form">
+	<label for="grade">점수를 입력하시오</label>
+	<input type="text" style="height: 20px;margin-left: 10px" id="grade">
+	<button>확인</button>
+</form>
+
+<script type="text/javascript">
+	document.getElementById('form').onsubmit = function() {
+		var grade = document.getElementById('grade').value;
+		var result;
+		if(100 >= grade && grade >= 90) {
+			result = 'A 등급입니다.';  
+		}
+		else if(89 >= grade && grade >= 70) {
+			result = 'B 등급입니다.';  
+		}
+		else if(69 >= grade && grade >= 2) {
+			result = 'C 등급입니다.';
+		}
+		else if(1 >= grade && grade >= 0) {
+			result = '그 점수를 검색하고 싶냐;;';
+		}
+		else {
+		result = '입력 범위는 0 ~ 100까지입니다.';
+		};
+		alert(result);
+	}
+</script>
+</body>
+
+</html>
