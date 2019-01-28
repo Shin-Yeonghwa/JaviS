@@ -1,0 +1,41 @@
+<!doctype html>
+<html lang="ko">
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width,initial-scale=1.0,maximum-scale=1.0,minimum-scale=1.0,user-scalable=no,target-densitydpi=medium-dpi">
+	<title></title>
+	<style type="text/css">
+
+	</style>
+	<script type="text/javascript">
+    //평가자 이름을 prompt로 받음
+		var User_Name = prompt('이름을 입력하세요.');
+		//평가자 점수를 prompt로 받음
+		var Grade_Number = Number(prompt('당신이 받은 점수는 몇점인가요?' , '숫자만 입력하라잉'));
+
+
+   //점수에 따른 조건문
+	 if(Grade_Number >= 90){
+		 alert( User_Name +'님의 평가 점수는 A 입니다.');
+	 }else if(Grade_Number >=  80){
+		 alert(User_Name +'님의 평가 점수는 B 입니다.')
+	 }
+	 else if(Grade_Number >=  70){
+		 alert(User_Name +'님의 평가 점수는 C 입니다.')
+	 }
+	 else if(Grade_Number >=  60){
+		 alert(User_Name +'님의 평가 점수는 D 입니다.')
+	 }
+	 else if(Grade_Number >=  50){
+		 alert('당신의 평가 점수는 E 입니다.')
+	 }
+	 else{
+		 alert('망했다고 봐야지')
+	 }
+
+	</script>
+</head>
+<body>
+	<p>나의 점수는 망한 각이네요. </p>
+</body>
+</html>
