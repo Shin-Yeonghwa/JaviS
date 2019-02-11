@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="ko">
+
+<head>
+    <meta charset="utf-8">
+    <title>구구단</title>
+    <style>
+        ul {
+            list-style-type: none;
+            margin: 0;
+            padding: 0;
+        }
+
+        li {
+            float: left;
+            margin-top: -1px;
+            margin-left: -1px;
+            width: 33.3%;
+            border: 1px solid #ecf0f2;
+            box-sizing: border-box;
+            -webkit-box-sizing: border-box;
+            text-align: center;
+        }
+    </style>
+</head>
+
+<body>
+    <ul id="multiplication"></ul>
+    <script>
+        for (var i = 1; i <= 9; i++) {
+            var li = document.createElement('li');
+            li.className = 'list' + i;
+            document.getElementById('multiplication').appendChild(li);
+            for (var j = 1; j <= 9; j++) {
+                var p = document.createElement('p');
+                p.textContent = i + 'X' + j + '=' + i * j;
+                document.querySelector('.list' + i).appendChild(p);
+            }
+        }
+    </script>
+</body>
+
+</html>

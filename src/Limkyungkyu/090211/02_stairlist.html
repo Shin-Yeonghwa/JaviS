@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="ko">
+
+<head>
+    <meta charset="utf-8">
+    <title>계단</title>
+    <style>
+        ul {
+            list-style-type: none;
+            margin: 0;
+            padding: 0;
+        }
+    </style>
+</head>
+
+<body>
+    <ul id="stairlist"></ul>
+    <script>
+        for (var i = 1; i <= 10; i++) {
+            var li = document.createElement('li');
+            li.className = 'list' + i;
+            document.getElementById('stairlist').appendChild(li);
+            for (var j = 1; j <= i; j++) {
+                var span = document.createElement('span');
+                span.textContent = '*';
+                document.querySelector('.list' + i).appendChild(span);
+            }
+        }
+    </script>
+</body>
+
+</html>

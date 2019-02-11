@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="ko">
+
+<head>
+    <meta charset="utf-8">
+    <title>성적표</title>
+</head>
+
+<body>
+    <script>
+        var newArray = [];
+        newArray.push({
+            name: '홍길동',
+            korean: 70,
+            english: 80,
+            math: 80,
+            science: 90
+        });
+        newArray.push({
+            name: '홍길일',
+            korean: 80,
+            english: 60,
+            math: 70,
+            science: 80
+        });
+        newArray.push({
+            name: '홍길이',
+            korean: 80,
+            english: 80,
+            math: 80,
+            science: 80
+        });
+        newArray.push({
+            name: '홍길삼',
+            korean: 90,
+            english: 90,
+            math: 90,
+            science: 90
+        });
+        newArray.push({
+            name: '홍길사',
+            korean: 100,
+            english: 50,
+            math: 90,
+            science: 75
+        });
+        newArray.push({
+            name: '홍길오',
+            korean: 70,
+            english: 80,
+            math: 80,
+            science: 90
+        });
+
+
+        for (var calc in newArray) {
+            newArray[calc].sum = function() {
+                return this.korean + this.english + this.math + this.science;
+            };
+            newArray[calc].average = function() {
+                return this.sum() / 4;
+            }
+        }
+        var result = '이름\t국어\t영어\t수학\t과학\t총점\t평균<br/>';
+
+        for (var report in newArray) {
+            result += newArray[report].name + '\t' + newArray[report].korean + '\t' + newArray[report].english + '\t' + newArray[report].math + '\t' + newArray[report].science + '\t' + newArray[report].sum() + '\t' + newArray[report].average() +
+                '<br />';
+        }
+        document.write(result);
+    </script>
+
+</body>
+
+</html>

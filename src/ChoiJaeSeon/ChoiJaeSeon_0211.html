@@ -1,0 +1,40 @@
+<!doctype html>
+<html lang="ko">
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width,initial-scale=1.0,maximum-scale=1.0,minimum-scale=1.0,user-scalable=no,target-densitydpi=medium-dpi">
+	<title></title>
+	<style type="text/css">
+#gugudanResult ul{
+	float:left;
+}
+	</style>
+	<script type="text/javascript">
+	function gugudan(){
+		var output = document.getElementById("gugudanResult")
+		var dan,num;
+		var result;
+		var html ="";
+
+		for(dan = 2; dan < 10; dan ++){
+				html += "<ul>";
+				for(num = 1; num < 10; num ++){
+					result = dan * num;
+					html += "<li>" + dan + " * " + num + " = " + result + "</li>"
+				}
+				html += "</ul>"
+
+		}
+		output.innerHTML= html;
+	}
+
+	</script>
+</head>
+<body>
+	<div class="gugudanWrap">
+		<button type="button" name="button" onclick="gugudan()">구구단 출력하기</button>
+		<div id="gugudanResult">
+		</div>
+	</div>
+</body>
+</html>
