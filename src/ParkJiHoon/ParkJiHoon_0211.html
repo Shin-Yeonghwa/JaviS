@@ -30,6 +30,12 @@
 	<div id="gugudaresult">
 
 	</div>
+
+	<h1>성적 총점 및 평균</h1>
+	<button onclick="myArray()">결과 확인</button>
+	<div id="graderesult">
+
+	</div>
 	<script type="text/javascript">
 		function myFor(){
 			var result = document.getElementById('forresult');
@@ -79,7 +85,28 @@
 			result.innerHTML = code;
 		}
 
+		function myArray(){
+			var result = document.getElementById('graderesult');
+			var gradeArray = [];
 
+			gradeArray.push({name : '손흥민', grade1 : 10, grade2 : 20})
+			gradeArray.push({name : '손흥만', grade1 : 50, grade2 : 20})
+			gradeArray.push({name : '손흥문', grade1 : 60, grade2 : 20})
+
+			for(var key in gradeArray) {
+				gradeArray[key].sum = function () {
+					return this.grade1 + this.grade2;
+				}
+				gradeArray[key].average = function () {
+					return this.sum() / 2; }
+				}
+				var gradeResult = '이름\t국어\t평균<br>';
+
+				for (var prop in gradeArray) {
+					gradeResult += gradeArray[prop].name + '\t' + gradeArray[prop].sum() + '\t' + gradeArray[prop].average() + '<br>';
+				}
+				result.innerHTML = gradeResult;
+			}
 	</script>
 </body>
 </html>
