@@ -1,0 +1,143 @@
+<!doctype html>
+<html>
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width,initial-scale=1">
+	<meta http-equiv="x-ua-compatible" content="IE=edge">
+	<title>TEST_0212</title>
+	<style type="text/css">
+		p{
+			font-size: 20px;
+			font-weight: bold;
+		}
+		.numTotal,
+		.star {
+			padding: 20px 10px;
+			border-bottom: 1px solid #e8e8e8;
+		}
+		.multiplyTable {
+			margin: 10px 0 10px 10px;
+			padding: 10px;
+			display: inline-block;
+			border: 1px solid #e8e8e8;
+		}
+		.gradeScore {
+			padding: 20px 10px;
+			border-top: 1px solid #e8e8e8;
+		}
+		table {
+			border-collapse: collapse;
+			border: 0;
+			outline: 0;
+		}
+		table th,
+		table td {
+			border: 1px solid #e8e8e8;
+			text-align: center;
+		}
+	</style>
+</head>
+<body>
+	<script type="text/javascript">
+
+		//1부터 100까지의 합
+		var totalClass = '<div class="numTotal">';
+		var total = 0;
+
+		for (i=1; i<=100; i++) {
+			total += i;
+		}
+
+		document.write(totalClass + '1부터 100까지의 합은 ' + total + ' 입니다.' + '</div>');
+
+	</script>
+
+	<script type="text/javascript">
+
+		// 계단식 * 모양
+		function printTriangle(num) {
+			var result = '';
+			for(var i=1; i<=10; i++) {
+				result += '*'.repeat(num + i) + '<br>';
+			}
+			return result;
+		}
+
+		document.write('<div class="star">' + printTriangle(0) + '</div>');
+
+	</script>
+
+	<script type="text/javascript">
+
+		// 반복문을 사용한 구구단
+		var tableClass = '<div class="multiplyTable">';
+		var result = '';
+
+		for(var i=2; i<10; i++) {
+			result += tableClass;
+			for(var j=1; j<10; j++) {
+				// 수평탭 이스케이프 문자
+				result += i + ' * ' + j + ' = ' + i*j + '\t' + '<br>';
+			}
+			// 줄바꿈 이스케이프 문자
+			result += '\n' + '</div>';
+		}
+
+		document.write(result);
+
+	</script>
+
+	<div class="gradeScore">
+		<table>
+			<colgroup>
+				<col style="width:60px">
+				<col style="width:100px">
+			</colgroup>
+			<tbody>
+				<tr>
+				<th>수학</th>
+				<td>100</td>
+				</tr>
+				<tr>
+				<th>영어</th>
+				<td>90</td>
+				</tr>
+				<tr>
+				<th>과학</th>
+				<td>96</td>
+				</tr>
+				<tr>
+				<th>국어</th>
+				<td>88</td>
+				</tr>
+			</tbody>
+		</table>
+	</div>
+
+	<script type="text/javascript">
+
+		// 성적 총점과 평균 구하기
+		var num = [100, 90, 96, 88];
+
+		// 배열 합계
+		function sum(array) {
+			var result = 0;
+			for (var i = 0; i < array.length; i++)
+			result += array[i];
+			return result;
+		}
+
+		// 배열 평균
+		function average(array) {
+			var sum = 0;
+			for (var i = 0; i < array.length; i++)
+			sum += array[i];
+			return sum / array.length;
+		}
+
+		document.write('합계: ' , sum(num), ' / 산술 평균: ' , average(num) );
+
+	</script>
+
+</body>
+</html>
