@@ -1,0 +1,28 @@
+<!doctype html>
+<html lang="ko">
+<head>
+ <meta charset="utf-8">
+ <meta name="viewport" content="width=device-width,initial-scale=1.0,maximum-scale=1.0,minimum-scale=1.0,user-scalable=no">
+ <title>javascript_study</title>
+ <!-- [Tip] html5에서는 type 선언이 필요없음 -->
+ <script>
+        function gugudan(n){
+            var i;
+   var dan = n;
+            document.write("<p>=="+ dan +"단==</p>");
+   for(i=0;i<=9;i++){
+    document.write(dan + "x" + i + "=" + dan*i + "<br>");
+   }
+        }
+ </script>
+</head>
+<body style="text-align:center">
+ <h1>구구단</h1>
+ <p>
+        <script>
+            var dan = prompt("구구단 단수를 입력해주세요.","");
+            gugudan(dan);
+        </script>
+    </p>
+</body>
+</html>
