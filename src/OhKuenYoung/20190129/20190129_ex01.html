@@ -17,24 +17,32 @@
     <p id="text_result">점수를 입력해주세요. <br> (입력 점수의 범위는 1 ~ 100 입니다.)</p>
     <script>        
         document.getElementById('ex01').onsubmit = function() {
-            var point = document.getElementById('point');
             var result;
-            if(100 >= point.value && point.value >= 90) {
+            if (point_check()) {
+                if(100 >= point.value && point.value >= 90) {
                 result = '입력하신 점수의 등급은 S 입니다.';  
-            }
-            else if(89 >= point.value && point.value >= 70) {
-                result = '입력하신 점수의 등급은 A 입니다.';  
-            }
-            else if(69 >= point.value && point.value >= 60) {
-                result = '입력하신 점수의 등급은 B 입니다.';
-            }
-            else if(59 >= point.value && point.value >= 0) {
-                result = '입력하신 점수의 등급은 C 입니다.';
-            }
-             else {
+                }
+                else if(89 >= point.value && point.value >= 70) {
+                    result = '입력하신 점수의 등급은 A 입니다.';  
+                }
+                else if(69 >= point.value && point.value >= 60) {
+                    result = '입력하신 점수의 등급은 B 입니다.';
+                }
+                else {
+                    result = '입력하신 점수의 등급은 C 입니다.';
+                };
+            } else {
                 result = '점수를 잘못 입력하였습니다. <br> 1 ~ 100 범위내의 점수를 입력하세요.';
             };
             document.getElementById('text_result').innerHTML = result;
+        }
+        var point_check = function() {
+            var point = document.getElementById('point');
+            if (100 >= point.value && point.value >= 0) {
+                return true;
+            } else {
+                 return false;
+            };
         }
     </script>
 </body>

@@ -1,0 +1,64 @@
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>예제</title>
+    <style type="text/css">
+        
+	</style>
+</head>
+<body>
+    <h3>1. 1 ~ 100 계산 예제</h3>
+    <p id="ex01"></p>
+    <h3>2. 계단 예제</h3>
+    <p id="ex02"></p>
+    <h3>3.구구단 예제</h3>
+    <button onclick="ex03();">구구단 게임</button>
+    <script>        
+        var ex_01 = 0;
+        for (var i = 0; i <= 100; i++) {
+            ex_01 += i;
+        }
+        document.getElementById('ex01').innerHTML = ex_01;
+    </script>
+    <script>        
+        var ex_02 = '';
+        for (var i = 0; i < 10; i++) {
+            for (var j = 0; j < i; j++) {
+                ex_02 += '*';
+            }
+            ex_02 += '<br/>';
+        }
+        document.getElementById('ex02').innerHTML = ex_02;
+    </script>
+    <script>        
+        var ex_02 = '';
+        for (var i = 0; i < 10; i++) {
+            for (var j = 0; j < i; j++) {
+                ex_02 += '*';
+            }
+            ex_02 += '<br/>';
+        }
+        document.getElementById('ex02').innerHTML = ex_02;
+    </script>
+    <script>        
+       var ex03 = function () {
+           alert("구구단 게임을 시작합니다. 총 5문제 입니다.")
+            for(i = 1; i <= 5; i++) {
+                var num1 = Math.ceil(Math.random() * 9)
+                var num2 = Math.ceil(Math.random() * 9)
+                var userAnswer = Number(prompt(num1 + " x " + num2 + " = ?")); 
+                if(userAnswer === num1 * num2) {
+                    alert("정답입니다.");
+                } else {
+                    userAnswer !== num1 * num2
+                    alert("틀렸습니다. 다시 도전해주세요.");
+                    return false;
+                }
+            }
+            alert("문제를 모두 풀었습니다.");
+        }
+    </script>
+</body>
+</html>
