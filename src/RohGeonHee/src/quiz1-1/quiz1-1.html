@@ -1,0 +1,412 @@
+<!DOCTYPE html>
+<!-- saved from url=(0046)http://azanghs.cafe24.com/js/select.php?week=1 -->
+<html lang="ko"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+ 
+  <title>자바스크립트 문제</title>
+  <style>
+  .top{vertical-align:top;}
+  table{border-collapse:collapse;width:1000px;margin:0 auto}
+  ul{list-style:none; margin:0px;padding:0px;}
+  .question{background-color:#eee;}
+  </style>
+ </head>
+ <body>
+  <table border="1">
+  <thead>
+	<tr>
+		<td>분류</td>
+		<td>문제</td>
+	</tr>
+  </thead>
+  <tbody>
+	<tr>
+		<td class="top">변수</td>
+		<td>
+			<div class="question">
+				<pre>다음 중 변수명 선언시 옳지 않은 것은?</pre>
+			</div>
+			<ul>
+				<li><input type="radio" name="r1">변수명은 대소문자를 구분한다.</li>
+				<li><input type="radio" name="r1">변수명은 한글로 선언가능하다.</li>
+				<li><input type="radio" name="r1">변수명 앞에 올 수 있는 특수문자는 _, $ 오직 2개뿐이다.</li>
+				<li><input type="radio" name="r1">변수명은 숫자가 앞에 올 수 있다.</li>
+			</ul>
+		</td>
+	</tr>
+		<tr>
+		<td class="top">변수</td>
+		<td>
+			<div class="question">
+				<pre>다음 변수 중 참조타입의 변수는?</pre>
+			</div>
+			<ul>
+				<li><input type="radio" name="r2">var a = 10;</li>
+				<li><input type="radio" name="r2">var b = true;</li>
+				<li><input type="radio" name="r2">var c =[];</li>
+				<li><input type="radio" name="r2">var d = "피할 수 없다면 즐겨라";</li>
+			</ul>
+		</td>
+	</tr>
+		<tr>
+		<td class="top">변수</td>
+		<td>
+			<div class="question">
+				<pre>다음 변수 중 기본자료형의 변수는?</pre>
+			</div>
+			<ul>
+				<li><input type="radio" name="r3">var a = {};</li>
+				<li><input type="radio" name="r3">var b = function(){};</li>
+				<li><input type="radio" name="r3">var c;</li>
+				<li><input type="radio" name="r3">var d = document.getElementById("box");</li>
+			</ul>
+		</td>
+	</tr>
+		<tr>
+		<td class="top">변수</td>
+		<td>
+			<div class="question">
+				<pre>변수의 스코프는 지역변수와 전역변수로 나눌 수 있다.<br>
+아래 코드에서 console출력 결과는 어떻게 되는가?<br>
+<br>
+var a = 10;<br>
+function f1(){<br>
+ console.log(a);<br>
+  var a = 20;<br>
+}<br>
+f1();</pre>
+			</div>
+			<ul>
+				<li><input type="radio" name="r4">10</li>
+				<li><input type="radio" name="r4">20</li>
+				<li><input type="radio" name="r4">error</li>
+				<li><input type="radio" name="r4">undefined</li>
+			</ul>
+		</td>
+	</tr>
+		<tr>
+		<td class="top">변수</td>
+		<td>
+			<div class="question">
+				<pre>자바스크립트의 변수키워드 중 var, let, const를 틀리게 설명한 것은?</pre>
+			</div>
+			<ul>
+				<li><input type="radio" name="r5">var로 선언한 변수가 함수 내부에 있을때에는 그 함수 내부에서만 쓰이는 지역변수가 된다.</li>
+				<li><input type="radio" name="r5">var,let,const 아무것도 키워드를 쓰지 않고 선언한 변수는 전역변수가 된다.</li>
+				<li><input type="radio" name="r5">let으로 선언한 변수는 블록 스코프를 갖는다.</li>
+				<li><input type="radio" name="r5">const로 선언한 변수는 재할당이 불가능하지만, 재선언은 가능하다.</li>
+			</ul>
+		</td>
+	</tr>
+		<tr>
+		<td class="top">변수</td>
+		<td>
+			<div class="question">
+				<pre>다음 코드의 결과는?<br>
+var a;<br>
+var b = null;<br>
+console.log(a == b);<br>
+console.log(a === b);</pre>
+			</div>
+			<ul>
+				<li><input type="radio" name="r6">false, false</li>
+				<li><input type="radio" name="r6">false, true</li>
+				<li><input type="radio" name="r6">true, false</li>
+				<li><input type="radio" name="r6">true, true</li>
+			</ul>
+		</td>
+	</tr>
+		<tr>
+		<td class="top">변수</td>
+		<td>
+			<div class="question">
+				<pre>다음 코드의 결과를 순서대로 나열한 것은?<br>
+<br>
+var v1 = "8";<br>
+var v2 = "6";<br>
+console.log(v1 + v2);<br>
+console.log(v1 - v2);<br>
+console.log(v1 * v2);<br>
+console.log(Number(v1) + v2);<br>
+console.log(Number(v1) + Number(v2));</pre>
+			</div>
+			<ul>
+				<li><input type="radio" name="r7">86, 2, 48, 14, 14</li>
+				<li><input type="radio" name="r7">86, 2, 48, 86, 14</li>
+				<li><input type="radio" name="r7">14, 2, 48, 14, 14</li>
+				<li><input type="radio" name="r7">14, 2, 48, 86, 14</li>
+			</ul>
+		</td>
+	</tr>
+		<tr>
+		<td class="top">연산자</td>
+		<td>
+			<div class="question">
+				<pre>다음의 결과는?<br>
+<br>
+var a = 5 % 3;<br>
+var b = 5 % 1.5;<br>
+var c = a + b;<br>
+console.log(c);</pre>
+			</div>
+			<ul>
+				<li><input type="radio" name="r8">2.5</li>
+				<li><input type="radio" name="r8">4</li>
+				<li><input type="radio" name="r8">3</li>
+				<li><input type="radio" name="r8">2</li>
+			</ul>
+		</td>
+	</tr>
+		<tr>
+		<td class="top">연산자</td>
+		<td>
+			<div class="question">
+				<pre>다음의 결과는?<br>
+<br>
+var a = 2;<br>
+var b = "2";<br>
+if(a==b)<br>
+	console.log("a와 b는 값이 같음");<br>
+else<br>
+	console.log("a와 b는 값이 틀림");</pre>
+			</div>
+			<ul>
+				<li><input type="radio" name="r9">a와 b는 값이 같음</li>
+				<li><input type="radio" name="r9">a와 b는 값이 틀림</li>
+				<li><input type="radio" name="r9">아무것도 출력 안됨</li>
+				<li><input type="radio" name="r9">실행에러</li>
+			</ul>
+		</td>
+	</tr>
+		<tr>
+		<td class="top">연산자</td>
+		<td>
+			<div class="question">
+				<pre>다음의 결과는?<br>
+<br>
+var a =3;<br>
+var b = 1;<br>
+var c = 5;<br>
+if(a == 3 &amp;&amp; c ==  ++b)<br>
+ console.log("b="+b);<br>
+<br>
+if(a == 2 &amp;&amp; c == ++b)<br>
+ console.log("b="+b);<br>
+<br>
+console.log("b="+b);</pre>
+			</div>
+			<ul>
+				<li><input type="radio" name="r10">b=1</li>
+				<li><input type="radio" name="r10">b=2</li>
+				<li><input type="radio" name="r10">b=3</li>
+				<li><input type="radio" name="r10">b=1 b=2</li>
+			</ul>
+		</td>
+	</tr>
+		<tr>
+		<td class="top">연산자</td>
+		<td>
+			<div class="question">
+				<pre>다음의 결과는?<br>
+<br>
+var a = 3;<br>
+var b = (a%2 == 0) ? "짝": "홀";<br>
+console.log("a는 " + b + "수이다.");<br>
+var c = 2;<br>
+a == ++c ? console.log("a = 3") : console.log("a != 3");</pre>
+			</div>
+			<ul>
+				<li><input type="radio" name="r11">a는 홀수이다. a != 3</li>
+				<li><input type="radio" name="r11">a는 홀수이다. a = 3</li>
+				<li><input type="radio" name="r11">a는 짝수이다. a != 3</li>
+				<li><input type="radio" name="r11">a는 짝수이다. a = 3</li>
+			</ul>
+		</td>
+	</tr>
+		<tr>
+		<td class="top">연산자</td>
+		<td>
+			<div class="question">
+				<pre>다음의 결과는?<br>
+<br>
+var a = 12;<br>
+console.log(typeof(a));<br>
+a = "대한민국";<br>
+console.log(typeof(a));<br>
+a = true;<br>
+console.log(typeof(a));<br>
+a = {};<br>
+console.log(typeof(a));<br>
+a = [];<br>
+console.log(typeof(a));</pre>
+			</div>
+			<ul>
+				<li><input type="radio" name="r12">number, string, boolean, object, array</li>
+				<li><input type="radio" name="r12">number, string, boolean, object, object</li>
+				<li><input type="radio" name="r12">number, string, boolean, array, array</li>
+				<li><input type="radio" name="r12">number, string, boolean, null, null</li>
+			</ul>
+		</td>
+	</tr>
+		<tr>
+		<td class="top">제어문</td>
+		<td>
+			<div class="question">
+				<pre>다음의 결과는?<br>
+<br>
+var num ;<br>
+<br>
+if (num == null) {<br>
+ console.log("숫자를 입력해 주십시오.");<br>
+} else {<br>
+	 if (num &gt; 0) {<br>
+	  console.log("양수입니다.");<br>
+	 } else if (num &lt; 0) {<br>
+	  console.log("음수입니다.");<br>
+	 } else {<br>
+	  console.log("undefined 입니다.");<br>
+	 }<br>
+}</pre>
+			</div>
+			<ul>
+				<li><input type="radio" name="r13">숫자를 입력해 주십시오.</li>
+				<li><input type="radio" name="r13">undefined 입니다.</li>
+				<li><input type="radio" name="r13">아무것도 출력 안됨.</li>
+				<li><input type="radio" name="r13">error 발생.</li>
+			</ul>
+		</td>
+	</tr>
+		<tr>
+		<td class="top">제어문</td>
+		<td>
+			<div class="question">
+				<pre>다음의 결과는?<br>
+<br>
+var menu = "10";<br>
+<br>
+switch (menu) {<br>
+ case 10:<br>
+  console.log("입력한 변수 타입은 number ");<br>
+  break;<br>
+ case "10":<br>
+  console.log("입력한 변수 타입은 string ");<br>
+  break;<br>
+ default:<br>
+  console.log("종료합니다.");<br>
+  break;<br>
+}</pre>
+			</div>
+			<ul>
+				<li><input type="radio" name="r14">입력한 변수 타입은 string</li>
+				<li><input type="radio" name="r14">입력한 변수 타입은 number</li>
+				<li><input type="radio" name="r14">입력한 변수 타입은 string 종료합니다.</li>
+				<li><input type="radio" name="r14">종료합니다.</li>
+			</ul>
+		</td>
+	</tr>
+		<tr>
+		<td class="top">제어문</td>
+		<td>
+			<div class="question">
+				<pre>2단부터 9단까지 출력하는 다음 코드에서 [ ]빈칸에 알맞은 코드는?<br>
+<br>
+for (var i = 2; i &lt; 10; i++) {<br>
+	console.log(i+"단 출력");<br>
+	for(var j= 1;j&lt;10;j++){<br>
+            [                                 ]<br>
+	}<br>
+}</pre>
+			</div>
+			<ul>
+				<li><input type="radio" name="r15">console.log( i + " x "+ j + " = " + (i+j));</li>
+				<li><input type="radio" name="r15">console.log( i +  x + j + " = " + i+j);</li>
+				<li><input type="radio" name="r15">console.log( i + " x "+ j + " = " + i*j);</li>
+				<li><input type="radio" name="r15">console.log( i +  " x " + j + " = " + (ixj));</li>
+			</ul>
+		</td>
+	</tr>
+		<tr>
+		<td class="top">제어문</td>
+		<td>
+			<div class="question">
+				<pre>다음 for/in 문에서 출력되는 i 값을 나열하면?<br>
+<br>
+var array = new Array();<br>
+array["a"] = "value_a";<br>
+array["b"] = "value_b";<br>
+array["c"] = "value_c";<br>
+ <br>
+for(var i in array) {<br>
+ console.log(i);<br>
+}</pre>
+			</div>
+			<ul>
+				<li><input type="radio" name="r16">0, 1, 2</li>
+				<li><input type="radio" name="r16">a, b, c</li>
+				<li><input type="radio" name="r16">value_a, value_b, value_c</li>
+				<li><input type="radio" name="r16">1, 2, 3</li>
+			</ul>
+		</td>
+	</tr>
+		<tr>
+		<td class="top">제어문</td>
+		<td>
+			<div class="question">
+				<pre>다음 코드에서 출력되는 cnt 값은?<br>
+<br>
+var cnt = 0;<br>
+var num = 12;<br>
+while (num &gt; 2) {<br>
+ num = num/2;<br>
+ cnt++;<br>
+}<br>
+console.log(cnt);<br>
+</pre>
+			</div>
+			<ul>
+				<li><input type="radio" name="r17">2</li>
+				<li><input type="radio" name="r17">4</li>
+				<li><input type="radio" name="r17">5</li>
+				<li><input type="radio" name="r17">3</li>
+			</ul>
+		</td>
+	</tr>
+		<tr>
+		<td class="top">제어문</td>
+		<td>
+			<div class="question">
+				<pre>다음 코드에서 출력되는 sum 값은?<br>
+<br>
+var sum = 0;<br>
+var num = -1;<br>
+do {<br>
+ sum += 10;<br>
+} while (++num&lt;2);<br>
+console.log(sum);</pre>
+			</div>
+			<ul>
+				<li><input type="radio" name="r18">10</li>
+				<li><input type="radio" name="r18">20</li>
+				<li><input type="radio" name="r18">30</li>
+				<li><input type="radio" name="r18">40</li>
+			</ul>
+		</td>
+	</tr>
+		<tr>
+		<td class="top">변수</td>
+		<td>
+			<div class="question">
+				<pre>다음 중 자바스크립트 변수 예약어가 아닌것은 ?</pre>
+			</div>
+			<ul>
+				<li><input type="radio" name="r38">var</li>
+				<li><input type="radio" name="r38">let</li>
+				<li><input type="radio" name="r38">each</li>
+				<li><input type="radio" name="r38">const</li>
+			</ul>
+		</td>
+	</tr>
+	  </tbody>
+  </table>
+ 
+
+</body></html>

@@ -1,0 +1,67 @@
+@charset "UTF-8";
+
+body, p, h1, h2, h3, h4, h5, h6, ul, ol, li, dl, dt, dd, table, th, td, form, fieldset, legend, input, textarea, button, select {
+    margin: 0;
+    padding: 0
+}
+
+body, input, textarea, select, button, table {
+    font-family: '나눔고딕', NanumGothic, '맑은고딕', MalgunGothic, '돋움', Dotum, Helvetica, sans-serif;
+    font-size: 12px
+}
+
+img, fieldset {
+    border: 0
+}
+
+ul, ol {
+    list-style: none
+}
+
+em, address {
+    font-style: normal
+}
+
+a {
+    text-decoration: none;
+}
+
+a:hover, a:active, a:focus {
+    text-decoration: none
+}
+
+.blind {
+    overflow: hidden !important;
+	position: absolute !important;
+	clip: rect(0 0 0 0) !important;
+	width: 1px !important;
+	height: 1px !important;
+	margin: -1px !important;
+}
+
+.solution{
+  display: block;
+  overflow: hidden;
+  width: 600px;
+  margin: 0 auto;
+}
+
+.solution h1{
+  display: block;
+  height: 40px;
+  border-bottom: 3px solid #000;
+  font-size: 30px;
+}
+
+.solution .text_box{
+  display: block;
+  padding: 30px;
+  box-sizing: border-box;
+  -webkit-box-sizing: border-box;
+  font-size: 14px;
+  line-height: 1.5;
+}
+
+.solution .list_box{
+  margin-top: 30px;
+}
