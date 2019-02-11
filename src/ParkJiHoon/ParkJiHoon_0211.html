@@ -100,7 +100,7 @@
 				gradeArray[key].average = function () {
 					return this.sum() / 2; }
 				}
-				var gradeResult = '이름\t국어\t평균<br>';
+				var gradeResult = '이름\t총점\t평균<br>';
 
 				for (var prop in gradeArray) {
 					gradeResult += gradeArray[prop].name + '\t' + gradeArray[prop].sum() + '\t' + gradeArray[prop].average() + '<br>';
