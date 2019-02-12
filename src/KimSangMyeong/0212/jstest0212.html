@@ -1,0 +1,43 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta http-equiv="x-ua-compatible" content="IE=edge">
+<title>0212_JSTEST1</title>
+</head>
+<body>
+<header>
+<div class="header-contents">
+<h1>0부터 00까지 합계 구하기</h1>
+<h2>합계 확인하기</h2>
+</div><!-- /.header-contents -->
+</header>
+<div class="main-wrapper">
+  <section>
+    <form action="#" id="sumlist">
+      <label for="inpt_1">시작점 숫자 입력하기</label>
+      <input type="number"  id="inpt_1">
+      <br>
+        <label for="inpt_2">마지막 숫자 입력하기</label>
+      <input type="number"  id="inpt_2">
+      <br>
+      <input type="submit" id="btn" value="확인하기">
+    </form>
+  </section>
+</div><!-- /.main-wrapper -->
+<script>
+var sum=0;
+var form = document.getElementById('sumlist');
+  form.onsubmit = function(){
+      var inputNum = Number(form.inpt_1.value);
+      var inputNum2 = Number(form.inpt_2.value);
+      for(var i=inputNum;i<=inputNum2;i=i+1){
+        sum+=i;
+      }
+      document.write(inputNum + '부터' + inputNum2 + '까지 합은' + sum + '입니다.');
+      return false;
+  }
+</script>
+</body>
+</html>

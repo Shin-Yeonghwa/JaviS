@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="ko">
+
+<head>
+    <meta charset="utf-8">
+    <title>합산</title>
+
+</head>
+
+<body>
+    <form action="#" id='sumNum'>
+        <label for="startNumber">시작수</label>
+        <input type="number" name="startNumber" id="startNumber">
+        <label for="endNumber">마지막수</label>
+        <input type="number" name="endNumber" id="endNumber">
+        <input type="submit" id="btn" value="확인">
+    </form>
+    <p id="output"></p>
+    <script>
+        var form = document.getElementById('sumNum');
+
+        form.onsubmit = function() {
+            var startNum = Number(form.startNumber.value);
+            var endNum = Number(form.endNumber.value);
+            var sum = 0;
+            for (i = startNum; i <= endNum; i++) {
+                sum += i;
+            }
+            document.getElementById('output').textContent = startNum + '부터 ' + endNum + '까지의 합은 ' + sum + '입니다.';
+            form.reset();
+            return false;
+        }
+    </script>
+</body>
+
+</html>
