@@ -8,18 +8,52 @@
 		
 	</style>
 	<script type="text/javascript">
-	for(var i =0; true ; i++){
-		alert(i + '번째 반복문입니다');
 
-		 // if 문으로 중간에 종료할지 결정
-		if (confirm('끝낼까요??')){
-			break;
-		}
-	}
-	alert('종료');
+	***** 1 ~ 100 까지의 합 *****
+	최종합 변수 지정
+	var sum = 0;
+	
+	// 반복문 
+	for(var i = 0; i <= 100; i++){
+		sum = i + sum;
+		// 위 문과 동일한 연산자 구문 : sum += i
+	};
+	alert('1 부터 100까지의 합은' + sum +'입니다.');
+	
+	
+	
+    // ***** 별트리 *****
+	// 최종 얼랏 변수 선언
+	var star = '';
+	
+	for(var i = 0; i <= 5; i++){
+		for(var j = 0; j < i; j++){
+			star += '*' 
+		};
+		star += '\n' //정규식 표현 개행
+	};
+	alert(star);
+	
+
+	// ***** 구구단 ***** 
+	
+	// 최종 결과 변수 선언
+	var result_total = '';
+	// 각단에서 사용할 변수 지정
+	var result_step = ''; 
+	
+	for(var i = 1; i <= 9; i++){
+		for(var j = 1; j <= 9; j++){
+			result_step += i + 'X' + j + '=' + i*j + '\n';
+		};
+		result_total += result_step
+	};
+	alert(result_total);
+	
 	</script>
 </head>
 <body>
 	<h1>0212-TEST</h1>
+	<div id=""></div>
 </body>
 </html>
