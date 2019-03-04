@@ -8,7 +8,10 @@
 
 <body>
 <p id="output"></p>
+<h1>자리수 맞추기</h1>
 <ul id="list"></ul>
+<h1>카운트 다운</h1>
+<p id="countdown"></p>
 <script type="text/javascript">
 	/*
 		function 함수명([인자...[,인자]]) {
@@ -46,6 +49,7 @@
 
 	document.getElementById('output').textContent = '자리수 맞추기' + addZero(10,2);
 
+	// 음악 리스트 배열
 	var songs = [
 		'song',
 		'song',
@@ -68,6 +72,27 @@
 		paragraph.textContent = addZero(i + 1, 2) + '.' + songs[i];
 		document.getElementById('list').appendChild(paragraph);
 	}
+
+	// 카운트 다운 함수
+	var countdown = function(due) {
+		var now = new Date();
+		var rest = due.getTime () - now.getTime();
+		var sec = Math.floor(rest / 1000 % 60);
+		var min = Math.floor(rest / 1000 / 60) % 60;
+		var hours = Math.floor(rest / 1000/ 60 / 60) % 24;
+		var days = Math.floor(rest / 1000 / 60 / 60 / 24);
+		var count = [days, hours, min ,sec];
+		return count;
+	}
+
+	var goal = new Date();
+	goal.setHours(23);
+	goal.setMinutes(59);
+	goal.setSeconds(59);
+
+	var counter = countdown(goal);
+	var time = counter[1] + '시간' + counter[2] + '분' + counter[3] + '초';
+	document.getElementById('countdown').textContent = '카운트 다운' + time;
 </script>
 </body>
 
