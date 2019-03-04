@@ -1,0 +1,74 @@
+<!doctype html>
+<html lang="ko">
+
+<head>
+<meta charset="utf-8">
+<title>실습::함수</title>
+</head>
+
+<body>
+<p id="output"></p>
+<ul id="list"></ul>
+<script type="text/javascript">
+	/*
+		function 함수명([인자...[,인자]]) {
+			코드
+			return 반환값
+		}
+	*/
+
+	// 함수 정의 방법1 - 기본 함수 선언문
+	function numbering() {
+		i = 0;
+		while(i < 10) {
+			document.write(i);
+			i += 1; 
+		}
+	} // 함수 정의 - 0 부터 10보다 작을대 까지 1씩 증가
+
+	// 함수 정의 방법2 - 표현식 - 변수에 함수 대입하기
+	numbering2 = function() {
+		i = 0;
+		while(i < 10) {
+			document.write(i);
+			i += 1; 
+		}
+	} // 함수 정의 - 0 부터 10보다 작을대 까지 1씩 증가
+
+	//자리수 맞추기
+	var addZero = function (num, digit) {
+		var numString = String(num);
+		while (numString.length < digit) {
+			numString = '0' + numString;
+		}
+		return numString;
+	}
+
+	document.getElementById('output').textContent = '자리수 맞추기' + addZero(10,2);
+
+	var songs = [
+		'song',
+		'song',
+		'song',
+		'song',
+		'song',
+		'song',
+		'song',
+		'song',
+		'song',
+		'song',
+		'song',
+		'song',
+		'song',
+		'song',
+		'song',
+	];
+	for (var i = 0; i < songs.length; i++) {
+		var paragraph = document.createElement('li');
+		paragraph.textContent = addZero(i + 1, 2) + '.' + songs[i];
+		document.getElementById('list').appendChild(paragraph);
+	}
+</script>
+</body>
+
+</html>
