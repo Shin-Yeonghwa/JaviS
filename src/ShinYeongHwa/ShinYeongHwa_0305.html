@@ -1,0 +1,33 @@
+<!doctype html>
+<html lang="ko">
+<head>
+	<meta charset="utf-8">
+	<meta name="viewkport" content="width=device-width,initial-scale=1.0,maximum-scale=1.0,minimum-scale=1.0,user-scalable=no,target-densitydpi=medium-dpi">
+	<title>0305</title>
+	<style type="text/css">
+		
+	</style>  
+	<script type="text/javascript">
+		
+		// 변수 설정
+		var thisWeekday = '5' //이번주 작업일수
+		var thisMD = ''//이번주 투입시간
+		var userResultMM = '' // 사람기준 MD 결과값
+		var serviceResultMM = '' // 사람기준 MD 결과값
+		
+		// 함수 1 - 사람 기준
+		function resource(){
+			userResultMM = (thisMD * 480) / (480 * thisWeekday);
+			alert('OOO의 이번달 작업MD는'+userResultMM)
+		}
+		resource()
+		
+		
+		
+	</script>
+</head>
+<body>
+	<h1>0305-TEST</h1>
+	<div id=""> </div>
+</body>
+</html>
