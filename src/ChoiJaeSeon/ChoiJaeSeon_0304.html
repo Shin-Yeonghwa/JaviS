@@ -1,0 +1,145 @@
+<!doctype html>
+<html lang="ko">
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width,initial-scale=1.0,maximum-scale=1.0,minimum-scale=1.0,user-scalable=no,target-densitydpi=medium-dpi">
+	<title></title>
+	<style type="text/css">
+#gugudanResult ul{
+	float:left;
+}
+	</style>
+	<script type="text/javascript">
+
+	//오늘 날 짜 구하기
+		// 함수 선언식 , 표현식은 var getDayWeek = function(){}
+		function getDayWeek(){
+			var output = document.getElementById('dataInfo')
+			var now = new Date();
+			var day = now.getDay();
+			var week = new Array('일요일','월요일','화요일','수요일','목요일','금요일','토요일');
+				output.innerHTML = "오늘 날짜는 " + week[day] + "입니다.";
+			}
+
+	// 리턴과 콜백의 이해
+			function jaejae(a,b){
+				add = a + b;
+				return add;
+			}
+			document.write(jaejae(1,2));
+
+	// 새로고침
+		function refresh(delay){
+			if(delay == null)
+				window.location.reload();
+		}
+	 // html 코드 생성기
+	 function codeAddButton(){
+		// 코드값 받기 및 리스트 갯수 prompt로 받기
+		  var input = prompt('생성하고싶은 코드를 입력하세요' , 'dl:1번,ol:2번,ul:3번');
+		  var html ="";
+		  var outputInfo = document.getElementById("Result")
+
+		// if문 실행
+		if(input == 1){
+				var listNumber = prompt('dl 리스트 갯수를 원하는 값으로 입력하세요');
+				html += "<dl>";
+				for(i = 0; i < listNumber; i ++){
+						html += "<dt>제목을 입력하세요</dt>";
+						html += "<dd>내용을 입력하세요.</dd>";
+				}
+				html += "</dl>"
+
+		} else if (input == 2){
+			var listNumber = prompt('ol의 리스트 갯수를 원하는 값으로 입력하세요');
+			html += "<ol>";
+			for(i = 0; i < listNumber; i ++){
+					html += "<li>내용을 입력하세요.</li>";
+			}
+			html += "</ol>"
+
+		}
+		else if (input == 3){
+			var listNumber = prompt('ul의 리스트 갯수를 원하는 값으로 입력하세요');
+			html += "<ul>";
+			for(i = 0; i < listNumber; i ++){
+					html += "<li>내용을 입력하세요.</li>";
+			}
+			html += "</ul>"
+
+		}
+			else{
+				alert('정해진 값을 입력하세요.')
+				return ;
+			}
+			outputInfo.innerHTML= html;
+		  }
+
+	// 원하는 리스트 갯수를 받아자.
+		function listNumberWrap(){
+			var listNumber = prompt('리스트 갯수를 원하는 값으로 입력하세요');
+			var number = listNumber;
+			return number;
+	}
+
+	</script>
+	<style media="screen">
+		*{
+			margin:0;
+			padding:0;
+			list-style: none;
+			text-align:left;
+			
+		}
+		.jaejaeBox{
+			position:relative;
+			background:tomato;
+		}
+
+		.buttonBox{
+			height:60px;
+			line-height:60px;
+
+		}
+			.buttonBox button{
+
+				display:inline-block;
+				min-width:100px;
+				margin-top:10px;
+				height:40px;
+				padding:10px 20px;
+				line-height:20px;
+				box-sizing: border-box;
+				font-size:15px;
+				box-shadow: inset -4px -4px #adafbc;
+			}
+			.buttonBox button:first-child{
+				margin-left:20px;
+			}
+		.resultBox{
+			padding:20px;
+			min-height:200px;
+			border:1px solid #000;
+		}
+	</style>
+</head>
+<body>
+	<div class="jaejaeBox">
+		<div class="buttonBox">
+					<button type="button" onclick="getDayWeek()">오늘 날짜 구하기</button>
+				  <button type="button" onclick="codeAddButton()">마크업 코드 생성기</button>
+				  <button type="button" onclick="refresh()">새로고침</button>
+		</div>
+
+
+	</div>
+	<div class="resultBox">
+		<div id="Result">
+
+		 </div>
+		 <div id="dataInfo">
+
+		 </div>
+	</div>
+</body>
+</html>
