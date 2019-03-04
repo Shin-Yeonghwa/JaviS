@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>실습과제 2019-01-29</title>
+    <link rel="stylesheet" type="text/css" href="sample1-4.css">
+    <script type="text/javascript">
+
+    // 구구단 계산하기
+
+    var num = prompt('구구단 몇단을 알아볼까요?')
+
+    if (num === '' || isNaN(num)) {
+      alert('올바른 값을 입력하세요'); // 숫자만 들어갈 수 있도록 해주는 소스
+
+      } else if (num < 1 || num > 10){ // 1단 ~ 9단을 해주는 소스
+        alert('1~9 까지 입력하세요');
+      } else{
+        for (var i = 1; i < 10; i++){
+          document.write(num + '*' + i + '=' + num * i + '<br>');
+        }
+      }
+
+    </script>
+
+  </head>
+  <body>
+
+  </body>
+</html>

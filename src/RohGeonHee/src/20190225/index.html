@@ -1,0 +1,254 @@
+<!DOCTYPE html>
+<html>
+  <head >
+  <!---->
+    <meta charset="utf-8">
+    <title></title>
+  </head>
+  <body>
+<!--	<script src="script.js"></script>-->
+<!--	<script src="script2.js"></script>-->
+	<script>
+//3주차 숙제
+//종합문제  7,8,9,10,11,12 번
+
+var country = ["korea", "USA", "Japan", "China"];
+document.write("before = " + country + "<br>");
+//country.sort();//오름차순 정렬(left가 더 크다면 바꿈.)
+
+//Array : 내장객체가 가지고 있는 메소드. 메소드란 : 함수(=메소드)+변수(=프로퍼티) => 객체
+country.sort(function (left, right) {
+	var left2 = left.toLowerCase();
+	var right2 = right.toLowerCase();
+
+    if(left2<right2) 
+		return -1;
+	else if(left2>right2)
+		return 1;//그때 바꿔라.
+
+	//같을때.두 값이 같을때.
+    return 0;
+});
+document.write("after = " + country + "<br>");
+
+var array1 = [1, 30, 4, 21, 100000];
+
+array1.sort(function (left, right) {
+   /*
+   if(left > right)
+	return -1;//양수를 리턴하면 순서를 바꿔라. 오름차순정렬. 오른쪽에 있는 요소가 작은 인덱스로 설정.
+   else
+	return 1;//음수를 리턴하면 순서를 그대로 둬라. 왼쪽에 있는 것이 작은 인덱스로 설정.
+	*/
+
+	return left-right;
+ //return 0 는 순서를 바꾸지 않는다.
+
+});
+console.log(array1);
+
+//call by value(기본형) / call by reference(참조형)
+function byvalue(a) {//값이 복사. 파라미터변수는 함수가 종료되면 사라진다.
+    a = 9999;
+}
+
+function byref(a) {//주소값이 복사.
+    a[0] = 9999;
+}
+ 
+var int = 1000;//기본형.
+var ar = [1000, 2000, 3000];//참조형.
+ 
+console.log("int = " + int + ", ar[0] = " + ar[0] + "<br>");
+byvalue(int);
+byref(ar);
+console.log("int = " + int + ", ar[0] = " + ar[0] + "<br>");
+
+
+var v1 = 100;
+var v2 = [10,20,30];
+function change1(a){//a=100
+	a = 200;
+}
+function change2(b){
+	b[0] = 50;
+}
+
+console.log(v1);
+console.log(v2[0]);
+
+change1(v1);
+change2(v2);
+
+console.log(v1);//100
+console.log(v2[0]);//50
+
+
+function sum(n) {
+    if (n < 0) return;
+    var s = 0;
+    for (var i = 0; i <= n; i++) {
+        s += i;
+    }
+    return s;
+}
+console.log("1~100 = " + sum(100) + "<br>");
+console.log("1~-5 = " + sum(-5) + "<br>");
+
+
+//test1();
+function test1(){
+	alert('test1');
+}
+
+var test2 = function(){
+	alert('test2');
+}
+//test2();
+
+
+function sum(n) {
+    function add(a, b) {
+        return a + b;
+    }
+
+    var s = 0;
+    for (var i = 0; i <= n; i++) {
+        s = add(s, i);
+    }
+    return s;
+}
+
+document.write("1~100 = " + sum(100) + "<br>");
+//document.write("2 + 3 = " + add(2 + 3) + "<br>");        // 에러
+
+add1();
+
+//함수 호이스팅.
+function add1(a, b) { 
+	return a + b; 
+}
+var add2 = function(a, b) { return a + b; };
+add2();
+var a = [1,2,3];
+var b = a;
+var c = a.map(function(value){
+	return value;
+});
+//얕은복사, 깊은복사.
+//ClassA  clsa = new ClassA();
+//int a  =10;
+//int *b = &a;//포인터변수.
+
+console.log(a);
+console.log(b);
+console.log(c);
+c[1] = 200;
+b[0] = 100;
+console.log(a);
+console.log(b);
+console.log(c);
+
+
+
+//클로저 1번째 예제.
+function outer() {
+    var value = 1234;
+    function inner() {
+		value++;
+	   document.write("value = " + value + "<br>");
+    }
+    return inner;
+}
+var outin = outer();//누군가가 내부함수를 참조하고 있으면 내부함수는 삭제되지 못한다.
+outin();
+outin();
+outin();
+outin();
+
+
+//클로저 2번째 예제. 실행컨텍스트의 메모리 영역이 죽지못하고(내부변수,내부함수가 사라지는현상) 연장되는 기술.
+function outcount() {
+    var count = 0;
+    //setInterval은 내부에 시계를 설치해서, 1초마다 호출.
+    var timerid = setInterval(function() {//window의 메소드.
+        count++;
+        //document.write(count + "초 지났습니다." + "<br>");
+		if(count==2){
+			clearInterval(timerid);//알람시계 종료.
+		}
+    }, 1000);
+	console.log('timerid',timerid);
+}
+outcount();
+
+//function Function(){
+	
+//}
+//var 변수 = new Function("인수1", "인수2", ... ,"함수내부본문내용");
+
+
+var add = new Function("a", "b", "return a + b;");
+//function(a,b){return a+b;}
+document.write("2 + 3 = " + add(2, 3) +"<br>");
+console.dir(add);
+function add2(a,b){
+	return a+b;
+}
+console.dir(add2);
+
+//파일찾기
+function searchDir(filename){
+	if(filename == dirtype){
+		searchDir(filename);
+	}else if(filename==filetype){
+		//extendstype
+		addlist.add(filename);
+	}
+}
+//조직도 개발시.
+
+function fact(n) {
+    if (n == 1) {
+        return 1;
+    } else {
+        return n * fact(n-1);
+    }
+}
+//5*4*3*2*1
+function fact2(n){
+	var sum = 1;
+	for(var i = 1; i<=n;i++){
+		sum *= i;
+	}
+	return sum;
+}
+document.write("5! = " + fact(5) + "<br>"); //120
+
+
+document.write("5! = " + (function(n) {
+    if (n == 1) {
+        return 1;
+    } else {
+		//this.
+        return n * arguments.callee(n-1);
+    }
+})(5) + "<br>");
+
+//console.log(fact());
+
+function whoCalled() {
+   if (whoCalled.caller == null)
+      console.log('I was called from the global scope.');
+   else
+      console.log(whoCalled.caller + ' called me!');
+}
+
+function abc(){
+	whoCalled();
+}
+//abc();
+whoCalled();
+	</script>
+  </body>
+</html>
