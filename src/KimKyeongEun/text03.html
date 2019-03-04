@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style>
+    .count{
+        font-size: 5em;
+        color: #00d084;
+        text-align: center;
+        font-weight: bold;
+    }
+    </style>
+</head>
+<body>
+    <h1>초간단 숫자 카운터 예제!!!!</h1>
+    <p class="count">3000</p>
+    <script>
+        var count = document.querySelector('.count');
+        var initCount = 0;
+        var maxNum = Math.abs(parseInt(count.innerHTML));
+        var repeat = maxNum / 28;
+
+        var setTimeFunction =  setInterval(function(){
+            count.textContent = parseInt(initCount += repeat);
+
+            if (initCount > maxNum) {
+                count.innerHTML = parseInt(maxNum);
+                
+                clearInterval(setTimeFunction);
+            }
+            
+        },50);
+    </script>
+</body>
+</html>
