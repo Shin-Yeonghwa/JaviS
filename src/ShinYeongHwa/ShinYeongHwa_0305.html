@@ -8,21 +8,30 @@
 		
 	</style>  
 	<script type="text/javascript">
-		
+	
+		// 객체 data 생성(배열)
+
 		// 변수 설정
 		var thisWeekday = '5' //이번주 작업일수
-		var thisMD = ''//이번주 투입시간
+		var userThisMD = ''//사람기준 이번주 투입시간
+		var serviceThisMD = ''//서비스기준 이번주 투입시간
 		var userResultMM = '' // 사람기준 MD 결과값
-		var serviceResultMM = '' // 사람기준 MD 결과값
+		var serviceResultMM = '' // 서비스기준 MD 결과값
 		
 		// 함수 1 - 사람 기준
-		function resource(){
-			userResultMM = (thisMD * 480) / (480 * thisWeekday);
+		function userResource(){
+			userResultMM = (userThisMD * 480) / (480 * thisWeekday);
 			alert('OOO의 이번달 작업MD는'+userResultMM)
 		}
-		resource()
 		
+		// 함수 1 - 사람 기준
+		function serviceResource(){
+			serviceResultMM = (serviceThisMD * 480) / (480 * thisWeekday);
+			alert('OOO의 이번달 작업MD는'+serviceResultMM)
+		}
+
 		
+	
 		
 	</script>
 </head>
