@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="ko">
+
+<head>
+    <meta charset="utf-8">
+    <title>함수실습</title>
+
+</head>
+
+
+<body>
+    <script>
+        //내부함수 : 함수 안의 함수
+        function outer(num1) {
+            var num2 = 5;
+
+            function inner() { //외부함수 outer의 파라미터 num1과 지역변수 num2에 접근 가능
+                return num1 * num2;
+            }
+            return inner();
+        }
+        var result = outer(7);
+        document.write(result + '<br />'); // 변수 num1, num2는 사라짐
+    </script>
+
+    <script>
+        //리턴함수
+        var x = outer(7);
+        var y = outer(8);
+
+        function outer(num1) {
+
+            function inner(num2) {
+                return num1 * num2;
+            }
+            return inner;
+        }
+
+        document.write(x(2) + '<br />'); //내부함수 inner는 num1 변수를 참조하기 있어서 사라지지 않음.
+        document.write(y(3) + '<br />');
+    </script>
+
+    <script>
+        //클로져
+        var out = 'out value'
+
+        function outFunc() {
+            var inner = 'in value'
+
+            function inFunc(inParam) {
+                document.write('out: ' + out + '<br />');
+                document.write('inner: ' + inner + '<br />');
+                document.write('inParam: ' + inParam + '<br />');
+            }
+
+            return inFunc
+        }
+
+        var param = 'this is param'
+        var outResult = outFunc()
+        outResult(param)
+    </script>
+
+    <script>
+        //콜백함수1
+        var obj = {
+            name: "victolee",
+            email: "empty",
+
+            setEmail: function(email) {
+                this.email = email;
+            }
+        }
+
+        function callback(email, cb) {
+            cb(email);
+        }
+        callback("example.com", obj.setEmail);
+        document.write(obj.email + '<br />');
+        document.write(window.email + '<br />');
+    </script>
+
+    <script>
+        //콜백함수2
+        var obj = {
+            name: "victolee",
+            email: "empty",
+
+            setEmail: function(email) {
+                this.email = email;
+            }
+        }
+
+        function callback(email, cb) {
+            cb.call(obj, email);
+        }
+        callback("example.com", obj.setEmail);
+        document.write(obj.email + '<br />');
+        document.write(window.email + '<br />');
+    </script>
+
+</body>
+
+</html>
