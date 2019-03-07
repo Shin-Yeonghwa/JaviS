@@ -10,6 +10,20 @@
 	<script type="text/javascript">
 	
 		// 객체 data 생성(배열)
+		var todoData = [
+			{name:'신영화', service:'라인', resource:'5'},
+			{name:'최재선', service:'컨텐츠검색', resource:'6'},
+			{name:'박지훈', service:'그룹웨어', resource:'7'},
+			
+			
+		];
+		
+		// 신영화 찾기 함수
+		function findName(userName){
+			return userName.name === '신영화';
+		};
+		
+		console.log(todoData.find(findName));
 
 		// 변수 설정
 		var thisWeekday = '5' //이번주 작업일수
