@@ -14,37 +14,51 @@
 			{name:'신영화', service:'라인', resource:'5'},
 			{name:'최재선', service:'컨텐츠검색', resource:'6'},
 			{name:'박지훈', service:'그룹웨어', resource:'7'},
-			
+			{name:'신영화', service:'브랜딩', resource:'10'}
 			
 		];
 		
-		// 신영화 찾기 함수
-		function findName(userName){
-			return userName.name === '신영화';
-		};
+	
+		// 신영화 이름을 갖고 있는 resource 배열값을 추출하여 변수로 할당 - 객체화
 		
-		console.log(todoData.find(findName));
+		var userResultMM = todoData.filter(function(user){return user.name == '신영화'});
+		
+		// 이름은 두개 라서 두새이나 배열 index 값을 0 을 지정하여 첫번째 값만 나오도록 함
+		var userThisMD = userResultMM[0].resource //사람기준 이번주 투입시간
+		
+		
+		// 신영화 찾기 함수
+		// function findName(userName){
+		// 	if(userName.name === '신영화'){
+		// 		function (findResource){
+		// 
+		// 		}
+		// 	} 
+		// };
+		
+		// console.log(todoData.find(findName)); // 결과 값 : {name: "신영화", service: "라인", resource: "5"}
+		
+		
 
 		// 변수 설정
 		var thisWeekday = '5' //이번주 작업일수
-		var userThisMD = ''//사람기준 이번주 투입시간
-		var serviceThisMD = ''//서비스기준 이번주 투입시간
+		// var serviceThisMD = ''//서비스기준 이번주 투입시간
 		var userResultMM = '' // 사람기준 MD 결과값
-		var serviceResultMM = '' // 서비스기준 MD 결과값
+		// var serviceResultMM = '' // 서비스기준 MD 결과값
 		
 		// 함수 1 - 사람 기준
 		function userResource(){
 			userResultMM = (userThisMD * 480) / (480 * thisWeekday);
-			alert('OOO의 이번달 작업MD는'+userResultMM)
+			alert('신영화의 이번달 작업MD는'+userResultMM)
 		}
 		
 		// 함수 1 - 사람 기준
-		function serviceResource(){
-			serviceResultMM = (serviceThisMD * 480) / (480 * thisWeekday);
-			alert('OOO의 이번달 작업MD는'+serviceResultMM)
-		}
+		// function serviceResource(){
+		// 	serviceResultMM = (serviceThisMD * 480) / (480 * thisWeekday);
+		// 	alert('OOO의 이번달 작업MD는'+serviceResultMM)
+		// }
 
-		
+		userResource();
 	
 		
 	</script>
