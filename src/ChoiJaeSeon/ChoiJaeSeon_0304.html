@@ -81,7 +81,48 @@
 			var number = listNumber;
 			return number;
 	}
+	// html 코드 생성기
+	 function tableAdd(){
+		// 코드값 받기 및 리스트 갯수 prompt로 받기
+		  var captionText = prompt('caption명을 입력하세요.' , '필수값으로 꼭등록해주세요.');
+			var captionTitle = captionText;
+			var html ="";
+		  var outputInfo = document.getElementById("Result")
+			// var tableSize = prompt('테이블 사이즈를 입력하세요.');
+			var listNumber = prompt('칼럼값을 입력하세요');
+			var number = listNumber;
+				html += "<table>";
+				html += "<caption>" + captionTitle +"</caption>";
+				html += "<thead>";
+				html += "<tr>"
+				for(t = 0; t < number; t ++ ){
+						html += "<td>여기에 입력하세요.</td>";
+				}
+				html += "</tr>"
+				html += "</thead>";
+				html += "<tbody>";
+				html += "<tr>";
 
+				for(i = 0; i < number; i ++){
+						html += "<td>여기에 입력하세요.</td>";
+				}
+				html += "</tr>"
+				html += "</tbody>"
+				html += "</thead>"
+					outputInfo.innerHTML= html;
+				  }
+// 캡션값을 받자
+ function captionText(){
+	 var captionText = prompt('caption명을 입력하세요.' , '필수값으로 꼭등록해주세요.');
+	 var captionTitle = captionText;
+	 return captionTitle;
+ }
+	// 원하는 리스트 갯수를 받아자.
+		function column(){
+			var listNumber = prompt('칼럼값을 입력하세요');
+			var number = listNumber;
+			return number;
+	}
 	</script>
 	<style media="screen">
 		*{
@@ -89,7 +130,7 @@
 			padding:0;
 			list-style: none;
 			text-align:left;
-			
+
 		}
 		.jaejaeBox{
 			position:relative;
@@ -121,6 +162,11 @@
 			min-height:200px;
 			border:1px solid #000;
 		}
+		table{width:100%;border:1px solid red;border-spacing:0;table-layout: fixed;}
+		table td,table th{border:1px solid tomato}
+		table th{background:#eee}
+		caption{visibility:hidden;overflow:hidden;width:1px;height:1px;font-size:0;line-height:0}
+
 	</style>
 </head>
 <body>
@@ -128,6 +174,7 @@
 		<div class="buttonBox">
 					<button type="button" onclick="getDayWeek()">오늘 날짜 구하기</button>
 				  <button type="button" onclick="codeAddButton()">마크업 코드 생성기</button>
+  		<button type="button" onclick="tableAdd()">테이블 코드 생성기</button>
 				  <button type="button" onclick="refresh()">새로고침</button>
 		</div>
 
