@@ -154,6 +154,92 @@
 		
 		
 	// 함수를 이용한 객체
+	
+		// 함수 생성 - 매개변수 기입
+		function makeStudent(name, korean, math, english, sciencs){
+			
+			// return할 변수 지정
+			var willRetun = {
+				이름 : name,
+				국어 : korean,
+				수학 : math,
+				영어 : english,
+				과학 : sciencs,
+				
+				// 매서드
+				getSum :  function(){
+					return this.국어 + this.수학 + this.영어 + this.과학;
+					
+				},
+				getAverage : function(){
+					return this.getSum() / 4;
+				},
+				toString : function(){
+					return this.이름 + ' ' + '총점 : ' + this.getSum() + '평균 : ' + this.getAverage();
+				}
+				
+			};
+			// return할 변수 지정
+			return willRetun;
+		};
+		
+		
+		// 학생 정보를 배열로 만듬
+		var students = [];
+		students.push(makeStudent('신영화', 98, 100, 99, 97));
+		students.push(makeStudent('최재선', 100, 100, 99 , 100));
+		
+		
+		// 출력
+		var output = '이름\t총점\t평균\n';
+		for(var i in students){
+			output += students[i].toString() + '\n';
+		}
+		
+		alert(output);
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
 		
 		
 		
