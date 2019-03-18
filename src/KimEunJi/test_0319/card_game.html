@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <meta http-equiv="x-ua-compatible" content="IE=edge">
+    <title>GAME</title>
+    <style type="text/css">
+        #content {
+            margin: 50px auto 0;
+            max-width: 912px;
+        }
+        #btn-group {
+            margin-bottom: 10px;
+        }
+        img {
+            margin: 10px;
+            width: 200px;
+            height: 240px;
+            border: 4px double #021907;
+            border-radius: 8px;
+        }
+    </style>
+</head>
+<body>
+    <div id="content">
+        <div id="btn-group">
+            <button type="button">섞기</button>
+            <button type="button">감추기</button>
+            <button type="button">뒤집기</button>
+        </div>
+        <div id="card-group"></div>
+    </div>
+
+    <script>
+        var srcs = []; //srcs는 이미지
+        var cards; //cards는 주소
+
+        window.onload = function(){
+            //반복문 이용해서 이미지 넣기 
+            var put = '';
+
+            for(var j=1; j<3; j++){
+                for(var i=1; i<7; i++){
+                    put += '<img src="img/'+i+'.png">';
+                }
+            }
+
+            var divId = document.querySelector('#card-group');
+            divId.innerHTML = put;
+
+            //값 불러오기
+            var btns = document.querySelectorAll('button');
+            cards = document.querySelectorAll('img');
+
+            
+            // <img src=""> 생성
+            for(var i=0; i<cards.length; i++){
+                srcs[i] = cards[i].src;
+            }
+
+            // '섞기' button
+            // 0.성공_sort.Math.random() 사용
+            btns[0].onclick = function(){
+                srcs.sort(function(a,b){
+                    return Math.random() - 0.5;
+                    // 해석...하핫...
+                    // sort(): a-b -> 오름차순, b-a ->내림차순
+                    // math.random(): 0.0 <= r < 1.0
+                    // math.random() - 0.5: -0.5 <= r < 0.5;
+                });
+                for(var i=0; i<cards.length; i++){
+                    cards[i].src = srcs[i];
+                }
+            }
+
+            // '감추기' button
+            btns[1].onclick = function(){
+                for(var i=0; i<cards.length; i++){
+                    cards[i].src = "img/cardback.png";
+                }
+            }
+
+            // '뒤집기' button
+            // 0.성공_srcs[](임시배열)사용-----------
+            btns[2].onclick = function show(){
+                for(var i=0; i<cards.length; i++){
+                    cards[i].src = srcs[i];
+                }
+            }
+            
+            //'카드 클릭 시 이미지 변경'
+            //0. onclick, id(this.id), 외부 function flip(i) 사용 
+            for(var i=0; i<cards.length; i++){
+                cards[i].setAttribute("id", i);
+            }
+
+            for(var i=0; i<cards.length; i++){
+                cards[i].setAttribute("onclick", "flip(this.id)");
+            }
+        }
+
+        var pickarr = [];
+        var arrnum = 0;
+        var prenum;
+        var count = 0;
+
+        function flip(i){
+            cards[i].src = srcs[i];
+            pickarr[arrnum++]= srcs[i];
+
+            //첫번째 카드
+            if(arrnum == 1){
+                prenum = i;
+            }
+
+            if(arrnum == 2){
+                if(pickarr[0] == pickarr[1]) {
+                    setTimeout(function(){
+                        alert("빙고!");},700);
+                        count += 2;
+                } else {
+                    setTimeout(function() {
+                        cards[prenum].src = "img/cardback.png";
+                        cards[i].src = "img/cardback.png";
+                    },1000);
+                    setTimeout(function(){
+                        alert("땡탈락!");
+                    },700);
+                }
+                arrnum = 0;
+            }
+            if(count == 12){
+                setTimeout(function(){
+                    alert("게임 종료!");
+                },700);
+            }
+        }
+    </script>
+
+</body>
+</html>
