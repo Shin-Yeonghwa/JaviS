@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <link rel="stylesheet" href="common.css">
+    <script src="common2.js"></script>
+</head>
+<body>
+    <div class="info_wrap">
+        <button type="button" id="btnStart">시작</button>
+        <p class="time_area">
+            <span class="minute">00</span> :
+            <span class="second">00</span>
+        </p>
+    </div>
+    
+    <ul class="cardlist">
+        <li>
+            <span class="front"></span>
+            <span class="back"></span>
+        </li>
+        <li>
+            <span class="front"></span>
+            <span class="back"></span>
+        </li>
+        <li>
+            <span class="front"></span>
+            <span class="back"></span>
+        </li>
+        <li>
+            <span class="front"></span>
+            <span class="back"></span>
+        </li>
+        <li>
+            <span class="front"></span>
+            <span class="back"></span>
+        </li>
+        <li>
+            <span class="front"></span>
+            <span class="back"></span>
+        </li>
+        <li>
+            <span class="front"></span>
+            <span class="back"></span>
+        </li>
+        <li>
+            <span class="front"></span>
+            <span class="back"></span>
+        </li>
+        <li>
+            <span class="front"></span>
+            <span class="back"></span>
+        </li>
+        <li>
+            <span class="front"></span>
+            <span class="back"></span>
+        </li>
+        <li>
+            <span class="front"></span>
+            <span class="back"></span>
+        </li>
+        <li>
+            <span class="front"></span>
+            <span class="back"></span>
+        </li>
+    </ul>
+
+    <div class="success_wrap">
+        <p class="time_area">
+            <span class="success">성공!!!</span>
+            <span class="minute">00</span> :
+            <span class="second">00</span>
+            <button type="button" id="btnNext">next stage</button>
+        </p>
+    </div>
+
+
+    <script>
+        var card = document.querySelectorAll('.cardlist li');
+
+        document.getElementById('btnStart').addEventListener('click',function(){
+            cardGame.gameStart(card);
+        }); 
+        document.getElementById('btnNext').addEventListener('click',function(){
+            cardGame.nextStage();
+        }); 
+
+
+    </script>
+</body>
+</html>
