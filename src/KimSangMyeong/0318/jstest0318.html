@@ -1,0 +1,63 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta http-equiv="x-ua-compatible" content="IE=edge">
+<title>0318_JSTEST</title>
+<script>
+function startTime() {
+    var today = new Date();
+    var h = today.getHours();
+    var m = today.getMinutes();
+    var s = today.getSeconds();
+    m = checkTime(m);
+    s = checkTime(s);
+    document.getElementById('clock').innerHTML =
+    h + ":" + m + ":" + s;
+    var t = setTimeout(startTime, 500);
+}
+function checkTime(i) {
+    if (i < 10) {i = "0" + i}; // 숫자가 10보다 작을 경우 앞에 0을 붙여줌
+    return i;
+}
+</script>
+<script>
+function selectAll(source) {
+    var checkboxes = document.getElementsByName('foo');
+    for(var i=0; i<checkboxes.length; i++) {
+        checkboxes[i].checked = source.checked; // '모두 체크'에 체크가 되면 다 체크하고 아니면 다 해제하고!
+    }
+}
+</script>
+<style>
+#clock{
+    font-size: 25px;
+    color:#000;
+    font-family: nanumGothic,'나눔고딕',dotum,'돋움',sans-serif;
+}
+.checkbox{
+    margin-top: 50px;
+}
+</style>
+</head>
+<body onload="startTime()">
+    <header>
+    <div class="header-contents">
+    <h1>자유로운 예제</h1>
+    </div><!-- /.header-contents -->
+    </header>
+    <div class="main-wrapper">
+        <div id="clock"></div>
+        <div class="checkbox">
+            <input type="checkbox" onclick="selectAll(this)" /> 모두 체크<br/>
+            <input type="checkbox" name="foo" value="box1"> Box1<br/>
+            <input type="checkbox" name="foo" value="box2"> Box2<br/>
+            <input type="checkbox" name="foo" value="box3"> Box3<br/>
+            <input type="checkbox" name="foo" value="box4"> Box4<br/>
+
+        </div>
+    </div><!-- /.main-wrapper -->
+
+</body>
+</html>
