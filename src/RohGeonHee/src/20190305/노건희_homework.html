@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+
+<html lang="ko">
+
+    <head>
+
+        <meta charset="utf-8">
+
+        <title>3주차</title>
+
+    </head>
+
+    <body>
+
+        <h1>문자열 계산기 구현하기</h1>
+
+        <div id="output"></div>
+
+
+
+
+
+        <script>
+
+            /*
+            7.sum 함수 만들기
+
+            (파라미터를 몇 개를 넣어 호출하든 파라미터의 합산을 리턴하는 함수 만들기)
+
+            var myArray = [3,4,5,6,7,2,34,5,6,5,]
+            var total = 0;
+
+            for(i = 0; i < myArray.length; i++){
+                total += myArray[i];
+            }
+            console.log(total)
+
+			function calcSum(){
+				var sum = 0;
+				for(var i = 0;i<arguments.length;i++){
+					sum += arguments[i];
+				}
+				return sum;
+				//arguments
+			}
+            */
+
+
+
+            /*
+
+            8. 사칙 연산 함수 만들기
+
+            function main() {
+                console.log("calculator");
+
+                var str1 = prompt("첫번째 값을 입력해주세요.");
+                var n1 = Number(str1);
+                var str2 = prompt("두번째 값을 입력해주세요.");
+                var n2 = Number(str2);
+
+                console.log(n1 + n2);
+                console.log(n1 - n2);
+                console.log(n1 * n2);
+                console.log(n1 / n2);
+            }
+            main();
+
+			function Calculator(a,oper,b){
+				if(oper=='+'){
+					return a+b;
+				}else if(oper=='-'){
+					return a-b;
+				}else if(oper == '*'){
+					return a*b;
+				}else if(oper =='/'){
+					return a/b;
+				}
+			}
+            */
+
+
+
+            /*
+            9. 배열과 객체
+            다음 배열의 값을 오름차순으로 출력하는 함수를 만드시오
+
+            var arr = [10,40,30,70,100,90];
+
+            arr.sort(function (left, right) {
+               if(left < right)
+            	return -1;
+               else
+            	return 1;
+
+               //return left-right;
+            });
+            console.log(arr);
+            */
+
+
+
+            /*
+            10. 문자열다루기
+
+            //입력한 알파벳의 순서를 뒤집는 함수를 만드시오.
+
+            function reversed(arr) {
+
+                var arr = "abcdef";
+                var arr2 = "aabbccdd";
+
+                var reversed = arr.split("").reverse().join("");//
+								//[a,b,c,d,e,f] [f,e,d,c,b,a].join => fedcba
+                var reversed2 = arr2.split("").reverse().join("");
+
+                console.log(reversed);
+                console.log(reversed2);
+
+            }
+
+            reversed("abcdef");
+            */
+
+
+
+            /*
+            11. 문자열 다루기
+
+            다음 문자열을 함수의 인자로 입력하여 “a” 알파벳의 개수를 세는 로직을 구현하시오
+
+            var str = "abcdabcdaaa"
+            var count = (str.match(/a/g) || []).length;
+
+            console.log(count);
+            */
+
+
+            /*
+            12. 문자열 다루기
+
+            다음 문자열을 함수의 인자로 입력하여 “abc” 문자가 포함되어 있다면 시작 인덱스번호를 출력하고,“abc” 문자가 포함되어 있지 않다면 “포함되어 있지 않음” 을 출력하는 함수를 구현하시오
+
+            var str = "ababdddabcccdd";
+            var count = (str.match(/abc/g) || []).length;
+
+            if ( count >= 1){
+                var num = str.indexOf("abc")
+                console.log(num + 1 + '부터 [abc] 가 시작됨')
+
+            } else{
+                console.log("포함되어 있지 않음")
+            }
+            */
+
+        </script>
+    </body>
+</html>

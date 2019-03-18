@@ -1,0 +1,253 @@
+<!doctype html>
+<html lang="ko">
+<head>
+	<meta charset="utf-8">
+	<meta name="viewkport" content="width=device-width,initial-scale=1.0,maximum-scale=1.0,minimum-scale=1.0,user-scalable=no,target-densitydpi=medium-dpi">
+	<title>0319</title>
+	<style type="text/css">
+		
+	</style>  
+	<script type="text/javascript">
+		
+	// ** 객체 선언 **
+		// var baseData = {
+		// 	이름 :'신영화',
+		// 	나이 : '38',
+		// 	성별 : '남'
+		// };
+		// console.log(baseData.성별);
+	
+	// ** 배열 선언 **
+		// var baseData2 = [
+		// 	{name:'신영화',age:'38'}
+		// ];
+		// 
+		// console.log(baseData2[0].name);
+	
+	
+	// ** 객체 속성과 메서드 **
+		// var person = {
+		// 	name : '신영화',
+		// 	eat : function(food){
+		// 		alert(this.name+'이' + food + '먹는다')
+		// 	}
+		// };
+		// 
+		// person.eat('밥');
+	
+	// ** 객체와 반복문 **
+		
+		// 변수 선언
+		// var product = {
+		// 	name : 'MS window',
+		// 	price : '15,000,000원',
+		// 	language : '한국어',
+		// 	supportOS : 'Win 32/64',
+		// 	subscription : true
+		// };
+		
+		// 출력
+		// var output = '';
+		// for(var key in product){
+		// 	output += '●' + key + ':' + product[key] + '\n';
+		// };
+		// 
+		// alert(output);
+		
+	// ** 객체와 관련된 키워드(in)  ** 
+		// 객체 선언
+		// var student ={
+		// 	이름 : '신영화',
+		// 	국어 : 92,
+		// 	수학 : 98,
+		// 	영어 : 96,
+		// 	과학 : 98
+		// };
+		
+		// 변수 선언
+		// var output = '';
+
+		// in 키워드 사용
+		// output += "'이름' in student:" + ('이름' in student) + '\n';
+		// output += "'성별' in student:" + ('성별' in student)
+	
+	
+		// 출력
+		// alert(output);
+	
+	// ** 객체와 관련된 키워드(with 미사용시..)  ** 
+		// // 객체 선언
+		// var student ={
+		// 	이름 : '신영화',
+		// 	국어 : 92,
+		// 	수학 : 98,
+		// 	영어 : 96,
+		// 	과학 : 98
+		// };
+		// 
+		// // 출력 변수 선언
+		// var output = '';
+		// 
+		// // 출력
+		// output += '이름 : ' + student.이름 + '\n';
+		// output += '국어 : ' + student.국어 + '\n';
+		// output += '수학 : ' + student.수학 + '\n';
+		// output += '영어 : ' + student.영어 + '\n';
+		// output += '과학 : ' + student.과학 + '\n';
+		// output += '총점 : ' + (student.국어 + student.수학 + student.영어 + student.과학);
+		// 
+		// alert(output);
+		// 
+		// 
+	// ** 객체와 관련된 키워드(with 사용시..)  ** 
+		// // 객체 선언
+		// var student ={
+		// 	이름 : '신영화',
+		// 	국어 : 92,
+		// 	수학 : 98,
+		// 	영어 : 96,
+		// 	과학 : 98
+		// };
+		// 
+		// // 출력 변수 선언
+		// var output = '';
+		// 
+		// // 출력
+		// with(student){
+		// 	output += '이름:' + 이름 + '\n';
+		// 	output += '국어:' + 국어 + '\n';
+		// 	output += '수학:' + 수학 + '\n';
+		// 	output += '영어:' + 영어 + '\n';
+		// 	output += '과학:' + 과학 + '\n';
+		// 	output += '총점:' + (국어 + 수학 + 영어 + 과학) + '\n';
+		// }
+		// 
+		// alert(output);
+		
+		
+		
+	// ** 객체와 관련된 키워드(with 사용시..)  ** 
+		
+		// // 빈객체 선언
+		// var student = {};
+		// 
+		// // 빈객체에 소성 추가
+		// student.이름 = '신영화';
+		// student.취미 = '낚시';
+		// student.특기 = '프로그래밍';
+		// 
+		// // 빈객체에 메서드 만들()
+		// student.toString = function(){
+		// 
+		// 	var output = '';
+		// 
+		// 	for (var key in this){
+		// 		if (key != 'toString'){
+		// 			output += key + '\t' + this[key] + '\n';
+		// 		}
+		// 	}
+		// 	return output;
+		// 
+		// };
+		// 
+		// console.log(student.toString());
+		
+		
+	// 함수를 이용한 객체
+	
+		// 함수 생성 - 매개변수 기입
+		function makeStudent(name, korean, math, english, sciencs){
+			
+			// return할 변수 지정
+			var willRetun = {
+				이름 : name,
+				국어 : korean,
+				수학 : math,
+				영어 : english,
+				과학 : sciencs,
+				
+				// 매서드
+				getSum :  function(){
+					return this.국어 + this.수학 + this.영어 + this.과학;
+					
+				},
+				getAverage : function(){
+					return this.getSum() / 4;
+				},
+				toString : function(){
+					return this.이름 + ' ' + '총점 : ' + this.getSum() + '평균 : ' + this.getAverage();
+				}
+				
+			};
+			// return할 변수 지정
+			return willRetun;
+		};
+		
+		
+		// 학생 정보를 배열로 만듬
+		var students = [];
+		students.push(makeStudent('신영화', 98, 100, 99, 97));
+		students.push(makeStudent('최재선', 100, 100, 99 , 100));
+		
+		
+		// 출력
+		var output = '이름\t총점\t평균\n';
+		for(var i in students){
+			output += students[i].toString() + '\n';
+		}
+		
+		alert(output);
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+	</script>
+</head>
+<body>
+	<h1>0319-TEST</h1>
+	<div id=""> </div>
+</body>
+</html>
