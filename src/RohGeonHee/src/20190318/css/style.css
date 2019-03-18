@@ -1,0 +1,33 @@
+*{
+	margin:0;
+	padding:0;
+}
+h3{
+	margin-top:20px;
+}
+#card{
+	position:relative;
+}
+#card span{
+	display:inline-block;
+	width:100px;
+	height:150px;
+	border:1px solid;
+	vertical-align:middle;
+	text-align:center;
+	line-height:150px;
+	font-size:40px;
+	margin-bottom:20px;
+}
+#wrap{
+	width:600px;
+	margin:20px auto;
+}
+#left{
+	float:left;
+	width:300px;
+}
+#right{
+	float:right;
+	width:300px;
+}
