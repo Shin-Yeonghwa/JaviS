@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="ko">
+
+<head>
+    <meta charset="utf-8">
+    <title>테이블실습</title>
+    <style>
+        table{
+            border-collapse: collapse;
+            border-spacing:0;
+        }
+        th,td{
+            border:1px solid #424242;
+            text-align:center;
+            padding:0 12px;
+        }
+
+        caption {
+            overflow: hidden!important;
+            position: absolute!important;
+            clip: rect(0 0 0 0)!important;
+            width: 1px!important;
+            height: 1px!important;
+            margin: -1px!important
+        }
+    </style>
+</head>
+
+<body>
+    <script type="text/javascript">
+        var x = Number(prompt("몇줄을 생성하시겠습니까"))
+        var y = Number(prompt("몇칸을 생성하시겠습니까"))
+        var caption = String(prompt("캡션내용을 입력해주세요"))
+        var num = 1
+        document.write("<table>");
+        document.write("<caption>" + caption + "</caption>");
+        document.write("<thead>");
+        for (i = 1; i < 2; i++) {
+            document.write("<tr>");
+            for (j = 1; j < y; j++) {
+                document.write("<th>" + "항목" + j + "</th>");
+            }
+            document.write("</tr>");
+        }
+        document.write("</thead>");
+
+        document.write("<tbody>");
+        for (i = 1; i < x - 1; i++) {
+            document.write("<tr>");
+            for (j = 1; j < 2; j++) {
+                document.write("<th>" + "No" + i + "</th>");
+            }
+            for (j = 1; j < y - 1; j++) {
+                document.write("<td>" + "내용" + num + "</td>");
+                num++
+            }
+            document.write("</tr>");
+        }
+        document.write("<tbody>");
+        document.write("</table>");
+    </script>
+
+</body>
+
+</html>

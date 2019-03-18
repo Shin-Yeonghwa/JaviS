@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="ko">
+
+<head>
+    <meta charset="utf-8">
+    <title>테이블실습</title>
+    <style>
+        table{
+        border-collapse: collapse;
+        border-spacing:0;
+    }
+    th,td{
+        border:1px solid #424242;
+        text-align:center;
+        padding:0 12px;
+    }
+    </style>
+</head>
+
+<body>
+    <input type="file" id="selfile" accept=".xlsx, .txt">
+    <button id="btn1" value="Get Excel Data" onclick="getExcelFile()">Click</button>
+    <div id="test_table">
+
+</body>
+<script src="https://unpkg.com/xlsx@0.11.18/dist/xlsx.full.min.js"></script>
+<script>
+    function getExcelFile() {
+        const test = document.getElementById("selfile");
+        console.log(test.value);
+        if (test.value === '') {
+            alert('파일을 선택해 주세요');
+        } else {
+            const selectedFile = test.files[0];
+            // console.log(selectedFile.path);
+            // console.log('Name :' + selectedFile.name + '/ Size : ' + selectedFile.size);
+
+            var reader = new FileReader();
+
+            reader.onload = function(evt) {
+                if (evt.target.readyState == FileReader.DONE) {
+                    var data = evt.target.result;
+                    data = new Uint8Array(data);
+
+                    // call 'xlsx' to read the file
+                    var workbook = XLSX.read(data, {
+                        type: 'array'
+                    });
+                    // console.log(workbook);
+                    var toHtml = XLSX.utils.sheet_to_html(workbook.Sheets['Sheet1'], {
+                        header: "성적표"
+                    });
+                    document.getElementById('test_table').innerHTML = toHtml;
+                }
+            };
+            reader.readAsArrayBuffer(selectedFile);
+        }
+    }
+</script>
+
+</html>
