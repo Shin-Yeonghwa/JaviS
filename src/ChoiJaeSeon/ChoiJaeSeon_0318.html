@@ -22,11 +22,11 @@
 			}
 
 	// 리턴과 콜백의 이해
-			function jaejae(a,b){
-				add = a + b;
-				return add;
-			}
-			document.write(jaejae(1,2));
+			// function jaejae(a,b){
+			// 	add = a + b;
+			// 	return add;
+			// }
+			// document.write(jaejae(1,2));
 
 	// 새로고침
 		function refresh(delay){
@@ -89,37 +89,49 @@
 			// var tableSize = prompt('테이블 사이즈를 입력하세요.');
 			var captionInfo = captionText();
 			var columnInfo = column();
+			var heightValueInfo = heightValue();
 				html += "<table>";
 				html += "<caption>" + captionInfo +"</caption>";
 				html += "<thead>";
 				html += "<tr>"
 				for(t = 0; t < columnInfo; t ++ ){
-						html += "<td>여기에 입력하세요.</td>";
+						html += "<tr>타이틀 값을 입력하세요</tr>";
 				}
 				html += "</tr>"
 				html += "</thead>";
 				html += "<tbody>";
-				html += "<tr>";
+				for(z = 0; z < heightValueInfo; z ++){
+					html += "<tr>";
 
-				for(i = 0; i < columnInfo; i ++){
-						html += "<td>여기에 입력하세요.</td>";
+					for(i = 0; i < columnInfo; i ++){
+							html += "<td>여기에 입력하세요.</td>";
+					}
+					html += "</tr>"
 				}
-				html += "</tr>"
+
 				html += "</tbody>"
 				html += "</thead>"
 					outputInfo.innerHTML= html;
 				  }
 // caption값 받기
  function captionText(){
-	 var captionText = prompt('caption명을 입력하세요.' , '필수값으로 꼭등록해주세요.');
+	 var captionText = prompt('caption명을 입력하세요.' , '필수값으로 꼭 등록해주세요.');
 	 var captionTitle = captionText;
 	 return captionTitle;
+
+	 //유호성검사는 업데이트 해야함
  }
-	// 컬럼값 받기
+	// 컬럼 행값 받기
 		function column(){
-			var listNumber = prompt('칼럼값을 입력하세요');
+			var listNumber = prompt(' 행 값을 입력하세요');
 			var columnNumber = listNumber;
 			return columnNumber;
+	}
+	//컬럼 열값 받기
+	function heightValue(){
+		var heightNumber = prompt(' 열 값을 입력하세요');
+		var heightValueText = heightNumber;
+		return heightValueText;
 	}
 	</script>
 	<style media="screen">
@@ -172,7 +184,7 @@
 		<div class="buttonBox">
 					<button type="button" onclick="getDayWeek()">오늘 날짜 구하기</button>
 				  <button type="button" onclick="codeAddButton()">마크업 코드 생성기</button>
-  		<button type="button" onclick="tableAdd()">테이블 코드 생성기</button>
+  				<button type="button" onclick="tableAdd()">테이블 코드 생성기</button>
 				  <button type="button" onclick="refresh()">새로고침</button>
 		</div>
 
