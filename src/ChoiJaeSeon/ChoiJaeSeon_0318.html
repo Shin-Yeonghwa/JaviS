@@ -84,18 +84,16 @@
 	// html 코드 생성기
 	 function tableAdd(){
 		// 코드값 받기 및 리스트 갯수 prompt로 받기
-		  var captionText = prompt('caption명을 입력하세요.' , '필수값으로 꼭등록해주세요.');
-			var captionTitle = captionText;
 			var html ="";
 		  var outputInfo = document.getElementById("Result")
 			// var tableSize = prompt('테이블 사이즈를 입력하세요.');
-			var listNumber = prompt('칼럼값을 입력하세요');
-			var number = listNumber;
+			var captionInfo = captionText();
+			var columnInfo = column();
 				html += "<table>";
-				html += "<caption>" + captionTitle +"</caption>";
+				html += "<caption>" + captionInfo +"</caption>";
 				html += "<thead>";
 				html += "<tr>"
-				for(t = 0; t < number; t ++ ){
+				for(t = 0; t < columnInfo; t ++ ){
 						html += "<td>여기에 입력하세요.</td>";
 				}
 				html += "</tr>"
@@ -103,7 +101,7 @@
 				html += "<tbody>";
 				html += "<tr>";
 
-				for(i = 0; i < number; i ++){
+				for(i = 0; i < columnInfo; i ++){
 						html += "<td>여기에 입력하세요.</td>";
 				}
 				html += "</tr>"
@@ -111,17 +109,17 @@
 				html += "</thead>"
 					outputInfo.innerHTML= html;
 				  }
-// 캡션값을 받자
+// caption값 받기
  function captionText(){
 	 var captionText = prompt('caption명을 입력하세요.' , '필수값으로 꼭등록해주세요.');
 	 var captionTitle = captionText;
 	 return captionTitle;
  }
-	// 원하는 리스트 갯수를 받아자.
+	// 컬럼값 받기
 		function column(){
 			var listNumber = prompt('칼럼값을 입력하세요');
-			var number = listNumber;
-			return number;
+			var columnNumber = listNumber;
+			return columnNumber;
 	}
 	</script>
 	<style media="screen">
