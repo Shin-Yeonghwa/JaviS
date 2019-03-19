@@ -1,0 +1,139 @@
+@charset "UTF-8";
+
+/*reset */
+body,p,h1,h2,h3,h4,h5,h6,ul,ol,li,dl,dt,dd,table,th,td,form,fieldset,legend,input,textarea,button,select{margin:0;padding:0}
+body,input,textarea,select,button,table{font-family:'나눔고딕',nanumgothic,'돋움',Dotum,Helvetica,sans-serif;font-size:12px}
+img,fieldset{border:0}
+ul,ol{list-style:none}
+em,address{font-style:normal}
+hr{display:none}
+table{border-spacing:0}
+a{text-decoration:none}
+a:hover,a:active,a:focus{text-decoration:underline}
+.blind{overflow:hidden!important;position:absolute!important;left:-10000px!important;width:1px;height:1px;font-size:1px;line-height:1px}
+.skip{display:block;overflow:hidden;width:1px;height:1px;margin:0 -1px -1px 0;padding:0;font-size:0;line-height:0}
+.skip:hover,.skip:active,.skip:focus{width:100%;height:auto;margin:0;padding:5px 0;font-weight:bold;font-size:12px;font-family:Tahoma;line-height:1;color:#333;text-decoration:none!important;text-indent:10px}
+
+/* 댓글 영억 */
+.comment_area{
+    display: table;
+    position: relative;
+    width:800px;
+    padding: 30px;
+    border: 1px solid #e2e2e2;
+    margin: 50px auto 0;
+}
+.comment_area .comment_form_area{
+    padding-top: 20px;
+}
+.comment_area .comment_form{
+    overflow: hidden;
+    display: table;
+    table-layout: fixed;
+    margin-bottom: 10px;
+}
+.comment_area .comment_form dt{
+    display: table-cell;
+    vertical-align: middle;
+    width: 100px;
+}
+.comment_area .comment_form dd{
+    display: table-cell;
+}
+.comment_area .btn_write{
+    display: block;
+    margin:0 auto;
+    width: 100px;
+    height: 30px;
+    background-color: #fff;
+    border: 1px solid #111;
+    cursor: pointer;
+}
+
+table{
+    width: 100%;
+    overflow: hidden;
+    padding-bottom: 20px;
+    border-bottom: 1px solid #111;
+}
+table tr{
+    cursor: pointer;
+}
+table tr th,
+table tr td{
+    text-align: left;
+}
+table tr th{
+    border-bottom: 1px solid #111;
+}
+table tr th div{
+    padding: 15px 15px 10px;
+    box-sizing: border-box;
+    -wekbit-box-sizing: border-box;
+}
+table tr td div{
+    padding: 6px 15px;
+    box-sizing: border-box;
+    -wekbit-box-sizing: border-box;
+}
+#info_box{
+    position: relative;
+    display: block;
+    margin-top: 15px;
+    padding-bottom: 20px;
+    border-bottom: 1px solid #111;
+}
+#info_box #info_box_notice{
+    display: block;
+    border: 1px solid #111;
+    min-height: 200px;
+    width: 100%;
+    margin-bottom: 10px;
+}
+#info_box .info_list_box{
+    display: block;
+    overflow: hidden;
+    margin-bottom: 20px;
+}
+#info_box .info_list_box .info_list{
+    display: table;
+    width: 100%;
+    table-layout: fixed;
+    height: 25px;
+    line-height: 25px;
+    border-top: 1px solid #e2e2e2;
+}
+#info_box .info_list_box .info_list:first-child{
+    border-top: 0;
+}
+#info_box .info_list_box .info_list span{
+    display: table-cell;
+    vertical-align: top;
+}
+#info_box .info_list_box .info_list .info_list_name{
+    width: 60px;
+}
+#info_box .info_list_box .info_list .info_list_comment{
+    width: 200px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+#info_box .info_list_box .info_list .info_list_time{
+    text-align: right;
+}
+#info_box .depth_comment{
+    display: table;
+    width: 100%;
+    table-layout: fixed;
+}
+#info_box .depth_comment input{
+    display: table-cell;
+    width: 80%;
+    margin-right: 10px;
+
+}
+#info_box .depth_comment button{
+    display: table-cell;
+    width: 10%;
+}

@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="ko">
+    <head>
+        <meta charset="utf-8">
+        <title>댓글 폼</title>
+        <link rel="stylesheet" href="homework.css">
+        <script src="https://ajax.aspnetcdn.com/ajax/jQuery/jquery-3.3.1.min.js"></script>
+
+
+    </head>
+    <body>
+        <div id="container">
+            <div in="content">
+                <div class="comment_area">
+                    <div class="comment_list_area">
+
+                        <table>
+                            <colgroup>
+                                <col style="width: 133px;">
+                                <col style="width: 133px;">
+                                <col style="width: 133px;">
+                            </colgroup>
+                            <thead>
+                                <tr>
+                                    <th>
+                                        <div id="">글 제목<span id="list_count"></span></div>
+                                    </th>
+                                    <th>
+                                        <div id="">글쓴 날짜</div>
+                                    </th>
+                                    <th>
+                                        <div id="">작성자</div>
+                                    </th>
+                                </tr>
+                            </thead>
+                            <tbody id="list_tbody">
+                                <tr id="list_num">
+
+                                </tr>
+
+                            </tbody>
+                        </table>
+
+                    </div>
+
+
+                    <div id="info_box" style="display: none;">
+                        <p id="info_box_notice">
+
+                        </p>
+                        <ul class="info_list_box">
+                            <li class="info_list">
+                                <span id="info_list_name" class="info_list_name"></span>
+                                <span id="info_list_comment" class="info_list_comment"></span>
+                                <span id="info_list_time" class="info_list_time"></span>
+                            </li>
+
+                        </ul>
+                        <div class="depth_comment">
+                            <input type="text" name="" value="" id="depth_comment_input" class="depth_comment_input">
+                            <button type="button" name="button" id="btn_depth" class="btn_depth">등록</button>
+
+                        </div>
+                    </div>
+
+
+                    <div class="comment_form_area">
+                        <dl class="comment_form">
+                            <dt><div class="form_title">작성자</div></dt>
+                            <dd>
+                                <div class="name_info">
+                                    <input type="text" name="" id="name_input">
+                                </div>
+                            </dd>
+                        </dl>
+                        <dl class="comment_form">
+                            <dt><div class="form_title">제목</div></dt>
+                            <dd>
+                                <div class="title">
+                                    <input type="text" name="" id="title_input">
+                                </div>
+                            </dd>
+                        </dl>
+                        <dl class="comment_form">
+                            <dt><div class="form_title">내용</div></dt>
+                            <dd>
+                                <div class="comment">
+                                    <textarea name="name" rows="8" cols="40" id="comment_textarea"></textarea>
+                                </div>
+                            </dd>
+                        </dl>
+                        <button type="button" name="button" id="btn_write">글쓰기</button>
+
+                    </div>
+
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </body>
+    <script type="text/javascript" src="homework.js"></script>
+</html>
