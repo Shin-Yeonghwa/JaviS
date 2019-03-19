@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html  lang="ko">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <title>Avengers</title>
+    <link rel="canonical" href="index.html">
+	<link rel="stylesheet" type="text/css" href="css/main.css">
+</head>
+<body data-lang="ko">
+<div id="fullpage">
+    <div class="section fp-table" id="section-1">
+        <div class="fp-tableCell">
+            <h1>캡틴<br>아메리카
+			</h1>
+            <h2>슈퍼솔저 혈청의 힘으로 초인이 된 인간</h2>	
+			<img class="left" src="imgs/captain3.png">
+			<img class="right" src="imgs/cap.png">
+        </div>
+    </div>
+    <div class="section" id="section-2">
+        <div class="slide active">
+            <div class="intro">
+                <h1>아이언맨</h1>
+                <p>기발한 공학자인 앤서니 토니 스타크</p>
+				<img class="left" src="imgs/ironman1.png">
+				<img class="right" src="imgs/ironman2.png">
+            </div>
+        </div>        
+    </div>
+
+    <div class="section fp-table" id="section-3">
+        <div class="slide active">
+            <div class="hulk">
+				<img class="left" src="imgs/hulk1.png">
+				<div class="hulkdetail">
+					<h1>헐크</h1>
+					<p>분노에 따라 힘이 비약적으로 증가</p>
+				</div>
+            </div>
+        </div>        
+    </div>
+
+    <div class="section" id="section-4">
+        <div class="intro">
+            <div class="section-4-finger"></div>
+            <h1>토르</h1>
+            <p>천둥의 신이자 아스가르드의 왕 오딘과 프리가의 맏아들</p>
+			<img class="left" src="imgs/Thor-2.png">
+			<img class="right" src="imgs/Thor-1.png">
+        </div>
+    </div>
+</div>
+
+<ul id="menu">
+    <li class="menu-active">
+        <a href="#page1">
+            <span id="menu-theme-desktop">Captain America</span>
+        </a>
+    </li>
+    <li><a href="#page2" >Iron Man</a></li>
+    <li>
+        <a rel="noopener" href="#page3">Hulk</a>
+    </li>
+    <li id="menu-contact"><a href="#page4">Thor</a></li>
+    <li id="menu-line"></li>
+</ul>
+
+<div class="language">
+   <img src="imgs/logo3.png">
+</div>
+
+
+
+<script src="./js/jquery.min.js"></script>
+<script type="text/javascript" src="./js/jquery.fullpage.extensions.min.js"></script>
+
+<script type="text/javascript">
+    $(document).ready(function() {
+		
+		//jquery의 플러그인, $.fn(=prototype).fullpage = function(){}
+		//function jQuery(){}
+		//var $ = jQuery
+		//.css(), .animite(), .html()
+        $('#fullpage').fullpage({
+			//옵션값들.
+            anchors: ['page1', 'page2', 'page3', 'page4'],
+            navigationTooltips: ['Captain America', 'Iron Man', 'Hulk', 'Thor'],
+            css3: true,
+            scrollingSpeed: 1000,
+            navigation: true,
+            slidesNavigation: true,
+            responsiveHeight: 330,
+            dragAndMove: true,
+            dragAndMoveKey: 'YWx2YXJvdHJpZ28uY29tX0EyMlpISmhaMEZ1WkUxdmRtVT0wWUc=',
+            controlArrows: false,
+			//슬라이딩 화면이 도착하고 나서.콜백으로 호출되는 함수.
+			afterLoad: function(anchorLink, index){//
+				console.log(index);
+				var loadedSection = $(this);
+				bar_ani(index);
+				//console.log(index);
+				//색인 사용
+				if(index == 1){//캡틴아메리카.
+					left_right_ani(index);					
+				}else if(index ==2){//아이언맨
+					left_right_ani(index);					
+				}else if(index ==3){//헐크
+					$("#section-"+index+" img.left").stop().animate({"opacity":1},2000);					
+				}else if(index ==4){//토르
+					left_right_ani(index);
+				}
+			}
+        });
+
+		
+		function bar_ani(index){//1,2,3,4
+			//dom:(element node)
+			var t = $("#menu>li")[index-1];	//dom.		//{left,top}
+			console.log(t);
+			console.log($("#menu>li:first"));
+			//position()=>{left,top}, .animate({)
+			$("#menu-line").stop().animate({
+				left: $(t).position().left + 20,
+				width: $(t).width() - 40
+			});			
+		}
+		//상단메뉴 마우스 오버.
+		$("#menu>li").hover(function(){
+			console.log($(this).index());
+			if($(this).index()==4)
+				return;
+
+			//stop : 태그에 적용된 에니메이션 큐를 다 날리고 새로 시작.
+			//animate : from(속성) ~ to(속성)
+			$("#menu-line").stop().animate({
+				left: $(this).position().left +20,
+				width: $(this).width() -40
+			});	
+		});
+
+		function left_right_ani(index){
+			//
+			var offset = [[0,50],[150,-30],,[0,100]];//2차원배열.
+
+			var num = index-1;//1->0
+
+			console.log( offset[num][num]);
+			//animate -> from ~ to
+			$("#section-"+index+" img.left").stop().animate({"left": (offset[num][0]+100)+"px","opacity":1},1000);
+			$("#section-"+index+" img.right").stop().animate({"right": (offset[num][1]+100)+"px","opacity":1},1000);
+
+		}
+		
+    });
+</script>
+
+<input type="hidden" id="_4" value="7e68giOjsw">
+</body>
+
+</html>
