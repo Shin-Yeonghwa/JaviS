@@ -95,7 +95,7 @@
 				html += "<thead>";
 				html += "<tr>"
 				for(t = 0; t < columnInfo; t ++ ){
-						html += "<tr>타이틀 값을 입력하세요</tr>";
+						html += "<th>타이틀</th>";
 				}
 				html += "</tr>"
 				html += "</thead>";
@@ -104,7 +104,7 @@
 					html += "<tr>";
 
 					for(i = 0; i < columnInfo; i ++){
-							html += "<td>여기에 입력하세요.</td>";
+							html += "<td>내용</td>";
 					}
 					html += "</tr>"
 				}
@@ -172,11 +172,17 @@
 			min-height:200px;
 			border:1px solid #000;
 		}
-		table{width:100%;border:1px solid red;border-spacing:0;table-layout: fixed;}
-		table td,table th{border:1px solid tomato}
+		table{width:100%;border:1px solid #ecf0f2;border-spacing:0;table-layout: fixed;}
+		table td,table th{border:1px solid #ecf0f2;text-align:center;line-height:30px;}
 		table th{background:#eee}
 		caption{visibility:hidden;overflow:hidden;width:1px;height:1px;font-size:0;line-height:0}
-
+   table head th{
+		 color: #424242;
+font-size: 15px;
+line-height:25px;
+background-color: #f8fafb;
+border-bottom: 1px solid #ecf0f2;
+	 }
 	</style>
 </head>
 <body>
