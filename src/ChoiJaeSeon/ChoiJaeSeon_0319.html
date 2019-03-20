@@ -1,0 +1,116 @@
+<!doctype html>
+<html lang="ko">
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width,initial-scale=1.0,maximum-scale=1.0,minimum-scale=1.0,user-scalable=no,target-densitydpi=medium-dpi">
+	<title></title>
+
+	<style media="screen">
+		*{
+			margin:0;
+			padding:0;
+			list-style: none;
+			text-align:left;
+
+		}
+		.jaejaeBox{
+			position:relative;
+			background:tomato;
+		}
+
+
+			.buttonBox button{
+
+				display:inline-block;
+				min-width:100px;
+				margin-top:10px;
+				height:40px;
+				padding:10px 20px;
+				line-height:20px;
+				box-sizing: border-box;
+				font-size:15px;
+				box-shadow: inset -4px -4px #adafbc;
+			}
+			.buttonBox button:first-child{
+				margin-left:20px;
+			}
+		.resultBox{
+			padding:20px;
+			min-height:200px;
+			border:1px solid #000;
+		}
+		table{width:100%;border:1px solid #ecf0f2;border-spacing:0;table-layout: fixed;}
+		table td,table th{border:1px solid #ecf0f2;text-align:center;line-height:30px;}
+		table th{background:#eee}
+		caption{visibility:hidden;overflow:hidden;width:1px;height:1px;font-size:0;line-height:0}
+   table head th{
+		 color: #424242;
+font-size: 15px;
+line-height:25px;
+background-color: #f8fafb;
+border-bottom: 1px solid #ecf0f2;
+	 }
+	 li{overflow:hidden;display:block}
+	 lable{display:block;width:170px;float:left;}
+	</style>
+</head>
+<body>
+	<div class="generatorTestBox">
+		<h1 style="margin-bottom:30px;">테이블 유효성 검사 케이스 스터디</h1>
+		<div class="buttonBox">
+			<form class="" action="index.html" method="post" name="tablebx">
+				<ul>
+					<li>
+						<lable for="captionTest">caption 유효성검사</lable>
+						<input id="captionTest" type="text" name="captionText" value="값을 말하세요.">
+					</li>
+					<li>
+							<lable for="numberTest">넘버 유효성검사</lable>
+						<input type="text" name="numberTest" value="숫자  넣어주세요.">
+					</li>
+				</ul>
+			</form>
+
+		</div>
+		<button type="button" name="button" onclick="generatorTest()" style="display:block;width:100px;height:30px;line-height:30px;">유효성 검사 테스트</button>
+<script>
+
+// 내일 회사에서 합쳐야함
+	function generatorTest(){
+		var tableCaption = document.tablebx.captionText.value;
+		var numberTestBx = document.tablebx.numberTest.value;
+
+		//숫자만 입력하도록 유효성 검사 코드 추가
+		function isNumerCheck(s) {
+		    for (i=0; i<s.length; i++) {
+		      c = s.substr(i, 1);
+		      if (c < "0" || c > "9") return false;
+		    }
+		    return true;
+		  }
+
+	//캡션값 공백인 경우 체크하기
+	if (document.tablebx.captionText.value.indexOf(" ") >= 0) {
+			alert("caption 값은 필수로 넣어주세요.")
+			document.tablebx.captionText.focus()
+			document.tablebx.captionText.select()
+			return false;
+		}
+		//넘버 테스트에 숫자를 입력 안하는 경우
+		if (!isNumerCheck(numberTestBx)) {
+			 alert("행값은 숫자로만 입력하세요.");
+			 document.tablebx.numberTest.value = ""
+			 document.tablebx.numberTest.focus()
+			 return false;
+		 }
+
+		 //결과값을 확인해보자
+		 document.write(tableCaption);
+		 document.write(numberTestBx);
+	}
+</script>
+
+	</div>
+
+</body>
+</html>
