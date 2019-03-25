@@ -1,0 +1,105 @@
+<!doctype html>
+<html lang="ko">
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width,initial-scale=1.0,maximum-scale=1.0,minimum-scale=1.0,user-scalable=no,target-densitydpi=medium-dpi">
+	<title>테이블 생성 실습</title>
+	<style type="text/css">
+		.form_list{}
+		.list_item{}
+		.list_item dl{overflow: hidden;}
+		.list_item dt{float: left;}
+		.list_item dd{overflow: hidden;}
+		#table{width:100%;border:1px solid #000}
+	</style>
+</head>
+<body>
+	<h1>테이블 생성하기</h1>
+	<form>
+		<legend>
+			테이블 생성 관련 입력 폼
+		</legend>
+		<ul class="form_list">
+			<li class="list_item">
+				<dl>
+					<dt>
+						<label for="input_caption">캡션</label>
+					</dt>
+					<dd>
+						<input type="text" id="input_caption" placeholder="캡션내용을 입력하세요">
+					</dd>
+				</dl>
+			</li>
+			<li class="list_item">
+				<dl>
+					<dt>
+						<label for="input_row">행</label>
+					</dt>
+					<dd>
+						<input type="text" id="input_row" placeholder="행의 개수를 입력하세요">
+					</dd>
+				</dl>
+			</li>
+			<li class="list_item">
+				<dl>
+					<dt>
+						<label for="input_col">열</label>
+					</dt>
+					<dd>
+						<input type="text" id="input_col" placeholder="열의 개수를 입력하세요">
+					</dd>
+				</dl>
+			</li>
+		</ul>
+		<div class="">
+			<button type="submit" class="">테이블 생성하기</button>
+		</div>
+	</form>
+	<div id="table_view">
+		<table id="table">
+			<caption>
+
+			</caption>
+			<tbody id="tbody">
+				<tr>
+
+				</tr>
+			</tbody>
+		</table>
+	</div>
+	<script type="text/javascript">
+		const inputCaption = document.getElementById('input_caption');
+		const inputRow = parseInt(document.getElementById('input_row'));
+		const inputCol = parseInt(document.getElementById('input_row'));
+
+
+		const tableData = {
+			caption : inputCaption,
+			row : function createRow(){
+				if(Number.isNaN(inputRow)){
+					alert('정수를 입력하세요');
+				}else{
+					function trCreate(){
+						const tr = document.createElement('tr');
+						document.getElementById('tbody').appendChild(tr);
+						return tr * inputRow;
+					}
+				}
+			},
+			col : function createCol(){
+				if(Number.isNaN(inputCol)){
+					alert('정수를 입력하세요');
+				}else{
+					function tdCreate(){
+						const tr = document.createElement('td');
+						document.getElementById('tbody').appendChild(td);
+						return td * inputCol;
+					}
+				}
+			}
+		}
+
+
+	</script>
+</body>
+</html>
