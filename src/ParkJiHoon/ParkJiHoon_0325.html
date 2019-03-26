@@ -15,7 +15,7 @@
 </head>
 <body>
 	<h1>테이블 생성하기</h1>
-	<form>
+	<form action="#" id="form">
 		<legend>
 			테이블 생성 관련 입력 폼
 		</legend>
@@ -36,7 +36,7 @@
 						<label for="input_row">행</label>
 					</dt>
 					<dd>
-						<input type="text" id="input_row" placeholder="행의 개수를 입력하세요">
+						<input type="text" id="input_row" value="" placeholder="행의 개수를 입력하세요">
 					</dd>
 				</dl>
 			</li>
@@ -46,59 +46,62 @@
 						<label for="input_col">열</label>
 					</dt>
 					<dd>
-						<input type="text" id="input_col" placeholder="열의 개수를 입력하세요">
+						<input type="text" id="input_col" value="" placeholder="열의 개수를 입력하세요">
 					</dd>
 				</dl>
 			</li>
 		</ul>
 		<div class="">
-			<button type="submit" class="">테이블 생성하기</button>
+			<button type="submit" id="button" onclick="writeTable()">테이블 생성하기</button>
 		</div>
 	</form>
 	<div id="table_view">
 		<table id="table">
-			<caption>
+			<caption id="caption">
 
 			</caption>
 			<tbody id="tbody">
-				<tr>
-
-				</tr>
 			</tbody>
 		</table>
 	</div>
 	<script type="text/javascript">
-		const inputCaption = document.getElementById('input_caption');
-		const inputRow = parseInt(document.getElementById('input_row'));
-		const inputCol = parseInt(document.getElementById('input_row'));
 
+		const captionWrite = document.getElementById('caption');
+		const rowWrite = document.getElementById('tbody');
+		const colWrite = document.getElementById('tbody');
 
-		const tableData = {
-			caption : inputCaption,
-			row : function createRow(){
-				if(Number.isNaN(inputRow)){
-					alert('정수를 입력하세요');
-				}else{
-					function trCreate(){
-						const tr = document.createElement('tr');
-						document.getElementById('tbody').appendChild(tr);
-						return tr * inputRow;
-					}
-				}
+		const tableObject = {
+			caption : function inputCaption(){
+				document.getElementById('input_caption').value;
+				return input_caption.value
 			},
-			col : function createCol(){
-				if(Number.isNaN(inputCol)){
-					alert('정수를 입력하세요');
-				}else{
-					function tdCreate(){
-						const tr = document.createElement('td');
-						document.getElementById('tbody').appendChild(td);
-						return td * inputCol;
-					}
-				}
+			row : function inputRow(){
+				document.getElementById('input_row').value;
+				return parseInt(input_row.value);
+			},
+			col : function inputCol(){
+				document.getElementById('input_col').value;
+				return parseInt(input_col.value);
 			}
 		}
 
+		function writeTable(){
+			if (tableObject.caption() == ''){
+				window.alert('캡션명을 입력하세요');
+				return;
+			} else{
+				captionWrite.textContent = tableObject.caption();
+			}
+
+			if (Number.isNaN(tableObject.row())){
+				window.alert('정수를 입력하시오');
+				return;
+			} else{
+				rowWrite.textContent = tableObject.row();
+			}
+
+
+		}
 
 	</script>
 </body>
