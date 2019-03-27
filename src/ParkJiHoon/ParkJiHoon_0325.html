@@ -10,7 +10,8 @@
 		.list_item dl{overflow: hidden;}
 		.list_item dt{float: left;}
 		.list_item dd{overflow: hidden;}
-		#table{width:100%;border:1px solid #000}
+		#table{width:100%;border:1px solid #000;border-collapse:collapse;}
+		#table td{border:1px solid #000;height: 30px;}
 	</style>
 </head>
 <body>
@@ -66,9 +67,11 @@
 	</div>
 	<script type="text/javascript">
 
-		const captionWrite = document.getElementById('caption');
-		const rowWrite = document.getElementById('tbody');
-		const colWrite = document.getElementById('tbody');
+		const writeObject = {
+			captionWrite : document.getElementById('caption'),
+			rowWrite : document.getElementById('tbody'),
+			colWrite : document.getElementById('tbody')
+		}
 
 		const tableObject = {
 			caption : function inputCaption(){
@@ -85,21 +88,44 @@
 			}
 		}
 
+		function makeTr (){
+			const tr = document.createElement('tr');
+			tr.setAttribute("id", "tr");
+			document.getElementById('tbody').appendChild(tr);
+		}
+
+		function makeTd (){
+			const td = document.createElement('td');
+			document.getElementById('tr').appendChild(td);
+		}
+
 		function writeTable(){
 			if (tableObject.caption() == ''){
 				window.alert('캡션명을 입력하세요');
 				return;
 			} else{
-				captionWrite.textContent = tableObject.caption();
+				writeObject.captionWrite.textContent = tableObject.caption();
 			}
 
 			if (Number.isNaN(tableObject.row())){
 				window.alert('정수를 입력하시오');
 				return;
 			} else{
-				rowWrite.textContent = tableObject.row();
+				for (let a = 0; a < tableObject.row(); a++){
+					writeObject.rowWrite.innerHtml = makeTr();
+					console.log('TR');
+				}
 			}
 
+			if (Number.isNaN(tableObject.col())){
+				window.alert('정수를 입력하시오');
+				return;
+			} else{
+				for (let b = 0; b < tableObject.col(); b++){
+					writeObject.rowWrite.innerHtml = makeTd();
+					console.log('TD');
+				}
+			}
 
 		}
 
