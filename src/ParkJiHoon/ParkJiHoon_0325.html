@@ -10,8 +10,9 @@
 		.list_item dl{overflow: hidden;}
 		.list_item dt{float: left;}
 		.list_item dd{overflow: hidden;}
-		table{width:100%;border:1px solid #000;border-collapse: collapse;}
+		table{width:100%;margin-bottom:30px;border:1px solid #000;border-collapse: collapse;}
 		table td{height: 30px;border:1px solid #000;}
+		textarea{width:100%;min-height:100px;margin:0;padding:0;box-sizing: border-box;}
 	</style>
 </head>
 <body>
@@ -54,38 +55,78 @@
 		</ul>
 		<div class="">
 			<button type="submit" onclick="createTable()" class="">테이블 생성하기</button>
+			<button type="submit" onclick="createCode()" class="">HTML 코드보기</button>
 		</div>
 	</form>
-	<div id="table_view">
-
-	</div>
+	<div id="table_view"></div>
+	<div id="code_view"></div>
 	<script type="text/javascript">
+		/* 전역변수 */
+		const tableView = document.getElementById('table_view');
 		const captionInput = document.getElementById('input_caption');
 		const rowInput = document.getElementById('input_row');
-		const colwInput = document.getElementById('input_col');
-		const tableView = document.getElementById('table_view');
+		const colInput = document.getElementById('input_col');
+		const codeView = document.getElementById('code_view');
 
+		/* 테이블 생성 관련 함수 */
 		function createTable(){
+			/* 빈값 체크 함수 호출 */
+			isNullCheck();
+			/* 정수 체크 함수 호출 */
+			isNumberCheck();
+			/* 입력 값 유효범위 설정 함수 */
+			valueRangeCheck();
+
+			/* Element 생성 변수 */
 			const table = document.createElement('table');
 			const caption = document.createElement('caption');
 			const tbody = document.createElement('tbody');
 
+			/* 캡션 값 대입 */
 			caption.innerText = captionInput.value;
 
-			for(var a = 0; a < rowInput.value; a++){
+			table.appendChild(caption);
+			table.appendChild(tbody);
+
+			for (var a = 0; a < rowInput.value; a++){
 				const tr = document.createElement('tr');
-				for (var b = 0; b < colwInput.value; b++) {
-					const td = document.createElement('td');
+				for (var b = 0; b < colInput.value; b++){
+					const td = document.createElement('td')
 					tr.appendChild(td);
 				}
 				tbody.appendChild(tr);
 			}
-			table.appendChild(caption);
-			table.appendChild(tbody);
-
 			tableView.innerHTML = '';
 			tableView.appendChild(table);
-			return;
+		}
+
+		/* HTML 코드 생성 관련 함수 */
+		function createCode(){
+			/* HTML 코드 출력 */
+			const textarea = document.createElement('textarea');
+			textarea.innerHTML = tableView.innerHTML;
+			codeView.innerHTML = '';
+			codeView.appendChild(textarea);
+		}
+
+		/* 빈값 체크 함수 */
+		function isNullCheck(){
+			if (!captionInput.value || !rowInput.value || !colInput.value){
+				alert('빈값을 입력하시오');
+			}
+		}
+
+		/* 실수 데이터 체크 함수 */
+		function isNumberCheck(){
+			if (!Number.isInteger(parseFloat(rowInput.value)) || !Number.isInteger(parseFloat(rowInput.value))) {
+				alert('정수를 입력하시오');
+			}
+		}
+
+		/* 입력 값 유효범위 설정 함수 */
+		function valueRangeCheck(){
+			rowInput.value = Math.max(20);
+			colInput.value = Math.min(1);
 		}
 	</script>
 </body>
