@@ -67,15 +67,20 @@ body,html,#wrap{
     height: 100%;
 }
 .option_wrap{
-    float: left;
+    position: fixed;
+    left:0;
+    top:0;
+    bottom:0;
     width:300px;
-    height: 100%;
+    height:100%;
+    overflow:auto;
     border-right:1px solid #efefef;
 }
 .show_wrap{
     overflow: hidden;
     height: 100%;
-    padding: 30px;
+    padding: 30px 30px 30px 330px;
+    box-sizing: border-box;
 }
 
 /*  */
