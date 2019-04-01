@@ -54,8 +54,8 @@
 			</li>
 		</ul>
 		<div class="">
-			<button type="submit" onclick="createTable()" class="">테이블 생성하기</button>
-			<button type="submit" onclick="createCode()" class="">HTML 코드보기</button>
+			<button type="submit" id="table_write">테이블 생성하기</button>
+			<button type="submit" id="html_write">HTML 코드보기</button>
 		</div>
 	</form>
 	<div id="table_view"></div>
@@ -67,6 +67,11 @@
 		const rowInput = document.getElementById('input_row');
 		const colInput = document.getElementById('input_col');
 		const codeView = document.getElementById('code_view');
+		const tableWrite = document.getElementById('table_write');
+		const htmlWrite = document.getElementById('html_write');
+
+		tableWrite.addEventListener('click', createTable);
+		htmlWrite.addEventListener('click', createCode);
 
 		/* 테이블 생성 관련 함수 */
 		function createTable(){
@@ -112,26 +117,26 @@
 		/* 함수 객체 */
 		const tableFunction = {
 			/* HTML 코드 생성 관련 함수 */
-			codeFunction : function createCode(){
+			codeFunction : function(){
 				const textarea = document.createElement('textarea');
 				textarea.innerHTML = tableView.innerHTML;
 				codeView.innerHTML = '';
 				codeView.appendChild(textarea);
 			},
 			/* 빈값 체크 함수 */
-			nullCheckFunction : function isNullCheck(){
+			nullCheckFunction : function(){
 				if (!captionInput.value || !rowInput.value || !colInput.value){
 					alert('빈값을 입력하시오');
 				}
 			},
-			/* 실수 데이터 체크 함수 */
-			numberCheckFunction : function isNumberCheck(){
+			/* 소수점 데이터 체크 함수 */
+			numberCheckFunction : function(){
 				if (!Number.isInteger(parseFloat(rowInput.value)) || !Number.isInteger(parseFloat(rowInput.value))) {
 					alert('정수를 입력하시오');
 				}
 			},
 			/* 입력 값 유효범위 설정 함수 */
-			rangeCheckFunction : function changeRangeValue(value) {
+			rangeCheckFunction : function(value) {
 				return Math.max(Math.min(20, value), 1);
 			}
 		}
