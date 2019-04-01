@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width,initial-scale=1">
+	<meta http-equiv="x-ua-compatible" content="IE=edge">
+	<title>TEST</title>
+    <style type="text/css">
+        h1 {
+            margin-bottom: 0;
+            padding-bottom: 5px;
+            font-size: 20px;
+            border-bottom: 3px double gray;
+        }
+        #create_box {
+            padding: 10px;
+            background-color: #f0f0f0;
+        }
+        .create_item {
+            padding-bottom: 10px;
+        }
+        .item_list {
+            padding-bottom: 5px;
+        }
+        .btn {
+            padding: 5px 9px;
+            min-width: 70px;
+            border-radius: 4px;
+        }
+        .btn:hover {
+            border: 1px solid #797878;
+            background-color: #c0c9ea;
+            cursor: pointer;
+        }
+        .btn.btn_clear:hover {
+            background-color: #eac0c0;
+        }
+        #create_table {
+            padding: 10px 0;
+        }
+		table {
+            width: 100%;
+            border-collapse:collapse;
+        }  
+        th, td {
+            max-width: 150px;
+            height: 25px;
+            min-width: 50px;
+            border:1px solid gray;
+            word-break: break-all;
+        }
+	</style>
+</head>
+<body>
+    <div id="wrap">
+        <h1>Table 생성하기</h1>
+        <div id="create_box">
+            <!-- <div class="create_item">
+                <div class="item_list">
+                    <label for="captionText">Catpion text</label>
+                    <input type="text" id="captionText" placeholder="caption을 입력하세요.">
+                </div>
+            </div> -->
+            <div class="create_item">
+                <div class="item_list">
+                    <label for="rowCount">행</label>
+                    <input type="text" id="rowCount" placeholder="행의 개수를 입력하세요.">
+                </div>
+                <div class="item_list">
+                    <label for="colCount">열</label>
+                    <input type="text" id="colCount" placeholder="열의 개수를 입력하세요.">
+                </div>
+            </div>
+            <button type="button" class="btn btn_create" onclick="createTable()">create</button>
+            <button type="button" class="btn btn_clear" onclick="clearTable()">clear</button>
+        </div>
+        <div id="create_table"></div>
+    </div>
+    
+    <script>
+        // create table button
+        function createTable() {
+            // 행,열 숫자로 변환
+            var rowCount = Number(document.getElementById('rowCount').value);
+            var colCount = Number(document.getElementById('colCount').value);
+
+            // #create_table 안에 table 생성  
+            var create_table = document.getElementById('create_table');
+            var elTable = document.createElement('table');
+
+            // td 생성
+            for (var i = 0; i < colCount; i++) {
+                var elTr = document.createElement('tr');
+
+                for (var j = 0; j < rowCount; j++) {
+                    var elTd = document.createElement('td');
+                    elTr.appendChild(elTd);
+                }
+                elTable.appendChild(elTr);
+            }
+            create_table.appendChild(elTable);
+        }
+
+        // clear table button
+        function clearTable() {
+            let tbody = document.querySelector('#create_table');
+            tbody.innerHTML = '';
+        };
+    </script>
+</body>
+</html>
