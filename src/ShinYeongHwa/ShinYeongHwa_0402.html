@@ -9,10 +9,47 @@
 	</style>  
 	<script type="text/javascript">
 
-	// 가위 바위 보 변수 (PC)
-	var = {};
-	
+	var userResult = '';
+	var pcResult = '';
+
+	// 자신 선택 함수
+
+
+	// 주사위 게임 함수
+	function gameResult(value){
+		var userResult = document.getElementById(value.id).value;
+		console.log(userResult);
+		//PC 결과값 변수 0,1,2 중 랜덤값 출력해서 변수 화
+		var pcResult = Math.floor(Math.random()*3); 
+		console.log(pcResult);
 		
+		// 게임 비겼을경우
+		if(userResult == pcResult){
+			console.log(userResult);
+			console.log(pcResult);
+			console.log('너 비겼어. 다시 시작해');
+		// 이기거나 지는 경우
+		}else{
+			// 지는경우 
+			if(userResult + 1 == pcResult){
+				console.log(userResult);
+				console.log(pcResult);
+				console.log('졌어');
+			}else if(userResult - 2 == pcResult){
+					console.log(userResult);
+					console.log(pcResult);
+					console.log('졌어');
+			}else{
+				console.log(userResult);
+				console.log(pcResult);
+				console.log('이겼어');
+			}
+		}
+	};
+
+	// PC 가위바위보 텍스트화 - 출력용
+	
+	
 		
 		
 		
@@ -26,8 +63,11 @@
 </head>
 <body>
 	<h1>0402-TEST</h1>
-	<button id="scissors">가위</button>
-	<button id="rock">바위</button>
-	<button id="paper">보</button>
+	<button type="button" id="user1" value="0" onclick="gameResult(this)">가위</button>
+	<button type="button" id="user2" value="1" onclick="gameResult(this)">바위</button>
+	<button type="button" id="user3" value="2" onclick="gameResult(this)">보</button>
+	<p>너는????<span id="userResult"></span></p>
+	<p>PC는????<span id="pcResult"></span></p>
+	<p id="resultText"></p>
 </body>
 </html>
