@@ -11,7 +11,7 @@
     <div id="wrap">
         <div class="option_wrap">
             <h1 class="title">TABLE CREATE</h1>
-            <div class="option_box">
+            <div class="option_box" id="captionBox">
                 <strong class="option_title">CAPTION</strong>
                 <input type="radio" id="captionShow" name="caption" checked>
                 <label for="captionShow">노출</label>
@@ -24,7 +24,7 @@
                     <input type="text" id="captionText" placeholder="caption 내용">
                 </div>
             </div>
-            <div class="option_box">
+            <div class="option_box" id="thPositionBox">
                 <strong class="option_title">thead 방향</strong>
 
                 <input type="radio" id="thLeft" name="thPosition" checked>
@@ -52,14 +52,16 @@
             <div class="option_box">
                 <strong class="option_title">col</strong>
                 <div class="col_set">
-                    <input type="radio" id="colWidthSame" name="colWidth" checked>
-                    <label for="colWidthSame">동등하게 나누기</label>
-
-                    <input type="radio" id="colWidthDif" name="colWidth">
-                    <label for="colWidthDif">다르게 나누기</label>
+                    <div id="colsetBox">
+                        <input type="radio" id="colWidthSame" name="colWidth" checked>
+                        <label for="colWidthSame">동등하게 나누기</label>
+    
+                        <input type="radio" id="colWidthDif" name="colWidth">
+                        <label for="colWidthDif">다르게 나누기</label>
+                    </div>
 
                     <div class="unit" style="display:none">
-                        <input type="radio" id="colPercent" name="colUnit">
+                        <input type="radio" id="colPercent" name="colUnit" checked>
                         <label for="colPercent">%</label>
                         <input type="radio" id="colPx" name="colUnit">
                         <label for="colPx">px</label>
@@ -74,6 +76,12 @@
             <div class="table_code">
 
             </div>
+
+            <div class="result_wrap hide">
+                <button type="button" id="codeBtn" class="btn_code_show">숨기기</button>
+                    <pre><code id="htmlCode"></code></pre>
+            </div>
+            
         </div>
     </div>
 

@@ -40,7 +40,15 @@ legend, .blind {
     margin: -1px;
     overflow: hidden
 }
-
+.caption_blind{display: none;}
+.btn_code_show{
+    position: absolute;
+    top:-30px;
+    right:0;
+    padding:10px;
+    height:30px;
+    line-height: 30px;
+}
 img, button {
     border: none
 }
@@ -146,4 +154,33 @@ body,html,#wrap{
 .col_list{
     margin:10px;
     list-style: decimal;
+}
+pre{
+    white-space: normal;
+}
+
+.result_wrap{
+    position: relative;
+    position: fixed;
+    bottom: 0;
+    right: 0;
+    left: 300px;
+    padding: 23px 0;
+    border: 1px solid #eee;
+    height: 131px;
+    transition: bottom 1s;
+    background:#fff;
+}
+
+.result_wrap.hide{
+    bottom:-131px;
+    transition: all 1s;
+}
+
+.result_wrap pre{
+    height: 100%;
+    overflow: auto;
+    margin: 0;
+    padding:0 20px;
+    box-sizing: border-box;
 }
