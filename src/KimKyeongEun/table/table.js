@@ -2,52 +2,26 @@ var createTable = function(){
     var v = {
         codeHtml : '',
         codeContent : document.querySelector('.table_code'),
-        captionInput : document.getElementsByName('caption'),
         captionText : document.getElementById('captionText'),
         colCount : document.getElementById('colCount'),
-        colWidthInput : document.getElementsByName('colWidth'),
-        colWidthSame : document.getElementById('colWidthSame'),
-        colWidthDif : document.getElementById('colWidthDif'),
+        colsetBox : document.getElementById('colsetBox'),
         colBox : document.querySelector('.colbox'),
+        resultWrap : document.getElementsByClassName('result_wrap')[0],
         btnCreate : document.getElementsByClassName('btn_create')[0],
-        colunit : document.getElementsByName('colUnit'),
-        thPosition : document.getElementsByName('thPosition'),
+        colunit : document.getElementsByClassName('unit')[0],
+        thPositionBox : document.getElementById('thPositionBox'),
+        captionBox : document.getElementById('captionBox'),
+        htmlCode : document.getElementById('htmlCode'),
+        codeBtn : document.getElementById('codeBtn'),
         colunitCheck : '',
-        colWidthOpCheck : '',
+        colWidthOpCheck : 'colWidthSame',
+        colUnitOpCheck : 'colPercent',
+        thChecked : 'thLeft',
+        captionChecked : 'captionShow',
         colCurrentCheckPre : 0
     }
 
     //option check
-
-    //caption 상태값 체크
-    function captionOpCheck(){
-        var captionChecked =  null;
-
-        v.captionInput.forEach(function(item){
-            if(item.checked == true){
-                captionChecked = item.getAttribute('id');
-            }
-        });
-
-        if(captionChecked === null){
-            alert("caption 상태 체크해주세요.");
-            return false;
-        }else return captionChecked;
-    }
-
-    //th 위치 값 체크
-    function thOpCheck(){
-        var  thChecked = null;
-
-        v.thPosition.forEach(function(item){
-            if(item.checked == true){
-                thChecked = item.getAttribute('id');
-            }
-        });
-
-        return thChecked;
-    }
-
     //td 행/열 개수 체크
     function tdCountOpCheck(){
         var rowCount = document.getElementById('rowCount'),
@@ -69,37 +43,32 @@ var createTable = function(){
 
     //col width (동등 or 다르게) 체크  + 다르게 일때 단위 선택 체크
     function colSetOpCheck(){
-        var colSet =  null,
-            colunitCheck =null;
-
-        v.colWidthInput.forEach(function(item){
-            if(item.checked == true){
-                colSet = item.getAttribute('id');
-            }
-        });
-
-        if(colSet == 'colWidthDif'){
-            v.colunit.forEach(function(item){
-                if(item.checked == true){
-                    colunitCheck = item.getAttribute('id');
-                }
-            });
-
-            if(colunitCheck == null){
-                alert("col 단위선택좀");
-                return false;
-            }else return [colSet,colunitCheck];
-        }else return [colSet];  //동등하게 나눌때 return
+        if(v.colWidthOpCheck == 'colWidthDif'){
+            return [v.colWidthOpCheck ,v.colUnitOpCheck];
+        }else return [v.colWidthOpCheck];  //동등하게 나눌때 return
     }
-    
-    function colWidthChange(e){
-        v.colWidthOpCheck = e.id;
+
+    //caption 상태값 체크
+    function captionOpCheck(t){
+        v.captionChecked = t.getAttribute('for');
+    }
+
+    //th 위치 값 체크
+    function thOpCheck(t){
+        v.thChecked = t.getAttribute('for');
+    }
+
+    function colWidthChange(t){
+        v.colWidthOpCheck = t.getAttribute('for');
+    }
+    function colUnitChange(t){
+        v.colUnitOpCheck = t.getAttribute('for');
     }
 
     //col width담을 input 생성
     function colWidthHandler(){
         var colCurrentCheck = Number(document.getElementById('colCount').value);
-        
+
         if(v.colWidthOpCheck === 'colWidthDif'){
             if(colCurrentCheck !== 0 && (v.colBox.innerHTML == '')){
 
@@ -141,15 +110,15 @@ var createTable = function(){
     
     //html 추가 코드
     //caption html 추가
-    function captionContent(caption){
+    function captionContent(){
         captionText = v.captionText.value;
 
-        switch(caption){
+        switch(v.captionChecked){
             case 'captionShow' :
                 v.codeHtml += '<caption>';
             break;
             case 'captionHide' :
-                v.codeHtml += '<caption class="blind">';
+                v.codeHtml += '<caption class="caption_blind">';
             break;
         }
 
@@ -163,25 +132,20 @@ var createTable = function(){
         
             var colUnitCheck = colSetCheck[1] == 'colPercent' ? '%' : 'px';
 
-            if(v.colBox.innerHTML !== ''){
-                var colInputCount = v.colBox.getElementsByTagName('input');
-                var colWStrig ='<colgroup>';
+            var colInputCount = v.colBox.getElementsByTagName('input');
+            var colWStrig ='<colgroup>';
 
-                for(var i = 0; i < colInputCount.length; i++){
-                    if(colInputCount[i].value === ''){
-                        colWStrig += "<col>"
-                    }else{
-                        colWStrig += "<col style=width:" + colInputCount[i].value + colUnitCheck +">";
-                    }
+            for(var i = 0; i < colInputCount.length; i++){
+                if(colInputCount[i].value === ''){
+                    colWStrig += "<col>"
+                }else{
+                    colWStrig += '<col style="width:' + colInputCount[i].value + colUnitCheck + '">';
                 }
-
-                colWStrig += '</colgroup>';
-
-                return v.codeHtml += colWStrig;
-
-            }else{
-                return false;
             }
+
+            colWStrig += '</colgroup>';
+
+            return v.codeHtml += colWStrig;
         }
     }
 
@@ -189,64 +153,90 @@ var createTable = function(){
     function createTableHandler(){
 
         //상태값 체크
-        var captionChecked = captionOpCheck();
-        var thChecked = thOpCheck();
         var countCheck = tdCountOpCheck();
         var colSetCheck = colSetOpCheck();
 
         // 모두 값이 있으면 table 생성
-        if(captionChecked && thChecked && countCheck && colSetCheck){
+        if(countCheck && colSetCheck){
 
             v.codeHtml = '<table>';
-            captionContent(captionChecked);
+            captionContent();
             colWidthCheck(colSetCheck);
 
             rowCount = countCheck[0];
             colCount = countCheck[1];
 
-            if(rowCount && colCount){
+            for(var i = 0; i < rowCount; i++ ){
+                v.codeHtml += '<tr>'
 
-                for(var i = 0; i < rowCount; i++ ){
-                    v.codeHtml += '<tr>'
+                for(var j =0; j < colCount; j++){
 
-                    for(var j =0; j < colCount; j++){
-
-                        if(thChecked === 'thTop' && i === 0){
-                            v.codeHtml += '<th></th>'
-                        }else if(thChecked === 'thLeft' && j === 0){
-                            v.codeHtml += '<th></th>'
-                        }else{
-                            v.codeHtml += '<td></td>';
-                        }
+                    if(v.thChecked === 'thTop' && i === 0){
+                        v.codeHtml += '<th></th>'
+                    }else if(v.thChecked === 'thLeft' && j === 0){
+                        v.codeHtml += '<th></th>'
+                    }else{
+                        v.codeHtml += '<td></td>';
                     }
-                    v.codeHtml += '</tr>'
                 }
-                v.codeHtml += '</table>'
+                v.codeHtml += '</tr>'
             }
+            v.codeHtml += '</table>';
+
             v.codeContent.innerHTML = v.codeHtml;
+
+            v.htmlCode.textContent = v.codeHtml;
         }
     }
 
 
     return function(){
-        v.colWidthDif.addEventListener("click",function(e){
-            document.querySelector('.unit').style.display = 'block';
-            document.querySelector('.colbox').style.display = 'block';
-            colWidthChange(e.target);
-            colWidthHandler();
+        v.colsetBox.addEventListener("click",function(e){
+            if(e.target && e.target.nodeName == 'LABEL'){
+                if(e.target.htmlFor !== 'colWidthSame'){
+                    document.querySelector('.unit').style.display = 'block';
+                    document.querySelector('.colbox').style.display = 'block';
+                }else {
+                    document.querySelector('.unit').style.display = 'none';
+                    document.querySelector('.colbox').style.display = 'none';
+                }
+
+                colWidthChange(e.target);
+                colWidthHandler();
+            }
         }.bind(this),false);
-        v.colWidthSame.addEventListener("click",function(){
-            document.querySelector('.unit').style.display = 'none';
-            document.querySelector('.colbox').style.display = 'none';
-            colWidthChange(e);
+
+
+        v.captionBox.addEventListener("click",function(e){
+            if(e.target && e.target.nodeName == 'LABEL'){
+                captionOpCheck(e.target);
+            }
+        });
+
+        v.thPositionBox.addEventListener("click",function(e){
+            if(e.target && e.target.nodeName == 'LABEL'){
+                thOpCheck(e.target);
+            }
+        });
+
+        v.colunit.addEventListener("click",function(e){
+            if(e.target && e.target.nodeName == 'LABEL'){
+                colUnitChange(e.target);
+            }
         });
 
         //bind 사용
-        v.btnCreate.addEventListener("click",function(){createTableHandler()}.bind(this),false);
+        v.btnCreate.addEventListener("click",function(){createTableHandler(); v.resultWrap.className = 'result_wrap'}.bind(this),false);
         v.colCount.addEventListener("change",function(e){
-            console.log(e.target.value);
             colWidthHandler()
         }.bind(this),false);
+        v.codeBtn.addEventListener("click",function(e){
+            if(!this.parentNode.classList.contains("hide")){
+                this.parentNode.className += ' hide';
+            }else{
+                this.parentNode.className = 'result_wrap';
+            }
+        });
     }
 }
 
