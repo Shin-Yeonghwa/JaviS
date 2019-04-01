@@ -67,6 +67,7 @@
 		const rowInput = document.getElementById('input_row');
 		const colInput = document.getElementById('input_col');
 		const codeView = document.getElementById('code_view');
+
 		/* 테이블 생성 관련 함수 */
 		function createTable(){
 
@@ -102,10 +103,12 @@
 			tableView.innerHTML = '';
 			tableView.appendChild(table);
 		}
+
 		/* HTML 코드 생성 함수 */
 		function createCode(){
 			tableFunction.codeFunction();
 		}
+
 		/* 함수 객체 */
 		const tableFunction = {
 			/* HTML 코드 생성 관련 함수 */

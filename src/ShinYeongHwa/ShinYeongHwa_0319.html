@@ -155,60 +155,170 @@
 		
 	// 함수를 이용한 객체
 	
-		// 함수 생성 - 매개변수 기입
-		function makeStudent(name, korean, math, english, sciencs){
+		// // 함수 생성 - 매개변수 기입
+		// function makeStudent(name, korean, math, english, sciencs){
+		// 
+		// 	// return할 변수 지정
+		// 	var willRetun = {
+		// 		이름 : name,
+		// 		국어 : korean,
+		// 		수학 : math,
+		// 		영어 : english,
+		// 		과학 : sciencs,
+		// 
+		// 		// 매서드
+		// 		getSum :  function(){
+		// 			return this.국어 + this.수학 + this.영어 + this.과학;
+		// 
+		// 		},
+		// 		getAverage : function(){
+		// 			return this.getSum() / 4;
+		// 		},
+		// 		toString : function(){
+		// 			return this.이름 + ' ' + '총점 : ' + this.getSum() + '평균 : ' + this.getAverage();
+		// 		}
+		// 
+		// 	 };
+		// 	// return할 변수 지정
+		// 	return willRetun;
+		// };
+		// 
+		// 
+		// // 학생 정보를 배열로 만듬
+		// var students = [];
+		// students.push(makeStudent('신영화', 98, 100, 99, 97));
+		// students.push(makeStudent('최재선', 100, 100, 99 , 100));
+		// 
+		// 
+		// // 출력
+		// var output = '이름\t총점\t평균\n';
+		// for(var i in students){
+		// 	output += students[i].toString() + '\n';
+		// }
+		// 
+		// alert(output);
+		
+	// 생성자 함수
+		// 
+		// //this 키워드를 사용하여 생성자 함수에 생성될 객체의 속성을 지정함
+		// function Student(name, korean, math, english, science){
+		// 	this.이름 = name;
+		// 	this.국어 = korean;
+		// 	this.수학 = math;
+		// 	this.영어 = english;
+		// 	this.과학 = science;
+		// 
+		// 	//메서드도 this로 지정
+		// 	this.getSum = function(){
+		// 		return this.국어 + this.수학 + this.영어 + this.과학;
+		// 	};
+		// 	this.getAverage = function(){
+		// 		return this.getSum() / 4;
+		// 	};
+		// 
+		// 	this.toString = function(){
+		// 		return this.이름 + ' : ' + this.getSum() + '  '  + this.getAverage();
+		// 	};
+		// };
+		// 
+		// 
+		// var student = new Student('신영화', 95, 100, 95, 100);
+		// 
+		// alert(student);
+	
+	// 생성자 함수 - prototype 사용
+		// 
+		// function Student(name, korean, math, english, science){
+		// 	this.이름 = name;
+		// 	this.국어 = korean;
+		// 	this.수학 = math;
+		// 	this.영어 = english;
+		// 	this.과학 = science;
+		// };
+		// 
+		// // prototype을 사용해서 Student 생성함수에 메서드 추가
+		// Student.prototype.getSum = function(){
+		// 	return this.국어 + this.수학 + this.영어 + this.과학;
+		// };
+		// Student.prototype.getAverage = function(){
+		// 	return this.getSum() / 4;
+		// };
+		// 
+		// Student.prototype.toString = function(){
+		// 	return this.이름 + ' : ' + this.getSum() + '  '  + this.getAverage();
+		// };
+		// 
+		// // 출력용 새 객체 지정 Student 함수의 instanceof 
+		// var student = new Student('신영화', 95, 100, 95, 100);
+		// 
+		// alert(student);
+		// 
+	// 캡슐화
+	
+		// // 생성자 함수 생성
+		// function Rectangle(w, h){
+		// 
+		// 	// 변수 선언
+		// 	var width = w;
+		// 	var height = h;
+		// 
+		// 	// 메서드 선언
+		// 	this.getWidth = function(){
+		// 		return width;
+		// 	};
+		// 
+		// 	this.getHeight = function(){
+		// 		return height;
+		// 	} 
+		// 
+		// 	this.setWidth = function(value){
+		// 		if (value < 0){
+		// 			throw '길이는 음수일수 없다.';
+		// 		} else{
+		// 			width = value;
+		// 		}
+		// 	}
+		// 	this.setHeight = function(value){
+		// 		if (value < 0){
+		// 			throw '길이는 음수일수 없다.';
+		// 		} else{
+		// 			height = value;
+		// 		}
+		// 
+		// 	}
+		// 
+		// };
+		// 
+		// // prototype 으로 getArea 선언
+		// Rectangle.prototype.getArea = function(){
+		// 	return this.getWidth() * this.getHeight();
+		// 
+		// };
+		// 
+		// // 생성자 함수 선언
+		// function Square(length){
+		// 	this.base = Rectangle;
+		// 	this.base(length, length)
+		// };
+		// 
+		// Square.prototype = Rectangle.prototype;
+		// 
+		// 
+		// 
+		// // 출력 변수 지정
+		// var rectangle = new Rectangle(5, 7);
+		// var square = new Square(5);
+		// 
+		// alert(square.getArea() + ' : ' + rectangle.getArea());
+		
+	// ECMA 5 	defineProperty() 
+	
+		//object 객체 생성
+		var object = {};
 			
-			// return할 변수 지정
-			var willRetun = {
-				이름 : name,
-				국어 : korean,
-				수학 : math,
-				영어 : english,
-				과학 : sciencs,
-				
-				// 매서드
-				getSum :  function(){
-					return this.국어 + this.수학 + this.영어 + this.과학;
-					
-				},
-				getAverage : function(){
-					return this.getSum() / 4;
-				},
-				toString : function(){
-					return this.이름 + ' ' + '총점 : ' + this.getSum() + '평균 : ' + this.getAverage();
-				}
-				
-			};
-			// return할 변수 지정
-			return willRetun;
-		};
-		
-		
-		// 학생 정보를 배열로 만듬
-		var students = [];
-		students.push(makeStudent('신영화', 98, 100, 99, 97));
-		students.push(makeStudent('최재선', 100, 100, 99 , 100));
-		
-		
-		// 출력
-		var output = '이름\t총점\t평균\n';
-		for(var i in students){
-			output += students[i].toString() + '\n';
-		}
-		
-		alert(output);
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
+		Object.defineProperty(object, 'name',{
+			
+		});
 		
 		
 		
