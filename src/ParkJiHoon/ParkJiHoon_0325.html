@@ -10,13 +10,14 @@
 		.list_item dl{overflow: hidden;}
 		.list_item dt{float: left;}
 		.list_item dd{overflow: hidden;}
-		#table{width:100%;border:1px solid #000;border-collapse:collapse;}
-		#table td{border:1px solid #000;height: 30px;}
+		table{width:100%;margin-bottom:30px;border:1px solid #000;border-collapse: collapse;}
+		table td{height: 30px;border:1px solid #000;}
+		textarea{width:100%;min-height:100px;margin:0;padding:0;box-sizing: border-box;}
 	</style>
 </head>
 <body>
 	<h1>테이블 생성하기</h1>
-	<form action="#" id="form">
+	<form action="#">
 		<legend>
 			테이블 생성 관련 입력 폼
 		</legend>
@@ -27,7 +28,7 @@
 						<label for="input_caption">캡션</label>
 					</dt>
 					<dd>
-						<input type="text" id="input_caption" placeholder="캡션내용을 입력하세요">
+						<input type="text" id="input_caption" value="" placeholder="캡션내용을 입력하세요">
 					</dd>
 				</dl>
 			</li>
@@ -37,7 +38,7 @@
 						<label for="input_row">행</label>
 					</dt>
 					<dd>
-						<input type="text" id="input_row" value="" placeholder="행의 개수를 입력하세요">
+						<input type="number" id="input_row" value="" placeholder="행의 개수를 입력하세요">
 					</dd>
 				</dl>
 			</li>
@@ -47,88 +48,90 @@
 						<label for="input_col">열</label>
 					</dt>
 					<dd>
-						<input type="text" id="input_col" value="" placeholder="열의 개수를 입력하세요">
+						<input type="number" id="input_col" value="" placeholder="열의 개수를 입력하세요">
 					</dd>
 				</dl>
 			</li>
 		</ul>
 		<div class="">
-			<button type="submit" id="button" onclick="writeTable()">테이블 생성하기</button>
+			<button type="submit" onclick="createTable()" class="">테이블 생성하기</button>
+			<button type="submit" onclick="createCode()" class="">HTML 코드보기</button>
 		</div>
 	</form>
-	<div id="table_view">
-		<table id="table">
-			<caption id="caption">
-
-			</caption>
-			<tbody id="tbody">
-			</tbody>
-		</table>
-	</div>
+	<div id="table_view"></div>
+	<div id="code_view"></div>
 	<script type="text/javascript">
+		/* 전역변수 */
+		const tableView = document.getElementById('table_view');
+		const captionInput = document.getElementById('input_caption');
+		const rowInput = document.getElementById('input_row');
+		const colInput = document.getElementById('input_col');
+		const codeView = document.getElementById('code_view');
+		/* 테이블 생성 관련 함수 */
+		function createTable(){
 
-		const writeObject = {
-			captionWrite : document.getElementById('caption'),
-			rowWrite : document.getElementById('tbody'),
-			colWrite : document.getElementById('tbody')
-		}
+			/* 빈값 체크 함수 호출 */
+			tableFunction.nullCheckFunction();
 
-		const tableObject = {
-			caption : function inputCaption(){
-				document.getElementById('input_caption').value;
-				return input_caption.value
-			},
-			row : function inputRow(){
-				document.getElementById('input_row').value;
-				return parseInt(input_row.value);
-			},
-			col : function inputCol(){
-				document.getElementById('input_col').value;
-				return parseInt(input_col.value);
-			}
-		}
+			/* 정수 체크 함수 호출 */
+			tableFunction.numberCheckFunction();
 
-		function makeTr (){
-			const tr = document.createElement('tr');
-			tr.setAttribute("id", "tr");
-			document.getElementById('tbody').appendChild(tr);
-		}
+			/* 입력 값 유효범위 설정 함수 */
+			colInput.value = tableFunction.rangeCheckFunction(colInput.value);
+			rowInput.value = tableFunction.rangeCheckFunction(rowInput.value);
+			tableFunction.rangeCheckFunction();
 
-		function makeTd (){
-			const td = document.createElement('td');
-			document.getElementById('tr').appendChild(td);
-		}
+			/* Element 생성 변수 */
+			const table = document.createElement('table');
+			const caption = document.createElement('caption');
+			const tbody = document.createElement('tbody');
 
-		function writeTable(){
-			if (tableObject.caption() == ''){
-				window.alert('캡션명을 입력하세요');
-				return;
-			} else{
-				writeObject.captionWrite.textContent = tableObject.caption();
-			}
+			/* 캡션 값 대입 */
+			caption.innerText = captionInput.value;
 
-			if (Number.isNaN(tableObject.row())){
-				window.alert('정수를 입력하시오');
-				return;
-			} else{
-				for (let a = 0; a < tableObject.row(); a++){
-					writeObject.rowWrite.innerHtml = makeTr();
-					console.log('TR');
+			table.appendChild(caption);
+			table.appendChild(tbody);
+			for (var a = 0; a < rowInput.value; a++){
+				const tr = document.createElement('tr');
+				for (var b = 0; b < colInput.value; b++){
+					const td = document.createElement('td')
+					tr.appendChild(td);
 				}
+				tbody.appendChild(tr);
 			}
-
-			if (Number.isNaN(tableObject.col())){
-				window.alert('정수를 입력하시오');
-				return;
-			} else{
-				for (let b = 0; b < tableObject.col(); b++){
-					writeObject.rowWrite.innerHtml = makeTd();
-					console.log('TD');
-				}
-			}
-
+			tableView.innerHTML = '';
+			tableView.appendChild(table);
 		}
-
+		/* HTML 코드 생성 함수 */
+		function createCode(){
+			tableFunction.codeFunction();
+		}
+		/* 함수 객체 */
+		const tableFunction = {
+			/* HTML 코드 생성 관련 함수 */
+			codeFunction : function createCode(){
+				const textarea = document.createElement('textarea');
+				textarea.innerHTML = tableView.innerHTML;
+				codeView.innerHTML = '';
+				codeView.appendChild(textarea);
+			},
+			/* 빈값 체크 함수 */
+			nullCheckFunction : function isNullCheck(){
+				if (!captionInput.value || !rowInput.value || !colInput.value){
+					alert('빈값을 입력하시오');
+				}
+			},
+			/* 실수 데이터 체크 함수 */
+			numberCheckFunction : function isNumberCheck(){
+				if (!Number.isInteger(parseFloat(rowInput.value)) || !Number.isInteger(parseFloat(rowInput.value))) {
+					alert('정수를 입력하시오');
+				}
+			},
+			/* 입력 값 유효범위 설정 함수 */
+			rangeCheckFunction : function changeRangeValue(value) {
+				return Math.max(Math.min(20, value), 1);
+			}
+		}
 	</script>
 </body>
 </html>
