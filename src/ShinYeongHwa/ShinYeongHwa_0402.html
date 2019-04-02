@@ -12,16 +12,14 @@
 	var userResult = '';
 	var pcResult = '';
 
-	// 자신 선택 함수
-
-
 	// 주사위 게임 함수
 	function gameResult(value){
-		var userResult = document.getElementById(value.id).value;
-		console.log(userResult);
+		// 유저 가위바위보 선택 
+		var userResult = Number(document.getElementById(value.id).value);
+		
 		//PC 결과값 변수 0,1,2 중 랜덤값 출력해서 변수 화
 		var pcResult = Math.floor(Math.random()*3); 
-		console.log(pcResult);
+		
 		
 		// 게임 비겼을경우
 		if(userResult == pcResult){
@@ -39,6 +37,7 @@
 					console.log(userResult);
 					console.log(pcResult);
 					console.log('졌어');
+			// 이기는 경우
 			}else{
 				console.log(userResult);
 				console.log(pcResult);
@@ -47,8 +46,6 @@
 		}
 	};
 
-	// PC 가위바위보 텍스트화 - 출력용
-	
 	
 		
 		
