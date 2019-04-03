@@ -1,0 +1,35 @@
+<html>
+    <head>
+        <meta charset="utf-8">        
+    </head>
+    <body>
+        <h1>평가등급</h1>
+        <p>입력한 점수는 <span id="score"></span>점이고, 평가등급은 <span id="rating"></span>입니다.</p>
+        <button type="button" onclick="location.reload().inputScore()">평가등급 재확인</button>
+
+        <script>
+            function inputScore() {
+                var score = prompt("점수를 입력하세요.");                
+                document.getElementById("score").innerHTML = score; 
+
+                if (score >= 0 && score <= 100) {
+                    if (score <= 100 && score >= 90) {             
+                        document.getElementById("rating").innerHTML = "A";
+                    } else if (score <= 89 && score >= 70) {
+                        document.getElementById("rating").innerHTML = "B";
+                    } else if (score <= 69 && score >= 60) {
+                        document.getElementById("rating").innerHTML = "C";
+                    } else {
+                        document.getElementById("rating").innerHTML = "D";
+                    }
+                } else {
+                        alert("0~100까지의 숫자를 입력해주세요.")
+                        inputScore();
+                }                 
+            }       
+
+            inputScore();
+            
+        </script>
+    </body>
+</html>
