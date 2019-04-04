@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="ko">
+
+<head>
+	<meta charset="utf-8">
+	<title>로또 추첨기 만들기</title>
+
+
+	<style>
+	.ball strong{
+		display:inline-block;
+		min-width:100px;
+	}
+	.ball > div{
+	display:inline-block;
+	width:40px;
+	height:40px;
+	text-align: center;
+	line-height: 40px;
+	border:1px solid black;
+	border-radius: 100%;
+	}
+	</style>
+</head>
+<body>
+
+ <div id="resultWrap" class="ball">
+	<strong>로또 번호</strong>
+ </div>
+ <div id="bonusWrap"  class="ball">
+	 <strong>보너스</strong>
+
+ </div>
+
+ <script>
+		 //총 45개의 벼열을 생성
+		var listNumber = Array(45)
+		   .fill()
+		   .map(function(element, index) {
+			   return index + 1;
+
+		   })
+		console.log(listNumber)
+
+		//렌덤 숫자뽑기
+		var resultNum = [];
+		while (listNumber.length > 0) {
+		   var moveResult = listNumber.splice(Math.floor(Math.random() * listNumber.length), 1)[0];
+		   resultNum.push(moveResult);
+		}
+
+		console.log(resultNum);
+		//보너스 값 뽑기
+		var bonus = resultNum[resultNum.length - 1];
+
+		// 로또 최종값 뽑기
+		var lottoNum = resultNum
+		   // 5개의 숫자를 뽑아내자
+		   .slice(0, 6)
+		   // 작은 숫자 숫자부터 노출하기
+		   .sort(function(p, c) {
+			   return p - c
+		   });
+
+		console.log('이번주 로또는 ', lottoNum, '보너스 숫자는', bonus);
+
+
+		//로또 공에 공통 컴포넌트 생성
+		function styleComponent(ballNumber, resultWrap) {
+		   var ball = document.createElement('div');
+		   ball.textContent = ballNumber;
+		   var backgroundType;
+		   if (ballNumber <= 10) {
+			   backgroundType = 'red'
+		   } else if (ballNumber <= 20) {
+			   backgroundType = 'orange';
+		   } else if (ballNumber <= 30) {
+			   backgroundType = 'blue';
+		   } else {
+			   backgroundType = 'green';
+		   }
+		   ball.style.background = backgroundType;
+		   resultWrap.appendChild(ball)
+
+		}
+
+		// id resultWrap 찾아서 변수지정
+		var resultWrap = document.getElementById('resultWrap')
+		// 추출한 롯도번호를 resultWrap에 div를 추가하여 생성
+		for (var i = 0; i < lottoNum.length; i += 1) {
+		   //로또 당첨번호 화면이 뿌리기
+		   //로또 배경색을 지정
+		   styleComponent(lottoNum[i], resultWrap);
+		   // resultWrap 추가
+
+
+		}
+
+		//보너스값 화면에 뿌리기
+		var bonusWrap = document.getElementById('bonusWrap')
+		//로또 배경색을 지정
+		styleComponent(bonus, bonusWrap);
+ </script>
+
+</body>
+
+</html>
