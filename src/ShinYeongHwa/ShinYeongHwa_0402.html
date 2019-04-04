@@ -13,43 +13,42 @@
 	var pcResult = '';
 
 	// 주사위 게임 함수
-	function gameResult(value){
+	function gameResult(inputValue){
 		// 유저 가위바위보 선택 
-		var userResult = Number(document.getElementById(value.id).value);
+		var userResult = Number(document.getElementById(inputValue.id).value);
 		
 		//PC 결과값 변수 0,1,2 중 랜덤값 출력해서 변수 화
 		var pcResult = Math.floor(Math.random()*3); 
 		
 		// 텍스트화 함수
 		function textUserResult(){
-			var userResult = Number(document.getElementById(value.id).value);
 			if(userResult === 0){
-				var userResult = '가위';
-				console.log(typeof(userResult) + userResult);
+				userResult = '가위';
 			}else if(userResult === 1){
-				var userResult = '바위';
-				console.log(typeof(userResult) + userResult);
+				userResult = '바위';
 			}else{
-				var userResult = '보';
-				console.log(typeof(userResult) + userResult);
+				userResult = '보';
 			}
 
 		}
 		
-		// 텍스트화 함수
-		// function textPCResult(){
-		// 	if(pcResult == 0){
-		// 		var pcResult = '가위';
-		// 	}else if(pcResult == 1){
-		// 		var pcResult = '바위';
-		// 	}else{
-		// 		var pcResult = '보';
-		// 	}
-		// }
+		function pcUserResult(){
+			if(pcResult === 0){
+				pcResult = '가위';
+			}else if(pcResult === 1){
+				pcResult = '바위';
+			}else{
+				pcResult = '보';
+			}
+
+		}
+		
+
 		
 		// 게임 비겼을경우
 		if(userResult === pcResult){
 			textUserResult();
+			pcUserResult();
 			console.log(typeof(userResult) + userResult);
 			console.log(typeof(pcResult) + pcResult);
 			console.log('너 비겼어. 다시 시작해');
@@ -58,17 +57,20 @@
 			// 지는경우 
 			if(userResult + 1 === pcResult){
 				textUserResult();
+				pcUserResult();
 				console.log(typeof(userResult) + userResult);
 				console.log(typeof(pcResult) + pcResult);
 				console.log('졌어');
 			}else if(userResult - 2 === pcResult){
-					textUserResult();
+				textUserResult();
+				pcUserResult();
 					console.log(typeof(userResult) + userResult);
 					console.log(typeof(pcResult) + pcResult);
 					console.log('졌어');
 			// 이기는 경우
 			}else{
 				textUserResult();
+				pcUserResult();
 				console.log(typeof(userResult) + userResult);
 				console.log(typeof(pcResult) + pcResult);
 				console.log('이겼어');
