@@ -20,30 +20,58 @@
 		//PC 결과값 변수 0,1,2 중 랜덤값 출력해서 변수 화
 		var pcResult = Math.floor(Math.random()*3); 
 		
+		// 텍스트화 함수
+		function textUserResult(){
+			
+			if(userResult == 0){
+				var userResult = '가위';
+				console.log(userResult);
+			}else if(userResult == 1){
+				var userResult = '바위';
+				console.log(userResult);
+			}else{
+				var userResult = '보';
+				console.log(userResult);
+			}
+		}
+		
+		// 텍스트화 함수
+		function textPCResult(){
+			if(pcResult == 0){
+				var pcResult = '가위';
+			}else if(pcResult == 1){
+				var pcResult = '바위';
+			}else{
+				var pcResult = '보';
+			}
+		}
 		
 		// 게임 비겼을경우
 		if(userResult == pcResult){
+			textUserResult();
 			console.log(userResult);
-			console.log(pcResult);
 			console.log('너 비겼어. 다시 시작해');
 		// 이기거나 지는 경우
 		}else{
 			// 지는경우 
 			if(userResult + 1 == pcResult){
+				textUserResult();
 				console.log(userResult);
-				console.log(pcResult);
 				console.log('졌어');
 			}else if(userResult - 2 == pcResult){
+					textUserResult();
 					console.log(userResult);
-					console.log(pcResult);
 					console.log('졌어');
 			// 이기는 경우
 			}else{
+				textUserResult();
 				console.log(userResult);
-				console.log(pcResult);
 				console.log('이겼어');
 			}
 		}
+		
+		
+		
 	};
 
 	</script>
