@@ -5,7 +5,57 @@
 	<meta name="viewkport" content="width=device-width,initial-scale=1.0,maximum-scale=1.0,minimum-scale=1.0,user-scalable=no,target-densitydpi=medium-dpi">
 	<title>0402 - 가위바위보 게임</title>
 	<style type="text/css">
-		
+	body,button,dd,dl,dt,fieldset,form,h1,h2,h3,h4,h5,h6,input,legend,li,ol,p,select,table,td,textarea,th,ul {
+		margin: 0;
+		padding: 0
+	}
+
+	body,button,input,select,table,textarea {
+		font-size: 14px;
+		font-family: '나눔고딕',Dotum,'돋움',Helvetica,"Apple SD Gothic Neo",sans-serif;
+		line-height:1.4;
+	}
+
+	ol,ul {
+		list-style: none
+	}
+
+	address,em {
+		font-style: normal
+	}
+
+	a {
+		text-decoration: none
+	}
+
+	a:hover {
+		text-decoration: underline
+	}
+
+	h1{
+		color:#222;
+		font-size:37px;
+	}
+	button{
+		width:100px;
+		height:40px;
+		margin:10px;
+	}
+	p{
+		font-size:20px;
+		color:#333;
+	}
+	#userResult{
+		color:#f00;
+	}
+	#pcResult{
+		color:#00f;
+	}
+	#resultText{
+		margin:10px 0;
+		color:#00c71a;
+		font-weight:bold;
+	}
 	</style>  
 	<script type="text/javascript">
 
@@ -14,13 +64,14 @@
 
 	// 주사위 게임 함수
 	function gameResult(inputValue){
+		
 		// 유저 가위바위보 선택 
 		var userResult = Number(document.getElementById(inputValue.id).value);
 		
 		//PC 결과값 변수 0,1,2 중 랜덤값 출력해서 변수 화
 		var pcResult = Math.floor(Math.random()*3); 
 		
-		// 텍스트화 함수
+		// 텍스트화 함수(유저)
 		function textUserResult(){
 			if(userResult === 0){
 				userResult = '가위';
@@ -29,9 +80,9 @@
 			}else{
 				userResult = '보';
 			}
-
+			document.getElementById('userResult').innerHTML=userResult;
 		}
-		
+		// 텍스트화 함수(PC)
 		function pcUserResult(){
 			if(pcResult === 0){
 				pcResult = '가위';
@@ -40,45 +91,32 @@
 			}else{
 				pcResult = '보';
 			}
-
+			document.getElementById('pcResult').innerHTML=pcResult;
 		}
-		
 
-		
 		// 게임 비겼을경우
 		if(userResult === pcResult){
 			textUserResult();
 			pcUserResult();
-			console.log(typeof(userResult) + userResult);
-			console.log(typeof(pcResult) + pcResult);
-			console.log('너 비겼어. 다시 시작해');
+			document.getElementById('resultText').innerHTML='너 비겼어. 다시 시작해';
 		// 이기거나 지는 경우
 		}else{
 			// 지는경우 
 			if(userResult + 1 === pcResult){
 				textUserResult();
 				pcUserResult();
-				console.log(typeof(userResult) + userResult);
-				console.log(typeof(pcResult) + pcResult);
-				console.log('졌어');
+				document.getElementById('resultText').innerHTML='졌어';
 			}else if(userResult - 2 === pcResult){
 				textUserResult();
 				pcUserResult();
-					console.log(typeof(userResult) + userResult);
-					console.log(typeof(pcResult) + pcResult);
-					console.log('졌어');
+				document.getElementById('resultText').innerHTML='졌어';
 			// 이기는 경우
 			}else{
 				textUserResult();
 				pcUserResult();
-				console.log(typeof(userResult) + userResult);
-				console.log(typeof(pcResult) + pcResult);
-				console.log('이겼어');
+				document.getElementById('resultText').innerHTML='이겼어';
 			}
 		}
-		
-		
-		
 	};
 
 	</script>
