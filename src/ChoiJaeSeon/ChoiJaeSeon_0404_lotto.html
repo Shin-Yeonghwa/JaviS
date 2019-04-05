@@ -31,8 +31,13 @@
 	 <strong>보너스</strong>
 
  </div>
+ <button type="button" name="button" onclick="refresh()">다시 뽑기</button>
 
  <script>
+		 function refresh(delay) {
+		 	if (delay == null)
+		 			window.location.reload();
+		 }
 		 //총 45개의 벼열을 생성
 		var listNumber = Array(45)
 		   .fill()
