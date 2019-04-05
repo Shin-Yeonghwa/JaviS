@@ -1,0 +1,26 @@
+<!doctype html>
+<html lang="ko">
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width,initial-scale=1.0,maximum-scale=1.0,minimum-scale=1.0,user-scalable=no,target-densitydpi=medium-dpi">
+	<title></title>
+	<style type="text/css">
+
+	</style>
+</head>
+<body>
+	<h1>간단한 시계</h1>
+	<button type="button" onclick="nowTime();">시계보기 클릭</button>
+	<div id="clock">
+
+	</div>
+	<script type="text/javascript">
+		function nowTime(){
+			var day = new Date();
+			var time=day.getHours()+":"+ day.getMinutes()+":" +day.getSeconds()+":"+day.getMilliseconds();
+			document.getElementById("clock").innerHTML=time;
+			setTimeout(function() {nowTime()},0);
+		}
+	</script>
+</body>
+</html>

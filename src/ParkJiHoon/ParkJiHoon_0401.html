@@ -1,0 +1,99 @@
+<!doctype html>
+<html lang="ko">
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width,initial-scale=1.0,maximum-scale=1.0,minimum-scale=1.0,user-scalable=no,target-densitydpi=medium-dpi">
+	<title>자판기 만들기</title>
+	<style type="text/css">
+		.form_list{}
+		.list_item{}
+		.list_item dl{overflow: hidden;}
+		.list_item dt{float: left;}
+		.list_item dd{overflow: hidden;}
+		#table{width:100%;border:1px solid #000;border-collapse:collapse;}
+		#table td{border:1px solid #000;height: 30px;}
+	</style>
+</head>
+<body>
+	<h1>자판기 만들기 실습</h1>
+	<input type="number" min="0" id="input_price" value="">
+	<button type="button" id="price_return">반환</button>
+	<p id="view_price">
+
+	</p>
+	<ul class="menu">
+		<li><button type="button" data-price="500">콜라</button></li>
+		<li><button type="button" data-price="400">포카리</button></li>
+		<li><button type="button" data-price="300">환타</button></li>
+		<li><button type="button" data-price="800">맥콜</button></li>
+	</ul>
+
+	<div id="output">
+
+	</div>
+	<script>
+		/*
+		1. 금액 입력하면 잔액표시 영역에 숫자로  표시됨
+		2. 잔액이 남아있는 상태에서 금액을 추가하면 잔액이 플러스됨
+		3. 잔액이 남아있는 상태에서 반환을 누르면 금액이 0원이 됨
+		4. 메뉴를 선택하면 선택된 메뉴가 반환구에 표시된다. 
+		5. 선택된 메뉴의 금액을 뺀 잔액이 표시 됨
+		6. 잔액보다 선택된 메뉴의 금액이 높으면 부족한 금액을 표시한다.
+
+		반환구에 동일한 음료가 반환 되거나 다른 음료가 반환 되었을 때 어떻게 구현 되어야 할지 고민해보기
+		dataset 찾아보기
+		for문에 대해알아보기
+		node에 대해 알아보기
+		addEventListener 에 대한 문서 확인
+		*/
+		const inputPrice = document.getElementById('input_price');
+		const viewPrice = document.getElementById('view_price');
+		const returnPrice = document.getElementById('price_return');
+		const buttons = document.querySelectorAll('.menu button');
+		const output = document.querySelector('#output');
+
+		/* 이벤트 할당 */
+		inputPrice.addEventListener('change', enterAmount);
+		returnPrice.addEventListener('click', enterReturn);
+
+		for(let i = 0; i < buttons.length; ++i) {
+			buttons[i].addEventListener('click', selectMenu);
+		}
+
+		/* 빈값 체크 및 string을 number로 변환 시키는 함수 */
+		function parseNumber(value) {
+		    if (!value) return 0;
+		    return parseInt(value);
+		}
+
+		/* 잔액에 새로 투입한 금액을 더하고 인풋값을 초기화 시키는 함수 */
+		function enterAmount() {
+			const oldValue = parseNumber(viewPrice.innerText);
+			viewPrice.innerText = oldValue + parseNumber(inputPrice.value);
+			inputPrice.value = '';
+		}
+
+		/* 반환 버튼을 눌럿을 때 반환 되는 로직 */
+		function enterReturn() {
+			viewPrice.innerText = '0';
+			output.innerText = '';
+		}
+
+		/* 메뉴 선택 시 계산하는 로직 */
+		function selectMenu(event) {
+			const name = event.target.innerText;
+			const pirce = parseNumber(event.target.dataset.price);
+			const calc = parseNumber(viewPrice.innerText) - parseNumber(event.target.dataset.price);
+
+			if (calc < 0) {
+				alert('돈도 없는 자식이..');
+				return;
+			}
+
+			viewPrice.innerText = calc;
+			output.innerText = name;
+		}
+
+	</script>
+</body>
+</html>
