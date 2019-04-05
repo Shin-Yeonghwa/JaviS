@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="ko">
+
+<head>
+	<meta charset="utf-8">
+	<title>가위 바위 보 게임</title>
+
+
+	<style>
+	#computer{
+		width:218px;
+		height:200px;
+		background:url(img/main04.png) 0 -66px no-repeat;
+	}
+	#user{
+		margin-top:40px;
+	}
+	</style>
+</head>
+<body>
+
+<div id="computer">
+
+</div>
+<div id="user">
+<button type="button" name="button" id="scissor" class="btn">가위</button>
+<button type="button" name="button" id="rock" class="btn">바위</button>
+<button type="button" name="button" id="paper" class="btn">보</button>
+</div>
+ <script>
+ // 이미지 객체 설정
+var left = 0;
+
+//딕셔너리?
+// 만약 인덱스로 문자를 사용하고 싶다면 객체(dictionary)
+
+var map = {
+	가위: '0',
+	바위: '-239px',
+	보: '-482px'
+}
+
+
+// 가위바위보 텍스트로 변환
+function computerSelect(left) {
+	return Object.entries(map).find(function(v) {
+		return v[1] === left;
+	})[0];
+}
+
+//0.1초마다 이미지 변경
+// 변수지정
+var interVal;
+function intervalMaker(){
+	interVal = setInterval(() => {
+		if (left === map.가위) {
+			left = map.바위;
+		} else if (left === map.바위) {
+			left = map.보;
+		} else {
+			left = map.가위;
+		}
+		document.querySelector('#computer').style.background =
+			'url(img/main04.png)' + left + ' -66px';
+
+	}, 100)
+}
+
+// intervalMaker 실행
+ intervalMaker();
+
+// 얘도 딕셔너리 객체
+var score ={
+	가위: 1,
+	바위:0,
+	보:-1,
+};
+
+// 버튼 이벤트 잡기 forEach을 이용하여 버튼을 반복문 처럼 잡기
+// 동일한 class명으로..
+document.querySelectorAll('.btn').forEach(function(btn) {
+	btn.addEventListener('click', function() {
+		console.log(this.textContent, computerSelect(left));
+
+		// 함수가 실해오디면 이미지가 멈춘다.
+		clearInterval(interVal);
+		setTimeout(function() {
+			intervalMaker()
+		}, 100);
+		// 내가 선택한 변수
+		var mySelect = this.textContent;
+		// 컴퓨터와 나의 점수 변수적용
+		var mySelectText =  score[mySelect];
+		var computerText = score[computerSelect(left)];
+		var difference = mySelectText - computerText;
+
+		// 결과 값에 대한 if문
+       if( difference === 0){
+			alert('비겼습니다.')
+	   }else if([-1, 2].includes(difference)) {
+			alert('이겼다.')
+	   }else{
+		   alert('졌다')
+	   }
+
+
+
+
+	})
+})
+
+// 규칙만들기
+// 가위:1, 바위:0, 보:-1;
+// 나/ 컴퓨터 가위  바위     보
+//     가위   1 1   1 0    1 -1
+//     바위   0 1   0 0    0 -1
+//     보    -1 1   -1 0  -1 -1
+
+</script>
+</body>
+
+</html>
