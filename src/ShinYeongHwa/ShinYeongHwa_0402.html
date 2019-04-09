@@ -15,7 +15,9 @@
 		font-family: '나눔고딕',Dotum,'돋움',Helvetica,"Apple SD Gothic Neo",sans-serif;
 		line-height:1.4;
 	}
-
+	body{
+		padding:20px;
+	}
 	ol,ul {
 		list-style: none
 	}
@@ -56,11 +58,34 @@
 		color:#00c71a;
 		font-weight:bold;
 	}
+	#inp_price{
+		border:0;
+		font-size:20px;
+		font-weight:bold;
+	}
 	</style>  
-	<script type="text/javascript">
+	
+</head>
+<body>
+	<h1>0402-TEST</h1>
+	<div>
+		<span>잔액 : </span><input type="text" value="1000" id="inp_price">
+	</div>
+	<div>
+		<button type="button" id="user1" class="_user" value="0" onclick="gameResult(this)">가위</button>
+		<button type="button" id="user2" class="_user" value="1" onclick="gameResult(this)">바위</button>
+		<button type="button" id="user3" class="_user" value="2" onclick="gameResult(this)">보</button>
+	</div>
+	<p>너는????<span id="userResult"></span></p>
+	<p>PC는????<span id="pcResult"></span></p>
+	<p id="resultText"></p>
+</body>
+
+<script type="text/javascript">
 
 	var userResult = '';
 	var pcResult = '';
+	var myMoney = Number(document.getElementById('inp_price').value);
 
 	// 주사위 게임 함수
 	function gameResult(inputValue){
@@ -82,6 +107,7 @@
 			}
 			document.getElementById('userResult').innerHTML=userResult;
 		}
+		
 		// 텍스트화 함수(PC)
 		function pcUserResult(){
 			if(pcResult === 0){
@@ -98,36 +124,45 @@
 		if(userResult === pcResult){
 			textUserResult();
 			pcUserResult();
-			document.getElementById('resultText').innerHTML='너 비겼어. 다시 시작해';
+			document.getElementById('resultText').innerHTML='비겼다';
 		// 이기거나 지는 경우
 		}else{
 			// 지는경우 
 			if(userResult + 1 === pcResult){
 				textUserResult();
 				pcUserResult();
-				document.getElementById('resultText').innerHTML='졌어';
+				document.getElementById('resultText').innerHTML='졌다';
+				myMoney -= 1000;
+				document.getElementById('inp_price').value = Number(myMoney);
 			}else if(userResult - 2 === pcResult){
 				textUserResult();
 				pcUserResult();
-				document.getElementById('resultText').innerHTML='졌어';
+				document.getElementById('resultText').innerHTML='졌다';
+				myMoney -= 1000;
+				document.getElementById('inp_price').value = Number(myMoney);
 			// 이기는 경우
 			}else{
 				textUserResult();
 				pcUserResult();
-				document.getElementById('resultText').innerHTML='이겼어';
+				document.getElementById('resultText').innerHTML='이겼다';
+				myMoney += 1000;
+				document.getElementById('inp_price').value = Number(myMoney);
+				
 			}
+		}
+		
+		
+		// 돈 오링
+		if(myMoney <= 0){
+			var endGame = document.getElementsByTagNameNS('http://www.w3.org/1999/xhtml', 'button');
+			
+	        endGame[0].setAttribute('disabled', '');
+			endGame[1].setAttribute('disabled', '');
+			endGame[2].setAttribute('disabled', '');
+
+			document.getElementById('resultText').innerHTML = '님 돈 오링';
 		}
 	};
 
-	</script>
-</head>
-<body>
-	<h1>0402-TEST</h1>
-	<button type="button" id="user1" value="0" onclick="gameResult(this)">가위</button>
-	<button type="button" id="user2" value="1" onclick="gameResult(this)">바위</button>
-	<button type="button" id="user3" value="2" onclick="gameResult(this)">보</button>
-	<p>너는????<span id="userResult"></span></p>
-	<p>PC는????<span id="pcResult"></span></p>
-	<p id="resultText"></p>
-</body>
+</script>
 </html>
