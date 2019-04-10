@@ -1,0 +1,65 @@
+<!doctype html>
+<html lang="ko">
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width,initial-scale=1.0,maximum-scale=1.0,minimum-scale=1.0,user-scalable=no,target-densitydpi=medium-dpi">
+	<title>댓글창 만들기</title>
+	<style type="text/css">
+		textarea{width:300px;height:100px;}
+		.number_info{color:#000}
+		#view{overflow-y:auto;width:500px;height:100px;border:1px solid #000;word-break:break-all}
+	</style>
+</head>
+<body>
+	<h1>댓글창 만들기</h1>
+	
+	<textarea id="textbox"></textarea>
+	<!-- [D] input_text_number가 100 넘으면 red 클래스 -->
+	<p class="number_info"><span class="text_number ">0</span> /100</p>
+	<button type="button" id="registration_button">댓글 등록</button>
+	<!-- 댓글 표시 영역-->
+	<div id="view"></div>
+
+	<script>
+		/*
+		1. textarea에 글자수 제한 0/100 디폴트는 검정 100 넘으면 빨강처리
+		2. 글자수에 길이를 하단 0 / 100 부분에 실시간으로 대입 시키기
+		3. 100보다 작을때 입력을 누르면 입력 완료 뷰표시
+		4. 100보다 클때는 얼럿창이 뜨면서 뷰표시 안됨
+		*/
+		
+		/* 전역 변수 */
+		const textBox = document.querySelector('#textbox')
+		const textView = document.querySelector('#view')
+		const textNumber = document.querySelector('.text_number')
+		const registrationButton = document.querySelector('#registration_button')
+		const registrationButton2 = document.querySelector('#registration_button2')
+
+		textBox.addEventListener('keyup', numberChange)
+		registrationButton.addEventListener('click', registrationText)
+
+		/* 글자수를 text_number에 실시간으로 대입 시키는 부분 */
+		function numberChange (){
+			/* 글자수가 100이 넘으면 red클래스가 추가되고 컬러가 레드로 변경 되는 부분 */
+			if (parseInt(textNumber.innerText) > 99){
+				textNumber.style.color = "#f00";
+			} else{
+				textNumber.style.color = "#000";
+			}
+			const textNumberValue = textBox.value.length;
+			return textNumber.innerHTML = textNumberValue;
+		}
+		
+		/* 등록 버튼 클릭 시 textarea에 작성한 글이 뿌려지는 부분 */
+		function registrationText (){
+			if (parseInt(textNumber.innerText) > 100){
+				alert('글자수를 확인하세요');
+			} else {
+				const textValue = textBox.value;
+				return textView.innerHTML = textValue;
+			}
+		}
+
+	</script>
+</body>
+</html>

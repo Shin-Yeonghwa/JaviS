@@ -1,0 +1,79 @@
+<!doctype html>
+<html lang="ko">
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width,initial-scale=1.0,maximum-scale=1.0,minimum-scale=1.0,user-scalable=no,target-densitydpi=medium-dpi">
+	<title>구구단 만들기</title>
+	<style type="text/css">
+	</style>
+</head>
+<body>
+	<h1>구구단 만들기</h1>
+	
+	<input type="number" id="input_number" value="">
+	<button type="button" id="number_button">구구단 보기</button>
+	<button type="button" id="all_number_button">전체 구구단 보기</button>
+
+	<!-- 구구단 표시 영역-->
+	<div id="view"></div>
+
+	<script>
+	 /*
+		구구단 스펙
+		1. 입력창에 원한는 단의 정수를 입력
+		2. 입력창에 입력된 string 값을 number type으로 변경하고 음수와 실수 체크해서 올바르지 않은 값은 얼럿창 띄우기
+		3. 정수가 입력되고 구구단보기 버튼을 클릭하면 for문을 이용해서 구구단 실행
+		4. 전체보기 클릭 시 2 ~ 9까지의 구구단이 모두 실행
+		5. html에 결과값 뿌려주기
+	 */
+	
+	 /* 전역변수 */
+	const numberView = document.querySelector('#view')
+	const inputNumber = document.querySelector('#input_number')
+	const buttonNumber = document.querySelector('#number_button')
+	const buttonAllNumber = document.querySelector('#all_number_button')
+
+	/* 구구단 출력 되는 로직 */
+	all_number_button.addEventListener('click', gugudanAll)
+	number_button.addEventListener('click', gugudan)
+
+	// /* string값 number type으로 변환 및 음수와 실수 체크 하는 로직 */
+	// function isnumberCheck (){
+	// 	if(!Number.isInteger(parseFloat(inputNumber.value)))
+	// 	alert('정수를 입력하시오')
+	// }
+
+	/* 전체 구구단 for문 */
+	function gugudanAll(){
+		numberView.innerHTML = '';
+		for (let x = 2; x <= 9; x++){
+			const ul = document.createElement('ul');
+			numberView.appendChild(ul);
+			for (let y = 1; y <= 9; y++){
+				const li = document.createElement('li');
+				ul.appendChild(li);
+				li.innerHTML = x + '*' + y + '=' + x * y;
+			}
+		}
+	}
+
+	/* 인풋 입력값 구구단 */
+	function gugudan() {
+		numberView.innerHTML = '';
+		parseInt(inputNumber.value)
+		if (!Number.isInteger(parseFloat(inputNumber.value))){
+			alert('정수를 입력하시오')
+		} else if (inputNumber.value){
+			const ul = document.createElement('ul');
+			numberView.appendChild(ul);
+			for (let y = 1; y <= 9; y++){
+				const li = document.createElement('li');
+				ul.appendChild(li);
+				li.innerHTML = inputNumber.value + '*' + y + '=' + inputNumber.value * y;
+			}
+		}
+	}
+
+	</script>
+</body>
+</html>
