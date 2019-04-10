@@ -10,7 +10,7 @@
 <body>
 	<h1>구구단 만들기</h1>
 	
-	<input type="number" id="input_number" value="">
+	<input type="number" min="2" max="9"  id="input_number" value="">
 	<button type="button" id="number_button">구구단 보기</button>
 	<button type="button" id="all_number_button">전체 구구단 보기</button>
 
@@ -37,12 +37,6 @@
 	all_number_button.addEventListener('click', gugudanAll)
 	number_button.addEventListener('click', gugudan)
 
-	// /* string값 number type으로 변환 및 음수와 실수 체크 하는 로직 */
-	// function isnumberCheck (){
-	// 	if(!Number.isInteger(parseFloat(inputNumber.value)))
-	// 	alert('정수를 입력하시오')
-	// }
-
 	/* 전체 구구단 for문 */
 	function gugudanAll(){
 		numberView.innerHTML = '';
@@ -60,10 +54,15 @@
 	/* 인풋 입력값 구구단 */
 	function gugudan() {
 		numberView.innerHTML = '';
-		parseInt(inputNumber.value)
-		if (!Number.isInteger(parseFloat(inputNumber.value))){
-			alert('정수를 입력하시오')
-		} else if (inputNumber.value){
+
+		/* 정수 체크 함수 호출 */
+		isnumberCheck();
+
+		/* 입력 값 유효범위 설정 함수 호출 */
+		inputNumber.value = numberRange(inputNumber.value)
+		numberRange();
+
+		if (inputNumber.value){
 			const ul = document.createElement('ul');
 			numberView.appendChild(ul);
 			for (let y = 1; y <= 9; y++){
@@ -72,6 +71,17 @@
 				li.innerHTML = inputNumber.value + '*' + y + '=' + inputNumber.value * y;
 			}
 		}
+	}
+
+	/* string값 number type으로 변환 정수 체크 하는 로직 */
+	function isnumberCheck (){
+		if(!Number.isInteger(parseFloat(inputNumber.value)))
+		alert('정수를 입력하시오')
+	}
+
+	/* 입력 값 유효범위 설정 함수 */
+	 function numberRange(value) {
+		return Math.max(Math.min(9, value), 2);
 	}
 
 	</script>
