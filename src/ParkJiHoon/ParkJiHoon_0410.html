@@ -3,81 +3,62 @@
 <head>
 	<meta charset="utf-8">
 	<meta name="viewport" content="width=device-width,initial-scale=1.0,maximum-scale=1.0,minimum-scale=1.0,user-scalable=no,target-densitydpi=medium-dpi">
-	<title>구구단 만들기</title>
+	<title>댓글창 만들기</title>
 	<style type="text/css">
+		textarea{width:300px;height:100px;}
+		.number_info{color:#000}
+		#view{overflow-y:auto;width:500px;height:100px;border:1px solid #000;word-break:break-all}
 	</style>
 </head>
 <body>
-	<h1>구구단 만들기</h1>
+	<h1>댓글창 만들기</h1>
 	
-	<input type="number" id="input_number" value="">
-	<button type="button" id="number_button">구구단 보기</button>
-	<button type="button" id="all_number_button">전체 구구단 보기</button>
-
-	<!-- 구구단 표시 영역-->
+	<textarea id="textbox"></textarea>
+	<!-- [D] input_text_number가 100 넘으면 red 클래스 -->
+	<p class="number_info"><span class="text_number ">0</span> /100</p>
+	<button type="button" id="registration_button">댓글 등록</button>
+	<!-- 댓글 표시 영역-->
 	<div id="view"></div>
 
 	<script>
-	 /*
-		구구단 스펙
-		1. 입력창에 원한는 단의 정수를 입력
-		2. 입력창에 입력된 string 값을 number type으로 변경하고 음수와 실수 체크해서 올바르지 않은 값은 얼럿창 띄우기
-		3. 2 ~ 9 까지의 정수가 입력되고 구구단보기 버튼을 클릭하면 for문을 이용해서 구구단 실행
-		4. 전체보기 클릭 시 2 ~ 9까지의 구구단이 모두 실행
-		5. html에 결과값 뿌려주기
-	 */
-	
-	 /* 전역변수 */
-	const numberView = document.querySelector('#view')
-	const inputNumber = document.querySelector('#input_number')
-	const buttonNumber = document.querySelector('#number_button')
-	const buttonAllNumber = document.querySelector('#all_number_button')
+		/*
+		1. textarea에 글자수 제한 0/100 디폴트는 검정 100 넘으면 빨강처리
+		2. 글자수에 길이를 하단 0 / 100 부분에 실시간으로 대입 시키기
+		3. 100보다 작을때 입력을 누르면 입력 완료 뷰표시
+		4. 100보다 클때는 얼럿창이 뜨면서 뷰표시 안됨
+		*/
+		
+		/* 전역 변수 */
+		const textBox = document.querySelector('#textbox')
+		const textView = document.querySelector('#view')
+		const textNumber = document.querySelector('.text_number')
+		const registrationButton = document.querySelector('#registration_button')
+		const registrationButton2 = document.querySelector('#registration_button2')
 
-	/* 구구단 출력 되는 로직 */
-	all_number_button.addEventListener('click', gugudanAll)
-	number_button.addEventListener('click', gugudan)
-	inputNumber.value = numberMath(inputNumber.value);
+		textBox.addEventListener('keyup', numberChange)
+		registrationButton.addEventListener('click', registrationText)
 
-	/* 입력값 최소 최대 제어하는 로직 */
-	function numberMath(value) {
-		return Math.max(Math.min(9, value), 2);
-	}
-
-	/* string값 number type으로 변환 및 음수와 실수 체크 하는 로직 */
-	function isnumberCheck (){
-		if(!Number.isInteger(parseFloat(inputNumber.value)))
-		alert('정수를 입력하시오')
-	}
-
-	/* 전체 구구단 for문 */
-	function gugudanAll(){
-		numberView.innerHTML = '';
-		for (let x = 2; x <= 9; x++){
-			const ul = document.createElement('ul');
-			numberView.appendChild(ul);
-			for (let y = 1; y <= 9; y++){
-				const li = document.createElement('li');
-				ul.appendChild(li);
-				li.innerHTML = x + '*' + y + '=' + x * y;
+		/* 글자수를 text_number에 실시간으로 대입 시키는 부분 */
+		function numberChange (){
+			/* 글자수가 100이 넘으면 red클래스가 추가되고 컬러가 레드로 변경 되는 부분 */
+			if (parseInt(textNumber.innerText) > 99){
+				textNumber.style.color = "#f00";
+			} else{
+				textNumber.style.color = "#000";
+			}
+			const textNumberValue = textBox.value.length;
+			return textNumber.innerHTML = textNumberValue;
+		}
+		
+		/* 등록 버튼 클릭 시 textarea에 작성한 글이 뿌려지는 부분 */
+		function registrationText (){
+			if (parseInt(textNumber.innerText) > 100){
+				alert('글자수를 확인하세요');
+			} else {
+				const textValue = textBox.value;
+				return textView.innerHTML = textValue;
 			}
 		}
-	}
-
-	/* 인풋 입력값 구구단 */
-	function gugudan() {
-		numberView.innerHTML = '';
-		parseInt(inputNumber.value)
-		if (inputNumber.value){
-			console.log('asdfasdf')
-			const ul = document.createElement('ul');
-			numberView.appendChild(ul);
-			for (let y = 1; y <= 9; y++){
-				const li = document.createElement('li');
-				ul.appendChild(li);
-				li.innerHTML = inputNumber.value + '*' + y + '=' + inputNumber.value * y;
-			}
-		}
-	}
 
 	</script>
 </body>
