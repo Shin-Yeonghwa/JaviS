@@ -62,13 +62,13 @@
 		inputNumber.value = numberRange(inputNumber.value)
 		numberRange();
 
-		if (numberValue){
+		if (inputNumber.value){
 			const ul = document.createElement('ul');
 			numberView.appendChild(ul);
 			for (let y = 1; y <= 9; y++){
 				const li = document.createElement('li');
 				ul.appendChild(li);
-				li.innerHTML = numberValue + '*' + y + '=' + numberValue * y;
+				li.innerHTML = inputNumber.value + '*' + y + '=' + inputNumber.value * y;
 			}
 		}
 	}
