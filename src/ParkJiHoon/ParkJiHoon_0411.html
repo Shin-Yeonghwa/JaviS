@@ -1,0 +1,40 @@
+<!doctype html>
+<html lang="ko">
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width,initial-scale=1.0,maximum-scale=1.0,minimum-scale=1.0,user-scalable=no,target-densitydpi=medium-dpi">
+	<title>키보드로 숫자 제어하기</title>
+	<style type="text/css">
+	</style>
+</head>
+<body>
+	<h1>키보드로 숫자 제어하기</h1>
+	
+	<input type="text" id="input_number">
+
+	<script>
+		/* 
+		1. 숫자를 입력 후에 Focus를 넣은 상태로 화살표를 입력 하면 화살표의 규칙데로 숫자가 증감함.
+		2. 문자를 입력 후에 Focus를 넣은 상태로 화살표를 입력하면 에러 얼럿이 뜸
+		3. 수식을 넣은 상태로 화살표를 입력 하면 수식의 결과에 화살표의 규칙데로 숫자가 증감함.
+		4. 위 +1 / 아래 -1 / 왼쪽 +10 / 오른쪽 -10 증감 규칙
+		*/
+
+		/* 전역 변수 */
+		const inputNumber = document.querySelector('#input_number')
+
+		inputNumber.addEventListener('keyup', expressionLogic)
+
+		/*  */
+		function expressionLogic (event){
+			if (event.keycode == 37){
+				console.log('adfads')
+				inputNumber.value + 10;
+			}
+		}
+
+	</script>
+</body>
+</html>
+
+
