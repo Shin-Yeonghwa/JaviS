@@ -87,16 +87,11 @@
 		// }
 
 		for(var m = 0; m < mergeItems.length; m++) {
-			// mergeItems[m].onclick = function() {
-			// 	this.innerHTML = "select";
-			// }
+			mergeItems[m].onclick = function(e) {
+                console.log(e.target.cellIndex);
+			 	this.innerHTML = "select";
 
-			var selectItem = function() {
-				mergeItems[m].onclick
-			}
-
-			var target  = mergeItems[m].onclick;
-			target.innerHTML = "select"
+			};
 		}
     }
 
