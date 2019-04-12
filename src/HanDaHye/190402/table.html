@@ -6,14 +6,14 @@
 	<meta http-equiv="x-ua-compatible" content="IE=edge">
     <title>table</title>
     <style type="text/css">
-        td { 
+        td {
             width: 100px;
             height: 100px;
             border: 1px solid #efefef;
             text-align: center;
         }
        </style>
- 
+
 </head>
 <body>
     <div class="wrap">
@@ -26,66 +26,88 @@
                 <label for="col">행</label>
                 <input type="text" id="col" name="table" >
             </div>
-            <button type="button"  onclick="addTable()">테이블 생성</button>
-            <button type="button"  onclick="resetTable()">테이블 리셋</button>
+            <button type="button" id="btnTable">테이블 생성</button>
+            <button type="button" id="btnReset">테이블 리셋</button>
+			<button type="button" id="btnMerge">테이블 병합</button>
         </form>
-        
-        
+
+		<div id="tableBox"></div>
     </div>
 <script>
-    function addTable() {
+	//테이블 생성
+	var btnTable = document.getElementById('btnTable');
+	btnTable.addEventListener('click', addTable, false);
 
-        // 테이블 생성 값 받기
-        var colValue= document.getElementById('col').value;
-        var rowValue = document.getElementById('row').value;
+    function addTable(e) {
 
-        console.log(colValue);
-        console.log(typeof(colValue));
+		// 테이블 생성 값 받기
+		var colValue= document.getElementById('col').value;
+		var rowValue = document.getElementById('row').value;
 
-        // col, row값을 숫자로 변환
-        var colCount = parseInt(colValue);
-        var rowCount = parseInt(rowValue);
-        console.log(colCount);
-        console.log(typeof(colCount));
+		console.log(colValue);
+		console.log(typeof(colValue));
+
+		// col, row값을 숫자로 변환
+		var colCount = parseInt(colValue);
+		var rowCount = parseInt(rowValue);
+		console.log(colCount);
+		console.log(typeof(colCount));
 
 
-        // table 생성
-        var targetTable = document.createElement('table');
-        targetTable.id = 'tableForm';
-        // var objectTr = document.createElement('tr');
-        // var objectTd = document.createElement('td');
+		// table 생성
+		var targetTable = document.createElement('table');
+		targetTable.id = 'tableForm';
 
-        var makeTable = document.body.appendChild(targetTable);
+		var makeTable = document.getElementById('tableBox').appendChild(targetTable);
+		var count = 0;
 
-        var count = 0;
+		// 값 만큼 tr, td 생성하기
+		for(var i = 0; i < colCount; i++) {
+			var objectTr = document.createElement('tr');
 
-        // 값 만큼 tr, td 생성하기
-        for(var i = 0; i < colCount; i++) {
-            var objectTr = document.createElement('tr');
+			for (var c = 0; c < rowCount; c++) {
+				var objectTd = document.createElement('td');
 
-            for (var c = 0; c < rowCount; c++) {
-                var objectTd = document.createElement('td');
+				objectTr.appendChild(objectTd);
+				objectTd.classList.add('item');
+				count++;
+			}
 
-                objectTr.appendChild(objectTd);
-                objectTd.innerHTML = 'cell';
-                count++;
-            }
+			makeTable.appendChild(objectTr);
+		}
 
-            makeTable.appendChild(objectTr);
-        }
 
+		// 테이블 병합
+		var mergeItems = new Array;
+	    mergeItems = document.getElementsByClassName('item');
+		console.log(mergeItems);
+
+		// mergeItems[1].onclick = function() {
+		// 	this.innerHTML = "select";
+		// }
+
+		for(var m = 0; m < mergeItems.length; m++) {
+			mergeItems[m].onclick = function(e) {
+                console.log(e.target.cellIndex);
+			 	this.innerHTML = "select";
+
+			};
+		}
     }
 
-    function resetTable() {
+
+	// 테이블 리셋
+	var btnReset = document.getElementById('btnReset');
+	btnReset.addEventListener('click', resetTable, false);
+
+    function resetTable(f) {
         document.getElementById('form').reset();
         document.getElementById('tableForm').remove();
-        
     }
-  
-    
 
-    
-    
+
+
+
 </script>
 </body>
 </html>
