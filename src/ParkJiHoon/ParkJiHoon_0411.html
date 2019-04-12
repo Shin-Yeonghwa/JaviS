@@ -10,7 +10,7 @@
 <body>
 	<h1>키보드로 숫자 제어하기</h1>
 	
-	<input type="text" id="input_number">
+	<input type="text" id="input_number" >
 
 	<script>
 		/* 
@@ -23,14 +23,31 @@
 		/* 전역 변수 */
 		const inputNumber = document.querySelector('#input_number')
 
+		/* input 영역에 keyup 타켓 이벤트 영역 */
 		inputNumber.addEventListener('keyup', expressionLogic)
 
 		/*  */
-		function expressionLogic (event){
-			if (event.keycode == 37){
-				console.log('adfads')
+
+
+		/* 키코드 값으로 계산되는 로직 */
+		function expressionLogic (evt){
+			const keyCode = evt.which?evt.which:event.keyCode;
+			if (keyCode == 37){
+				console.log('좌측 화살표')
 				inputNumber.value + 10;
 			}
+			if (keyCode == 38){
+				console.log('위 화살표')
+				inputNumber.value + 1;
+			}
+			if (keyCode == 39){
+				console.log('오른쪽 화살표')
+				inputNumber.value - 10;
+			}
+			if (keyCode == 40){
+				console.log('아래 화살표')
+				inputNumber.value - 1;
+			}		
 		}
 
 	</script>
