@@ -24,29 +24,55 @@
 
 		/* input 영역에 keyup 타켓 이벤트 영역 */
 		inputNumber.addEventListener('keyup', expressionLogic)
+		inputNumber.addEventListener('change', isCalculation)
 
 		/* 키코드 값으로 계산되는 로직 */
 		function expressionLogic (evt){
 			const keyCode = evt.which?evt.which:event.keyCode;
-			if (keyCode == 37){
+			if (!inputNumber.value){
+				if (keyCode == 37 || keyCode == 38 || keyCode == 39 || keyCode == 40){
+					alert('숫자를 입력하세요.');
+					return;
+				}
+			} else if (keyCode == 37){
 				console.log('왼쪽 화살표')
 				inputNumber.value = parseInt(inputNumber.value) + 10;
-			}
-			if (keyCode == 38){
+			} else if (keyCode == 38){
 				console.log('위 화살표')
 				inputNumber.value = parseInt(inputNumber.value) + 1;
-			}
-			if (keyCode == 39){
+			} else if (keyCode == 39){
 				console.log('오른쪽 화살표')
 				inputNumber.value = parseInt(inputNumber.value) - 10;
-			}
-			if (keyCode == 40){
+			} else if (keyCode == 40){
 				console.log('아래 화살표')
 				inputNumber.value = parseInt(inputNumber.value) - 1;
 			}		
 		}
 
-	</script> -->
+		/* 빈값 체크 함수 */
+		function isCalculation (){
+			if (inputNumber.value.includes('+')){
+				const number = inputNumber.value.split('+')
+				inputNumber.value = parseInt(number[0]) + parseInt(number[1])
+			}
+			if (inputNumber.value.includes('-')){
+				const number = inputNumber.value.split('-')
+				inputNumber.value = parseInt(number[0]) - parseInt(number[1])
+			}
+			if (inputNumber.value.includes('*')){
+				const number = inputNumber.value.split('*')
+				inputNumber.value = parseInt(number[0]) * parseInt(number[1])
+			}
+			if (inputNumber.value.includes('%')){
+				const number = inputNumber.value.split('%')
+				inputNumber.value = parseInt(number[0]) % parseInt(number[1])
+			}
+		}
+
+		/* 빈값일 때 방향키 버튼 누르면 얼럿창 뜨는 로직*/
+
+
+	</script>
 
 </body>
 </html>
