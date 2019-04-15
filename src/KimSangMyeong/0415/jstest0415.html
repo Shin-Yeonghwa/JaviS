@@ -1,0 +1,47 @@
+<!doctype html>
+<html>
+<head>
+<title>JavaScript Calendar</title>
+<style type="text/css">
+    td { font-family: Verdana, sans-serif; font-size: 9pt; text-align: center; }
+    td.month { background-color: lightskyblue; border:1px solid #666; }
+    td.daytop { width: 18px; background-color: lemonchiffon; border:1px solid #666; }
+    td.weekday { color: blue; background-color:#fff; border:1px solid #666; }
+    td.holiday { color: red; background-color: linen; border:1px solid #666; }
+    span.arrow1 { font-family: Gulim, sans-serif; color: dodgerblue; cursor: pointer; }
+    span.arrow2 { font-family: Gulim, sans-serif; color: blue; cursor: pointer; }
+    span.arrow3 { font-family: Gulim, sans-serif; color: mediumblue; cursor: pointer; }
+</style>
+<script language="JavaScript">
+    function showYear(y) {
+        var text = '<table>\n<tr><td colspan="4">';
+        text += '<span class="arrow3" onclick="showYear('+(y-100)+')"> -100 </span>';
+        text += '<span class="arrow2" onclick="showYear('+(y-10)+')"> -10 </span>';
+        text += '<span class="arrow1" onclick="showYear('+(y-1)+')"> -1 </span>';
+        text += '&nbsp;' + y + '&nbsp;';
+        text += '<span class="arrow1" onclick="showYear('+(y+1)+')"> +1 </span>';
+        text += '<span class="arrow2" onclick="showYear('+(y+10)+')"> +10 </span>';
+        text += '<span class="arrow3" onclick="showYear('+(y+100)+')"> +100 </span>';
+        text += '</td>';
+
+        var d1, d2 = y+(y-1-(y-1)%4)/4-(y-1-(y-1)%100)/100+(y-1-(y-1)%400)/400;
+        for (m = 1; m < 13; m++) {
+            d1 = d2%7;
+            d2 = d1+(m*9-m*9%8)/8%2+(m==2?y%4||y%100==0&&y%400?28:29:30);
+            if (m%4 == 1) text += '</tr>\n<tr>';
+            text += '<td><table>\n<tr><td class="month" colspan="7">' + m;
+            for (i = 0; i < 42; i++) {
+                if (i%7==0) text += '</tr>\n<tr>';
+                if (i < d1 || i >= d2) text += '<td>&nbsp;</td>';
+                else text += '<td class="'+(i%7?'week':'holi')+'day">'+(i+1-d1)+'</td>';
+            }
+            text += '</tr>\n</table></td>';
+        }
+        document.getElementById('calendarDiv').innerHTML = text + '</tr>\n</table>';
+    }
+</script>
+</head>
+<body onload="showYear(2019)">
+<div id="calendarDiv"></div>
+</body>
+</html>
