@@ -49,28 +49,31 @@
 			}		
 		}
 
-		/* 빈값 체크 함수 */
+		/* 수식 적용 함수 */
 		function isCalculation (){
-			if (inputNumber.value.includes('+')){
-				const number = inputNumber.value.split('+')
+			const calArray = ['+', '-', '*', '%'];
+
+			function isInclude (value){
+				return inputNumber.value.includes(value)
+			}
+
+			if (isInclude(calArray[0])){
+				const number = inputNumber.value.split(calArray[0])
 				inputNumber.value = parseInt(number[0]) + parseInt(number[1])
 			}
-			if (inputNumber.value.includes('-')){
-				const number = inputNumber.value.split('-')
+			if (isInclude(calArray[1])){
+				const number = inputNumber.value.split(calArray[1])
 				inputNumber.value = parseInt(number[0]) - parseInt(number[1])
 			}
-			if (inputNumber.value.includes('*')){
-				const number = inputNumber.value.split('*')
+			if (isInclude(calArray[2])){
+				const number = inputNumber.value.split(calArray[2])
 				inputNumber.value = parseInt(number[0]) * parseInt(number[1])
 			}
-			if (inputNumber.value.includes('%')){
-				const number = inputNumber.value.split('%')
+			if (isInclude(calArray[3])){
+				const number = inputNumber.value.split(calArray[3])
 				inputNumber.value = parseInt(number[0]) % parseInt(number[1])
 			}
 		}
-
-		/* 빈값일 때 방향키 버튼 누르면 얼럿창 뜨는 로직*/
-
 
 	</script>
 
