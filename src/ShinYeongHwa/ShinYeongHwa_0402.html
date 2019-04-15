@@ -63,6 +63,12 @@
 		font-size:20px;
 		font-weight:bold;
 	}
+
+	.section_img{
+		text-align:center;
+		padding:20px;
+	}
+
 	</style>  
 	
 </head>
@@ -70,6 +76,9 @@
 	<h1>0402-TEST</h1>
 	<div>
 		<span>잔액 : </span><input type="text" value="1000" id="inp_price">
+	</div>
+	<div class="section_img">
+		<img id="_ImgChange" src="im/img_scissors.png">
 	</div>
 	<div>
 		<button type="button" id="user1" class="_user" value="0" onclick="gameResult(this)">가위</button>
@@ -82,7 +91,40 @@
 </body>
 
 <script type="text/javascript">
+	
+	
+	
+	
+	
+	// scr url 배열 지정
+	var Imgs = new Array();
+		Imgs[0] = 'im/img_scissors.png';
+		Imgs[1] = 'im/img_rock.png';
+		Imgs[2] = 'im/img_paper.png';
+		
 
+	// 가위바위보 이미지 애니메이션 함수
+	function imgTranslate(){
+		for (var i in Imgs){
+			var x = Imgs[i];
+			(function(x){
+				 setTimeout(function(){
+		   			document.getElementById('_ImgChange').src = x;
+					console.log(x);
+				},2000);
+			})(x);
+		};
+	};
+	
+	imgTranslate();
+	
+	
+	
+	
+	
+	
+	
+	
 	var userResult = '';
 	var pcResult = '';
 	var myMoney = Number(document.getElementById('inp_price').value);
@@ -125,6 +167,7 @@
 			textUserResult();
 			pcUserResult();
 			document.getElementById('resultText').innerHTML='비겼다';
+			
 		// 이기거나 지는 경우
 		}else{
 			// 지는경우 
@@ -151,10 +194,9 @@
 			}
 		}
 		
-		
 		// 돈 오링
 		if(myMoney <= 0){
-			var endGame = document.getElementsByTagNameNS('http://www.w3.org/1999/xhtml', 'button');
+			var endGame = document.getElementsByTagName('button');
 			
 	        endGame[0].setAttribute('disabled', '');
 			endGame[1].setAttribute('disabled', '');
