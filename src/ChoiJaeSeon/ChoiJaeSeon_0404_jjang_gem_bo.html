@@ -42,6 +42,7 @@ var map = {
 
 
 // 가위바위보 텍스트로 변환
+//entriessms object에 직접있는 enumerable 속성 [key, value] 쌍에 해당하는 배열을 반환한다.
 function computerSelect(left) {
 	return Object.entries(map).find(function(v) {
 		return v[1] === left;
