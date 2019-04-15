@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang="ko">
+
+<head>
+    <meta charset="utf-8">
+    <title>테이블실습</title>
+    <style>
+        table {
+            border-collapse: collapse;
+            border-spacing: 0;
+        }
+
+        th,
+        td {
+            border: 1px solid #424242;
+            text-align: center;
+            padding: 0 12px;
+            width: 70px;
+        }
+
+        caption {
+            overflow: hidden !important;
+            position: absolute !important;
+            clip: rect(0 0 0 0) !important;
+            width: 1px !important;
+            height: 1px !important;
+            margin: -1px !important
+        }
+
+        .horizon_scroll {
+            position: relative;
+        }
+
+        .table_left {
+            position: absolute;
+            top: 0;
+            left: 0;
+        }
+
+        .table_right {
+            position: relative;
+            margin-left: 95px;
+            overflow: hidden;
+            overflow-x: auto;
+            white-space: nowrap;
+        }
+
+        .table_right table {
+            float: left;
+            table-layout: fixed;
+            height: 100%;
+        }
+
+        .mouse_hover {
+            background: green;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="horizon_scroll">
+        <div class="table_left">
+            <table>
+                <colgroup>
+                    <col width="70px" />
+                </colgroup>
+                <thead>
+                    <tr>
+                        <th>구분</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <th>항목1</th>
+                    </tr>
+                    <tr>
+                        <th>항목2</th>
+                    </tr>
+                    <tr>
+                        <th>항목3</th>
+                    </tr>
+                    <tr>
+                        <th>항목4</th>
+                    </tr>
+                    <tr>
+                        <th>항목5</th>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        <div class="table_right">
+            <table>
+                <colgroup>
+                    <col width="70px" />
+                    <col width="70px" />
+                    <col width="70px" />
+                    <col width="70px" />
+                    <col width="70px" />
+                </colgroup>
+                <thead>
+                    <tr>
+                        <th>제목1</th>
+                        <th>제목2</th>
+                        <th>제목3</th>
+                        <th>제목4</th>
+                        <th>제목5</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>내용01</td>
+                        <td>내용02</td>
+                        <td>내용03</td>
+                        <td>내용04</td>
+                        <td>내용05</td>
+                    </tr>
+                    <tr>
+                        <td>내용06</td>
+                        <td>내용07</td>
+                        <td>내용08</td>
+                        <td>내용09</td>
+                        <td>내용10</td>
+                    </tr>
+                    <tr>
+                        <td>내용11</td>
+                        <td>내용12</td>
+                        <td>내용13</td>
+                        <td>내용14</td>
+                        <td>내용15</td>
+                    </tr>
+                    <tr>
+                        <td>내용16</td>
+                        <td>내용17</td>
+                        <td>내용18</td>
+                        <td>내용19</td>
+                        <td>내용20</td>
+                    </tr>
+                    <tr>
+                        <td>내용21</td>
+                        <td>내용22</td>
+                        <td>내용23</td>
+                        <td>내용24</td>
+                        <td>내용25</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <script type="text/javascript">
+        document.querySelector(".table_left table tbody tr").addEventListener("mouseover", mouseOver);
+        document.querySelector(".table_left table tbody tr").addEventListener("mouseout", mouseOut);
+
+        function mouseOver() {
+            var childNum = document.querySelector(".table_left table tbody tr");
+
+            for (i = 0; i < childNum.length; ++i) {
+                childNum[i].addEventListener('mouseover', function(e) {
+                    console.log("sdsd");
+                });
+                document.querySelector(".table_left table tbody tr").classList.add('mouse_hover')
+            }
+        };
+
+        function mouseOut() {
+            document.querySelector(".table_left table tbody tr").classList.remove('mouse_hover')
+        };
+    </script>
+
+
+</body>
+
+</html>
