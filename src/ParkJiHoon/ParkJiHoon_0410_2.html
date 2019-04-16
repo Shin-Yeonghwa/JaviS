@@ -18,72 +18,86 @@
 	<div id="view"></div>
 
 	<script>
-	 /*
-		구구단 스펙
-		1. 입력창에 원한는 단의 정수를 입력
-		2. 입력창에 입력된 string 값을 number type으로 변경하고 음수와 실수 체크해서 올바르지 않은 값은 얼럿창 띄우기
-		3. 정수가 입력되고 구구단보기 버튼을 클릭하면 for문을 이용해서 구구단 실행
-		4. 전체보기 클릭 시 2 ~ 9까지의 구구단이 모두 실행
-		5. html에 결과값 뿌려주기
-	 */
-	
-	 /* 전역변수 */
-	const numberView = document.querySelector('#view')
-	const inputNumber = document.querySelector('#input_number')
-	const buttonNumber = document.querySelector('#number_button')
-	const buttonAllNumber = document.querySelector('#all_number_button')
-
-	/* 구구단 출력 되는 로직 */
-	all_number_button.addEventListener('click', gugudanAll)
-	number_button.addEventListener('click', gugudan)
-
-	/* 전체 구구단 for문 */
-	function gugudanAll(){
-		numberView.innerHTML = '';
-		for (let x = 2; x <= 9; x++){
-			const ul = document.createElement('ul');
-			numberView.appendChild(ul);
-			for (let y = 1; y <= 9; y++){
-				const li = document.createElement('li');
-				ul.appendChild(li);
-				li.innerHTML = x + '*' + y + '=' + x * y;
-			}
-		}
-	}
-
-	/* 인풋 입력값 구구단 */
-	function gugudan() {
-		numberView.innerHTML = '';
-
-		/* 정수 체크 함수 호출 */
-		isnumberCheck();
-
-		/* 입력 값 유효범위 설정 함수 호출 */
-		inputNumber.value = numberRange(inputNumber.value)
-		numberRange();
-
-		if (inputNumber.value){
-			const ul = document.createElement('ul');
-			numberView.appendChild(ul);
-			for (let y = 1; y <= 9; y++){
-				const li = document.createElement('li');
-				ul.appendChild(li);
-				li.innerHTML = inputNumber.value + '*' + y + '=' + inputNumber.value * y;
-			}
-		}
-	}
-
-	/* string값 number type으로 변환 정수 체크 하는 로직 */
-	function isnumberCheck (){
-		if(!Number.isInteger(parseFloat(inputNumber.value)))
-		alert('정수를 입력하시오')
-	}
-
-	/* 입력 값 유효범위 설정 함수 */
-	 function numberRange(value) {
-		return Math.max(Math.min(9, value), 2);
-	}
-
-	</script>
+		/*
+		   구구단 스펙
+		   1. 입력창에 원한는 단의 정수를 입력
+		   2. 입력창에 입력된 string 값을 number type으로 변경하고 음수와 실수 체크해서 올바르지 않은 값은 얼럿창 띄우기
+		   3. 정수가 입력되고 구구단보기 버튼을 클릭하면 for문을 이용해서 구구단 실행
+		   4. 전체보기 클릭 시 2 ~ 9까지의 구구단이 모두 실행
+		   5. html에 결과값 뿌려주기
+		*/
+	   
+		/* 전역변수 */
+	   const numberView = document.querySelector('#view')
+	   const inputNumber = document.querySelector('#input_number')
+	   const buttonNumber = document.querySelector('#number_button')
+	   const buttonAllNumber = document.querySelector('#all_number_button')
+	   /* 구구단 출력 되는 로직 */
+	   all_number_button.addEventListener('click', function() { setGugudan(true)})
+	   number_button.addEventListener('click', function() { setGugudan()})
+	   function setGugudan(isShowAll = false) {
+		   const numberList = (isShowAll) ? [2, 3, 4, 5, 6, 7, 8, 9] : [parseInt(inputNumber.value)];
+		   
+		   clearView();
+		   numberList.forEach( function(number) {
+			   calculateTo(number);
+		   });
+	   }
+	   function calculateTo(number) {
+		   const ul = document.createElement('ul');
+		   numberView.appendChild(ul);
+		   for (let y = 1; y <= 9; y++){
+			   const li = document.createElement('li');
+			   ul.appendChild(li);
+			   li.innerHTML = number + '*' + y + '=' + number * y;
+		   }
+	   }
+	//    /* 전체 구구단 for문 */
+	//    function calculateTheWhole(){
+	// 	   clearView();
+		   
+	// 	   for (let x = 2; x <= 9; x++){
+	// 		   const ul = document.createElement('ul');
+	// 		   numberView.appendChild(ul);
+	// 		   for (let y = 1; y <= 9; y++){
+	// 			   const li = document.createElement('li');
+	// 			   ul.appendChild(li);
+	// 			   li.innerHTML = x + '*' + y + '=' + x * y;
+	// 		   }
+	// 	   }
+	//    }
+	//    /* 인풋 입력값 구구단 */
+	//    function gugudan() {
+	// 	   clearView();
+	// 	   /* 정수 체크 함수 호출 */
+	// 	   isnumberCheck();
+	// 	   /* 입력 값 유효범위 설정 함수 호출 */
+	// 	   inputNumber.value = numberRange(inputNumber.value)
+	// 	   numberRange();
+	// 	   if (inputNumber.value){
+	// 		   const ul = document.createElement('ul');
+	// 		   numberView.appendChild(ul);
+	// 		   for (let y = 1; y <= 9; y++){
+	// 			   const li = document.createElement('li');
+	// 			   ul.appendChild(li);
+	// 			   li.innerHTML = inputNumber.value + '*' + y + '=' + inputNumber.value * y;
+	// 		   }
+	// 	   }
+	//    }
+	//    /* 값을 초기화 함수 */
+	//    function clearView() {
+	// 	   numberView.innerHTML = '';
+	// 	   inputNumber.value = '';
+	//    }
+	//    /* string값 number type으로 변환 정수 체크 하는 로직 */
+	//    function isnumberCheck (){
+	// 	   if(!Number.isInteger(parseFloat(inputNumber.value)))
+	// 	   alert('정수를 입력하시오')
+	//    }
+	//    /* 입력 값 유효범위 설정 함수 */
+	// 	function numberRange(value) {
+	// 	   return Math.max(Math.min(9, value), 2);
+	//    }
+	   </script>
 </body>
 </html>
