@@ -1,0 +1,227 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+</head>
+<script type="text/javascript">
+/*
+ 다음 배열의 값 중 최소 값, 최대값, 평균값을 출력하는 함수를 만드시오
+ Var arr = [10,40,30,70,100,90];
+ MinMaxAvg(arr) -> 최소값 : 10, 최대값 : 100, 평균값 : 56.6666…
+ */
+
+ var arr = [10,40,30,70,100,90];
+ function MinMaxAvg(arr) {
+	 if(arr.length > 0) {
+		 var maxTemp = arr[0];
+		 var minTemp = arr[0];
+		 var sum = arr[0];
+
+		 for(var i=1; i<arr.length; i++) {
+			 if(maxTemp < arr[i]) {
+				 maxTemp = arr[i];
+			 }
+			 if(minTemp > arr[i]) {
+				 minTemp = arr[i];
+			 }
+
+			 sum += arr[i];
+		 }
+
+		 console.log("최대 값 : " + maxTemp);
+		 console.log("최소 값 : " + minTemp);
+		 console.log("평균 : "   + (sum / arr.length));
+
+	 }
+ }
+ MinMaxAvg(arr);
+
+ /*
+다음 배열의 값 중 52에 가장 근접한 수를 구하시오.
+Var arr = [20,30,48,55,33,70,56];
+*/
+
+var arr = [20,30,48,55,33,70,56];
+const number = 52;
+var temp = 0;
+var result = 0;
+if(arr.length > 0  ) {
+
+	temp = Math.abs((52 - arr[0]));
+	result = arr[0];
+
+	for(var j=1; j<arr.length; j++) {
+		if( temp > Math.abs((52-arr[j])) ) {
+			temp  = Math.abs((52-arr[j]));
+			result = arr[j];
+		}
+	}
+	console.log("근접수 : " + result);
+}
+
+/*
+ 다음 철수, 영희, 민수의 코딩점수이다. 점수에 따른 석차 속성을 추가하라.
+ Var chulsu = {
+			“coding”:20
+		}
+		Var younghee = {
+			“coding”:50
+		}
+		Var minsu = {
+			“coding”:40
+		}
+ */
+
+ var chulsu   = {"coding" : 20,"rank":3 };
+ var younghee = {"coding" : 50,"rank":1 };
+ var minsu    = {"coding" : 40,"rank":2 };
+
+
+ var codingArr = [];
+ codingArr.push(chulsu);
+ codingArr.push(younghee);
+ codingArr.push(minsu);
+
+ codingArr.sort(function(a, b) {
+	 return  b.coding - a.coding; //양수면 바꾼다.
+ });
+
+ var count = 1;
+ for(k in codingArr) {
+	 var data = codingArr[k];
+	 data.rank = count;//동적속성추가.
+
+	 count++;
+ }
+
+ console.log("chulsu : "   , chulsu);
+ console.log("younghee : " , younghee);
+ console.log("minsu : "    , minsu);
+
+ /*
+ 다음 두개의 배열을 결합하되 각 배열의 3의 배수는 제외하고 결합하라
+Var arr1 = [1, 3, 5, 10, 20];
+Var arr2 = [2, 4, 8, 12, 16];
+Arr1 + arr2 => [1,2,4,5,8,10,16,20];
+*/
+var arr1 = [1, 3, 5, 10, 20];
+var arr2 = [2, 4, 8, 12, 16];
+var arr3 = arr1.concat(arr2);
+
+for(z in arr3) {
+	if(arr3[z] % 3 == 0 ) {
+		arr3.splice(z, 1);
+	}
+}
+
+arr3.sort(function(a, b) {
+    return a - b;//오름차순정렬.
+});
+
+console.log(arr3);
+/*
+ * 별출력
+ 다음 다이아몬드 별을 출력하라. 2중 for문 이용.
+  *
+ ***
+*****
+ ***
+  *
+ */
+
+
+var strStar = "";
+function star() {
+	var number = 5;
+	var count = Math.floor(number/2);
+
+	for(var i= -count; i<=count; i++) {
+		var k =0;
+		for(var j=0; j< number - Math.abs(i); j++) {
+			var result = k < Math.abs(i) ? " " : "*";
+			strStar += result;
+			k++;
+		}
+
+		strStar += "\n";
+	}
+
+	console.log(strStar);
+}
+star();
+
+/*
+ *
+ 다음 1부터 100까지의 숫자 중 3과 5의 배수를 제외하고 합산을 구하라. 단, 3의 배수도 되고 5의 배수도 되는
+ 숫자는 포함시킨다.
+
+ */
+
+ function sum() {
+  var sum = 0;
+  for(var i=1; i<=100; i++) {
+	  if( ( i % 3 == 0 || i % 5 == 0 ) && !(i % 15 == 0) ){
+		continue;
+	  }
+	  sum += i;
+  }
+ }
+
+sum();
+
+/*
+ 120의 약수를 출력하는 함수를 구현하시오
+ Printyaksu(120) -> 1,2,3,4,5,6, … 120
+ int cnt = 0;
+
+ for(int i = 1; i <= n; i++) {
+     if (n % i == 0) {
+         cnt++; // 약수 개수
+
+         // i 약수
+     }
+ }
+ */
+
+ var arr = [];
+ var n = 120;
+ for(var j=1; j<= n; j++) {
+	 if(n % j == 0 ){
+		 arr.push(j);
+	 }
+ }
+
+ console.log(arr.join(","));
+
+
+ /*
+ 피보나치 수열의 합 구하기
+a=1 + b=1 + c=2 + d=3 + e=5
+1 + (1 + 2) + (3 + 5) +( 8 + 13) + 21 + 43 + 64 +107 …
+20번째 항까지의 합계를 구하시오
+ */
+function fibo(n) {
+	 if( n <= 1) {
+		 return n;
+	 } else {
+		 return fibo(n-2) + fibo(n-1);//fibo(1)=1 + fibo(2)=1
+	 }
+ }
+
+ var fiboNum = 20;
+ var fiboSum = 0;
+
+ for(var i=1; i<=fiboNum; i++) {
+	 console.log(fibo(i));
+	 fiboSum += fibo(i);//1 + 1 + 2 +
+ }
+
+ console.log("fiboSum : " , fiboSum);
+
+
+</script>
+<body>
+
+</body>
+</html>

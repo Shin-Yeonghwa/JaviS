@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<title>Calendar</title>
+<script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
+<style type="text/css">
+.cal_top{
+    text-align: center;
+    font-size: 30px;
+}
+.cal{
+    text-align: center;
+}
+table.calendar{
+    border: 1px solid #000;
+    text-align: left;
+}
+table.calendar td{
+    vertical-align: top;
+    border: 1px solid #666;
+    width: 100px;
+}
+</style>
+</head>
+<body>
+    <div class="cal_top">
+        <a href="#" id="movePrevMonth"><span id="prevMonth" class="cal_tit">&lt;</span></a>
+        <span id="cal_top_year"></span>
+        <span id="cal_top_month"></span>
+        <a href="#" id="moveNextMonth"><span id="nextMonth" class="cal_tit">&gt;</span></a>
+    </div>
+    <div id="cal_tab" class="cal"></div>
+
+<script type="text/javascript">
+
+    var today = null;
+    var year = null;
+    var month = null;
+    var firstDay = null;
+    var lastDay = null;
+    var $tdDay = null;
+    var $tdSche = null;
+
+    $(document).ready(function() {
+        drawCalendar();
+        initDate();
+        drawDays();
+        $("#movePrevMonth").on("click", function(){movePrevMonth();});
+        $("#moveNextMonth").on("click", function(){moveNextMonth();});
+    });
+
+    //calendar 그리기
+    function drawCalendar(){
+        var setTableHTML = "";
+        setTableHTML+='<table class="calendar">';
+        setTableHTML+='<tr><th>SUN</th><th>MON</th><th>TUE</th><th>WED</th><th>THU</th><th>FRI</th><th>SAT</th></tr>';
+        for(var i=0;i<6;i++){
+            setTableHTML+='<tr height="100">';
+            for(var j=0;j<7;j++){
+                setTableHTML+='<td style="text-overflow:ellipsis;overflow:hidden;white-space:nowrap">';
+                setTableHTML+='    <div class="cal-day"></div>';
+                setTableHTML+='    <div class="cal-schedule"></div>';
+                setTableHTML+='</td>';
+            }
+            setTableHTML+='</tr>';
+        }
+        setTableHTML+='</table>';
+        $("#cal_tab").html(setTableHTML);
+    }
+
+    //날짜 초기화
+    function initDate(){
+        $tdDay = $("td div.cal-day")
+        $tdSche = $("td div.cal-schedule")
+        dayCount = 0;
+        today = new Date();
+        year = today.getFullYear();
+		//getMonth()는 0~11을 반환하기 때문 +1 해줌
+        month = today.getMonth()+1;
+        firstDay = new Date(year,month-1,1);
+		//day를 1부터 시작하는게 아니라 0부터 시작하기 때문에
+		//제대로 된 다음달 시작일(1일)은 못가져오고 1 전인 0, 즉 전달 마지막일 을 가져오게 된다
+        lastDay = new Date(year,month,0);
+
+    //calendar 날짜표시
+    function drawDays(){
+        $("#cal_top_year").text(year);
+        $("#cal_top_month").text(month);
+		//getday 요일을 알아내는 메소드, 반환값은 0부터 7까지이며 0은 '일요일', 1을 '월요일' 순으로 해당된다.
+        for(var i=firstDay.getDay();i<firstDay.getDay()+lastDay.getDate();i++){
+			//eq(i)선택 요소의 index번째 요소를 선택한다.
+            $tdDay.eq(i).text(++dayCount);
+        }
+        for(var i=0;i<42;i+=7){
+            $tdDay.eq(i).css("color","red");
+        }
+        for(var i=6;i<42;i+=7){
+            $tdDay.eq(i).css("color","blue");
+        }
+    }
+
+    //calendar 월 이동
+    function movePrevMonth(){
+        month--;
+        if(month<=0){
+            month=12;
+            year--;
+        }
+        if(month<10){
+            month=String("0"+month);
+        }
+        getNewInfo();
+        }
+
+    function moveNextMonth(){
+        month++;
+        if(month>12){
+            month=1;
+            year++;
+        }
+        if(month<10){
+            month=String("0"+month);
+        }
+        getNewInfo();
+    }
+
+
+    function getNewInfo(){
+        for(var i=0;i<42;i++){
+            $tdDay.eq(i).text("");
+        }
+        dayCount=0;
+        firstDay = new Date(year,month-1,1);
+        lastDay = new Date(year,month,0);
+        drawDays();
+    }
+</script>
+</body>
+</html>

@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+
+    <style type="text/css">
+        .item.on {color: red}
+        .box {display: block;width: 20px; height: 20px;}
+        .box a {display: block; width: 20px; height: 20px; background-color: red}
+        .item3[aria-selected="true"] {color: red}
+    </style>
+</head>
+<body>
+    <h2>Class ON</h2>
+    <a href="#" class="item">Class On</a>
+
+    <h2>display block</h2>
+    <div class="box">
+        <a href="#" class="item02" style="display:block"></a>
+    </div>
+
+    <h2>aria-selected</h2>
+    <a href="#" class="item3" aria-selected="false">aria-selected</a>
+
+    <ul style="position: fixed; right: 100px; bottom:100px;">
+        <li>
+            <a href="#" onclick="DIC.dic_class_on(this)">
+                <span class="tit">class_on</span>
+                <span class="item" style="overflow: hidden!important;position: absolute!important;clip: rect(0 0 0 0)!important;width: 1px!important;height: 1px!important;margin: -1px!important;">0</span>
+            </a>
+        </li>
+
+        <li>
+            <a href="#" onclick="DIC.dic_style_block(this)">
+                <span class="tit">style_block</span>
+                <span class="item02" style="overflow: hidden!important;position: absolute!important;clip: rect(0 0 0 0)!important;width: 1px!important;height: 1px!important;margin: -1px!important;">0</span>
+            </a>
+        </li>
+
+        <li>
+            <a href="#" onclick="DIC.dic_aria_selected(this)">
+                <span class="tit">aria_selected</span>
+                <span class="item3" style="overflow: hidden!important;position: absolute!important;clip: rect(0 0 0 0)!important;width: 1px!important;height: 1px!important;margin: -1px!important;">0</span>
+            </a>
+        </li>
+    </ul>
+
+    <script>
+        var  DIC = {
+            dic_class_on: function (Dic_Target) {
+                var Class_Name = Dic_Target.getElementsByTagName("span")[1].getAttribute("class");
+                var Array_Num = Dic_Target.getElementsByTagName("span")[1].innerHTML;
+
+                var Target_Tag =  document.getElementsByClassName(Class_Name)[Array_Num];
+
+                Target_Tag.classList.toggle("on");
+            },
+
+            dic_style_block: function (Dic_Target) {
+                var Class_Name = Dic_Target.getElementsByTagName("span")[1].getAttribute("class");
+                var Array_Num = Dic_Target.getElementsByTagName("span")[1].innerHTML;
+
+                var Target_Tag =  document.getElementsByClassName(Class_Name)[Array_Num];
+
+                if (Target_Tag.style.display=='none') {
+                    Target_Tag.style.display = 'block';
+                } else {
+                    Target_Tag.style.display = 'none';
+                }
+            },
+
+            dic_aria_selected: function (Dic_Target) {
+                var Class_Name = Dic_Target.getElementsByTagName("span")[1].getAttribute("class");
+                var Array_Num = Dic_Target.getElementsByTagName("span")[1].innerHTML;
+
+                var Target_Tag =  document.getElementsByClassName(Class_Name)[Array_Num];
+
+                var x = Target_Tag.getAttribute("aria-selected"); 
+                if (x == "true") 
+                {
+                    x = "false"
+                } else {
+                    x = "true"
+                }
+                Target_Tag.setAttribute("aria-selected", x);
+            }
+        };
+    </script>
+</body>
+</html>

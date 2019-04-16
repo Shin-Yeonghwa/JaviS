@@ -28,7 +28,8 @@
             </div>
             <button type="button" id="btnTable">테이블 생성</button>
             <button type="button" id="btnReset">테이블 리셋</button>
-			<button type="button" id="btnMerge">테이블 병합</button>
+			<button type="button" id="btnMergeCol">테이블 col 병합</button>
+			<button type="button" id="btnMergeRow">테이블 row 병합</button>
         </form>
 
 		<div id="tableBox"></div>
@@ -76,23 +77,68 @@
 			makeTable.appendChild(objectTr);
 		}
 
-
 		// 테이블 병합
-		var mergeItems = new Array;
-	    mergeItems = document.getElementsByClassName('item');
-		console.log(mergeItems);
+		var tdCell = [];
+		tdCell = document.getElementsByClassName('item');
+		console.log(Array.isArray(tdCell));
 
-		// mergeItems[1].onclick = function() {
-		// 	this.innerHTML = "select";
-		// }
+		// 배열 같은 객체 -> 배열로 변환		
+		var tdItems = Array.from(tdCell);
+		console.log(Array.isArray(tdItems));
+		console.log(tdItems);
 
-		for(var m = 0; m < mergeItems.length; m++) {
-			mergeItems[m].onclick = function(e) {
-                console.log(e.target.cellIndex);
-			 	this.innerHTML = "select";
-
-			};
+		// 병합할 td 선택하기	
+		var indexArray = new Array();
+		
+		for(var m = 0; m < tdItems.length; m++) {
+			
+			tdItems[m].onclick = function mclick(e) {
+				var targetIndex = tdItems.indexOf(e.target);
+				console.log(targetIndex);
+				e.target.style.backgroundColor = "red";
+				
+				indexArray.push(targetIndex);
+				console.log(indexArray);
+			}
 		}
+
+		// Col 병합 버튼 클릭
+		function mergeCol() {
+			var mergeIndex = indexArray[0];
+			var mergeLength = indexArray.length;
+			var deleteIndex = indexArray.splice(1, mergeLength-1);
+			console.log(deleteIndex);
+			
+			// 클릭한 첫번째 요소에 colspan 속성 추가
+			tdItems[mergeIndex].setAttribute('colspan',mergeLength);
+
+			// 클릭한 나머지 요소 삭제
+			for(var i = 0; i < deleteIndex.length; i++) {
+				tdItems[deleteIndex[i]].remove();
+			}	
+		}
+
+		var btnMergeCol = document.getElementById('btnMergeCol');
+		btnMergeCol.addEventListener('click', mergeCol, false);	
+
+	// Row 병합 버튼 클릭
+		function mergeRow() {
+			var mergeIndex = indexArray[0];
+			var mergeLength = indexArray.length;
+			var deleteIndex = indexArray.splice(1, mergeLength-1);
+			console.log(deleteIndex);
+			
+			// 클릭한 첫번째 요소에 colspan 속성 추가
+			tdItems[mergeIndex].setAttribute('rowspan',mergeLength);
+
+			// 클릭한 나머지 요소 삭제
+			for(var i = 0; i < deleteIndex.length; i++) {
+				tdItems[deleteIndex[i]].remove();
+			}	
+		}
+
+		var btnMergeRow = document.getElementById('btnMergeRow');
+		btnMergeRow.addEventListener('click', mergeRow, false);		
     }
 
 

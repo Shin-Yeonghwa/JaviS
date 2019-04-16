@@ -1,0 +1,272 @@
+<!DOCTYPE html>
+<html lang="ko">
+  <head>
+    <meta charset="utf-8">
+    <title>8일차</title>
+	<style>
+		* {
+			margin:0;
+			padding:0;
+			font-family:Verdana,sans-serif;
+			box-sizing:border-box;
+		}
+
+		body {color:#333;font-size:14px;}
+		#wrap {width:600px;}
+		/* table, ul */
+		table {width:100%;border:0; border-collapse:collapse;}
+		th,td {padding:8px 0;vertical-align:middle}
+		th {text-align:left;}
+		ul, li {margin:0;padding:0;list-style:none;}
+		/* input */
+		input[type=text] {display:inline-block;width:100%;height:32px;padding:0 10px;border:1px solid #ccc;font-size:14px;}
+		textarea {display:inline-block;width:100%;padding:10px;border:1px solid #ccc;font-size:14px;}
+		input[type=button],input[type=submit], button {border:0;font-size:14px;}
+		/* button */
+		.btn-wrap {margin:10px 0 0 0;text-align:right}
+		.btn {display:inline-block;padding:12px 20px;background-color:#333;color:#fff;text-align:center;line-height:1;}
+
+		.result {padding:15px;background-color:#eee;}
+		.result + .result {border-top:1px solid #ccc;}
+		.result ul {position:relative;overflow:hidden;}
+		.result li:nth-child(1),
+		.result li:nth-child(2) {float:right;color:#999;font-size:12px}
+		.result li:nth-child(1) {padding-left:8px}
+		.result li:nth-child(3) {font-weight:bold;}
+
+		fieldset {border:1px solid #ccc;padding:16px;}
+		legend {display:none}
+		.cont {overflow:hidden;height:27px;}
+		.commtIptBox {
+			display:flex;
+			display: -webkit-flex;
+			flex-wrap: wrap;
+			-webkit-flex-wrap: wrap;
+			padding-top:20px;
+		}
+		.commtBox {flex:0 0 100%;font-size:12px;padding:10px 8px 0}
+		.contTxtBox {padding:10px 0 0;}
+		#btnCommt {display:block;flex:0 0 60px;height:32px;margin-left:8px;background:#666;color:#fff;line-height:1;}
+		#btnCommtInput {flex:1}
+		#btnCommtName {flex:0 0 100px;margin-right:8px}
+		.count {display:inline-block;margin-left:8px;font-style:normal;font-weight:bold;color:blue}
+
+
+	</style>
+  </head>
+  <body>
+
+	<div id="wrap">
+		<div id="resultWrap"></div>
+
+		<fieldset>
+		<legend>board</legend>
+			<form id="frm1">
+
+				<table>
+					<caption></caption>
+					<colgroup>
+						<col style="width:100px" />
+						<col style="" />
+					</colgroup>
+					<tbody>
+						<tr>
+							<th scope="row">작성자</th>
+							<td><input type="text" id="iptName" value="" /></td>
+						</tr>
+						<tr>
+							<th scope="row">제목</th>
+							<td><input type="text" id="iptTitle" value="" /></td>
+						</tr>
+						<tr>
+							<th scope="row">내용</th>
+							<td><textarea id="iptCont" rows="5" cols="10"></textarea></td>
+						</tr>
+					</tbody>
+
+				</table>
+
+			</form>
+			<div class="btn-wrap">
+				<input type="button" id="btnRegist" class="btn" value="글쓰기">
+			</div>
+		</fieldset>
+
+
+	</div>
+
+
+
+
+    <!-- jquery cdn -->
+    <script
+    src="https://code.jquery.com/jquery-2.2.4.min.js"></script>
+
+	<script>
+
+		$("#btnRegist").on('click', function() {
+
+            //변수 지정
+			var iptName = $("#iptName").val(); //폼 작성자
+			var iptTitle = $("#iptTitle").val(); //폼 제목
+			var textArea = $("#iptCont").val(); //폼 내용
+
+            //시간 변수 지정
+			var date = new Date();
+			var year = date.getFullYear();
+			var month = date.getMonth() + 1;
+			var day = date.getDate();
+			var hour = date.getHours();
+			var min = date.getMinutes();
+			var sec = date.getSeconds();
+			var msec = date.getMilliseconds();
+			var fullDate = year + '-' + month + '-' + day + ' ' + hour + ':' + min + ':' + msec;
+
+            // 폼 입력
+			if(iptName == "") {
+				alert("이름을 입력해주세요");
+				$("#iptName").focus();
+				return;
+			} else if (iptTitle == "") {
+				alert("제목을 입력해주세요");
+			} else if (textArea == "") {
+				alert("내용을 입력해주세요");
+			} else {//글등록
+				console.log("모두 다 입력하셨습니다");
+				console.log(iptName,iptTitle,textArea );
+				console.log(iptName,iptTitle,textArea );
+
+				var wrap = document.getElementById("resultWrap");
+				var div = document.createElement("div"); //div추가
+				var ul = document.createElement("ul");//정보 리스트 ul추가
+
+				for(var i=0; i<4; i++){
+					var li = document.createElement("li");//li 추가
+					ul.appendChild(li);
+				}
+
+				wrap.prepend(div); //컨텐츠를 선택한 요소 내부의 시작 부분에서 삽입
+				div.setAttribute('class','result');
+				div.appendChild(ul);
+				var lis = document.getElementsByTagName("li");
+
+                // 텍스트 노드를 생성하는 영역
+				var txt1 = document.createTextNode(' | '+fullDate);//작성자
+				var txt2 = document.createTextNode(iptName);//날짜
+				var txt3 = document.createTextNode(iptTitle);//제목
+				var txt4 = document.createTextNode(textArea);//내용
+				var cont = document.createElement("div");
+				cont.setAttribute('class','cont');
+				var contTxtBox = document.createElement("div");
+				contTxtBox.setAttribute('class','contTxtBox');
+				var appendCommt = document.createElement("div");
+				appendCommt.setAttribute('class','commtIptBox');
+
+				var ipt = document.createElement("input");
+				var iptName = document.createElement("input");
+				ipt.setAttribute('type','text');
+				ipt.setAttribute('id','btnCommtInput');
+				ipt.setAttribute('value','');
+				iptName.setAttribute('type','text');
+				iptName.setAttribute('id','btnCommtName');
+				iptName.setAttribute('value','');
+
+
+				var ipBtn = document.createElement("button");
+				var ipBtnTxt = document.createTextNode("등록");
+				ipBtn.setAttribute('id','btnCommt');
+				ipBtn.appendChild(ipBtnTxt);
+				appendCommt.appendChild(iptName);
+				appendCommt.appendChild(ipt);
+				appendCommt.appendChild(ipBtn);
+				var count = document.createElement('em');
+				count.setAttribute('class','count');
+
+                //폼 내용 > 작성란
+				lis[0].appendChild(txt1);
+				lis[1].appendChild(txt2);
+				lis[2].appendChild(txt3);
+
+                // 댓글 카운터
+				lis[2].appendChild(count);
+                // 댓글 영역 높이
+				lis[3].appendChild(cont);
+
+				cont.appendChild(contTxtBox);
+				contTxtBox.appendChild(txt4);
+				cont.appendChild(appendCommt);
+
+				//reset
+				$("#frm1")[0].reset();
+
+			}
+
+			//본문클릭시. 제이쿼리 작동(높이 조정)
+			$(".cont").on('click', function(event) {
+
+				var contHeight = $(this).find('.contTxtBox').innerHeight() + $(this).find('.commtIptBox').innerHeight();
+
+				if(!(event.target).closest('.commtIptBox')) {
+					if($(this).height() == 27){
+						$(this).animate({
+							minHeight: contHeight + 'px',
+						});
+					}else {
+						$(this).animate({
+							minHeight: '27px'
+						});
+					}
+				}
+			});
+
+
+			var countNum = 0;
+
+			$("#btnCommt").on('click',function() {
+
+				var parentCont = $(this).closest('.cont');
+				var commtInput = parentCont.find('#btnCommtInput');
+				var commtName = parentCont.find('#btnCommtName');
+
+				var commtIptVal = commtInput.val();
+				var commtIptNmVal = commtName.val();
+
+
+				if(commtIptVal == "") {
+					alert("댓글을 입력해주세요");
+				} else if(commtIptNmVal == "") {
+					alert("이름을 입력해주세요");
+				} else {
+
+					var commtBox = document.createElement("div");
+					commtBox.setAttribute('class','commtBox');
+
+					var txt1 = document.createTextNode(commtIptVal);
+					var txt2 = document.createTextNode(commtIptNmVal);
+
+					$(this).parent('.commtIptBox').append(commtBox);
+					commtBox.append('[',txt2 ,'] ', txt1, ' | ' + fullDate);
+
+					//count
+					countNum++;
+					console.log(countNum);
+					$(this).closest('.result').find(".count").text('['+countNum+']');
+
+					var txtHeiPlus = parentCont.innerHeight() + parentCont.find('.commtBox').innerHeight();
+
+					parentCont.animate({
+						minHeight: txtHeiPlus + 'px',
+					});
+
+
+				}
+			})
+
+
+
+		});
+
+
+	</script>
+  </body>
+</html>
