@@ -5,8 +5,20 @@ var codeContent = document.querySelector('.table_code'),
     captionText = document.getElementById('captionText'),
     rowCount = document.getElementById('rowCount'),
     colCount = document.getElementById('colCount'),
+    colbox = document.querySelector('.colbox'),
+    colUnit = document.getElementsByName('colUnit'),
     allInput = document.querySelectorAll('.inpt'),
+    colWidthInput =null,
     colCurrentCheckPre = 0;
+
+var unitText = {
+    colPercent : '%',
+    colPx : 'px'
+}
+var captionText = {
+    captionShow : '<caption>',
+    captionHide : '<caption class="caption_blind">'
+}
 
 
 //모든 input값 체크, 빈값이면 alert
@@ -29,7 +41,7 @@ function OpRadioCheck(radioName){
 }
 
 //모든 input에 값이 있다는 가정하에(allInputValue() 함수 실행하기때문) input 값을 리턴한다..
-function InputCheck(input){
+function getValue(input){
     return input.value;
 }
 
@@ -55,33 +67,82 @@ function captionContent(radioValue,captionInptext){
     return text + captionInptext + '</caption>';
 }
 
-/* //caption */
 
+//colgroup html 만들기
+function colWidthContents(list,unit){
+    var text = '<colgroup>';
+
+    for(var i = 0; i < list.length; i++){
+        if(list[i].value === ''){
+            text += "<col>"
+        }else{
+            text += "<col style=width:" + list[i].value + unit +">";
+        }
+    }
+
+    return text += '</colgroup>';
+}
 
 /**
  * 행 열 (tbody) html 만들기
  * @param {string} row
  * @param {string} col
+ * @param {string} th
  * @return {String} return tr/td tag String
  */
-function tbodyContent(row, col, th){
+function tbodyContent(row, col,th){
     var text = '';
 
     for(var i = 0; i < Number(row); i++ ){
         text += '<tr>'
 
         for(var j =0; j < Number(col); j++){
-            if(th === 'thLeft' && j == 0){
-                text += '<th></th>';
-            }else if(th === 'thTop' && i === 0){
-                text += '<th></th>';
-            }else text += '<td></td>';
+            text += thPositionFun(th,i,j);
         }
         text += '</tr>'
     }
 
     return text;
 }
+
+/**
+ * th or td 선택
+ * @param {string} th
+ * @param {Number} i 번째
+ * @param {Number} j 번째
+ * @return {String} return tr/td tag String
+ */
+function thPositionFun(th,i,j){
+    var thtag='';
+
+    if((th === 'thLeft' && j == 0) || (th === 'thTop' && i === 0)){
+        thtag = '<th></th>';
+    }else thtag ='<td></td>';
+
+    return thtag;
+}
+
+//열 input 체크
+//열 input 값 만큼 input 만들기.
+function loopContents(colCount,contents){
+    var text ='';
+    for(var i =0 ; i < colCount; i++){
+        text += contents;
+    }
+
+    return text;
+}
+
+/**
+ *
+ * @param {*} inText
+ * @param {*} obj
+ */
+function changeText(inText, obj){
+    return obj[inText];
+}
+
+
 
 
 /**
@@ -90,12 +151,9 @@ function tbodyContent(row, col, th){
  * @param {string} tbodyhtml
  * @return {String} return table code String
  */
-function createTableHandler2(captionHtml,tbodyhtml){
+function createTableHandler2(captionHtml,colgrouphtml,tbodyhtml){
     return '<table>' + captionHtml + tbodyhtml + '</table>';
 }
-
-
-
 
 
 //생성 버튼 클릭 이벤트
@@ -105,8 +163,9 @@ document.querySelector('.btn_create').addEventListener("click",function(){
     //caption input에 값이 있는지 체크
     if(allInputValue(allInput)){
         tablehtmlCode = createTableHandler2(
-            captionContent(OpRadioCheck(captionRadio),InputCheck(captionText)),
-            tbodyContent(InputCheck(rowCount),InputCheck(colCount),OpRadioCheck(thRadio))
+            captionContent(OpRadioCheck(captionRadio),getValue(captionText)),
+            colWidthContents(colWidthInput),
+            tbodyContent(getValue(rowCount),getValue(colCount),OpRadioCheck(thRadio))
         );
         codeContent.innerHTML = tablehtmlCode;
         document.getElementById('htmlCode').textContent = tablehtmlCode
@@ -114,191 +173,26 @@ document.querySelector('.btn_create').addEventListener("click",function(){
 });
 
 
+//col 다르게 나누기 radio 버튼 이벤트
+document.getElementById('colsetBox').addEventListener("click",function(e){
+    event.stopPropagation();
 
-// //col width담을 input 생성
-// function colWidthHandler(){
-//     var colCurrentCheck = Number(document.getElementById('colCount').value);
+    if(e.target.nodeName == 'LABEL' || e.target.nodeName == 'INPUT'){
+        if(e.target.id !== 'colWidthSame'){
+            document.querySelector('.unit').style.display = 'block';
+        }else {
+            document.querySelector('.unit').style.display = 'none';
+        }
+    }
 
-//     if(v.colWidthOpCheck === 'colWidthDif'){
-//         if(colCurrentCheck !== 0 && (v.colBox.innerHTML == '')){
+    var unit = changeText(OpRadioCheck(colUnit),unitText);
+    colbox.innerHTML = loopContents(getValue(colCount),'<div><input type="number" min="0" class="inp_col_width">'+unit+'</div>');
+    colWidthInput = document.querySelectorAll('.inp_col_width');
+});
 
-//             var colString ='<ol class="col_list">';
-
-//             for(var i = 0; i < colCurrentCheck ;i++){
-//                 colString += '<li><input type="number" min="0" class="inp_col_width"></li>';
-//             }
-
-//             colString += '</ol>'
-
-//             v.colBox.innerHTML = colString;
-//         }else if(colCurrentCheck !== 0 && v.colBox.innerHTML !== ''){
-
-//             var count = document.querySelector('.col_list').getElementsByTagName('li');
-
-//             if(v.colCurrentCheckPre < colCurrentCheck){
-//                 var remainder = colCurrentCheck -v.colCurrentCheckPre;
-//                 for(var i = 0; i < remainder; i++){
-//                     var liNode = document.createElement("li");
-//                     liNode.innerHTML = '<input type="number" min="0" class="inp_col_width">';
-//                     document.querySelector('.col_list').appendChild(liNode);
-//                 }
-//             }else if(v.colCurrentCheckPre > colCurrentCheck){
-//                 var remainder = v.colCurrentCheckPre - colCurrentCheck;
-//                 for(var i = 0; i < remainder; i++){
-//                     document.querySelector('.col_list').removeChild(count[colCurrentCheck-1]);
-//                 }
-//             }
-
-//         }else if(colCurrentCheck == 0){
-//             alert("열 갯수 체크 좀");
-//             document.getElementById('colCount').focus();
-//         }
-//         v.colCurrentCheckPre = colCurrentCheck;
-//     }
-// }
-
-// //html 추가 코드
-// //caption html 추가
-// function captionContent(radioValue,captiontext){
-//     var text = '';
-//     captionText = captiontext;
-
-//     switch(radioValue){
-//         case 'captionShow' :
-//             text += '<caption>';
-//         break;
-//         case 'captionHide' :
-//             text += '<caption class="caption_blind">';
-//         break;
-//     }
-
-//     return text + captionText + '</caption>';
-// }
-
-// // colgorup html 추가
-// function colWidthCheck(radioValue, unit){
-//     var text ='';
-
-//     if(radioValue !== 'colWidthSame'){
-
-//         var colUnitCheck = unit == 'colPercent' ? '%' : 'px';
-
-//         var colInputCount = document.querySelector('.colbox').getElementsByTagName('input');
-//         text = '<colgroup>';
-
-//         for(var i = 0; i < colInputCount.length; i++){
-//             if(colInputCount[i].value === ''){
-//                 text += "<col>"
-//             }else{
-//                 text += '<col style="width:' + colInputCount[i].value + colUnitCheck + '">';
-//             }
-//         }
-
-//         text += '</colgroup>';
-
-//         // return v.codeHtml += colWStrig;
-//     }
-
-//     return text;
-// }
-
-// //최종 table 생성
-// function createHtml(row,col,th){
-//     var text = '';
-
-//     for(var i = 0; i < row; i++ ){
-//         text += '<tr>'
-
-//         for(var j =0; j < col; j++){
-
-//             if(th === 'thTop' && i === 0){
-//                 text += '<th></th>'
-//             }else if(th === 'thLeft' && j === 0){
-//                 text += '<th></th>'
-//             }else{
-//                 text += '<td></td>';
-//             }
-//         }
-//         text += '</tr>'
-//     }
-//     text += '</table>';
-
-
-//     return text;
-// }
-
-
-// function OptionCheck(radioName){
-//     radioName.forEach(function(item, index) {
-//         if(item.checked) return item.getAttribute('id');
-//     });
-// }
-
-// function createTableHandler2(){
-//     var codeHtml = '<table>';
-//     optionValue.captionRValue = OptionCheck(v.captionRadio);
-//     optionValue.thChecked = OptionCheck(v.thRadio);
-//     optionValue.colWidthOpCheck = OptionCheck(v.colRadio);
-//     optionValue.rowCount = document.getElementById('rowCount');
-//     optionValue.colCount = document.getElementById('colCount');
-
-//     codeHtml += captionContent(optionValue.captionRValue,document.getElementById('captionText'));
-
-//     codeHtml += colWidthCheck(optionValue.colWidthOpCheck, optionValue.colUnitOpCheck);
-
-//     codeHtml += createHtml(optionValue.rowCount,optionValue.colCount, optionValue.thChecked)
-
-//     v.codeContent.innerHTML = codeHtml;
-//     document.getElementById('htmlCode').textContent = codeHtml;
-// }
-
-
-
-// return function(){
-//     document.getElementById('colsetBox').addEventListener("click",function(e){
-//         if(e.target && e.target.nodeName == 'LABEL'){
-//             if(e.target.htmlFor !== 'colWidthSame'){
-//                 document.querySelector('.unit').style.display = 'block';
-//                 document.querySelector('.colbox').style.display = 'block';
-//             }else {
-//                 document.querySelector('.unit').style.display = 'none';
-//                 document.querySelector('.colbox').style.display = 'none';
-//             }
-
-//             colWidthChange(e.target);
-//             colWidthHandler();
-//         }
-//     }.bind(this),false);
-
-
-//     document.getElementById('captionBox').addEventListener("click",function(e){
-//         if(e.target && e.target.nodeName == 'LABEL'){
-//             captionOpCheck(e.target);
-//         }
-//     });
-
-//     document.getElementById('thPositionBox').addEventListener("click",function(e){
-//         if(e.target && e.target.nodeName == 'LABEL'){
-//             thOpCheck(e.target);
-//         }
-//     });
-
-//     document.getElementsByClassName('unit')[0].addEventListener("click",function(e){
-//         if(e.target && e.target.nodeName == 'LABEL'){
-//             colUnitChange(e.target);
-//         }
-//     });
-
-//     //bind 사용
-//     document.getElementsByClassName('btn_create')[0].addEventListener("click",function(){createTableHandler2(); document.getElementsByClassName('result_wrap')[0].className = 'result_wrap'}.bind(this),false);
-//     v.colCount.addEventListener("change",function(e){
-//         colWidthHandler()
-//     }.bind(this),false);
-//     document.getElementById('codeBtn').addEventListener("click",function(e){
-//         if(!this.parentNode.classList.contains("hide")){
-//             this.parentNode.className += ' hide';
-//         }else{
-//             this.parentNode.className = 'result_wrap';
-//         }
-//     });
-// }
+//열 input change event
+// colCount.addEventListener("change",function(e){
+//     var unit = OpRadioCheck(colUnit) == 'colPercent' ? '%' : 'px';
+//     loopContents(getValue(colCount),'<div><input type="number" min="0" class="inp_col_width">'+unit+'</div>')
+//     colWidthInput = document.querySelectorAll('.inp_col_width');
+// });
