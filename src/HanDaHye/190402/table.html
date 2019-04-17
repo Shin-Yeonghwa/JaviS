@@ -82,21 +82,21 @@
 		tdCell = document.getElementsByClassName('item');
 		console.log(Array.isArray(tdCell));
 
-		// 배열 같은 객체 -> 배열로 변환		
+		// 배열 같은 객체 -> 배열로 변환
 		var tdItems = Array.from(tdCell);
 		console.log(Array.isArray(tdItems));
 		console.log(tdItems);
 
-		// 병합할 td 선택하기	
+		// 병합할 td 선택하기
 		var indexArray = new Array();
-		
+
 		for(var m = 0; m < tdItems.length; m++) {
-			
+
 			tdItems[m].onclick = function mclick(e) {
 				var targetIndex = tdItems.indexOf(e.target);
 				console.log(targetIndex);
 				e.target.style.backgroundColor = "red";
-				
+
 				indexArray.push(targetIndex);
 				console.log(indexArray);
 			}
@@ -108,18 +108,20 @@
 			var mergeLength = indexArray.length;
 			var deleteIndex = indexArray.splice(1, mergeLength-1);
 			console.log(deleteIndex);
-			
+
 			// 클릭한 첫번째 요소에 colspan 속성 추가
 			tdItems[mergeIndex].setAttribute('colspan',mergeLength);
 
 			// 클릭한 나머지 요소 삭제
 			for(var i = 0; i < deleteIndex.length; i++) {
 				tdItems[deleteIndex[i]].remove();
-			}	
+			}
+
+			indexArray.length = 0;		
 		}
 
 		var btnMergeCol = document.getElementById('btnMergeCol');
-		btnMergeCol.addEventListener('click', mergeCol, false);	
+		btnMergeCol.addEventListener('click', mergeCol, false);
 
 	// Row 병합 버튼 클릭
 		function mergeRow() {
@@ -127,18 +129,20 @@
 			var mergeLength = indexArray.length;
 			var deleteIndex = indexArray.splice(1, mergeLength-1);
 			console.log(deleteIndex);
-			
+
 			// 클릭한 첫번째 요소에 colspan 속성 추가
 			tdItems[mergeIndex].setAttribute('rowspan',mergeLength);
 
 			// 클릭한 나머지 요소 삭제
 			for(var i = 0; i < deleteIndex.length; i++) {
 				tdItems[deleteIndex[i]].remove();
-			}	
+			}
+
+			indexArray.length = 0;
 		}
 
 		var btnMergeRow = document.getElementById('btnMergeRow');
-		btnMergeRow.addEventListener('click', mergeRow, false);		
+		btnMergeRow.addEventListener('click', mergeRow, false);
     }
 
 
