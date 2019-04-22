@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>0212 과제</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <style>
+        .result_box {
+            overflow: auto;
+            width: 300px;
+            height: 250px;
+            padding: 5px;
+            border: 2px solid #000;
+        }
+    </style>
+</head>
+<body>
+    <h1>1. 1부터 100까지의 합은?</h1>
+    <!-- <button type="button" onClick="sumNumber()">결과보기(while)</button> -->
+    <button type="button" onClick="sumNumber2()">결과보기</button>
+    <div id="sum_result" class="result_box"></div>
+    <p id="sum_result2"></p>
+
+    <h1>2. *계단 만들기</h1>
+    <button type="button" onClick="stairs()">결과보기</button>
+    <div id="stairs_result" class="result_box"></div>
+
+    <h1>3. 반복문을 이용한 구구단</h1>
+    <button type="button" onClick="gugudan()">결과보기</button>
+    <div id="gugudan_result" class="result_box"></div>
+
+    <h1>4. 성적표 배열을 생성한 다음 총점과 평균을 구하는 식</h1>
+    <button type="button" onClick="grade()">결과보기</button>
+    <div id="grade_result" class="result_box"></div>
+    <script>
+        //1부터 100까지의 합을 계산하는 식 만들기 while문 사용
+        function sumNumber() {
+            var number = 1;
+            var sum = 0;
+            while (number <= 100) {
+                document.getElementById("sum_result").innerHTML += sum + "+" + number + "=" + (sum + number) + "<br>";
+                sum = sum + number;
+                number++;
+            }
+            document.getElementById("sum_result2").innerHTML = "1부터 100까지의 합은 " + sum + "입니다.";
+        };
+
+        //1부터 100까지의 합을 계산하는 식 만들기 for문 사용
+        function sumNumber2() {
+            var sum = 0;
+            for (var i = 1; i <= 100; i++) {
+                document.getElementById("sum_result").innerHTML += sum + "+" + i + "=" + (sum + i) + "<br>";
+                sum = sum + i;
+            }
+            document.getElementById("sum_result2").innerHTML = "1부터 100까지의 합은 " + sum + "입니다.";
+        };
+
+        //계단만들기
+        function stairs() {
+            for (var i = 0; i < 10; i++) {
+                for (j = 0; j <= i; j++) {     
+                    document.getElementById("stairs_result").innerHTML += "*";
+                }
+                document.getElementById("stairs_result").innerHTML += "<br>";
+            }            
+        };       
+        
+        //구구단만들기
+        function gugudan() {
+            for (var i = 2; i <=9; i++) {
+                for (var j = 1; j <= 9; j++) {
+                    document.getElementById("gugudan_result").innerHTML += i + "x" + j + "=" + i * j + "<br>";                    
+                }                
+                document.getElementById("gugudan_result").innerHTML += "<hr>";
+            }
+        }
+
+        //성적표 배열을 생성한 다음 총점과 평균을 구하는 식        
+        function grade() {
+            //학생 성적표 객체 생성
+            var student = {name:"가나다", kor:80, math:70, english:67, society:87, science:75};
+            var student2 = {name:"라마바", kor:78, math:23, english:57, society:77, science:34};
+            var student3 = {name:"사아자", kor:77, math:67, english:49, society:66, science:98};
+            var student4 = {name:"차카타", kor:97, math:98, english:75, society:55, science:67};
+            var student5 = {name:"파하끝", kor:100, math:32, english:98, society:44, science:95};
+
+            //배열 생성 후 객체를 배열의 값으로 넣어줌
+            var grade_array = [];
+
+            grade_array.push(student);
+            grade_array.push(student2);
+            grade_array.push(student3);
+            grade_array.push(student4);
+            grade_array.push(student5);
+
+            console.log(grade_array[0].name);
+            console.log(grade_array[1].name);
+            console.log(grade_array[2].name);
+            console.log(grade_array[3].name);
+            console.log(grade_array[4].name);
+
+            //성적표 출력
+            for(var i = 0; i < grade_array.length; i++) {
+                function sum() {
+                    return grade_array[i].kor + grade_array[i].math + grade_array[i].english + grade_array[i].society + grade_array[i].science;
+                }
+
+                function average() {
+                    return sum() / 5;
+                }
+
+                document.getElementById("grade_result").innerHTML += grade_array[i].name + ", 국어: " + grade_array[i].kor + ", 수학: " + grade_array[i].math + ", 영어: " + grade_array[i].english + ", 사회: " + grade_array[i].society + ", 과학: " + grade_array[i].science + "/ 총점: " + sum() + " / 평균: " + average() + "<hr>";
+            }            
+        }
+    </script>
+</body>
+</html>
