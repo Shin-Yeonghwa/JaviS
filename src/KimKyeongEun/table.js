@@ -15,9 +15,39 @@ var unitText = {
     colPercent : '%',
     colPx : 'px'
 }
-var captionText = {
+var captionHtml = {
     captionShow : '<caption>',
     captionHide : '<caption class="caption_blind">'
+}
+
+//obj get
+function _get(obj, key){
+    return obj == null ? undefined : obj[key];
+}
+
+//input 값을 리턴한다..
+function getValue(input){
+    return input.value;
+}
+
+// 선택된 label값을 가져온다.
+function OpRadioCheck(radioName){
+    for(var i =0 ; i < radioName.length; i++){
+        if(radioName[i].checked ) return radioName[i].getAttribute('id');
+    }
+}
+
+
+//loop contents
+function loopContents(count,contents,fn){
+    var text ='';
+    var countLength = ( (typeof count === 'number') ? count : count.length);
+
+    for(var i = 0 ; i < countLength; i++){
+        text += (fn == null ? contents : (typeof count === 'number' ? fn(i) : fn(count[i])));
+    }
+
+    return text;
 }
 
 
@@ -33,85 +63,8 @@ function allInputValue(inputTag){
     return true;
 }
 
-// 선택된 label값을 가져온다.
-function OpRadioCheck(radioName){
-    for(var i =0 ; i < radioName.length; i++){
-        if(radioName[i].checked) return radioName[i].getAttribute('id');
-    }
-}
 
-//모든 input에 값이 있다는 가정하에(allInputValue() 함수 실행하기때문) input 값을 리턴한다..
-function getValue(input){
-    return input.value;
-}
-
-
-/**
- * caption html 을 만든다
- * @param {Object} radioValue
- * @param {String} captionInptext
- * @return {String} return capion tag String
- */
-function captionContent(radioValue,captionInptext){
-    var text = '';
-
-    switch(radioValue){
-        case 'captionShow' :
-            text += '<caption>';
-        break;
-        case 'captionHide' :
-            text += '<caption class="caption_blind">';
-        break;
-    }
-
-    return text + captionInptext + '</caption>';
-}
-
-
-//colgroup html 만들기
-function colWidthContents(list,unit){
-    var text = '<colgroup>';
-
-    for(var i = 0; i < list.length; i++){
-        if(list[i].value === ''){
-            text += "<col>"
-        }else{
-            text += "<col style=width:" + list[i].value + unit +">";
-        }
-    }
-
-    return text += '</colgroup>';
-}
-
-/**
- * 행 열 (tbody) html 만들기
- * @param {string} row
- * @param {string} col
- * @param {string} th
- * @return {String} return tr/td tag String
- */
-function tbodyContent(row, col,th){
-    var text = '';
-
-    for(var i = 0; i < Number(row); i++ ){
-        text += '<tr>'
-
-        for(var j =0; j < Number(col); j++){
-            text += thPositionFun(th,i,j);
-        }
-        text += '</tr>'
-    }
-
-    return text;
-}
-
-/**
- * th or td 선택
- * @param {string} th
- * @param {Number} i 번째
- * @param {Number} j 번째
- * @return {String} return tr/td tag String
- */
+//th or td 선택
 function thPositionFun(th,i,j){
     var thtag='';
 
@@ -122,37 +75,10 @@ function thPositionFun(th,i,j){
     return thtag;
 }
 
-//열 input 체크
-//열 input 값 만큼 input 만들기.
-function loopContents(colCount,contents){
-    var text ='';
-    for(var i =0 ; i < colCount; i++){
-        text += contents;
+function resetInput(input){
+    for(var i =0 ;i <input.length ; i++){
+        input[i].value = '';
     }
-
-    return text;
-}
-
-/**
- *
- * @param {*} inText
- * @param {*} obj
- */
-function changeText(inText, obj){
-    return obj[inText];
-}
-
-
-
-
-/**
- * html 합하기
- * @param {string} captionHtml
- * @param {string} tbodyhtml
- * @return {String} return table code String
- */
-function createTableHandler2(captionHtml,colgrouphtml,tbodyhtml){
-    return '<table>' + captionHtml + tbodyhtml + '</table>';
 }
 
 
@@ -162,13 +88,23 @@ document.querySelector('.btn_create').addEventListener("click",function(){
 
     //caption input에 값이 있는지 체크
     if(allInputValue(allInput)){
-        tablehtmlCode = createTableHandler2(
-            captionContent(OpRadioCheck(captionRadio),getValue(captionText)),
-            colWidthContents(colWidthInput),
-            tbodyContent(getValue(rowCount),getValue(colCount),OpRadioCheck(thRadio))
-        );
-        codeContent.innerHTML = tablehtmlCode;
-        document.getElementById('htmlCode').textContent = tablehtmlCode
+        codeContent.innerHTML = '<table>'
+        + _get(captionHtml , OpRadioCheck(captionRadio)) + getValue(captionText) + '</caption>'
+        + '<colgroup>'
+        + loopContents(colWidthInput, null , function(list){
+            return list.value == '' ? "<col>" : "<col style=width:" + list.value + _get(unitText , OpRadioCheck(colUnit)) +">";
+         })
+        + '</colgroup>'
+        + loopContents(Number(getValue(rowCount)), null , function(val){
+            var text = '<tr>';
+
+            text += loopContents(Number(getValue(colCount)), null,function(j){
+                return thPositionFun(OpRadioCheck(thRadio),val,j);
+            });
+            return text += '</tr>'
+          })
+        + '</table>';
+        // document.getElementById('htmlCode').textContent = tablehtmlCode
     }
 });
 
@@ -182,17 +118,13 @@ document.getElementById('colsetBox').addEventListener("click",function(e){
             document.querySelector('.unit').style.display = 'block';
         }else {
             document.querySelector('.unit').style.display = 'none';
+            resetInput(colWidthInput);
         }
     }
-
-    var unit = changeText(OpRadioCheck(colUnit),unitText);
-    colbox.innerHTML = loopContents(getValue(colCount),'<div><input type="number" min="0" class="inp_col_width">'+unit+'</div>');
-    colWidthInput = document.querySelectorAll('.inp_col_width');
 });
 
 //열 input change event
-// colCount.addEventListener("change",function(e){
-//     var unit = OpRadioCheck(colUnit) == 'colPercent' ? '%' : 'px';
-//     loopContents(getValue(colCount),'<div><input type="number" min="0" class="inp_col_width">'+unit+'</div>')
-//     colWidthInput = document.querySelectorAll('.inp_col_width');
-// });
+colCount.addEventListener("change",function(e){
+    colbox.innerHTML = loopContents(Number(getValue(colCount)),'<div><input type="number" min="0" class="inp_col_width"></div>',null);;
+    colWidthInput = document.querySelectorAll('.inp_col_width');
+});
