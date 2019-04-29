@@ -70,26 +70,17 @@
 		insertButton.addEventListener('click', enterPrice)
 		returnButton.addEventListener('click', returnPrice)
 
-		/* 빈값 체크 및 string -> number로 변환시켜주는 로직 */
+		/* 빈값 체크, 음수 체크 및 string -> number로 변환시켜주는 로직 */
 		function isNumberCheck (value){
-			if(!value) return 0;
+			if(!value || value < 0) return 0;
 			return parseInt(value);
 		}
 
 		/* 잔액에 새로 투입한 금액을 더하고 인풋값을 초기화 시키는 로직 */
 		function enterPrice (){
 			const oldValue = isNumberCheck(viewNumber.innerText);
-
-            /* 음수를 투입할 경우 alert 창이  뜨는 로직 */
-            if (isNumberCheck(inputNumber.value) < 0){
-				alert('양수를 투입하세요')
-				return inputNumber.value ='';
-			}
-
 			viewNumber.innerText = oldValue + isNumberCheck(inputNumber.value);
 			inputNumber.value ='';
-
-        	console.log(typeof(oldValue))
 		}
 
 		/* 반환 버튼 누르고 잔액이 0 원이 되는 로직 */
