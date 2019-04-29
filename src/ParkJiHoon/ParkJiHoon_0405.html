@@ -79,9 +79,17 @@
 		/* 잔액에 새로 투입한 금액을 더하고 인풋값을 초기화 시키는 로직 */
 		function enterPrice (){
 			const oldValue = isNumberCheck(viewNumber.innerText);
+
+            /* 음수를 투입할 경우 alert 창이  뜨는 로직 */
+            if (isNumberCheck(inputNumber.value) < 0){
+				alert('양수를 투입하세요')
+				return inputNumber.value ='';
+			}
+
 			viewNumber.innerText = oldValue + isNumberCheck(inputNumber.value);
 			inputNumber.value ='';
-			console.log(typeof(oldValue))
+
+        	console.log(typeof(oldValue))
 		}
 
 		/* 반환 버튼 누르고 잔액이 0 원이 되는 로직 */
@@ -108,6 +116,8 @@
 			viewProduct.innerText = name;
 			viewNumber.innerText = cal;
 		}
+
+
 
 	</script>
 </body>
