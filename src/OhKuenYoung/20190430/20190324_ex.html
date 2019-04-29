@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <link rel="stylesheet" type="text/css" href="css/vending_machine.css">
+</head>
+<body>
+    <div class="machine">
+        <ul>
+            <li>
+                <strong>음료수1</strong>
+                <button>500원</button>
+            </li>
+            
+            <li>
+                <strong>음료수1</strong>
+                <button>500원</button>
+            </li>
+
+            <li>
+                <strong>음료수1</strong>
+                <button>500원</button>
+            </li>
+        </ul>
+    </div>
+
+    <div>
+        <form action="#" id="Input_amount">
+            <fieldset>
+                <legend>자판기 금액 관리</legend>
+                <label for="money_inlet">투입구</label>
+                <input id="money_inlet" type="number">
+                <button id="btn_inlet">투입</button>
+            </fieldset>
+        </form>
+
+        <strong>현재 자판기 투입 된 금액</strong>
+        <p id="Current_amount"></p>
+        
+        <button>반환하기</button>
+    </div>
+
+    <div id="Coin_log">
+
+    </div>
+    
+    <script type="text/javascript" src="js/vending_machine.js"></script>
+</body>
+</html>

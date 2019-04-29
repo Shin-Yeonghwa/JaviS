@@ -1,0 +1,53 @@
+@charset "UTF-8";
+
+body {
+    margin: 0;
+    padding: 0;
+    font-family: '굴림',gulim,helvetica,sans-serif;
+    text-align: left;
+    font-size: 13px;
+    color: #000
+}
+
+input,select,textarea {
+    font-family: '굴림',gulim,helvetica,sans-serif;
+    font-size: 13px;
+    color: #000
+}
+
+address,dd,div,dl,dt,em,fieldset,form,h1,h2,h3,h4,iframe,input,li,object,ol,p,select,textarea,ul {
+    margin: 0;
+    padding: 0
+}
+
+fieldset,iframe,img {
+    border: none
+}
+
+iframe {
+    display: block
+}
+
+ol,ul {
+    list-style-type: none
+}
+
+table {
+    clear: both;
+    border-collapse: collapse
+}
+
+address,em {
+    font-style: normal
+}
+
+select {
+    height: 20px;
+    font-size: 12px
+}
+
+#Coin_log {
+    position: absolute;
+    top: 20px;
+    right: 20px;
+}
