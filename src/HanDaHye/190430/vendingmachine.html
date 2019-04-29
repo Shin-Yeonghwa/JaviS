@@ -1,0 +1,104 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta http-equiv="x-ua-compatible" content="IE=edge">
+<title>Vending machine</title>
+<style type="text/css">
+.input_number {
+	font-weight: bold;
+}
+.input_money {
+	display: inline-block;
+	color: red;
+	margin-right: 30px;
+}
+.output_money {
+	display: inline-block;
+	color: blue;
+}
+.input_money em, .output_money em {
+	display: inline-block;
+	min-width: 50px;
+	margin-left: 5px;
+	font-weight: bold;
+	border-bottom: 1px solid black;
+	vertical-align: bottom;
+}
+</style>
+
+</head>
+<body>
+<div class="wrap">
+	<div class="machine">
+		<label for="money" class="input_number">돈을 넣으세요</label>
+		<input type="number" id="money">
+		<button type="button" id="btnMoney">투입</button>
+
+		<div class="money_box">
+			<p class="input_money">투입 금액<em class="input_cash"></em></p>
+			<p class="output_money">남은 금액<em class="output_cash"></em></p>
+		</div>
+
+		<ul class="products">
+			<li>
+				<label for="orange">오렌지</label>
+				<input type="button" id="orange" name="product" value="300" class="btn_product">
+			</li>
+			<li>
+				<label for="coke">콜라</label>
+				<input type="button" id="coke" name="product" value="200" class="btn_product">
+			</li>
+			<li>
+				<label for="water">물</label>
+				<input type="button" id="water" name="product" value="500" class="btn_product">
+			</li>
+		</ul>
+	</div>
+</div>
+
+<script>
+
+
+
+// 돈 투입
+var btnMoney = document.getElementById('btnMoney');
+btnMoney.addEventListener('click', addMoney, false);
+
+function addMoney() {
+	//투입금액
+	var valueInput = document.getElementById('money').value;
+	console.log(valueInput);
+
+	//투입 금액 표시하기
+	var inputCash = document.querySelector('.input_cash');
+	console.log(inputCash);
+	inputCash.innerHTML = valueInput;
+
+	//제품선택
+	var arrayProduct = document.getElementsByName('product');
+	console.log(arrayProduct);
+	console.log(typeof(arrayProduct)); //nodeList
+
+	var outputCash = document.querySelector('.output_cash');
+	for(var i = 0; i < arrayProduct.length; i++ ) {
+		arrayProduct[i].onclick = function(e) {
+			//선택한 음료수 금액 가져오기
+			var choiceProduct = this.value;
+			//잔돈 계산
+			outputCash.innerHTML = (valueInput - choiceProduct);
+		}
+	}
+}
+
+
+
+
+
+
+
+
+</script>
+</body>
+</html>
