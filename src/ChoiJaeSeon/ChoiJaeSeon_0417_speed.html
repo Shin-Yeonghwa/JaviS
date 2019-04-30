@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="ko">
+
+<head>
+	<meta charset="utf-8">
+	<title>반응속도 테스트 </title>
+
+
+	<style>
+	
+	#screen{
+		width:300px;
+		height:200px;
+		text-align:center;
+		line-height:200px;
+		user-select: none;
+	}
+	#screen.waiting{
+		background:tomato;
+	}
+	#screen.ready{
+		background:blue;
+		color:#fff;
+	}
+	#screen.now{
+		background:chocolate;
+	}
+	</style>
+</head>
+<body>
+
+<div class="wrap">
+	<div id="screen" class="waiting">
+		클릭하시오. 
+
+	</div>
+</div>
+
+<script>
+var state ={
+	대기: 'waiting',
+	준비 :'ready',
+	현재:'now'
+
+}
+var screen = document.querySelector('#screen');
+var startTime;
+var endTime;
+screen.addEventListener('click', function(){
+	if(screen.classList.contains('waiting')){
+		screen.classList.remove('waiting');
+		screen.classList.add('ready');
+		screen.textContent ='주황색으로 변하면 클릭하세요.';
+		setTimeout(function(){
+			startTime = new Date();
+			screen.click();
+		}, Math.floor(Math.random()* 1000) + 2000);
+	}else if(screen.classList.contains('ready')){
+		screen.classList.remove('ready');
+		screen.classList.add('now');
+		screen.textContent =' 클릭하세요.';
+		 endTime = new Date();
+		console.log('반응 속도', endTime - startTime, 'ms');
+	}else if(screen.classList.contains('now')){
+		screen.classList.remove('now');
+		screen.classList.add('waiting');
+		screen.textContent ='클릭해서 시작하세요.';
+	}
+})
+ </script>
+
+</body>
+
+</html>
