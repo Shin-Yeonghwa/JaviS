@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>0429 과제</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <style>
+        #input_cash {
+            width: 200px;
+            padding: 5px;
+        }
+        button {
+            height: 29px;
+        }
+        .cash_information {
+            overflow: hidden;
+            display: inline-block;
+            width: 245px;
+            margin-top: 10px;
+            padding: 7px;
+            border: 2px solid #000;
+        }
+        
+        .cash_information strong {
+            float: left;
+            clear: both;
+        }
+
+        .cash_information p {
+            overflow: hidden;
+            margin: 0;
+            padding: 0 0 0 5px;
+        }
+    </style>
+</head>
+<body>
+    <h1>자동판매기</h1>
+    <form>
+        <input type="number" id="input_cash" placeholder="돈을 넣어주세요~ 숫자만 입력!" maxlength="4" style="ime-mode:disabled;" onkeydown="onlyNumber()">
+        <button type="button" onclick="btn_cash()">확인</button>
+    </form>    
+
+    <div class="cash_information">
+        <strong>현재 금액 : </strong>
+        <p class="cash_box_now"><span id="now">0</span>원</p>
+    </div>
+
+    <script>
+        //숫자만 입력
+        function onlyNumber() {
+            var key = window.event.keyCode;
+            if((key < 48) || (key > 57)) { //숫자키
+                if((key != 8) || (key != 13)) { //backspace, enter
+                    return false;
+                }
+                alert("숫자만 입력해주세요!");
+            }
+        }
+        
+        //현재 금액 확인
+        function btn_cash() {
+            var nowCash = parseInt(document.getElementById("input_cash").value);    
+            var nowCashSum = parseInt(document.getElementById("now").innerHTML);
+            nowCashSum += nowCash;
+            document.getElementById("now").innerHTML = nowCashSum;            
+        }
+    </script>
+</body>
+</html>
