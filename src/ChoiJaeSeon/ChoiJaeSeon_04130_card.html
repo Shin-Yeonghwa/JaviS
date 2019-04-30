@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="ko">
+
+<head>
+	<meta charset="utf-8">
+	<title>카드 뒤집기</title>
+
+
+	<style>
+		body{
+			width:330px
+		}
+		.card{
+			display:inline-block;
+			width:70px;
+			height:100px;
+			margin:0 10px 10px 0;
+			}
+		.card-inner{
+			position:relative;
+			width:100%;
+			height:100%;
+			transition: transform 0.9s;
+			transform-style: preserve-3d;
+			text-align:center;
+
+		} 
+		.card.flipped .card-inner{
+			transform:rotateY(180deg);
+		}
+		.card-front{
+			background:tomato;
+		}
+		img{
+			width:70px;
+			height:100px;
+		
+		}
+		.card-front, .card-back{
+			position:absolute;
+			width:100%;
+			height:100%;
+			border:1px solid #000;
+			backface-visibility: hidden;
+		}
+		.card-back{
+			transform:rotateY(180deg);
+			background-size:70px 100px !important;
+	
+		}
+	</style>
+</head>
+<body>
+
+
+
+<script>
+var widthNum = 4;
+var heightNum = 3;
+var colorList =[
+	'https://search.pstatic.net/common?type=a&size=120x150&quality=95&direct=true&src=http%3A%2F%2Fsstatic.naver.net%2Fpeople%2Fportrait%2F201812%2F20181217143510269.jpg',
+'https://search.pstatic.net/common?type=a&size=120x150&quality=95&direct=true&src=http%3A%2F%2Fsstatic.naver.net%2Fpeople%2Fportrait%2F201812%2F20181217143510269.jpg',
+'https://search.pstatic.net/common?type=a&size=120x150&quality=95&direct=true&src=http%3A%2F%2Fsstatic.naver.net%2Fpeople%2F125%2F201212262021589401.jpg','https://search.pstatic.net/common?type=a&size=120x150&quality=95&direct=true&src=http%3A%2F%2Fsstatic.naver.net%2Fpeople%2F125%2F201212262021589401.jpg',
+'https://search.pstatic.net/common?type=a&size=120x150&quality=95&direct=true&src=http%3A%2F%2Fsstatic.naver.net%2Fpeople%2Fportrait%2F201511%2F20151110151228480.jpg','https://search.pstatic.net/common?type=a&size=120x150&quality=95&direct=true&src=http%3A%2F%2Fsstatic.naver.net%2Fpeople%2Fportrait%2F201511%2F20151110151228480.jpg',
+'https://search.pstatic.net/common?type=a&size=120x150&quality=95&direct=true&src=http%3A%2F%2Fsstatic.naver.net%2Fpeople%2Fportrait%2F201904%2F20190405002619316.jpg','https://search.pstatic.net/common?type=a&size=120x150&quality=95&direct=true&src=http%3A%2F%2Fsstatic.naver.net%2Fpeople%2Fportrait%2F201904%2F20190405002619316.jpg',
+'https://search.pstatic.net/common?type=a&size=120x150&quality=95&direct=true&src=http%3A%2F%2Fsstatic.naver.net%2Fpeople%2Fportrait%2F201805%2F20180525183934987.jpg','https://search.pstatic.net/common?type=a&size=120x150&quality=95&direct=true&src=http%3A%2F%2Fsstatic.naver.net%2Fpeople%2Fportrait%2F201805%2F20180525183934987.jpg',
+'https://search.pstatic.net/common?type=a&size=120x150&quality=95&direct=true&src=http%3A%2F%2Fsstatic.naver.net%2Fpeople%2F87%2F201904111947197171.jpg','https://search.pstatic.net/common?type=a&size=120x150&quality=95&direct=true&src=http%3A%2F%2Fsstatic.naver.net%2Fpeople%2F87%2F201904111947197171.jpg']
+var colorBox = [];
+var clickTime = true;
+var completionCard = [];
+var clickCard = [];
+for(var i = 0; colorList.length > 0 ; i += 1){
+	colorBox = colorBox.concat(colorList.splice(Math.floor(Math.random() * colorList.length), 1));
+}
+console.log(colorBox);
+	function cardSetting(widthNum , heightNum){
+		clickTime = false;
+		for(var i = 0; i < widthNum * heightNum; i += 1 ){
+			var card = document.createElement('div');
+			card.className = 'card';
+			var cardInner = document.createElement('div');
+			cardInner.className= 'card-inner';
+			var cardFront =document.createElement('div')
+			cardFront.className = 'card-front'
+			var cardBack = document.createElement('div'); 
+			cardBack.className = 'card-back';
+			cardBack.style.background = "url(" +colorBox[i] +")" + "no-repeat" ;
+			cardInner.appendChild(cardFront);
+			cardInner.appendChild(cardBack);
+			(function(c){
+			card.addEventListener('click' , function(){
+				if(clickTime && !completionCard.includes(c)){  
+				c.classList.toggle('flipped');
+				clickCard.push(c);
+				if(clickCard.length === 2){
+					if(clickCard[0].querySelector('.card-back').style.background === clickCard[1].querySelector('.card-back').style.background){
+						completionCard.push(clickCard[0]);
+						completionCard.push(clickCard[1]);
+						clickCard= [];
+						console.log(clickCard)
+					}else{//두카드 이미지가 다르면
+						clickTime = false;
+						setTimeout(function(){
+							clickCard[0].classList.remove('flipped');
+							clickCard[1].classList.remove('flipped');
+							clickTime = true;
+							clickCard = [];
+						}, 1000)
+					}
+				}
+				}
+			});
+			})(card);
+			card.appendChild(cardInner);
+			document.body.appendChild(card);
+		}
+		// 시작시 카드 뒤집는 효과
+		document.querySelectorAll('.card').forEach(function(card, index){
+			setTimeout(function(){
+				card.classList.add('flipped');
+			}, 1000 + 100 * index);
+		});
+		setTimeout(function(){
+			document.querySelectorAll('.card').forEach(function(card, index){
+				card.classList.remove('flipped');
+			});
+			clickTime = true;
+			}, 5000);
+	}
+		cardSetting(widthNum , heightNum);
+
+</script>
+
+</body>
+
+</html>
