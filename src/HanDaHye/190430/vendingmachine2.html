@@ -1,0 +1,143 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta http-equiv="x-ua-compatible" content="IE=edge">
+<title>Vending machine</title>
+<style type="text/css">
+.input_number {
+	font-weight: bold;
+}
+.output_money, .output_products {
+	margin-right: 5px;
+	color: blue;
+}
+
+.output_cash {
+	font-weight: bold;
+	border-bottom: 1px solid red;
+}
+.products {
+	overflow: hidden;
+	list-style: none;
+	padding: 0;
+}
+.products li {
+	float: left;
+	padding: 20px;
+	margin-right: 5px;
+	border: 1px solid red;
+	text-align: center;
+}
+</style>
+
+</head>
+<body>
+<div class="wrap">
+	<div class="machine">
+		<label for="money" class="input_number">돈을 넣으세요</label>
+		<input type="number" id="money">
+		<button type="button" id="btnMoney">투입</button>
+
+		<ul class="products">
+			<li>
+				<div class="box">
+					<strong class="name">오란씨</strong>
+					<span class="price">300원</span>
+				</div>
+				<button type="button" class="btn_product" data-name="오란씨" data-price="300">선택</button>
+			</li>
+			<li>
+				<div class="box">
+					<strong class="name">생수</strong>
+					<span class="price">500원</span>
+				</div>
+				<button type="button" class="btn_product" data-name="생수" data-price="500">선택</button>
+			</li>
+			<li>
+				<div class="box">
+					<strong class="name">콜라</strong>
+					<span class="price">300원</span>
+				</div>
+				<button type="button" class="btn_product" data-name="콜라" data-price="300">선택</button>
+			</li>
+		</ul>
+
+		<div class="output_box">
+			<p class="output_money">남은 금액 : <em class="output_cash"></em></p>
+			<p class="output_products">선택한 음료 : <span class="output_result"></span></p>
+		</div>
+	</div>
+</div>
+
+<script>
+
+// 이벤트 실행
+var btnMoney = document.getElementById('btnMoney');
+btnMoney.addEventListener('click', addMoney, false);
+
+var inputArray = [];
+console.log(inputArray);
+
+function addMoney(e) {
+	// 투입한 금액 값 가져오기
+	var inputNumber = document.getElementById('money');
+	var inputMoney = Number(inputNumber.value);
+	console.log(typeof(inputMoney));
+
+	inputArray.push(inputMoney);
+	console.log(inputArray);
+
+	// 투입한 금액 합
+	var sumInput = 0;
+	inputArray.forEach(function(x) {
+		sumInput += x;
+	})
+	console.log(sumInput);
+
+	// 음료 선택하기
+	var btnProduct = document.querySelectorAll('.btn_product'); //node_list
+	var btnArray = Array.from(btnProduct);
+	console.log(btnArray);
+
+	var sumPrice = 0;
+	var showPrice = [];
+	for(var i = 0; i < btnArray.length; i++) {
+		btnArray[i].onclick = function(e) {
+			var name = e.target.dataset.name;
+			var price = Number(e.target.dataset.price);
+			console.log(price);
+
+			// 선택한 음료 이름 노출
+			var showResult = document.querySelector('.output_result');
+			showResult.innerHTML += name;
+
+			//선택한 음료 금액의 합
+			sumPrice += price;
+			// console.log(sumPrice);
+			showPrice.push(sumPrice);
+		}
+	}
+	console.log(showPrice);
+
+	// 선택한 음료 금액의 합
+
+
+	// 남은 금액 출력하기
+	// var showMoney = document.querySelector('output_money');
+	// showMoney.innerHTML = (sumInput);
+
+
+
+
+
+	// input value 지우기
+	inputNumber.value = '';
+}
+
+
+
+</script>
+</body>
+</html>
