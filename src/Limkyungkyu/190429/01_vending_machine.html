@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html lang="ko">
+
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <title>자판기</title>
+    <style>
+        #display{
+    	display: table-cell;
+    	width: 500px;
+    	height: 100px;
+    	background-color: black;
+    	color: green;
+    	outline-style: solid;
+    	outline-color: grey;
+    	font-size: 50px;
+    	text-align: right;
+    	vertical-align: bottom;
+    }
+
+    #coinReturn{
+    	height: 20px;
+    	width: 100px;
+    	outline-style: solid;
+    	outline-color: grey;
+    }
+
+    #itemSlot{
+    	height: 20px;
+    	width: 100px;
+    	outline-style: solid;
+    	outline-color: grey;
+    }
+    </style>
+</head>
+
+<body>
+    <div id="display"></div>
+    <p>동전을 넣어주세요!</p>
+    <button class="coin" value="1" onclick="coinInsert(this.value)">10원</button>
+    <button class="coin" value="2" onclick="coinInsert(this.value)">50원</button>
+    <button class="coin" value="3" onclick="coinInsert(this.value)">100원</button>
+    <button class="coin" value="4" onclick="coinInsert(this.value)">500원</button>
+
+    <p>음료를 선택해주세요!</p>
+    <button class="product" onclick="buyItem(cola)">콜라 &#8361; 400</button>
+    <button class="product" onclick="buyItem(water)">생수 &#8361; 200</button>
+    <button class="product" onclick="buyItem(sider)">사이다 &#8361; 300</button>
+
+    <p>잔돈</p>
+    <button id="returnCoins" onclick="makeChange()">Return Coins</button>
+    <div id="coinReturn"></div>
+    <button id="coinReturnButton" onclick="collectCoins()">Collect Coins</button>
+
+    <p>상품투출구</p>
+    <div id="itemSlot"></div>
+    <button id="itemSlotButton" onclick="collectItem()">Collect Item</button>
+
+    <div id="machineBank"></div>
+    <div id="stockDisplay"></div>
+
+</body>
+<script type="text/javascript">
+    // 현재금액표시부, 상품투출구, 동전반환구 세팅
+    var display = document.getElementById("display");
+    var itemSlot = document.getElementById("itemSlot");
+    var coinReturn = document.getElementById("coinReturn");
+
+    // 구매가격, 거스름돈, 현재금액표시부 기본값 정의
+    var buyValue = 0;
+    var coinReturnValue = 0;
+    var defaultMessage = "Insert Coin";
+
+    // 가격, 수량, 상품명 정의
+    var cola = {
+        cost: 400,
+        stock: 3,
+        displayName: "Cola"
+    };
+    var water = {
+        cost: 200,
+        stock: 3,
+        displayName: "Water"
+    };
+    var sider = {
+        cost: 300,
+        stock: 3,
+        displayName: "Sider"
+    };
+
+    // 동전 가치 지정
+    var tenValue = 10,
+        fiftyValue = 50,
+        hundredValue = 100,
+        fivehunderedValue = 500;
+
+    // 현재금액 표시부, 동전반환금액, 상품투출구, 잔여량 값 표기
+    display.innerHTML = defaultMessage;
+    coinReturn.innerHTML = coinReturnValue;
+    itemSlot.innerHTML = "";
+    stockDisplay.innerHTML = ("잔여량 - " + "콜라 : " + cola.stock + " 생수 : " + water.stock + " 사이다 : " + sider.stock);
+
+    // 동전별 가치 지정
+    function coinInsert(value) {
+        var coinWeight = value;
+        if (itemSlot.innerHTML == "") {
+            if (coinWeight == 1) {
+                buyValue += tenValue;
+            } else if (coinWeight == 2) {
+                buyValue += fiftyValue;
+            } else if (coinWeight == 3) {
+                buyValue += hundredValue;
+            } else if (coinWeight == 4) {
+                buyValue += fivehunderedValue;
+            }
+            updateDisplays();
+        }
+    }
+
+    function updateDisplays() {
+        coinReturnValueDisplay = coinReturnValue;
+        buyValueDisplay = buyValue;
+
+        if (itemSlot.innerHTML == "") {
+            if (buyValue != 0) {
+                display.innerHTML = buyValueDisplay;
+            } else {
+                display.innerHTML = defaultMessage;
+            }
+        } else {
+            display.innerHTML = "감사합니다.";
+        }
+        coinReturn.innerHTML = coinReturnValueDisplay;
+    }
+
+    function buyItem(item) {
+        if (itemSlot.innerHTML == "") {
+            if (item.stock > 0) {
+                if (buyValue >= item.cost) { // 투입금액이 상품가격보다 크거나 같은 경우 구매시 투입금액 감소, 상품투출구 표시, 잔여량 표기, 잔돈 표기
+                    buyValue -= item.cost;
+                    item.stock--;
+                    itemSlot.innerHTML = item.displayName;
+                    updateStock();
+                    makeChange();
+                } else {
+                    priceShow(item.cost); // 투입금액이 상품가격보다 적을 겨우 동전미투입시 가격표시
+                }
+            } else {
+                soldOut();
+            }
+        }
+    }
+    // 잔여량 표시 내용
+    function updateStock() {
+        stockDisplay.innerHTML = ("잔여량 - " + "콜라 : " + cola.stock + " 생수 : " + water.stock + " 사이다 : " + sider.stock);
+    }
+    // 구매가격 표시 내용
+    function makeChange() {
+        coinReturnValue += buyValue;
+        buyValue = 0;
+        updateDisplays();
+    }
+    // 가격표시
+    function priceShow(cost) {
+        display.innerHTML = ("가격 : " + cost);
+    }
+    // 상품 수거
+    function collectItem() {
+        itemSlot.innerHTML = "";
+        updateDisplays();
+    }
+    // 품절
+    function soldOut() {
+        display.innerHTML = "품절";
+    }
+    // 잔돈 수거
+    function collectCoins() {
+        coinReturnValue = 0;
+        updateDisplays();
+    }
+</script>
+
+</html>

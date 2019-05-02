@@ -13,6 +13,11 @@
 			border: 1px solid #000;
 			border-width:1px 1px 0 0;
 			text-align:center;
+			background:#444;
+
+		}
+		#table td.select{
+			background:transparent;
 		}
 		#table td:first-child{
 			border-left:1px solid #000;
@@ -116,6 +121,8 @@
 						var ftbody = e.currentTarget.parentNode.parentNode;
 						var kan = Array.prototype.indexOf.call(ftr.children, e.currentTarget);
 						var jul = Array.prototype.indexOf.call(ftbody.children, ftr);
+
+						e.currentTarget.classList.add('select');
 						if(dataset[jul][kan] === 'x'){
 							e.currentTarget.textContent = '펑';
 						}else{
@@ -148,8 +155,23 @@
 			}
 			console.log(dataset);
 
-	});
 
+		});
+
+// scr url 배열 지정
+var Imgs = ['im/img_scissors.png','im/img_rock.png','im/img_paper.png']
+
+		
+
+	for(var i = 0; i < Imgs.length; i ++){
+				function jaejae(j){
+					setTimeout(function(){
+						console.log(j);
+					},j * 1000)
+				}
+				jaejae(i);
+		}
+	
  </script>
 
 </body>

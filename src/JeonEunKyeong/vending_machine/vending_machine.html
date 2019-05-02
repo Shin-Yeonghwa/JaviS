@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="EUC-KR">
+<title>Insert title here</title>
+<style>
+    button {height:40px;}
+    #money > button {width:60px;height:40px;margin-right:10px}
+    #calc {height:40px;text-align:right;}
+</style>
+<script>
+ 
+var inputSum = 0;    // 투입액 합계
+ 
+/* 돈 투입 */
+function func1(btn){
+    var f1 = document.querySelector('#calc');
+    inputSum += Number(btn.innerHTML);
+    f1.setAttribute('value', inputSum);
+};
+ 
+</script>
+</head>
+<body>
+ 
+    <div id="money">
+        <button onclick="func1(this)">100</button>
+        <button onclick="func1(this)">500</button>
+        <button onclick="func1(this)">1000</button>
+        <button onclick="func1(this)">10000</button>
+    </div>
+    
+    <p>입금액</p><input id="calc" type="text" name="result" value="">
+
+</body>
+</html>
+
