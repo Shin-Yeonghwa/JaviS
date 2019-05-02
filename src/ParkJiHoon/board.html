@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="ko">
+  <head>
+    <meta charset="utf-8">
+    <title>게시판 만들기</title>
+	<style>
+		* {
+			margin:0;
+			padding:0;
+			font-family:Verdana,sans-serif;
+			box-sizing:border-box;
+		}
+
+		body {color:#333;font-size:14px;}
+		#wrap {width:600px;}
+		/* table, ul */
+		table {width:100%;border:0; border-collapse:collapse;}
+		th,td {padding:8px 0;vertical-align:middle}
+		th {text-align:left;}
+		ul, li {margin:0;padding:0;list-style:none;}
+		/* input */
+		input[type=text] {display:inline-block;width:100%;height:32px;padding:0 10px;border:1px solid #ccc;font-size:14px;}
+		textarea {display:inline-block;width:100%;padding:10px;border:1px solid #ccc;font-size:14px;}
+		input[type=button],input[type=submit], button {border:0;font-size:14px;}
+		/* button */
+		.btn-wrap {margin:10px 0 0 0;text-align:right}
+		.btn {display:inline-block;padding:12px 20px;background-color:#333;color:#fff;text-align:center;line-height:1;}
+
+		.result {padding:15px;background-color:#eee;}
+		.result + .result {border-top:1px solid #ccc;}
+		.result ul {position:relative;overflow:hidden;}
+		.result li:nth-child(1),
+		.result li:nth-child(2) {float:right;color:#999;font-size:12px}
+		.result li:nth-child(1) {padding-left:8px}
+		.result li:nth-child(3) {font-weight:bold;}
+
+		fieldset {border:1px solid #ccc;padding:16px;}
+		legend {display:none}
+		.cont {overflow:hidden;height:27px;}
+		.commtIptBox {
+			display:flex;
+			display: -webkit-flex;
+			flex-wrap: wrap;
+			-webkit-flex-wrap: wrap;
+			padding-top:20px;
+		}
+		.commtBox {flex:0 0 100%;font-size:12px;padding:10px 8px 0}
+		.contTxtBox {padding:10px 0 0;}
+		#btnCommt {display:block;flex:0 0 60px;height:32px;margin-left:8px;background:#666;color:#fff;line-height:1;}
+		#btnCommtInput {flex:1}
+		#btnCommtName {flex:0 0 100px;margin-right:8px}
+		.count {display:inline-block;margin-left:8px;font-style:normal;font-weight:bold;color:blue}
+
+
+	</style>
+  </head>
+  <body>
+
+	<div id="wrap">
+		<div id="resultWrap"></div>
+
+		<fieldset>
+		<legend>board</legend>
+			<form id="frm1">
+
+				<table>
+					<caption></caption>
+					<colgroup>
+						<col style="width:100px" />
+						<col style="" />
+					</colgroup>
+					<tbody>
+						<tr>
+							<th scope="row">작성자</th>
+							<td><input type="text" id="iptName" value="" /></td>
+						</tr>
+						<tr>
+							<th scope="row">제목</th>
+							<td><input type="text" id="iptTitle" value="" /></td>
+						</tr>
+						<tr>
+							<th scope="row">내용</th>
+							<td><textarea id="iptCont" rows="5" cols="10"></textarea></td>
+						</tr>
+					</tbody>
+
+				</table>
+
+			</form>
+			<div class="btn-wrap">
+				<input type="button" id="btnRegist" class="btn" value="글쓰기">
+			</div>
+		</fieldset>
+
+
+	</div>
+
+	<script>
+        
+        /*
+        게시판 만들기
+
+        1. 작성자, 비밀번호, 제목, 본문 내용, 등록 버튼이 포함된 등록 폼 만들기
+        2. 제목, 본문 내용은 글자수 제한(제목은 최소 글자수 4글자) / 작성자에는 특수문자 제한
+        3. 각각 input 영역에 addEventListener('input')으로 각 영역의 조건 체크 / 제목 부분은 focus out됐을때 조건실행
+        4. 조건이 부합할 경우 각 input영역 하단에 안내문구 노출
+        5. 정상적으로 데이터가 들어간 상태에서 등록 버튼이 활성화 됨, 디폴트는 비활성화
+        6. 버튼을 누르면 뷰 테이블에 작성한 데이터가 노출되고 폼안에 데이터는 리셋
+        7. 테이블은 등록 폼 상단에 노출되고 테이블 내 th는 넘버, 제목, 작성자, 날짜가 포함됨
+        8. td영역에는 작성한 데이터가 들어가고 날짜는 시간까지 나오도록, 제목은 말줄임 처리
+        9. tr을 클릭하면 새창이 뜨고 모든 데이터가 노출되고 비밀글을 경우 데이터가 노출되기전 promt로 비밀번호를 입력하고 같은지 아닌지 확인
+        10. 맞으면 데이터 노출 틀리면 얼럿으로 비밀번호가 틀림 노출 
+        */
+
+
+
+	</script>
+  </body>
+</html>
