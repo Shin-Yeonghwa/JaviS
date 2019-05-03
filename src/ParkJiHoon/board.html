@@ -201,8 +201,7 @@
             isNameSpecialCharacterCheck(inputName.value);
             isLimitNumberCharacters(inputTitle.value);
 
-            const testForm = document.getElementById('boardForm');
-            testForm.onsubmit = function(event) {
+            formBox.onsubmit = function(event) {
                 event.preventDefault();
 
                 const request = new XMLHttpRequest();
