@@ -19,9 +19,10 @@
 		th {text-align:left;}
 		ul, li {margin:0;padding:0;list-style:none;}
 		/* input */
-		input[type=text] {display:inline-block;width:100%;height:32px;padding:0 10px;border:1px solid #ccc;font-size:14px;}
+		input[type=text],input[type=password]{display:inline-block;width:100%;height:32px;padding:0 10px;border:1px solid #ccc;font-size:14px;}
 		textarea {display:inline-block;width:100%;padding:10px;border:1px solid #ccc;font-size:14px;}
-		input[type=button],input[type=submit], button {border:0;font-size:14px;}
+		textarea:disabled{background-color: #fff}
+        input[type=button],input[type=submit], button {border:0;font-size:14px;}
 		/* button */
 		.btn-wrap {margin:10px 0 0 0;text-align:right}
 		.btn {display:inline-block;padding:12px 20px;background-color:#333;color:#fff;text-align:center;line-height:1;}
@@ -50,8 +51,11 @@
 		#btnCommtInput {flex:1}
 		#btnCommtName {flex:0 0 100px;margin-right:8px}
 		.count {display:inline-block;margin-left:8px;font-style:normal;font-weight:bold;color:blue}
-
-
+        .numberInfo {text-align: right}
+        #noticeText {color:#f00}
+        .checkboxArea{text-align: right;}
+        #secretWriting{vertical-align: middle}
+        .row_password{display: none}
 	</style>
   </head>
   <body>
@@ -61,8 +65,11 @@
 
 		<fieldset>
 		<legend>board</legend>
-			<form id="frm1">
-
+			<form action="#" id="boardForm">
+                <div class="checkboxArea">
+                    <input type="checkbox" id="secretWriting">
+                    <label for="secretWriting">비밀글</label>
+                </div>
 				<table>
 					<caption></caption>
 					<colgroup>
@@ -72,24 +79,28 @@
 					<tbody>
 						<tr>
 							<th scope="row">작성자</th>
-							<td><input type="text" id="iptName" value="" /></td>
+							<td><input type="text" id="iptName" name="username"><p id="noticeText"></p></td>
+                        </tr>
+						<tr class="row_password">
+							<th scope="row">비밀번호</th>
+							<td><input type="password" id="iptPassword" name="userpassword"><p id="noticeText"></p></td>
 						</tr>
 						<tr>
 							<th scope="row">제목</th>
-							<td><input type="text" id="iptTitle" value="" /></td>
+							<td><input type="text" id="iptTitle" name="contenttitle"><p id="noticeText"></p></td>
 						</tr>
 						<tr>
 							<th scope="row">내용</th>
-							<td><textarea id="iptCont" rows="5" cols="10"></textarea></td>
+							<td><textarea id="iptCont" name="usercontent" rows="5" cols="10"></textarea><p class="numberInfo"><span class="textNumber">0</span>/100</p><p id="noticeText"></p></td>
 						</tr>
 					</tbody>
 
 				</table>
+                <div class="btn-wrap">
+                    <input type="submit" id="btnRegist" class="btn" value="글쓰기">
+                </div>
+            </form>
 
-			</form>
-			<div class="btn-wrap">
-				<input type="button" id="btnRegist" class="btn" value="글쓰기">
-			</div>
 		</fieldset>
 
 
@@ -99,20 +110,110 @@
         
         /*
         게시판 만들기
+        1. 폼 영역
+            작성자, 비밀번호, 제목, 본문 내용, 등록 버튼이 포함된 등록 폼 만들기
+            input 유효성 검사 - 조건이 부합할 경우 각 input영역 하단에 안내문구 노출
+                작성자 : 특수문자 제한
+                제목 : 글자수 제한 (최소 4글자) / focus out됐을때 조건실행
+                본문 : 글자수 제한(최대 100글자) / addEventListener('input')으로 각 영역의 조건 체크
+            등록 버튼
+                default 비활성화 / 유효성 검사 통과시 활성화
+                뷰 테이블에 작성한 데이터가 노출되고 폼안에 데이터는 리셋
 
-        1. 작성자, 비밀번호, 제목, 본문 내용, 등록 버튼이 포함된 등록 폼 만들기
-        2. 제목, 본문 내용은 글자수 제한(제목은 최소 글자수 4글자) / 작성자에는 특수문자 제한
-        3. 각각 input 영역에 addEventListener('input')으로 각 영역의 조건 체크 / 제목 부분은 focus out됐을때 조건실행
-        4. 조건이 부합할 경우 각 input영역 하단에 안내문구 노출
-        5. 정상적으로 데이터가 들어간 상태에서 등록 버튼이 활성화 됨, 디폴트는 비활성화
-        6. 버튼을 누르면 뷰 테이블에 작성한 데이터가 노출되고 폼안에 데이터는 리셋
-        7. 테이블은 등록 폼 상단에 노출되고 테이블 내 th는 넘버, 제목, 작성자, 날짜가 포함됨
-        8. td영역에는 작성한 데이터가 들어가고 날짜는 시간까지 나오도록, 제목은 말줄임 처리
-        9. tr을 클릭하면 새창이 뜨고 모든 데이터가 노출되고 비밀글을 경우 데이터가 노출되기전 promt로 비밀번호를 입력하고 같은지 아닌지 확인
-        10. 맞으면 데이터 노출 틀리면 얼럿으로 비밀번호가 틀림 노출 
+        2. 게시판 영역
+            형식은 테이블
+                th : 넘버, 제목, 작성자, 날짜
+                td : 작성한 데이터가 들어가고 날짜는 시간까지 나오도록, 제목은 말줄임 처리
+                tr : 클릭시 새창
+                비밀글 : 데이터 노출되기전 prompt 로 비밀번호 입력 + 확인
+                ㄴ 조건 만족시 : 데이터 노출
+                ㄴ 조건 불만족시 : alert 노출
+
         */
 
+        /* 전역변수 */
+        const formBox = document.querySelector('#boardForm')
+        const inputName = document.querySelector('#iptName')
+        const passwordRow = document.querySelector('.row_password')
+        const inputPassword = document.querySelector('#iptPassword')
+        const inputTitle = document.querySelector('#iptTitle')
+        const inputTextarea = document.querySelector('#iptCont')
+        const registrationButton = document.querySelector('#btnRegist')
+        const resultView = document.querySelector('#resultWrap')
+        const inputNoticeText = document.querySelectorAll('tr #noticeText')
+        const textNumerCheck = document.querySelector('.textNumber')
+        const inputSecretWriting = document.querySelector('#secretWriting')
 
+        /* 안내 문구 객체 */
+        const noticeText = {
+            name: '작성자에는 특수문자를 사용할 수 없습니다.',
+            title : '4글자 이상의 제목을 입력하세요.',
+            textarea: '100자 이상 등록할 수 없습니다.'
+        }
+
+        /* 작성자 특수문자 체크 로직 */
+        function isNameSpecialCharacterCheck(value) {
+            const specialCharacterCheck = /[~!@#$%^&*()_+|<>?:{}]/;
+            if(specialCharacterCheck.test(value)){
+                return inputNoticeText[0].innerText = noticeText.name;
+            }
+            return inputNoticeText[0].innerText ='';
+        }
+
+        /* 비밀번호 체크 로직*/
+        function isPasswordCheck(value) {
+            if(value === value) return;
+            return alert('비밀번호가 틀렸습니다.')
+        }
+
+        /* 제목 글자수 유효성 검사 로직 */
+        function isLimitNumberCharacters (value){
+            if(!value || value.length < 4) {    
+                return inputNoticeText[2].innerText = noticeText.title;
+            }
+            return inputNoticeText[2].innerText ='';
+        }
+
+        /* 내용 글자수 실시간 체크 및 글자수 초과시 작성 안되는 로직 */
+		function isOverNumber() {
+            inputTextarea.value = inputTextarea.value.substring(0,100);
+
+            const textNumber = inputTextarea.value.length;
+            textNumerCheck.innerText = textNumber;
+            
+            if(textNumber >= 100) {
+                return inputNoticeText[3].innerText = noticeText.textarea;
+            };
+
+            return inputNoticeText[3].innerText = '';
+		}
+
+        /* 비밀글 클릭시 비밀번호 입력 영역 노출되는 로직 */
+        inputSecretWriting.addEventListener('change', function() {
+            passwordRow.setAttribute('style','display:table-row')
+        });
+
+        /* 글쓰기 버튼을 누르면 실행되는 로직 */
+        inputTextarea.addEventListener('input', isOverNumber)
+        registrationButton.addEventListener('click', createBoard)
+
+        function createBoard() {
+            isNameSpecialCharacterCheck(inputName.value);
+            isLimitNumberCharacters(inputTitle.value);
+
+            const testForm = document.getElementById('boardForm');
+            testForm.onsubmit = function(event) {
+                event.preventDefault();
+
+                const request = new XMLHttpRequest();
+                // POST to httpbin which returns the POST data as JSON
+                request.open('POST', 'https://httpbin.org/post', /* async = */ false);
+
+                const formData = new FormData(document.getElementById('boardForm'));
+                request.send(formData);
+                console.log(request.response);
+            }
+        }
 
 	</script>
   </body>
