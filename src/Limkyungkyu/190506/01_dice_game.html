@@ -1,0 +1,236 @@
+<!DOCTYPE html>
+<html lang="ko">
+
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <title>주사위게임</title>
+    <style>
+        ul{margin:0;padding:0;}
+        li{list-style-type: none;margin:0;padding:0}
+        .dice{
+            display:inline-block;
+            width:32px;
+            background:#f5f5f5;
+            border:1px solid #999;
+            padding:10px;
+            font-size:24px;
+            text-align:center;
+            margin:5px;
+        }
+        #status{
+            text-align:center;
+        }
+        .dice_area{
+            overflow:hidden;
+            width:100%;
+            margin:0 auto;
+            text-align:center;
+        }
+        #mapBox {
+            position:relative;
+            margin:0 auto;
+            font-size:0;
+            line-height:0;
+            width:500px;
+            height:500px;
+        }
+        #mapBox li{
+            position:absolute;
+            display:inline-block;
+            width:calc(100% / 10);
+            height:calc(100% / 10);
+            border:1px solid #ddd;
+            box-sizing:border-box;
+        }
+        #mapBox li.on:before{
+            content:'';
+            position:absolute;
+            display:inline-block;
+            width:50%;
+            height:50%;
+            border-radius:100% 100%;
+            -webkit-border-radius:100% 100%;
+            top:50%;
+            left:50%;
+            transform:translate(-50%,-50%);
+            -webkit-transform:translate(-50%,-50%);
+            background:red;
+        }
+        #mapBox li:nth-child(-n+10){
+            bottom:0;
+        }
+        #mapBox li:nth-child(n+29){
+            left:90%;
+        }
+        #mapBox li:nth-child(1){
+            left:90%;
+        }
+        #mapBox li:nth-child(2){
+            left:80%;
+        }
+        #mapBox li:nth-child(3){
+            left:70%;
+        }
+        #mapBox li:nth-child(4){
+            left:60%;
+        }
+        #mapBox li:nth-child(5){
+            left:50%;
+        }
+        #mapBox li:nth-child(6){
+            left:40%;
+        }
+        #mapBox li:nth-child(7){
+            left:30%;
+        }
+        #mapBox li:nth-child(8){
+            left:20%;
+        }
+        #mapBox li:nth-child(9){
+            left:10%;
+        }
+        #mapBox li:nth-child(10){
+            left:0;
+        }
+        #mapBox li:nth-child(11){
+            top:80%;
+        }
+        #mapBox li:nth-child(12){
+            top:70%;
+        }
+        #mapBox li:nth-child(13){
+            top:60%;
+        }
+        #mapBox li:nth-child(14){
+            top:50%;
+        }
+        #mapBox li:nth-child(15){
+            top:40%;
+        }
+        #mapBox li:nth-child(16){
+            top:30%;
+        }
+        #mapBox li:nth-child(17){
+            top:20%;
+        }
+        #mapBox li:nth-child(18){
+            top:10%;
+        }
+        #mapBox li:nth-child(19){
+            left:0;
+        }
+        #mapBox li:nth-child(20){
+            left:10%;
+        }
+        #mapBox li:nth-child(21){
+            left:20%;
+        }
+        #mapBox li:nth-child(22){
+            left:30%;
+        }
+        #mapBox li:nth-child(23){
+            left:40%;
+        }
+        #mapBox li:nth-child(24){
+            left:50%;
+        }
+        #mapBox li:nth-child(25){
+            left:60%;
+        }
+        #mapBox li:nth-child(26){
+            left:70%;
+        }
+        #mapBox li:nth-child(27){
+            left:80%;
+        }
+        #mapBox li:nth-child(28){
+            left:90%;
+        }
+        #mapBox li:nth-child(29){
+            top:10%;
+        }
+        #mapBox li:nth-child(30){
+            top:20%;
+        }
+        #mapBox li:nth-child(31){
+            top:30%;
+        }
+        #mapBox li:nth-child(32){
+            top:40%;
+        }
+        #mapBox li:nth-child(33){
+            top:50%;
+        }
+        #mapBox li:nth-child(34){
+            top:60%;
+        }
+        #mapBox li:nth-child(35){
+            top:70%;
+        }
+        #mapBox li:nth-child(36){
+            top:80%;
+        }
+        #mapBox li:nth-child(29):nth-child(36){
+            left:90%;
+        }
+
+    </style>
+</head>
+
+
+<body>
+    <!-- 버튼 클릭시 playDice를 실행하시오 -->
+    <!-- 주사위 던지기 실행 버튼 -->
+    <button onclick="playDice()">주사위 던지기</button>
+    <!-- 주사위 영역 -->
+    <div class="dice_area">
+        <div id="dice1" class="dice">0</div>
+        <div id="dice2" class="dice">0</div>
+        <p id="status"></p>
+        <p id="sum"></p>
+    </div>
+    <div class="map_area">
+        <ul id="mapBox">
+        </ul>
+    </div>
+    <!-- 주사위 합계 -->
+
+
+</body>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.0/jquery.min.js"></script>
+
+<script type="text/javascript">
+    for (var i = 1; i <= 36; i++) {
+        var li = document.createElement('li');
+        li.className = 'list' + i;
+        document.getElementById('mapBox').appendChild(li);
+    }
+    var dice = document.getElementById("dice1"); // 1번주사위 변수
+    var dice2 = document.getElementById("dice2"); // 2번주사위 변수
+    var status = document.getElementById("status"); // 합계 변수
+    var accumulate = 0; // 주사위 누적합계
+    var position = 0; // 말 위치 계산
+
+    function playDice() {
+        var d1 = Math.floor(Math.random() * 6) + 1; // 1번주사위 랜덤값 발생 1~6까지
+        var d2 = Math.floor(Math.random() * 6) + 1; // 2번주사위 랜덤값 발생 1~6까지
+        var diceTotal = d1 + d2; //1번부사위+2번주사위 값 합산
+        dice1.innerHTML = d1; //1번 주사위 랜덤값 입력
+        dice2.innerHTML = d2; //2번 주사위 랜덤값 입력
+        status.innerHTML = "주사위 합계는 " + diceTotal + "입니다."; //1번 주사위 값 + 2번주사위 값
+
+
+        accumulate = accumulate + diceTotal;
+        position = accumulate % 36;
+        sum.innerHTML = "말의 위치는" + position + "입니다.";
+
+        // accumulate += diceTotal;
+        // sum.innerHTML = "합계는 " + accumulate + "입니다.";
+
+        $("#mapBox").find("li").removeClass("on");
+        $("#mapBox").find("li").eq(position).addClass("on");
+    }
+</script>
+
+
+</html>
