@@ -30,8 +30,14 @@
 	border: 1px solid red;
 	text-align: center;
 }
+.output_result em:after {
+	content:',';
+	display: inline-block;
+}
+.output_result em:last-child:after {
+	content: none;
+}
 </style>
-
 </head>
 <body>
 <div class="wrap">
@@ -78,7 +84,6 @@ var btnMoney = document.getElementById('btnMoney');
 btnMoney.addEventListener('click', addMoney, false);
 
 var inputArray = [];
-console.log(inputArray);
 
 function addMoney(e) {
 	// 투입한 금액 값 가져오기
@@ -102,7 +107,9 @@ function addMoney(e) {
 	console.log(btnArray);
 
 	var sumPrice = 0;
-	var showPrice = [];
+	var showMoney = document.querySelector('.output_cash');
+	showMoney.innerHTML = sumInput;
+
 	for(var i = 0; i < btnArray.length; i++) {
 		btnArray[i].onclick = function(e) {
 			var name = e.target.dataset.name;
@@ -111,25 +118,15 @@ function addMoney(e) {
 
 			// 선택한 음료 이름 노출
 			var showResult = document.querySelector('.output_result');
-			showResult.innerHTML += name;
+			showResult.innerHTML += "<em>" + name + "</em>";
 
 			//선택한 음료 금액의 합
 			sumPrice += price;
-			// console.log(sumPrice);
-			showPrice.push(sumPrice);
+
+			// 남은 금액
+			showMoney.innerHTML = sumInput - sumPrice;
 		}
 	}
-	console.log(showPrice);
-
-	// 선택한 음료 금액의 합
-
-
-	// 남은 금액 출력하기
-	// var showMoney = document.querySelector('output_money');
-	// showMoney.innerHTML = (sumInput);
-
-
-
 
 
 	// input value 지우기
