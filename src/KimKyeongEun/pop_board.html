@@ -68,23 +68,20 @@
 						<tr>
 							<th scope="row">작성자</th>
 							<td>
-                                <div class="writer"></div>
-                                <!-- <input type="text" id="iptName" value="" /> -->
-                            </td>
+                <div class="writer"></div>
+                </td>
 						</tr>
 						<tr>
 							<th scope="row">제목</th>
 							<td>
-                                <div class="title"></div>
-                                <!-- <input type="text" id="iptTitle" value="" /> -->
-                            </td>
+								 <div class="title"></div>
+								</td>
 						</tr>
 						<tr>
 							<th scope="row">내용</th>
 							<td>
-                                <div class="content"></div>
-                                <!-- <textarea id="iptCont" rows="5" cols="10"></textarea> -->
-                            </td>
+								 <div class="content"></div>
+								</td>
 						</tr>
 					</tbody>
 
@@ -109,40 +106,42 @@
 		*/
 
 		//data 전역변수
-		const boardData = JSON.parse(localStorage.getItem('board')),
-					currentIndex = JSON.parse(localStorage.getItem('currentIndex'));
-		
-		const username = document.querySelector('.writer'),
-					contenttitle = document.querySelector('.title'),
-					usercontent =document.querySelector('.content');
+		const boardData = JSON.parse(localStorage.getItem('board'))
+		const currentIndex = JSON.parse(localStorage.getItem('currentIndex'));
+
+		const username = document.querySelector('.writer')
+		const	contenttitle = document.querySelector('.title')
+		const	usercontent =document.querySelector('.content');
 
 
 		//비밀 번호 체크 로직
-		function isPasswordHave(data,index){
-			if(data[index]['userpassword'] !== ''){
-				var psw = prompt('비밀번호를 입력하세요.');
-				
-				if(psw == null){  //취소버튼 누를 경우
-					window.close();
-				}else	if(psw == data[index]['userpassword']){	// 비밀번호 맞을 경우
-					showContents(data,index);
-				}else {		// 비밀번호 틀렸을 경우
-					alert('다시입력하세요.');
-					isPasswordHave(data,index);
-				}
-			}else showContents(data,index);
+		function isPasswordHave(){
+			if(boardData[currentIndex]['userpassword'] !== ''){
+				checkPassword();
+			}else showContents();
+		}
+
+		function checkPassword(){
+			let password = prompt('비밀번호를 입력하세요.');
+
+			if(password == boardData[currentIndex]['userpassword']){	// 비밀번호 맞을 경우
+				showContents();
+			}else {		// 비밀번호 틀렸을 경우
+				alert('다시입력하세요.');
+				checkPassword();
+			}
 		}
 
 		//contents 노출
 		function showContents(data,index){
-			username.textContent = data[index]['username'];
-			contenttitle.textContent = data[index]['contenttitle'];
-			usercontent.textContent = data[index]['usercontent'];
+			username.innerText = data[index]['username'];
+			contenttitle.innerText = data[index]['contenttitle'];
+			usercontent.innerText = data[index]['usercontent'];
 		}
 
 		//window 로딩 되었으면 password 체크
 		window.onload = function(){
-			isPasswordHave(boardData,currentIndex);
+			isPasswordHave();
 		}
 	</script>
   </body>

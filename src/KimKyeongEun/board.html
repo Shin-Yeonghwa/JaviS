@@ -168,13 +168,18 @@
             textarea: '100자 이상 등록할 수 없습니다.'
         }
 
+		//공통 message
+		function showEorrMessage(index,message){
+			return inputNoticeText[index].innerText = message
+		}
+
         /* 작성자 특수문자 체크 로직 */
         function isNameSpecialCharacterCheck(value) {
             const specialCharacterCheck = /[~!@#$%^&*()_+|<>?:{}]/;
             if(specialCharacterCheck.test(value)){
-                return inputNoticeText[0].innerText = noticeText.name;
+                return showEorrMessage(0, noticeText.name);
             }
-            return inputNoticeText[0].innerText ='';
+            return showEorrMessage(0, '');
         }
 
         /* 비밀번호 체크 로직*/
@@ -186,9 +191,9 @@
         /* 제목 글자수 유효성 검사 로직 */
         function isLimitNumberCharacters (value){
             if(!value || value.length < 4) {
-                return inputNoticeText[2].innerText = noticeText.title;
+                return showEorrMessage(2, noticeText.title);
             }
-            return inputNoticeText[2].innerText ='';
+            return showEorrMessage(2, '');
         }
 
         /* 내용 글자수 실시간 체크 및 글자수 초과시 작성 안되는 로직 */
@@ -199,10 +204,10 @@
             textNumerCheck.innerText = textNumber;
 
             if(textNumber >= 100) {
-                return inputNoticeText[3].innerText = noticeText.textarea;
+                return showEorrMessage(3, noticeText.textarea);
             };
 
-            return inputNoticeText[3].innerText = '';
+            return showEorrMessage(3, '');
 		}
 
         /* 비밀글 클릭시 비밀번호 입력 영역 노출되는 로직 */
@@ -210,62 +215,46 @@
             passwordRow.setAttribute('style','display:table-row')
         });
 
-        /* 글쓰기 버튼을 누르면 실행되는 로직 */
-        inputTextarea.addEventListener('input', isOverNumber)
-        registrationButton.addEventListener('click', createBoard)
 
-        function createBoard() {
+
+		function createBoard() {
+			event.preventDefault();
+
             isNameSpecialCharacterCheck(inputName.value);
             isLimitNumberCharacters(inputTitle.value);
+			const request = new XMLHttpRequest();
+			// // POST to httpbin which returns the POST data as JSON
+			request.open('POST', 'https://httpbin.org/post', /* async = */ false);
 
-            formBox.onsubmit = function(event) {
-                event.preventDefault();
+			const formData = new FormData(document.getElementById('boardForm'));
+			request.send(formData);
 
-                // const request = new XMLHttpRequest();
-                // // POST to httpbin which returns the POST data as JSON
-                // request.open('POST', 'https://httpbin.org/post', /* async = */ false);
 
-                const formData = new FormData(document.getElementById('boardForm'));
-
-				//data 넣기
-				boardData.push(makeDataObject(formData));
-				//localstorage에 저장하기
-				localStorage.setItem('board',JSON.stringify(boardData));
-				//게시판 만들기
-				createBoardList(boardData);
-            }
+			//data 넣기
+			boardData.push(JSON.parse(request.response)['form']);
+			//localstorage에 저장하기
+			localStorage.setItem('board',JSON.stringify(boardData));
+			//게시판 만들기
+			createBoardList(boardData);
         }
 
-		// form 에 넣은 data를 불러와 객체로 만드는 로직.
-		function makeDataObject(value){
-			let obj = {};
-			for (let values of value.entries()) {
-				obj[values[0]] = values[1];
-			}
-			return obj;
-		}
-
 		function createBoardList(data){
-
-			let txt = '';
-			let win = '';
-
-			for(let i = 0; i < data.length; i++){
-				txt += '<tr><td>' + (i+1) + '</td>' +
-						'<td>' + boardData[i]['contenttitle'] + '</td>'+
-						'<td>' + boardData[i]['username'] + '</td>'+
-						'<td>' +   + '</td>' +
-						'</tr>';
-			}
-			boardListBody.innerHTML = txt;
 		}
 
-		boardList.addEventListener("click",function(e){
-			// console.log('tr')
-			if(e.target.nodeName == 'TD'){
-				const index = e.target.parentNode.rowIndex - 1;
 
-				const childwin = window.open("/Users/user/Downloads/JSstudy-master/pop_board.html", "_blank", "toolbar=yes,scrollbars=yes,resizable=yes,top=0,left=0,width=600,height=400");
+
+
+
+        /* 글쓰기 버튼을 누르면 실행되는 로직 */
+        inputTextarea.addEventListener('input', isOverNumber)
+        formBox.addEventListener('submit', createBoard)
+
+		boardList.addEventListener("click",function(event){
+			// console.log('tr')
+			if(event.target.nodeName == 'TD'){
+				const index = event.target.parentNode.rowIndex - 1;
+
+				window.open("pop_board.html", "_blank", "toolbar=yes,scrollbars=yes,resizable=yes,top=0,left=0,width=600,height=400");
 				localStorage.setItem('currentIndex',index);
 			}
 		});
