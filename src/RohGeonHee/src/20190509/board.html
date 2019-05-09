@@ -1,0 +1,330 @@
+<!DOCTYPE html>
+<html lang="ko">
+  <head>
+    <meta charset="utf-8">
+    <title>게시판 만들기</title>
+	<style>
+		* {
+			margin:0;
+			padding:0;
+			font-family:Verdana,sans-serif;
+			box-sizing:border-box;
+		}
+
+		body {color:#333;font-size:14px;}
+		#wrap {width:600px;}
+		/* table, ul */
+		table {width:100%;border:0; border-collapse:collapse;}
+		th,td {padding:8px 0;vertical-align:middle}
+		th {text-align:left;}
+		ul, li {margin:0;padding:0;list-style:none;}
+		/* input */
+		input[type=text],input[type=password]{display:inline-block;width:100%;height:32px;padding:0 10px;border:1px solid #ccc;font-size:14px;}
+		textarea {display:inline-block;width:100%;padding:10px;border:1px solid #ccc;font-size:14px;}
+		textarea:disabled{background-color: #fff}
+        input[type=button],input[type=submit], button {border:0;font-size:14px;}
+		/* button */
+		.btn-wrap {margin:10px 0 0 0;text-align:right}
+		.btn {display:inline-block;padding:12px 20px;background-color:#333;color:#fff;text-align:center;line-height:1;}
+
+		.result {padding:15px;background-color:#eee;}
+		.result + .result {border-top:1px solid #ccc;}
+		.result ul {position:relative;overflow:hidden;}
+		.result li:nth-child(1),
+		.result li:nth-child(2) {float:right;color:#999;font-size:12px}
+		.result li:nth-child(1) {padding-left:8px}
+		.result li:nth-child(3) {font-weight:bold;}
+
+		fieldset {border:1px solid #ccc;padding:16px;}
+		legend {display:none}
+		.cont {overflow:hidden;height:27px;}
+		.commtIptBox {
+			display:flex;
+			display: -webkit-flex;
+			flex-wrap: wrap;
+			-webkit-flex-wrap: wrap;
+			padding-top:20px;
+		}
+		.commtBox {flex:0 0 100%;font-size:12px;padding:10px 8px 0}
+		.contTxtBox {padding:10px 0 0;}
+		#btnCommt {display:block;flex:0 0 60px;height:32px;margin-left:8px;background:#666;color:#fff;line-height:1;}
+		#btnCommtInput {flex:1}
+		#btnCommtName {flex:0 0 100px;margin-right:8px}
+		.count {display:inline-block;margin-left:8px;font-style:normal;font-weight:bold;color:blue}
+        .numberInfo {text-align: right}
+        #noticeText {color:#f00}
+        .checkboxArea{text-align: right;}
+        #secretWriting{vertical-align: middle}
+        .row_password{display: none}
+	</style>
+  </head>
+  <body>
+
+	<div id="wrap">
+		<div id="resultWrap"></div>
+
+		<fieldset>
+		<legend>board</legend>
+			<form action="#" id="boardForm">
+                <div class="checkboxArea">
+                    <input type="checkbox" id="secretWriting">
+                    <label for="secretWriting">비밀글</label>
+                </div>
+				<table>
+					<caption></caption>
+					<colgroup>
+						<col style="width:100px" />
+						<col style="" />
+					</colgroup>
+					<tbody>
+						<tr>
+							<th scope="row">작성자</th>
+							<td><input type="text" id="iptName" name="username"><p id="noticeText"></p></td>
+                        </tr>
+						<tr class="row_password">
+							<th scope="row">비밀번호</th>
+							<td><input type="password" id="iptPassword" name="userpassword"><p id="noticeText"></p></td>
+						</tr>
+						<tr>
+							<th scope="row">제목</th>
+							<td><input type="text" id="iptTitle" name="contenttitle"><p id="noticeText"></p></td>
+						</tr>
+						<tr>
+							<th scope="row">내용</th>
+							<td><textarea id="iptCont" name="usercontent" rows="5" cols="10"></textarea><p class="numberInfo"><span class="textNumber">0</span>/100</p><p id="noticeText"></p></td>
+						</tr>
+					</tbody>
+
+				</table>
+                <div class="btn-wrap">
+                    <input type="submit" id="btnRegist" class="btn" value="글쓰기">
+                </div>
+            </form>
+
+		</fieldset>
+
+		<table class="board_list">
+			<thead>
+				<tr>
+					<th>NO</th>
+					<th>제목</th>
+					<th>작성자</th>
+					<th>날짜</th>
+				</tr>
+			</thead>
+			<tbody></tbody>
+		</table>
+
+
+	</div>
+
+
+	<script>
+
+        /*
+        게시판 만들기
+        1. 폼 영역
+            작성자, 비밀번호, 제목, 본문 내용, 등록 버튼이 포함된 등록 폼 만들기
+            input 유효성 검사 - 조건이 부합할 경우 각 input영역 하단에 안내문구 노출
+                작성자 : 특수문자 제한
+                제목 : 글자수 제한 (최소 4글자) / focus out됐을때 조건실행
+                본문 : 글자수 제한(최대 100글자) / addEventListener('input')으로 각 영역의 조건 체크
+            등록 버튼
+                default 비활성화 / 유효성 검사 통과시 활성화
+                뷰 테이블에 작성한 데이터가 노출되고 폼안에 데이터는 리셋
+
+        2. 게시판 영역
+            형식은 테이블
+                th : 넘버, 제목, 작성자, 날짜
+                td : 작성한 데이터가 들어가고 날짜는 시간까지 나오도록, 제목은 말줄임 처리
+                tr : 클릭시 새창
+                비밀글 : 데이터 노출되기전 prompt 로 비밀번호 입력 + 확인
+                ㄴ 조건 만족시 : 데이터 노출
+                ㄴ 조건 불만족시 : alert 노출
+
+        */
+
+        /* 전역변수 */
+        const formBox = document.querySelector('#boardForm')
+        const inputName = document.querySelector('#iptName')
+        const passwordRow = document.querySelector('.row_password')
+        const inputPassword = document.querySelector('#iptPassword')
+        const inputTitle = document.querySelector('#iptTitle')
+        const inputTextarea = document.querySelector('#iptCont')
+        const registrationButton = document.querySelector('#btnRegist')
+        const resultView = document.querySelector('#resultWrap')
+        const inputNoticeText = document.querySelectorAll('tr #noticeText')
+        const textNumerCheck = document.querySelector('.textNumber')
+        const inputSecretWriting = document.querySelector('#secretWriting')
+		const boardList = document.querySelector('.board_list');
+		const boardListBody = boardList.getElementsByTagName('tbody')[0];
+
+		const boardData = [];
+
+        registrationButton.addEventListener('click', function() {
+            //시간 변수 지정
+            const date = new Date();
+            const year = date.getFullYear();
+            const month = date.getMonth() + 1;
+            const day = date.getDate();
+            const hour = date.getHours();
+            const min = date.getMinutes();
+            const sec = date.getSeconds();
+            const msec = date.getMilliseconds();
+            fullDate = year + '-' + month + '-' + day + ' ' + hour + ':' + min + ':' + sec;
+
+            // 폼 전체 입력 확인
+            let inputNameCheck = inputName.value,
+                inputTitleCheck = inputTitle.value,
+                inputTextareaCheck = inputTextarea.value;
+
+            if(inputNameCheck  == "") {
+                alert("이름을 입력해주세요");
+                return;
+            } else if(inputTitleCheck == ""){
+                alert("제목을 입력해주세요")
+                return;
+            } else if(inputTextareaCheck == "") {
+                alert("내용을 입력해주세요")
+                return;
+            } else{
+                alert("다입력햇음")
+
+                return;
+
+            }
+        });
+
+
+        /* 안내 문구 객체 */
+        const noticeText = {
+            name: '작성자에는 특수문자를 사용할 수 없습니다.',
+            title : '4글자 이상의 제목을 입력하세요.',
+            textarea: '100자 이상 등록할 수 없습니다.'
+        }
+
+		//공통 message
+		function showEorrMessage(index,message){
+			return inputNoticeText[index].innerText = message
+		}
+
+        /* 작성자 특수문자 체크 로직 */
+        function isNameSpecialCharacterCheck(value) {
+            const specialCharacterCheck = /[~!@#$%^&*()_+|<>?:{}]/;
+            if(specialCharacterCheck.test(value)){
+                return showEorrMessage(0, noticeText.name);
+            }
+            return showEorrMessage(0, '');
+        }
+
+        /* 비밀번호 체크 로직*/
+        function isPasswordCheck(value) {
+            if(value === value) return;
+            return alert('비밀번호가 틀렸습니다.')
+        }
+
+        /* 제목 글자수 유효성 검사 로직 */
+        function isLimitNumberCharacters (value){
+            if(!value || value.length < 4) {
+                return showEorrMessage(2, noticeText.title);
+            }
+            return showEorrMessage(2, '');
+        }
+
+        /* 내용 글자수 실시간 체크 및 글자수 초과시 작성 안되는 로직 */
+		function isOverNumber() {
+            inputTextarea.value = inputTextarea.value.substring(0,100);
+
+            const textNumber = inputTextarea.value.length;
+            textNumerCheck.innerText = textNumber;
+
+            if(textNumber >= 100) {
+                return showEorrMessage(3, noticeText.textarea);
+            };
+
+            return showEorrMessage(3, '');
+		}
+
+
+
+        /* 비밀글 클릭시 비밀번호 입력 영역 노출되는 로직 */
+        inputSecretWriting.addEventListener('change', function() {
+            passwordRow.setAttribute('style','display:table-row')
+        });
+
+
+
+		function createBoard() {
+			event.preventDefault();
+
+            isNameSpecialCharacterCheck(inputName.value);
+            isLimitNumberCharacters(inputTitle.value);
+			const request = new XMLHttpRequest();
+			// // POST to httpbin which returns the POST data as JSON
+			request.open('POST', 'https://httpbin.org/post', /* async = */ false);
+
+			const formData = new FormData(document.getElementById('boardForm'));
+			request.send(formData);
+
+
+			//data 넣기
+			boardData.push(JSON.parse(request.response)['form']);
+            console.log(boardData);
+			//localstorage에 저장하기
+			localStorage.setItem('board',JSON.stringify(boardData));
+			//게시판 만들기
+			createBoardList(boardData);
+        }
+
+
+
+        // 데이터가 들어가는 테이블
+		function createBoardList(data){
+
+            let infoList = '';
+
+            for(let i = 0;i < data.length; i++){
+
+                infoList += `
+                <tr>
+                    <td>
+                        ${(i + 1)}
+                    </td>
+                    <td>
+                        ${boardData[i]['contenttitle']}
+                    </td>
+                    <td>
+                        ${boardData[i]['username']}
+                    </td>
+                    <td>
+                        ${fullDate}
+                    </td>
+                </tr>
+                `
+                console.log(fullDate);
+            }
+            boardListBody.innerHTML = infoList;
+
+		}
+
+        /* 글쓰기 버튼을 누르면 실행되는 로직 */
+        inputTextarea.addEventListener('input', isOverNumber)
+        formBox.addEventListener('submit', createBoard, false)
+
+
+
+
+		boardList.addEventListener("click",function(event){
+			// console.log('tr')
+			if(event.target.nodeName == 'TD'){
+				const index = event.target.parentNode.rowIndex - 1;
+
+				window.open("pop_board.html", "_blank", "toolbar=yes,scrollbars=yes,resizable=yes,top=0,left=0,width=600,height=400");
+				localStorage.setItem('currentIndex',index);
+			}
+		});
+
+	</script>
+
+  </body>
+</html>
