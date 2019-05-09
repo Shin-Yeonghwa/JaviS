@@ -127,16 +127,17 @@
             작성자, 비밀번호, 제목, 본문 내용, 등록 버튼이 포함된 등록 폼 만들기
             input 유효성 검사 - 조건이 부합할 경우 각 input영역 하단에 안내문구 노출
                 작성자 : 특수문자 제한
-                제목 : 글자수 제한 (최소 4글자)
-                본문 : 글자수 제한(최대 100글자)
+                제목 : 글자수 제한 (최소 4글자) / focus out됐을때 조건실행
+                본문 : 글자수 제한(최대 100글자) / addEventListener('input')으로 각 영역의 조건 체크
             등록 버튼
+                default 비활성화 / 유효성 검사 통과시 활성화
                 뷰 테이블에 작성한 데이터가 노출되고 폼안에 데이터는 리셋
 
         2. 게시판 영역
             형식은 테이블
                 th : 넘버, 제목, 작성자, 날짜
-                td : 작성한 데이터가 들어가고 날짜는 시간까지 나오도록, 클릭시 새창
-
+                td : 작성한 데이터가 들어가고 날짜는 시간까지 나오도록, 제목은 말줄임 처리
+                tr : 클릭시 새창
                 비밀글 : 데이터 노출되기전 prompt 로 비밀번호 입력 + 확인
                 ㄴ 조건 만족시 : 데이터 노출
                 ㄴ 조건 불만족시 : alert 노출
@@ -150,6 +151,7 @@
         const inputPassword = document.querySelector('#iptPassword')
         const inputTitle = document.querySelector('#iptTitle')
         const inputTextarea = document.querySelector('#iptCont')
+        const registrationButton = document.querySelector('#btnRegist')
         const resultView = document.querySelector('#resultWrap')
         const inputNoticeText = document.querySelectorAll('tr #noticeText')
         const textNumerCheck = document.querySelector('.textNumber')
@@ -157,72 +159,76 @@
 		const boardList = document.querySelector('.board_list');
 		const boardListBody = boardList.getElementsByTagName('tbody')[0];
 
-        /* 전체 data */
 		const boardData = [];
+
+        registrationButton.addEventListener('click', function() {
+            //시간 변수 지정
+            const date = new Date();
+            const year = date.getFullYear();
+            const month = date.getMonth() + 1;
+            const day = date.getDate();
+            const hour = date.getHours();
+            const min = date.getMinutes();
+            const sec = date.getSeconds();
+            const msec = date.getMilliseconds();
+            fullDate = year + '-' + month + '-' + day + ' ' + hour + ':' + min + ':' + sec;
+
+            // 폼 전체 입력 확인
+            let inputNameCheck = inputName.value,
+                inputTitleCheck = inputTitle.value,
+                inputTextareaCheck = inputTextarea.value;
+
+            if(inputNameCheck  == "") {
+                alert("이름을 입력해주세요");
+                return;
+            } else if(inputTitleCheck == ""){
+                alert("제목을 입력해주세요")
+                return;
+            } else if(inputTextareaCheck == "") {
+                alert("내용을 입력해주세요")
+                return;
+            } else{
+                alert("다입력햇음")
+
+                return;
+
+            }
+        });
+
 
         /* 안내 문구 객체 */
         const noticeText = {
             name: '작성자에는 특수문자를 사용할 수 없습니다.',
             title : '4글자 이상의 제목을 입력하세요.',
-            textarea: '100자 이상 등록할 수 없습니다.',
-            emptyValue : '내용을 입력해 주세요.'
+            textarea: '100자 이상 등록할 수 없습니다.'
         }
 
-		/* 공통 message */
+		//공통 message
 		function showEorrMessage(index,message){
 			return inputNoticeText[index].innerText = message
 		}
-
-        /* 글쓰기 버튼을 누르면 실행되는 로직 */
-        inputTextarea.addEventListener('input', isOverNumber)
-        formBox.addEventListener('submit', createBoard)
-		boardList.addEventListener("click",function(event){
-			// console.log('tr')
-			if(event.target.nodeName == 'TD'){
-				const index = event.target.parentNode.rowIndex - 1;
-
-				window.open("pop_board.html", "_blank", "toolbar=yes,scrollbars=yes,resizable=yes,top=0,left=0,width=600,height=400");
-				localStorage.setItem('currentIndex',index);
-			}
-		});
-
-        /* 비밀글 클릭시 비밀번호 입력 영역 노출되는 로직 */
-        inputSecretWriting.addEventListener('change', function() {
-            if(this.checked) return passwordRow.setAttribute('style','display:table-row')
-            return passwordRow.setAttribute('style','display:none')
-        });
 
         /* 작성자 특수문자 체크 로직 */
         function isNameSpecialCharacterCheck(value) {
             const specialCharacterCheck = /[~!@#$%^&*()_+|<>?:{}]/;
             if(specialCharacterCheck.test(value)){
-                showEorrMessage(0, noticeText.name);
-                return false;
+                return showEorrMessage(0, noticeText.name);
             }
+            return showEorrMessage(0, '');
+        }
 
-            if(!value){
-                showEorrMessage(0, noticeText.emptyValue);
-                return false;
-            }
-
-            showEorrMessage(0, '');
-            return true;
+        /* 비밀번호 체크 로직*/
+        function isPasswordCheck(value) {
+            if(value === value) return;
+            return alert('비밀번호가 틀렸습니다.')
         }
 
         /* 제목 글자수 유효성 검사 로직 */
         function isLimitNumberCharacters (value){
             if(!value || value.length < 4) {
-                showEorrMessage(2, noticeText.title);
-                return false;
+                return showEorrMessage(2, noticeText.title);
             }
-
-            if(!value){
-                showEorrMessage(2, noticeText.emptyValue);
-                return false;
-            }
-
-            showEorrMessage(2, '');
-            return true;
+            return showEorrMessage(2, '');
         }
 
         /* 내용 글자수 실시간 체크 및 글자수 초과시 작성 안되는 로직 */
@@ -233,59 +239,46 @@
             textNumerCheck.innerText = textNumber;
 
             if(textNumber >= 100) {
-                showEorrMessage(3, noticeText.textarea);
-                return false;
+                return showEorrMessage(3, noticeText.textarea);
             };
 
-            if(!textNumber){
-                showEorrMessage(3, noticeText.emptyValue);
-                return false;
-            }
-
-            showEorrMessage(3, '');
-            return true;
+            return showEorrMessage(3, '');
 		}
 
-        /* 글쓰기 버튼 클릭 이벤트 */
-        function createBoard() {
+
+
+        /* 비밀글 클릭시 비밀번호 입력 영역 노출되는 로직 */
+        inputSecretWriting.addEventListener('change', function() {
+            passwordRow.setAttribute('style','display:table-row')
+        });
+
+
+
+		function createBoard() {
 			event.preventDefault();
 
-            if(isNameSpecialCharacterCheck(inputName.value) && isLimitNumberCharacters(inputTitle.value) && isOverNumber()){
-                const request = new XMLHttpRequest();
-                // // POST to httpbin which returns the POST data as JSON
-                request.open('POST', 'https://httpbin.org/post', /* async = */ false);
+            isNameSpecialCharacterCheck(inputName.value);
+            isLimitNumberCharacters(inputTitle.value);
+			const request = new XMLHttpRequest();
+			// // POST to httpbin which returns the POST data as JSON
+			request.open('POST', 'https://httpbin.org/post', /* async = */ false);
 
-                const formData = new FormData(document.getElementById('boardForm'));
-                request.send(formData);
+			const formData = new FormData(document.getElementById('boardForm'));
+			request.send(formData);
 
-                let data = JSON.parse(request.response)['form'];
-                data['time'] = getCurrentTime();
 
-                /* data 넣기 */
-                boardData.push(data);
-                /* localstorage에 저장하기 */
-                localStorage.setItem('board',JSON.stringify(boardData));
-                /* 게시판 만들기 */
-                createBoardList(boardData);
-                /* input reset */
-                formBox.reset();
-            }
+			//data 넣기
+			boardData.push(JSON.parse(request.response)['form']);
+            console.log(boardData);
+			//localstorage에 저장하기
+			localStorage.setItem('board',JSON.stringify(boardData));
+			//게시판 만들기
+			createBoardList(boardData);
         }
 
-        /* 글쓰기 버튼 클릭시 작성시간 체크 로직 */
-        function getCurrentTime() {
-            const date = new Date();
-            const year = date.getFullYear();
-            const month = date.getMonth() + 1;
-            const day = date.getDate();
-            const hour = date.getHours();
-            const min = date.getMinutes();
-            const sec = date.getSeconds();
-            const msec = date.getMilliseconds();
-            return fullDate = year + '-' + month + '-' + day + ' ' + hour + ':' + min + ':' + sec;
-        }
 
-        /* 데이터가 들어가는 테이블 */
+
+        // 데이터가 들어가는 테이블
 		function createBoardList(data){
 
             let infoList = '';
@@ -298,19 +291,38 @@
                         ${(i + 1)}
                     </td>
                     <td>
-                        ${data[i]['contenttitle']}
+                        ${boardData[i]['contenttitle']}
                     </td>
                     <td>
-                        ${data[i]['username']}
+                        ${boardData[i]['username']}
                     </td>
                     <td>
-                        ${data[i]['time']}
+                        ${fullDate}
                     </td>
                 </tr>
                 `
+                console.log(fullDate);
             }
             boardListBody.innerHTML = infoList;
+
 		}
+
+        /* 글쓰기 버튼을 누르면 실행되는 로직 */
+        inputTextarea.addEventListener('input', isOverNumber)
+        formBox.addEventListener('submit', createBoard, false)
+
+
+
+
+		boardList.addEventListener("click",function(event){
+			// console.log('tr')
+			if(event.target.nodeName == 'TD'){
+				const index = event.target.parentNode.rowIndex - 1;
+
+				window.open("pop_board.html", "_blank", "toolbar=yes,scrollbars=yes,resizable=yes,top=0,left=0,width=600,height=400");
+				localStorage.setItem('currentIndex',index);
+			}
+		});
 
 	</script>
 
