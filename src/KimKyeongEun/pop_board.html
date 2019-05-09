@@ -117,8 +117,9 @@
 		//비밀 번호 체크 로직
 		function isPasswordHave(){
 			if(boardData[currentIndex]['userpassword'] !== ''){
-				checkPassword();
-			}else showContents();
+				return checkPassword();
+			}
+			return showContents();
 		}
 
 		function checkPassword(){
@@ -133,10 +134,10 @@
 		}
 
 		//contents 노출
-		function showContents(data,index){
-			username.innerText = data[index]['username'];
-			contenttitle.innerText = data[index]['contenttitle'];
-			usercontent.innerText = data[index]['usercontent'];
+		function showContents(){
+			username.innerText = boardData[currentIndex]['username'];
+			contenttitle.innerText = boardData[currentIndex]['contenttitle'];
+			usercontent.innerText = boardData[currentIndex]['usercontent'];
 		}
 
 		//window 로딩 되었으면 password 체크
