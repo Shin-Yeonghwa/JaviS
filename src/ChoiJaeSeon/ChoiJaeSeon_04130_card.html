@@ -11,6 +11,8 @@
 			width:330px
 		}
 		.card{
+			position:relative;
+			z-index: 100;;
 			display:inline-block;
 			width:70px;
 			height:100px;
@@ -51,7 +53,7 @@
 	</style>
 </head>
 <body>
-
+<div id="wrap"></div>
 
 
 <script>
@@ -65,12 +67,17 @@ var colorList =[
 'https://search.pstatic.net/common?type=a&size=120x150&quality=95&direct=true&src=http%3A%2F%2Fsstatic.naver.net%2Fpeople%2Fportrait%2F201904%2F20190405002619316.jpg','https://search.pstatic.net/common?type=a&size=120x150&quality=95&direct=true&src=http%3A%2F%2Fsstatic.naver.net%2Fpeople%2Fportrait%2F201904%2F20190405002619316.jpg',
 'https://search.pstatic.net/common?type=a&size=120x150&quality=95&direct=true&src=http%3A%2F%2Fsstatic.naver.net%2Fpeople%2Fportrait%2F201805%2F20180525183934987.jpg','https://search.pstatic.net/common?type=a&size=120x150&quality=95&direct=true&src=http%3A%2F%2Fsstatic.naver.net%2Fpeople%2Fportrait%2F201805%2F20180525183934987.jpg',
 'https://search.pstatic.net/common?type=a&size=120x150&quality=95&direct=true&src=http%3A%2F%2Fsstatic.naver.net%2Fpeople%2F87%2F201904111947197171.jpg','https://search.pstatic.net/common?type=a&size=120x150&quality=95&direct=true&src=http%3A%2F%2Fsstatic.naver.net%2Fpeople%2F87%2F201904111947197171.jpg']
+var colorBoxs = colorList.slice();
 var colorBox = [];
 var clickTime = true;
 var completionCard = [];
 var clickCard = [];
+var startTime;
+function jaejae(){
+
 for(var i = 0; colorList.length > 0 ; i += 1){
 	colorBox = colorBox.concat(colorList.splice(Math.floor(Math.random() * colorList.length), 1));
+}
 }
 console.log(colorBox);
 	function cardSetting(widthNum , heightNum){
@@ -97,6 +104,17 @@ console.log(colorBox);
 						completionCard.push(clickCard[0]);
 						completionCard.push(clickCard[1]);
 						clickCard= [];
+						if(completionCard.length === 12){
+							var endTime = new Date()
+							alert('완료되었다고 한다 ' + (startTime - endTime) / 1000 + '초 걸렸습니다.');
+							document.querySelector('#wrap').innerHTML = '';
+							colorBox = colorBoxs.slice();
+							completionCard = [];
+							startTime = null;
+							jaejae();
+							cardSetting(widthNum , heightNum);
+
+						}
 					
 					}else{//두카드 이미지가 다르면
 						clickTime = false;
@@ -105,14 +123,14 @@ console.log(colorBox);
 							clickCard[1].classList.remove('flipped');
 							clickTime = true;
 							clickCard = [];
-						}, 1000)
+						}, 1000);
 					}
 				}
 				}
 			});
 			})(card);
 			card.appendChild(cardInner);
-			document.body.appendChild(card);
+			document.querySelector('#wrap').appendChild(card);
 		}
 		// 시작시 카드 뒤집는 효과
 		document.querySelectorAll('.card').forEach(function(card, index){
@@ -125,8 +143,11 @@ console.log(colorBox);
 				card.classList.remove('flipped');
 			});
 			clickTime = true;
+			startTime = new Date();
 			}, 5000);
+		
 	}
+	jaejae()
 		cardSetting(widthNum , heightNum);
 
 </script>

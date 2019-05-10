@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="ko">
+
+<head>
+	<meta charset="utf-8">
+	<title>주사위 게임</title>
+<link rel="stylesheet" href="https://ssl.pstatic.net/sstatic/search/pc/css/search1_190221.css">
+
+<style type="text/css">
+	table{
+		width:300px;
+	}
+	td{
+		width:100px;
+		height:100px;
+		border:1px solid #333;
+	}
+</style>
+</head>
+<body>
+
+		<body>
+				<table>
+					<tbody>
+						<tr>
+							<td class="btn"></td>
+							<td class="btn"></td>
+							<td class="btn"></td>
+						</tr>
+						<tr>
+							<td></td>
+							<td></td>
+							<td></td>
+						</tr>
+						<tr>
+							<td></td>
+							<td></td>
+							<td></td>
+						</tr>
+					
+					</tbody>
+				</table>
+				
+				
+				
+			
+		
+			
+			</body>
+
+<script>
+	 // 틱택톡 게임
+
+// 배열안에 배열을 넣는 것을 활용한다. = 이차원 배열
+var arryBox = [
+    [0,1,2],
+    [0,1,2],
+    [0,1,2],    
+];
+
+
+
+// var cell = document.querySelector('td')
+// cell.addEventListener('click', function(){
+// 	alert('jaejae');
+// })
+document.querySelectorAll('table td').forEach(function(btn) {
+	btn.addEventListener('click', function() {
+ 	 console.log('재선이다');
+
+})
+})
+</script>
+
+</html>
