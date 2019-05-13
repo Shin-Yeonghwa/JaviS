@@ -4,7 +4,7 @@
 <head>
 	<meta charset="utf-8">
 	<title>주사위 게임</title>
-
+<link rel="stylesheet" href="https://ssl.pstatic.net/sstatic/search/pc/css/search1_190221.css">
 
 	<style>
 	
@@ -20,11 +20,11 @@
 
 	function test(){
 		//렌덤 숫자뽑기
+		(function(){
 		var resultNum = [];
 		while (listNumber.length > 0) {
 		   var moveResult = listNumber.splice(Math.floor(Math.random() * listNumber.length), 1)[0];
 		   resultNum.push(moveResult);
-		}
 		console.log(resultNum);
 		var inputNum = resultNum
 		   // 숫자를 뽑아내자
@@ -33,7 +33,9 @@
 		   .sort(function(p, c) {
 			   return p - c
 		   });
-		   document.write('당신의 주사위는 ' + inputNum + '입니다. ');
+		  alert('당신의 주사위는 ' + inputNum + '입니다. ');
+		}
+		})()
 	}
 </script>
 
