@@ -1,0 +1,213 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<title>주사위게임</title>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.0/jquery.min.js"></script>
+<style>
+table td{
+    position: relative;
+    border: 1px solid #777;
+}
+.no_border{
+    border:0;
+}
+.playerA{
+    position: absolute;
+    top:10px;
+    left:10px;
+}
+.playerB{
+    position: absolute;
+    top:10px;
+    left:30px;
+}
+</style>
+</head>
+<body>
+    <div class="wrap">
+        <table width="100%" height="500" cellpadding="0" cellspacing="0" border="0" style="border-collapse:collapse;" align="center">
+              <tr align="center">
+                <td width="100">
+                  <a href="#" onClick="Reset();">리셋</a><br><br>
+                  <a href="#" onClick="scrollDiceA();">주사위</a><br>
+                  <span id="diceNumberA">0</span><br>
+                  <span id="playerPointA"></span>
+                  <br><br>
+                  <a href="#" onClick="scrollDiceB();">주사위</a><br>
+                  <span id="diceNumberB">0</span><br>
+                  <span id="playerPointB"></span>
+                </td>
+                <td width="400">
+                  <table width="400" height="400" cellpadding="0" cellspacing="0" border="0" style="border-collapse:collapse;" align="center">
+                    <tr align="center">
+                      <td width="50" class="boxOff"><span id="posA15">15</span></td>
+                      <td width="50" class="boxOff"><span id="posA16">16</span></td>
+                      <td width="50" class="boxOff"><span id="posA17">17</span></td>
+                      <td width="50" class="boxOff"><span id="posA18">18</span></td>
+                      <td width="50" class="boxOff"><span id="posA19">19</span></td>
+                      <td width="50" class="boxOff"><span id="posA20">20</span></td>
+                      <td width="50" class="boxOff"><span id="posA21">21</span></td>
+                      <td width="50" class="boxOff"><span id="posA22">22</span></td>
+                    </tr>
+                    <tr align="center">
+                      <td width="50" class="boxOff"><span id="posA14">14</span></td>
+                      <td colspan="6" width="50" class="no_border"></td>
+                      <td width="50" class="boxOff"><span id="posA23">23</span></td>
+                    </tr>
+                    <tr align="center">
+                      <td width="50" class="boxOff"><span id="posA13">13</span></td>
+                      <td colspan="6" width="50" class="no_border"></td>
+                      <td width="50" class="boxOff"><span id="posA24">24</span></td>
+                    </tr>
+                    <tr align="center">
+                      <td width="50" class="boxOff"><span id="posA12">12</span></td>
+                      <td colspan="6" width="50" class="no_border"></td>
+                      <td width="50" class="boxOff"><span id="posA25">25</span></td>
+                    </tr>
+                    <tr align="center">
+                      <td width="50" class="boxOff"><span id="posA11">11</span></td>
+                      <td colspan="6" width="50" class="no_border"></td>
+                      <td width="50" class="boxOff"><span id="posA26">26</span></td>
+                    </tr>
+                    <tr align="center">
+                      <td width="50" class="boxOff"><span id="posA10">10</span></td>
+                      <td colspan="6" width="50" class="no_border"></td>
+                      <td width="50" class="boxOff"><span id="posA27">27</span></td>
+                    </tr>
+                    <tr align="center">
+                      <td width="50" class="boxOff"><span id="posA9">9</span></td>
+                      <td colspan="6" width="50" class="no_border"></td>
+                      <td width="50" class="boxOff"><span id="posA28">28</span></td>
+                    </tr>
+                    <tr align="center">
+                      <td width="50" class="boxOff"><span id="posA8">8</span></td>
+                      <td width="50" class="boxOff"><span id="posA7">7</span></td>
+                      <td width="50" class="boxOff"><span id="posA6">6</span></td>
+                      <td width="50" class="boxOff"><span id="posA5">5</span></td>
+                      <td width="50" class="boxOff"><span id="posA4">4</span></td>
+                      <td width="50" class="boxOff"><span id="posA3">3</span></td>
+                      <td width="50" class="boxOff"><span id="posA2">2</span></td>
+                      <td width="50" class="boxOff">
+                          <span id="posA1">1
+                              <font class="playerA" color="red">●</font>
+                              <font class="playerB" color="blue">●</font>
+                          </span>
+                      </td>
+                    </tr>
+                  </table>
+
+
+                </td>
+                <td width="100">
+                </td>
+              </tr>
+            </table>
+    </div>
+    <script type="text/javascript">
+    window.onload = function(){
+       // 초기 사용자의 위치를 지정.
+       nowNumA = 1;
+       nowNumB = 1;
+
+       // 초기 사용자의 playerPointA 값 지정.
+       playerPointA = 1000;
+       playerPointB = 1000;
+
+       // 초기 playerPointA 값을 <span id="playerPointA">에 입력
+       document.getElementById("playerPointA").innerHTML = playerPointA;
+       document.getElementById("playerPointB").innerHTML = playerPointB;
+     }
+     function scrollDiceA(){
+       // 주사위를 굴렸을 때 1~6까지의 숫자중 난수 발생.
+       DiceA = Math.ceil(Math.random()*6);
+       DiceB = Math.ceil(Math.random()*6);
+
+       playerNumA = DiceA + DiceB;
+
+       // 현재의 위치 noNumA에 앞서 생성한 난수 값을 더함.
+       nowNumA = nowNumA + playerNumA;
+
+       // <span id="diceNumberA">에 주사위 값 입력.
+       document.getElementById("diceNumberA").innerHTML = playerNumA;
+
+       if(nowNumA > 28){
+         // 사용자가 한바퀴 돌았을 때 현재의 값 nowNumA에서 8을 뺌.
+         nowNumA = nowNumA - 28;
+
+         // 사용자의 말이 한바퀴 돌았을 때 playerPointA에 50을 더함.
+         playerPointA = playerPointA + 50;
+
+         // 위에서 더한 playerPointA값을 <span id="playerPointA">에 입력함.
+         document.getElementById("playerPointA").innerHTML = playerPointA;
+       }
+
+       // 말의 이동을 위해서 전체 <span id="posA"> 들에서 ●를 삭제.
+       for(i=1; i<=28; i++){
+         $('#posA'+i).children('.playerA').remove();
+       }
+
+       // 현재 말의 위치에 ● 삽입.
+       $('#posA'+nowNumA).append("<font class='playerA' color='red'>●</font>");
+     }
+     function scrollDiceB(){
+       // 주사위를 굴렸을 때 1~6까지의 숫자중 난수 발생.
+       DiceC = Math.ceil(Math.random()*6);
+       DiceD = Math.ceil(Math.random()*6);
+
+       playerNumB = DiceC + DiceD;
+
+       // 현재의 위치 noNumA에 앞서 생성한 난수 값을 더함.
+       nowNumB = nowNumB + playerNumB;
+
+       // <span id="diceNumberA">에 주사위 값 입력.
+       document.getElementById("diceNumberB").innerHTML = playerNumB;
+
+       if(nowNumB > 28){
+         // 사용자가 한바퀴 돌았을 때 현재의 값 nowNumA에서 8을 뺌.
+         nowNumB = nowNumB - 28;
+
+         // 사용자의 말이 한바퀴 돌았을 때 playerPointA에 50을 더함.
+         playerPointB = playerPointB + 50;
+
+         // 위에서 더한 playerPointA값을 <span id="playerPointA">에 입력함.
+         document.getElementById("playerPointB").innerHTML = playerPointB;
+       }
+
+       // 말의 이동을 위해서 전체 <span id="posA"> 들에서 ●를 삭제.
+       for(j=1; j<=28; j++){
+         $('#posA'+j).children('.playerB').remove();
+       }
+
+       // 현재 말의 위치에 ● 삽입.
+       $('#posA'+nowNumB).append("<font class='playerB' color='blue'>●</font>");
+     }
+     function Reset(){
+         // 초기 사용자의 위치를 지정.
+         nowNumA = 1;
+         nowNumB = 1;
+
+         playerNumA = 0;
+         playerNumB = 0;
+         document.getElementById("diceNumberA").innerHTML = playerNumA;
+          document.getElementById("diceNumberB").innerHTML = playerNumB;
+
+         for(i=1; i<=28; i++){
+           $('#posA'+i).children('.playerA').remove();
+           $('#posA'+i).children('.playerB').remove();
+         }
+
+         $('#posA'+nowNumA).append("<font class='playerA' color='red'>●</font>");
+         $('#posA'+nowNumB).append("<font class='playerB' color='blue'>●</font>");
+
+         // 초기 사용자의 playerPointA 값 지정.
+         playerPointA = 1000;
+         playerPointB = 1000;
+
+         // 초기 playerPointA 값을 <span id="playerPointA">에 입력
+         document.getElementById("playerPointA").innerHTML = playerPointA;
+         document.getElementById("playerPointB").innerHTML = playerPointB;
+     }
+    </script>
+</body>
+</html>
