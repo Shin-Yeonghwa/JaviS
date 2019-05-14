@@ -253,8 +253,10 @@
 
                 const formData = new FormData(document.getElementById('boardForm')); //입력 form을 가져오는 영역
                 request.send(formData); //입력 form을 서버에 전달
+                //console.log(request);
 
                 const data = JSON.parse(request.response)['form']; //string >> json file로 변환
+                //console.log(data);
                 data['time'] = getCurrentTime(); //작성일을 보여주기 위한 부분 (입력 값에는 따로 존재하지 않는 부분)
 
                 /* data 넣기 */
@@ -279,7 +281,7 @@
             const sec = date.getSeconds();
             const msec = date.getMilliseconds();
             return fullDate = year + '-' + month + '-' + day + ' ' + hour + ':' + min + ':' + sec;
-        }
+        } // monent.js 라이브러리를 이용하면 미국식/일본식/중국식 모든 날짜를 입력할 수 있다.
 
         /* 데이터가 들어가는 테이블 */
 		function createBoardList(data){
