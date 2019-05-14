@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>if문 예제</title>
+    </head>
+    <body>
+        <h1>MENU</h1>
+        <ul>
+            <li>1. ICE Americano</li>
+            <li>2. Cafe Latte</li>
+            <li>3. Cappuccino</li>
+            <li>4. Tea</li>
+        </ul>
+        <p id="result"></p>
+
+        <script>
+            var choice = parseInt(prompt("메뉴를 선택해주세요.\n 1. ICE Americano\n 2. Cafe Latte\n 3. Cappuccino\n 4. Tea"));
+            var choiceMenu = "";
+
+            if(choice == 1) {
+                choiceMenu = "Ice Americano를 선택하셨습니다.";
+            }
+            else if(choice == 2) {
+                choiceMenu = "Cafe Latte를 선택하셨습니다.";
+            }
+            else if(choice == 3) {
+                choiceMenu = "Cappuccino를 선택하셨습니다.";
+            }
+            else if(choice == 4) {
+                choiceMenu = "Tea를 선택하셨습니다.";
+            }
+            else {
+                choiceMenu = "메뉴 선택을 잘못하셨습니다.";
+            }
+
+            document.getElementById("result").innerHTML = choiceMenu;
+        </script>
+    </body>
+</html>
