@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="ko">
+  <head>
+    <meta charset="utf-8">
+    <title>조건문 실습</title>
+  </head>
+  <body>
+
+  </body>
+  <script type="text/javascript">
+    var date = new Date();
+    var hour = date.getHours();
+
+    switch (true){
+      case hour < 11:
+      alert('아침');
+      break;
+      case hour < 15:
+      alert('점심');
+      break;
+      default:
+      alert('저녁');
+      break;
+    }
+  </script>
+</html>
