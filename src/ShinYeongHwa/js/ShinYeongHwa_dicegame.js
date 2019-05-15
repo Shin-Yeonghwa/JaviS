@@ -12,13 +12,12 @@ for(var i = 1; i < 36; i += 1){
     elment_ul.append(element_li);
 }
 
-
 // 변수 지정
 var diceNum; // 첫번째 주사위
 var diceNum2; // 두번째 주사위
 var diceSum = 0; // 주사위 총합
 var gameButton = document.getElementById('_gameButton'); //게임시작 버튼
-var diceCount = 0;
+var diceCount = 0; // 주사위 돌리는 카운트
 
 
 // 말 표시 해제 함수 - 'on' class 제거 
@@ -71,11 +70,7 @@ function diceGame(){
         document.body.append(elment_p2);
         elment_p2.textContent = 'GameOver';       
     }
-
 }
-
-
-
 
 // 주사위 돌리기 호출
 gameButton.addEventListener('click', diceGame);
