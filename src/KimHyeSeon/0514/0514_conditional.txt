@@ -1,0 +1,55 @@
+1. if조건문
+	if (boolean type 조건) {
+		조건이 참일 경우만 코드 실행
+	}
+
+- boolean 표현식이 참이면 코드를 실행, 거짓이면 무시
+- 조건문 안에 조건문을 중첩하여 사용할 수 있음
+
+2.  if else 조건문
+	if (boolean type 조건) {
+		조건이 참일 경우만 코드 실행
+	}
+	else {
+		조건이 거짓일 경우만 코드 실행
+	}
+
+- else를 사용하면 조건이 참/거진인 경우에 대한 실행 코드를 각각 다르게 작성할 수 있음```
+
+
+3. else if 조건문
+
+	if (boolean type 조건) {
+		조건이 참일 경우만 코드 실행
+	}
+	else if (boolean type 조건) {
+		조건이 참일 경우만 코드 실행
+	}
+	else if (boolean type 조건) {
+		조건이 참일 경우만 코드 실행
+	}
+	else {
+		조건이 거짓일 경우만 코드 실행
+	}
+
+- if ~ else 사이에 몇개든 상관없이 작성
+- if조건문이 실행되지 않았을 때 else if조건을 검사하고, 명령을 실행
+- 겹치지 않는 세 가지 이상의 조건을 나눌 때 사용
+
+4. switch 조건문
+	switch (비교할 값) {
+		case 값:
+			코드 
+			break;
+		case 값:
+			코드 
+			break;
+		default 값:
+			코드 
+			break;
+	}
+
+- 프로그램의 흐름을 분기해서 특정 코드가 실행되도록 함
+- case는 if/else if처럼 동작하고, default는 else처럼 동작 (case 안에 비교할 값을 적음)
+- break구문을 만나면 switch 조건문을 빠져나옴
+- break 키워드를 사용하지 않으면 다음 case에 해당하는 코드까지 실행
