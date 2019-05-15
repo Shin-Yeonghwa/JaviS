@@ -1,0 +1,44 @@
+<!doctype html>
+<html lang="ko">
+<head>
+	<meta charset="utf-8">
+	<meta name="viewkport" content="width=device-width,initial-scale=1.0,maximum-scale=1.0,minimum-scale=1.0,user-scalable=no,target-densitydpi=medium-dpi">
+	<meta http-equiv="Content-Script-Type" content="text/javascript">
+	<meta http-equiv="Content-Style-Type" content="text/css">
+	<title>0508 - basic</title>
+	<style type="text/css">
+		li{
+			width:50px;
+			height:50px;
+			display:inline-block;
+			vertical-align:top;
+			text-align: center;
+			line-height:50px;
+			box-sizing:border-box;
+			-webkit-box-sizing:border-box;
+			border:1px solid #eee;
+			margin:1px;
+			
+		}
+		ul._start li{
+			background-color:#f00;
+		}
+		li.on ~ li{
+			background-color:#fff;
+		}
+	</style>  
+	
+</head>
+<body>
+	<form id="_form">
+		<button id="_gameButton">주사위 돌리기</button>
+		<p>첫번째 주사위 값 :  <span id="_diceNum"></span></p>
+		<p>두번째 주사위 값 :  <span id="_diceNum2"></span></p>
+		<p>주사위 합 :  <span id="_diceSum"></span></p>
+		<p>주사위 돌린 수 :  <span id="_diceCount"></span></p>
+	</form>
+	
+	<script type="text/javascript" src="js/ShinYeongHwa_dicegame.js"></script>
+</body>
+
+</html>
