@@ -75,6 +75,7 @@ function addMoney() {
 	var inputCash = document.querySelector('.input_cash');
 	console.log(inputCash);
 	inputCash.innerHTML = valueInput;
+	// valueInput = '';
 
 	//제품선택
 	var arrayProduct = document.getElementsByName('product');
@@ -82,6 +83,7 @@ function addMoney() {
 	console.log(typeof(arrayProduct)); //nodeList
 
 	var outputCash = document.querySelector('.output_cash');
+	outputCash.innerHTML = valueInput;
 	for(var i = 0; i < arrayProduct.length; i++ ) {
 		arrayProduct[i].onclick = function(e) {
 			//선택한 음료수 금액 가져오기

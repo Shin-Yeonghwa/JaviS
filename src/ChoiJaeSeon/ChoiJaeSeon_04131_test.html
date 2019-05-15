@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="ko">
+
+<head>
+	<meta charset="utf-8">
+	<title>주사위 게임</title>
+<link rel="stylesheet" href="https://ssl.pstatic.net/sstatic/search/pc/css/search1_190221.css">
+
+	<style>
+	
+	</style>
+</head>
+<body>
+
+<button onclick="test()">숫자 생성하기</button>
+
+<script>
+	 //배열생성 
+	 var listNumber=[1,1,2,2,3,3,4,4,5,5,6,6]
+
+	function test(){
+		//렌덤 숫자뽑기
+		(function(){
+		var resultNum = [];
+		while (listNumber.length > 0) {
+		   var moveResult = listNumber.splice(Math.floor(Math.random() * listNumber.length), 1)[0];
+		   resultNum.push(moveResult);
+		console.log(resultNum);
+		var inputNum = resultNum
+		   // 숫자를 뽑아내자
+		   .slice(0, 2)
+		   // 작은 숫자 숫자부터 노출하기
+		   .sort(function(p, c) {
+			   return p - c
+		   });
+		  alert('당신의 주사위는 ' + inputNum + '입니다. ');
+		}
+		})()
+	}
+</script>
+
+</body>
+
+</html>

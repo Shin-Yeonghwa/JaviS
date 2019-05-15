@@ -1,0 +1,214 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+
+
+<script src="https://code.jquery.com/jquery-1.12.4.min.js" integrity="sha256-ZosEbRLbNQzLpnKIkEdrPv7lOy9C27hHQ+Xp8a4MxAQ=" crossorigin="anonymous"></script>
+<title>reply</title>
+</head>
+<style>
+   .reply_table tr td {
+        width: 300px;
+        text-align: center;
+    }
+    .title_td {
+        cursor: pointer;
+    }
+
+    .panel-body{
+        display: none;
+    }
+
+</style>
+<script>
+
+    $(document).ready(function(){
+        form.init();
+
+        document.getElementById("mainBtn").addEventListener("click", function(){
+            form.check('main');
+        });
+    });
+
+    var form = {
+        //초기화-버튼에 check 이벤트 생성
+        init : function() {
+            var btn = document.getElementsByName("btn");
+
+            for(var i=0; i<btn.length; i++){
+              (function(i){
+                btn[i].addEventListener("click", function(){
+                   form.check(i);
+                });
+              })(i);
+            }
+
+            if( !isNaN(reply.lastView) && parseInt(reply.lastView) != -1 ) {
+                var index = reply.lastView;
+                var id = 'title_td_' + index;
+                var td = document.getElementById(id);
+                reply.showComments(td,'noCnt');
+            }
+
+        },
+        //유효성체크
+        check : function formCheck(i) {
+                var f;
+                if(i == 'main') {
+                    f = document.getElementsByName("mainForm")[0];
+                }else {
+                    f = document.getElementsByName("replyForm")[i];
+                }
+                var len = f.length;
+
+                console.log(f[0])
+
+                for(var i=0; i<len; i++) {
+                    if(f[i].className.indexOf("check") != -1){
+                        if($.trim(f[i].value).length == 0) {
+                            alert(f[i].id + "를 입력해주세요.");
+                            f[i].focus();
+                            return;
+                        }
+                    }
+                }
+                form.save(f);
+            },
+          save : function save(f) {
+
+                var arr = {
+                          "formId"    : reply.getId(),
+                          "userName"  : f.userName.value,
+                          "title"     : f.title.value,
+                          "contents"  : f.contents.value,
+                          "date"      : reply.getDate(),
+                          "viewCount" : 0
+                        }
+                if(f.formId) {
+                    arr.parentId =  f.formId.value;
+                }
+
+                reply.setDate(arr);
+                f.reset();
+            }
+    }
+
+
+
+
+    var reply = {
+        lastView : -1,
+        id : 0,
+        data : [],
+        //고유아이디
+        getId : function(){
+            return reply.id++;
+        },
+        //현재 날짜, 시간 return
+        getDate : function() {
+          var d = new Date();
+          return d.getFullYear() + "-" + ( parseInt(d.getMonth()) + 1 ) + "-" + d.getDate() + " " + d.getHours() +":" + d.getMinutes() + ":" + d.getSeconds();
+        },
+        //입력된 내용 data[]에 저장
+        setDate : function(param) {
+            reply.data.push(param);
+            console.log(reply.data);
+            reply.replyCreate();
+        },
+        //저장된 글, 댓글 목록 return
+        getData : function() {
+            return reply.data;
+        },
+
+        //저장된 글 출력
+        replyCreate : function() {
+            document.getElementById("reply_body").innerHTML = '';
+
+            var html = '';
+            var data = reply.getData();
+
+            for(var i in data) {
+                html = '';
+                if(!data[i].parentId) {
+                    html +=  "<div class='panel panel-default'>";
+                    //원본글
+                    html +=  "<div class='panel-heading'>";
+                    html +=  "<table class='reply_table'>";
+                    html +=  "<tr>";
+                    html +=  "<td style='text-align:left' id='title_td_"+ data[i].formId +"' class='title_td' onclick='reply.showComments(this)'>";
+                    html +=  data[i].title;
+                    html +=  "</td>";
+                    html +=  "<td>" + data[i].date + "</td>"
+                    html +=  "<td><span>" + data[i].userName + "</span></td>"
+                    html +=  "</tr></table>"
+                    html +=  "</div>";
+
+                    html +=  "<div class='panel-body' id='panel-body'>";
+                    html +=  data[i].contents;
+                    html += "</div>";
+                    html += "</div>";
+                    $("#reply_body").append(html);
+                    reply.lastView  = -1;
+                }
+
+            }
+            form.init();
+        },
+        //제목눌렀을때 toggle
+        showComments : function(obj, type) {
+			 console.log('parentsUntil',$(obj).parentsUntil("div")); //div만나기 전까지의 부모들 선택.
+			 console.log('parent',$(obj).parentsUntil("div").parent());//각각의 부모.
+			 console.log('nextall',$(obj).parentsUntil("div").parent().nextAll());//위 선택자중 제일 외각 div 형재들 선택.
+
+             var div = $(obj).parentsUntil("div").parent().nextAll();
+
+            if(div.is(":visible")){
+               div.slideUp('slow');
+            } else {
+                if(!type){
+                    var id = $(obj).attr("id");
+                    var index = id.substr(id.lastIndexOf("_") + 1, id.length);
+                }
+                div.slideDown('slow');
+            }
+        }
+    };
+
+</script>
+<body style="width: 500px;">
+<div class="row">
+<div class="col-xs-12 col-md-8" id="reply_body">
+</div>
+</div>
+<div class="row">
+       <div class="col-xs-12 col-md-8" style="margin-top: 50px;">
+        <form class="form-horizontal" id="mainForm" name="mainForm">
+          <div class="form-group">
+            <label for="inputEmail3" class="col-sm-2 control-label">작성자</label>
+            <div class="col-sm-10">
+              <input type="text" class="form-control check" id="userName" name="userName" placeholder="작성자">
+            </div>
+          </div>
+          <div class="form-group">
+            <label for="inputPassword3" class="col-sm-2 control-label">제목</label>
+            <div class="col-sm-10">
+              <input type="text" class="form-control check" id="title" placeholder="제목">
+            </div>
+          </div>
+          <div class="form-group">
+            <label for="inputPassword3" class="col-sm-2 control-label">내용</label>
+            <div class="col-sm-10">
+                <textarea class="form-control check" rows="3" id="contents"></textarea>
+            </div>
+          </div>
+          <button type="button" class="btn btn-default btn-lg btn-block" id='mainBtn'>SAVE</button>
+        </form>
+    </div>
+</div>
+
+
+
+
+</body>
+</html>

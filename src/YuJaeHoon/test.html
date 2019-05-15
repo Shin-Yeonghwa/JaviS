@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html>
+<head>
+</head>
+<body>
+
+<script>
+    var credit;
+
+    credit = prompt("점수를 입력해주세요.",""); 
+
+    while (!/^([1-9]?[0-9]|100)$/.test(credit)){ // 정규식 숫자 0 - 100 test 메소드 사용하여 유효성 체크
+        credit = prompt("다시 올바른 점수를 입력해주세요.");
+    }; 
+    if(100 >= credit && credit >= 90){ 
+        document.write("점수는 " + credit + "<br>" + "등급은 : A"); 
+    }else if(89 >= credit && credit >= 70){ 
+        document.write("점수는 " + credit + "<br>" + "등급은 : B"); 
+    }else if(69 >= credit && credit >= 60){ 
+        document.write("점수는 " + credit + "<br>" + "등급은 : C"); 
+    }else{ 
+        document.write("점수는 " + credit + "<br>" + "등급은 : D"); 
+    } 
+</script>
+</body>
+</html>
