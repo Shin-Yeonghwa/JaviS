@@ -52,7 +52,7 @@
 		#btnCommtName {flex:0 0 100px;margin-right:8px}
 		.count {display:inline-block;margin-left:8px;font-style:normal;font-weight:bold;color:blue}
         .numberInfo {text-align: right}
-        #noticeText {color:#f00}
+        .noticeText {color:#f00}
         .checkboxArea{text-align: right;}
         #secretWriting{vertical-align: middle}
         .row_password{display: none}
@@ -74,30 +74,30 @@
 					<caption></caption>
 					<colgroup>
 						<col style="width:100px" />
-						<col style="" />
+						<col/>
 					</colgroup>
 					<tbody>
 						<tr>
 							<th scope="row">작성자</th>
-							<td><input type="text" id="iptName" name="username"><p id="noticeText"></p></td>
+							<td><input type="text" id="iptName" name="username"><p class="noticeText"></p></td>
                         </tr>
 						<tr class="row_password">
 							<th scope="row">비밀번호</th>
-							<td><input type="password" id="iptPassword" name="userpassword"><p id="noticeText"></p></td>
+							<td><input type="password" id="iptPassword" name="userpassword"><p class="noticeText"></p></td>
 						</tr>
 						<tr>
 							<th scope="row">제목</th>
-							<td><input type="text" id="iptTitle" name="contenttitle"><p id="noticeText"></p></td>
+							<td><input type="text" id="iptTitle" name="contenttitle"><p class="noticeText"></p></td>
 						</tr>
 						<tr>
 							<th scope="row">내용</th>
-							<td><textarea id="iptCont" name="usercontent" rows="5" cols="10"></textarea><p class="numberInfo"><span class="textNumber">0</span>/100</p><p id="noticeText"></p></td>
+							<td><textarea id="iptCont" name="usercontent" rows="5" cols="10"></textarea><p class="numberInfo"><span class="textNumber">0</span>/100</p><p class="noticeText"></p></td>
 						</tr>
 					</tbody>
 
 				</table>
                 <div class="btn-wrap">
-                    <input type="submit" id="btnRegist" class="btn" value="글쓰기">
+                    <input type="submit" id="btnRegist" class="btn" value="등록">
                 </div>
             </form>
 
@@ -144,16 +144,14 @@
         */
 
         /* 전역변수 */
-        const formBox = document.querySelector('#boardForm')
-        const inputName = document.querySelector('#iptName')
-        const passwordRow = document.querySelector('.row_password')
-        const inputPassword = document.querySelector('#iptPassword')
-        const inputTitle = document.querySelector('#iptTitle')
-        const inputTextarea = document.querySelector('#iptCont')
-        const resultView = document.querySelector('#resultWrap')
-        const inputNoticeText = document.querySelectorAll('tr #noticeText')
-        const textNumerCheck = document.querySelector('.textNumber')
-        const inputSecretWriting = document.querySelector('#secretWriting')
+        const formBox = document.querySelector('#boardForm');
+        const inputName = document.querySelector('#iptName');
+        const passwordRow = document.querySelector('.row_password');
+        const inputTitle = document.querySelector('#iptTitle');
+        const inputTextarea = document.querySelector('#iptCont');
+        const inputNoticeText = document.querySelectorAll('tr .noticeText');
+        const textNumerCheck = document.querySelector('.textNumber');
+        const inputSecretWriting = document.querySelector('#secretWriting');
 		const boardList = document.querySelector('.board_list');
 		const boardListBody = boardList.getElementsByTagName('tbody')[0];
 
@@ -170,26 +168,20 @@
 
 		/* 공통 message */
 		function showEorrMessage(index,message){
-			return inputNoticeText[index].innerText = message
+			return inputNoticeText[index].innerText = message;
 		}
 
-        /* 글쓰기 버튼을 누르면 실행되는 로직 */
-        inputTextarea.addEventListener('input', isOverNumber)
-        formBox.addEventListener('submit', createBoard)
-		boardList.addEventListener("click",function(event){
-			// console.log('tr')
-			if(event.target.nodeName == 'TD'){
-				const index = event.target.parentNode.rowIndex - 1;
-
-				window.open("pop_board.html", "_blank", "toolbar=yes,scrollbars=yes,resizable=yes,top=0,left=0,width=600,height=400");
-				localStorage.setItem('currentIndex',index);
-			}
-		});
+        /* 내용 실시간 텍스트 길이 체크 이벤트 */
+        inputTextarea.addEventListener('input', isOverNumber);
+        /* 글쓰기 버튼을 누르면 실행되는 이벤트 */
+        formBox.addEventListener('submit', createBoard);
+        /* td 클릭시 window 팝업 노출 이벤트 */
+		boardList.addEventListener("click", tdClickEnablePopup);
 
         /* 비밀글 클릭시 비밀번호 입력 영역 노출되는 로직 */
         inputSecretWriting.addEventListener('change', function() {
-            if(this.checked) return passwordRow.setAttribute('style','display:table-row')
-            return passwordRow.setAttribute('style','display:none')
+            if(this.checked) return passwordRow.setAttribute('style','display:table-row');
+            return passwordRow.setAttribute('style','display:none');
         });
 
         /* 작성자 특수문자 체크 로직 */
@@ -211,13 +203,13 @@
 
         /* 제목 글자수 유효성 검사 로직 */
         function isLimitNumberCharacters (value){
-            if(!value || value.length < 4) {
-                showEorrMessage(2, noticeText.title);
+            if(!value){
+                showEorrMessage(2, noticeText.emptyValue);
                 return false;
             }
 
-            if(!value){
-                showEorrMessage(2, noticeText.emptyValue);
+            if(value.length < 4) {
+                showEorrMessage(2, noticeText.title);
                 return false;
             }
 
@@ -247,24 +239,30 @@
 		}
 
         /* 글쓰기 버튼 클릭 이벤트 */
-        function createBoard() {
+        /* form에 대한 submit 힘수 */
+        function createBoard(event) {
 			event.preventDefault();
 
-            if(isNameSpecialCharacterCheck(inputName.value) && isLimitNumberCharacters(inputTitle.value) && isOverNumber()){
+            const passAllConditions = isNameSpecialCharacterCheck(inputName.value)
+                                        && isLimitNumberCharacters(inputTitle.value) && isOverNumber();
+
+            if(passAllConditions){
                 const request = new XMLHttpRequest();
                 // // POST to httpbin which returns the POST data as JSON
-                request.open('POST', 'https://httpbin.org/post', /* async = */ false);
+                request.open('POST', 'https://httpbin.org/post', /* async = */ false); //초기화
 
-                const formData = new FormData(document.getElementById('boardForm'));
-                request.send(formData);
+                const formData = new FormData(document.getElementById('boardForm')); //입력 form을 가져오는 영역
+                request.send(formData); //입력 form을 서버에 전달
+                //console.log(request);
 
-                let data = JSON.parse(request.response)['form'];
-                data['time'] = getCurrentTime();
+                const data = JSON.parse(request.response)['form']; //string >> json file로 변환
+                //console.log(data);
+                data['time'] = getCurrentTime(); //작성일을 보여주기 위한 부분 (입력 값에는 따로 존재하지 않는 부분)
 
                 /* data 넣기 */
-                boardData.push(data);
+                boardData.push(data); //배열에 form값 + 작성일을 넣는 영역
                 /* localstorage에 저장하기 */
-                localStorage.setItem('board',JSON.stringify(boardData));
+                localStorage.setItem('board',JSON.stringify(boardData)); //json file을 로컬에서 사용할 수 있도록 string값을 변환
                 /* 게시판 만들기 */
                 createBoardList(boardData);
                 /* input reset */
@@ -283,7 +281,7 @@
             const sec = date.getSeconds();
             const msec = date.getMilliseconds();
             return fullDate = year + '-' + month + '-' + day + ' ' + hour + ':' + min + ':' + sec;
-        }
+        } // monent.js 라이브러리를 이용하면 미국식/일본식/중국식 모든 날짜를 입력할 수 있다.
 
         /* 데이터가 들어가는 테이블 */
 		function createBoardList(data){
@@ -310,6 +308,18 @@
                 `
             }
             boardListBody.innerHTML = infoList;
+		}
+
+
+        /* td 클릭시 window 팝업 노출 로직 */
+        function tdClickEnablePopup(event){
+			if(event.target.nodeName == 'TD'){
+                const index = event.target.parentNode.rowIndex - 1; //index 값은 '0'부터 시작하므로 '-1'값 추가
+
+				window.open("pop_board.html", "_blank",
+                            "toolbar=yes,scrollbars=yes,resizable=yes,top=0,left=0,width=600,height=400");
+				localStorage.setItem('currentIndex',index);
+			}
 		}
 
 	</script>
