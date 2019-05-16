@@ -28,6 +28,26 @@ function cellClear(){
     } 
 }
 
+// 트릭 추가
+function cellTrick(trick1, trick2, trick3){
+    if(diceSum === trick1){
+        diceSum = diceSum -3;
+        var trick_p = document.createElement('p');
+        document.body.append(trick_p);
+        trick_p.textContent = '지뢰 당첨!!! 뒤로 3칸 이동';
+    }else if(diceSum === trick2){
+        diceSum = diceSum + 3;
+        var trick_p = document.createElement('p');
+        document.body.append(trick_p);
+        trick_p.textContent = '행운 당첨!!! 앞으로 3칸 이동';
+    }else if(diceSum === trick3){
+        diceSum = diceSum -3;
+        var trick_p = document.createElement('p');
+        document.body.append(trick_p);
+        trick_p.textContent = '지뢰 당첨!!! 뒤로 3칸 이동';
+    }
+}
+
 // game 함수
 function diceGame(){
     event.preventDefault();
@@ -59,17 +79,20 @@ function diceGame(){
         cellClear();
     }else{
         cellClear();
+        cellTrick(7, 12, 18); // trick 추가 인수 = 셀 Number
         var targetCell = document.querySelectorAll('li')[diceSum-1];
         targetCell.classList.add('on');
         
     }
     
+    // 주사위 던지는 갯수 실패시
     if(diceCount >= 5 && diceSum < 35 ){
         gameButton.setAttribute('disabled', '');
         var elment_p2 = document.createElement('p');
         document.body.append(elment_p2);
         elment_p2.textContent = 'GameOver';       
     }
+
 }
 
 // 주사위 돌리기 호출
