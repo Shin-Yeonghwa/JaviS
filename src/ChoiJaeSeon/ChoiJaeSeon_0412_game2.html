@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html lang="ko">
+
+<head>
+	<meta charset="utf-8">
+	<title>부르마블 게임</title>
+
+
+	<style>
+		#table{
+			font-size:10px;
+		}
+		#table td{
+			width: 40px;
+			height:40px;
+			border: 1px solid #000;
+			border-width:1px 1px 0 0;
+			text-align:center;
+			/* background:#444; */
+			font-size:10px;
+
+		}
+		#table td.select{
+			background:transparent;
+		}
+		#table td:first-child{
+			border-left:1px solid #000;
+		}
+		#table tr:last-child td{
+			border-bottom:1px solid #000;
+		}
+		td.selected{
+			background:red;
+		}
+	</style>
+</head>
+<body>
+
+<div class="wrap">
+
+	<input id="ver" type="text" name=""  value="30"placeholder="게임 판 갯수작성">
+	<input id="mine" type="text" name="" value="10" placeholder="벌칙수">
+	<button type="button" name="button" id="start">맵 실행</button>
+	<button id="dice">주사위 굴리기</button>
+	<table id="table" cellspacing="0" cellpadding="0">
+		<thead>
+			<tr>
+				<th><span id="time"0></span>초</th>
+			</tr>
+		</thead>
+		<tbody>
+		<tr>
+			</tr>
+		</tbody>
+	</table>
+</div>
+
+<script>
+ // querySelector로 addEventListener click 추가
+		var tbody = document.querySelector('#table tbody');//tbody찾기
+		var dataset =[];
+		var dataset2 =[1,2,3,4,5,20,10];
+		var heightInfo =[]
+		var text = document.getElementById("table  td").textContent;
+		var jaejae2 = test2.textContent;
+		document.querySelector('#start').addEventListener('click',function(){
+		tbody.innerHTML="";
+		// input의 value값을 받아오기
+		var ver = parseInt(document.querySelector('#ver').value);
+		var mine = parseInt(document.querySelector('#mine').value);
+		console.log(ver,mine);
+        
+		var num =40;
+		var idx = test2.indexOf(num);
+	
+		console.log(text );
+// [0, 2, 4]
+		// function dice{
+			// if(number === dataset){
+
+			// }
+		// }
+
+		// //램덤 지뢰 생성
+		// var listNumber = Array(ver)
+		//    .fill()
+		//    .map(function(element, index) {
+		// 	   return index;
+
+		//    })
+
+		// //렌덤 숫자뽑기
+		// var resultNum = [];
+		// while (listNumber.length > 25) {
+		//    var moveResult = listNumber.splice(Math.floor(Math.random() * listNumber.length), 1)[0];
+		//    resultNum.push(moveResult);
+		// }
+
+				 //배열생성 
+				 var listNumber=[1,1,2,2,3,3,4,4,5,5,6,6]
+	 var resultNum = [];
+		while (listNumber.length > 0) {
+		   var moveResult = listNumber.splice(Math.floor(Math.random() * listNumber.length), 1)[0];
+		   resultNum.push(moveResult);
+				var inputNum = resultNum[resultNum.length -2];
+				var bonus = resultNum[resultNum.length - 1];
+				var resultSum = inputNum + bonus;
+				
+
+	
+	}
+
+		//반복문 
+		//querySelector로 테이블 위치를 찾음 
+			//세로의 값
+			for(var i = 0; i < ver; i += 1){
+				var tr = document.createElement('tr');
+				heightInfo.push(tr);
+				dataset.push([]);
+				//가로위 값
+				for(var j = 0; j < 1; j += 1){
+					var td = document.createElement('td');
+					dataset[i].push(td);
+					//오른쪽 클릭시 click 이벤트 생성
+					
+					td.addEventListener('click', function(e){
+						console.log(e.target);//칸
+						console.log(e.target.parentNode);//줄
+						console.log(e.target.parentNode.parentNode);
+						var jul = heightInfo.indexOf(e.target.parentNode);
+						console.log('몇줄', jul) ;
+						var can = dataset[jul].indexOf(e.target);
+						console.log('몇칸', can)
+						e.target.className = 'selected';
+						
+						
+						// if(number === jul){
+						// 	console.log(jun, 'ddd')
+						// }
+					
+						});
+							//말을 이동
+					// document.querySelector('#dice').addEventListener('click',function(){
+					// 	tbody.innerHTML="";
+						
+					// 	// console.log('당신의 주사위는 ' + resultSum+ '입니다. ');
+					// });
+					var test = document.querySelector('#table tbody  td:first-child');//첫번째 말 생성
+					 if(test){
+						test.className = 'selected';
+					 }
+			
+
+				
+					tr.appendChild(td);
+					td.textContent = i;
+				}
+				tbody.appendChild(tr);
+		
+			}
+			
+		
+			
+						//지뢰 심기 
+			// for(var k = 0 ; k < resultNum.length; k++){
+			// 	var height = Math.floor(resultNum[k] / 10); 
+			// 	var width = resultNum[k] % 10;
+			// 	console.log(height,width ,'여기다');
+			// 	tbody.children[height].children[width].textContent = 'X';
+			// 	dataset[height][width] = 'X';
+			// }
+			console.log(heightInfo ,'줄들', dataset, '칸들');
+
+
+		});
+	
+	
+ </script>
+
+</body>
+
+</html>

@@ -3,73 +3,142 @@
 
 <head>
 	<meta charset="utf-8">
-	<title>주사위 게임</title>
+	<title>부르마블 게임</title>
 <link rel="stylesheet" href="https://ssl.pstatic.net/sstatic/search/pc/css/search1_190221.css">
 
 <style type="text/css">
-	table{
-		width:300px;
-	}
-	td{
-		width:100px;
-		height:100px;
-		border:1px solid #333;
-	}
+
+#wrap li{
+	width:40px;
+	height:40px;
+	line-height:40px;
+	float:left;
+	text-align:center;
+	border:1px solid red; 
+	border-width:0 0 1px 1px;
+}
+#wrap li:first-child{
+	border-left:1px solid red;
+}
+#wrap li.selected{
+	background:Red;
+}
+#wrap ul{
+    overflow: hidden;
+    width: 984px;
+    border: 1px solid red;
+    border-width: 1px 1px 1px 0
+}
+.btnWrap{
+	clear:both;
+}
+#wrap ul li:nth-last-child(-n+24){
+	border-bottom:0;
+}
+
 </style>
 </head>
 <body>
+<div id="wrap">
+	<h1>부르마블 게임 </h1>
+		<ul class="gameground" id="gameground">
 
-		<body>
-				<table>
-					<tbody>
-						<tr>
-							<td class="btn"></td>
-							<td class="btn"></td>
-							<td class="btn"></td>
-						</tr>
-						<tr>
-							<td></td>
-							<td></td>
-							<td></td>
-						</tr>
-						<tr>
-							<td></td>
-							<td></td>
-							<td></td>
-						</tr>
-					
-					</tbody>
-				</table>
-				
+			</ul>
+	<div class="btnWrap">
+		<button id="start" >주사위 굴리기</button>
+		<p id="resultButton">당신의 주사위 수는 총 합은 <span id="resultWrap">0</span></p>
+		<p id="resultButton">당신의 주사위 수는: <span id="resultWrap2">0</span></p>
+	</div>
+</div>
 				
 				
 			
 		
-			
-			</body>
+
+</body>
 
 <script>
-	 // 틱택톡 게임
+var dataset = [];
+var gameGround = document.querySelector('#wrap .gameground');
 
-// 배열안에 배열을 넣는 것을 활용한다. = 이차원 배열
-var arryBox = [
-    [0,1,2],
-    [0,1,2],
-    [0,1,2],    
-];
+//게임 판 생성 
+for (var i = 0; i < 120; i++) {
+    var wrap = document.createElement('li');
+    dataset.push([]);
+    dataset[i].push(wrap);
+    wrap.textContent = i;
+    document.querySelector('#wrap .gameground').appendChild(wrap);
+
+}
 
 
 
-// var cell = document.querySelector('td')
-// cell.addEventListener('click', function(){
-// 	alert('jaejae');
-// })
-document.querySelectorAll('table td').forEach(function(btn) {
-	btn.addEventListener('click', function() {
- 	 console.log('재선이다');
+var resultWrap = document.getElementById('resultWrap');
+var gameBox = document.querySelectorAll('#wrap .gameground li');
+// 클릭하여 게임 실행하기 
+document.querySelectorAll('#start').forEach(function(btn) {
+    btn.addEventListener('click', function() {
+
+        //주사위 숫자 랜덤 생성	
+        //주사위 경우의 수 2,3,4,5,6,7,8,9,10,11,12
+        var listNumber = [2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12]
+        var resultNum = [];
+        while (listNumber.length > 0) {
+            var moveResult = listNumber.splice(Math.floor(Math.random() * listNumber.length), 1)[0];
+            resultNum.push(moveResult);
+            var bonus = resultNum[resultNum.length - 1];
+            var resultSum = bonus;
+        }
+
+        //화면에 주사위 수 표시 
+        resultWrap.innerHTML = Number(resultWrap.innerHTML) + resultSum;
+	        //숫자 가져오기
+        var x = document.getElementById("resultWrap").innerText;
+
+        // 즉시실행 함수를 싱행하고 li의selested clas값 제거하기
+        (function myFunction() {
+            var z = document.querySelectorAll('#wrap .gameground li');
+            var i;
+            for (i = 0; i < z.length; i++) {
+                z[i].classList.remove('selected');
+            }
+            console.log('실행확인')
+        })();
+
+        console.log(x);
+		// 게임이 판 끝에 도달시 if문 실행
+        if (x >= 120) {
+            alert('모두 이동하셨습니다. ')
+            gameBox[120].className = 'selected';
+           return false;
+        }
+        gameBox[x].className = 'selected';
+
+		//내 주사위 숫자 화면에 뿌리기 
+		resultWrap2.textContent = resultSum;
+
+
+    })
+    // 시작시  뒤집는 효과
+    document.querySelectorAll('#wrap .gameground li').forEach(function(card, index) {
+        setTimeout(function() {
+            card.classList.add('selected');
+        }, 100 + 10 * index);
+    });
+	 // 시작시  뒤집는 효과 class 제거
+    setTimeout(function() {
+        document.querySelectorAll('#wrap .gameground li').forEach(function(card, index) {
+            card.classList.remove('selected');
+        });
+
+    }, 2000);
+
 
 })
-})
+
+		
+	
+
 </script>
 
 </html>
