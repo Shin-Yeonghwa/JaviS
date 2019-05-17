@@ -26,18 +26,28 @@
 		li.on ~ li{
 			background-color:#fff;
 		}
+		.reset{
+			float:right;
+		}
+		ul li.trick{
+			background-color:rgba(0,0,0,.3);
+		}
 	</style>  
 	
 </head>
 <body>
 	<form id="_form">
-		<button id="_gameButton">주사위 돌리기</button>
+		<div style="overflow:hidden;">
+			<button id="_gameButton">주사위 돌리기</button>
+			<button class="reset" onclick="resetButton()">게임 다시하기</button>
+		</div>
 		<p>첫번째 주사위 값 :  <span id="_diceNum"></span></p>
 		<p>두번째 주사위 값 :  <span id="_diceNum2"></span></p>
 		<p>주사위 합 :  <span id="_diceSum"></span></p>
 		<p>주사위 돌린 수 :  <span id="_diceCount"></span></p>
+		
 	</form>
-	
+	<p style="margin-top:100px;text-align:center;color:#333;font-size:12px;">create. S.Y.H</p>
 	<script type="text/javascript" src="js/ShinYeongHwa_dicegame.js"></script>
 </body>
 
