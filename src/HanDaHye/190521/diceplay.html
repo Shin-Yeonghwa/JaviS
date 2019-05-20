@@ -9,7 +9,7 @@
 .dice_area {
 	overflow: hidden;
 	list-style: none;
-	margin: 0 auto;
+	margin: 30px auto 0;
 	padding: 0;
 	width: 500px;
 	border: 1px solid black;
@@ -25,14 +25,31 @@
 	text-align: center;
 	line-height: 50px;
 }
+.dice_box {
+	padding: 20px;
+	border: 1px solid black;
+	margin-bottom: 30px;
+}
+.dice1, .dice2 {
+	font-size: 40px;
+}
+.dice1 {
+	color: #ff00b6;
+}
+.dice2 {
+	color: #9dff00;
+}
 </style>
 </head>
 <body>
 <div class="wrap">
-	<button type="button" id="btnStop">주사위 멈추기</button>
-	<strong class="dice1"></strong>
-	<strong class="dice2"></strong>
-	<button type"button" id="btnReset">주사위 다시 던지기</button>
+	<div class="dice_box">
+		<strong class="dice1"></strong>
+		<strong class="dice2"></strong>
+		<button type="button" id="btnStop">주사위 멈추기</button>
+		<button type"button" id="btnReset">주사위 다시 던지기</button>
+	</div>
+	<button type="button" onClick="window.location.reload()">RESET</button>
 
 	<ul class="dice_area">
 		<li class="unit"></li>
@@ -134,47 +151,51 @@ function DicePlay() {
 	var unitList = document.querySelectorAll('.unit');// node_list
 	var unitArray = Array.from(unitList);
 
-	for(var i = 0; i < unitArray.length; i++) {
-		var unitIndex = unitArray.indexOf(unitArray[i]);
-
-		if(unitIndex == diceSum) {
-			console.log('success');
-			unitArray[i-1].style.backgroundColor = "red";
-
-			// 각 칸마다 이벤트
-			if(unitIndex == 5) {
-				alert('축하합니다. 이벤트에 당첨되었습니다');
-				unitArray[i-1].innerHTML = '당첨';
-			} else if(unitIndex == 7) {
-				alert('꽝! 다시 시작해주세요');
-				diceSum = 0;
-				unitArray[i-1].style.backgroundColor = '';
-			} 
-		}
-	}
-
 	//주사위 다시 던지기
 	var btnReset = document.getElementById('btnReset');
 	btnReset.onclick = function() {
 		randomDice = setInterval(getNumber);
 	}
 
-	// 50번칸 이상 시, 게임종료
-	if(diceSum > 51) {
-		alert('게임이 종료되었습니다');
-		btnReset.disabled = 'disabled';
+	for(var i = 0; i < unitArray.length; i++) {
+		var unitIndex = unitArray.indexOf(unitArray[i]) + 1;
+
+		if(unitIndex == diceSum) {
+			console.log('success');
+			unitArray[i].style.backgroundColor = "red";
+
+			// 각 칸마다 이벤트
+			if(unitIndex == 5) {
+				alert('축하합니다. 이벤트에 당첨되었습니다');
+				unitArray[i].innerHTML = '당첨';
+			} else if(unitIndex == 17) {
+				alert('꽝! 다시 시작해주세요');
+				diceSum = 0;
+				unitArray[i].style.backgroundColor = 'gray';
+				unitArray[i].innerHTML = '꽝';
+				btnReset.disabled = 'disabled';
+			} else if (unitIndex == 33) {
+				alert('축하합니다. 짝짝짝!!! 게임을 성공하셨습니다.');
+				unitArray[50].style.backgroundColor = "red";
+			}
+		}
 	}
 
-	// 6번 이상 던질 시, 게임종료
+
+
+
 	count++;
-	if(count > 7) {
-		alert('게임이 종료되었습니다');
+	if(diceSum == 50) {
+		alert('축하합니다. 짝짝짝!!! 게임을 성공하셨습니다.');
+	} else if (diceSum > 51 || count > 7) {
+		// 50번칸 이상이거나 6번 이상 던질 시, 게임종료
+		alert('ㅠㅠ. 안타깝게도 게임을 실패하셨습니다.');
+		btnReset.disabled = 'disabled';
 	}
 
 
 }
 console.log(diceSum);
-
 
 
 </script>
