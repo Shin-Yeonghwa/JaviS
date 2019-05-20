@@ -1,0 +1,182 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta http-equiv="x-ua-compatible" content="IE=edge">
+<title>주사위 놀이</title>
+<style type="text/css">
+.dice_area {
+	overflow: hidden;
+	list-style: none;
+	margin: 0 auto;
+	padding: 0;
+	width: 500px;
+	border: 1px solid black;
+	border-width: 0 0 1px 1px;
+}
+.dice_area .unit {
+	float: left;
+	width: 50px;
+	height: 50px;
+	border: 1px solid black;
+	border-width: 1px 1px 0 0;
+	box-sizing: border-box;
+	text-align: center;
+	line-height: 50px;
+}
+</style>
+</head>
+<body>
+<div class="wrap">
+	<button type="button" id="btnStop">주사위 멈추기</button>
+	<strong class="dice1"></strong>
+	<strong class="dice2"></strong>
+	<button type"button" id="btnReset">주사위 다시 던지기</button>
+
+	<ul class="dice_area">
+		<li class="unit"></li>
+		<li class="unit"></li>
+		<li class="unit"></li>
+		<li class="unit"></li>
+		<li class="unit"></li>
+		<li class="unit"></li>
+		<li class="unit"></li>
+		<li class="unit"></li>
+		<li class="unit"></li>
+		<li class="unit"></li>
+		<li class="unit"></li>
+		<li class="unit"></li>
+		<li class="unit"></li>
+		<li class="unit"></li>
+		<li class="unit"></li>
+		<li class="unit"></li>
+		<li class="unit"></li>
+		<li class="unit"></li>
+		<li class="unit"></li>
+		<li class="unit"></li>
+		<li class="unit"></li>
+		<li class="unit"></li>
+		<li class="unit"></li>
+		<li class="unit"></li>
+		<li class="unit"></li>
+		<li class="unit"></li>
+		<li class="unit"></li>
+		<li class="unit"></li>
+		<li class="unit"></li>
+		<li class="unit"></li>
+		<li class="unit"></li>
+		<li class="unit"></li>
+		<li class="unit"></li>
+		<li class="unit"></li>
+		<li class="unit"></li>
+		<li class="unit"></li>
+		<li class="unit"></li>
+		<li class="unit"></li>
+		<li class="unit"></li>
+		<li class="unit"></li>
+		<li class="unit"></li>
+		<li class="unit"></li>
+		<li class="unit"></li>
+		<li class="unit"></li>
+		<li class="unit"></li>
+		<li class="unit"></li>
+		<li class="unit"></li>
+		<li class="unit"></li>
+		<li class="unit"></li>
+		<li class="unit">도착</li>
+	</ul>
+</div>
+
+<script>
+/*
+주사위 게임 로직
+1. 버튼 클릭 : 주사위 랜덤 후, 스탑/랜덤 값 받기(2개)
+2. 연산: 2개의 값 합 가져오기
+3. 이동: 합 만큼 li.unit 색칠하기
+4. 이벤트 발생 : 특정 li.unit에 이벤트 실행(ex.alert 띄우기)
+5. 게임 종료 : 50번칸 도착 OR 6번 이상 던질 시
+
+$ 주사위 5번만 제한됨
+
+*/
+var itemDice1 = document.querySelector('.dice1');
+var itemDice2 = document.querySelector('.dice2');
+var randomNumber1;
+var randomNumber2;
+
+var getNumber = function() {
+	randomNumber1 = Math.floor(Math.random() * 6) + 1;
+	randomNumber2 = Math.floor(Math.random() * 6) + 1;
+	itemDice1.innerHTML = randomNumber1;
+	itemDice2.innerHTML = randomNumber2;
+}
+var randomDice = setInterval(getNumber);
+console.log(itemDice1);
+var diceSum = 0;
+var count = 0;
+
+
+var btnStop = document.getElementById('btnStop');
+btnStop.addEventListener('click', DicePlay, false);
+
+function DicePlay() {
+	//1. 랜덤 함수 값 받고 출력
+	clearInterval(randomDice);
+	var numberDice1 = Number(itemDice1.textContent);
+	var numberDice2 = Number(itemDice2.textContent);
+
+	//2. 랜덤 함수 값 합
+	diceSum += numberDice1 + numberDice2;
+	console.log(diceSum);
+
+	//3. 합만큼 칸 이동하기
+	var unitList = document.querySelectorAll('.unit');// node_list
+	var unitArray = Array.from(unitList);
+
+	for(var i = 0; i < unitArray.length; i++) {
+		var unitIndex = unitArray.indexOf(unitArray[i]);
+
+		if(unitIndex == diceSum) {
+			console.log('success');
+			unitArray[i-1].style.backgroundColor = "red";
+
+			// 각 칸마다 이벤트
+			if(unitIndex == 5) {
+				alert('축하합니다. 이벤트에 당첨되었습니다');
+				unitArray[i-1].innerHTML = '당첨';
+			} else if(unitIndex == 7) {
+				alert('꽝! 다시 시작해주세요');
+				diceSum = 0;
+				unitArray[i-1].style.backgroundColor = '';
+			} 
+		}
+	}
+
+	//주사위 다시 던지기
+	var btnReset = document.getElementById('btnReset');
+	btnReset.onclick = function() {
+		randomDice = setInterval(getNumber);
+	}
+
+	// 50번칸 이상 시, 게임종료
+	if(diceSum > 51) {
+		alert('게임이 종료되었습니다');
+		btnReset.disabled = 'disabled';
+	}
+
+	// 6번 이상 던질 시, 게임종료
+	count++;
+	if(count > 7) {
+		alert('게임이 종료되었습니다');
+	}
+
+
+}
+console.log(diceSum);
+
+
+
+</script>
+</body>
+</html>
