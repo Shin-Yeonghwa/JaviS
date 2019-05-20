@@ -4,7 +4,7 @@
 	<meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width,initial-scale=1">
 	<meta http-equiv="x-ua-compatible" content="IE=edge">
-	<title>TEST</title>
+	<title>Table_0402</title>
     <style type="text/css">
         h1 {
             margin-bottom: 0;
@@ -22,17 +22,17 @@
         .item_list {
             padding-bottom: 5px;
         }
-        .btn {
+        button {
             padding: 5px 9px;
             min-width: 70px;
             border-radius: 4px;
         }
-        .btn:hover {
+        button:hover {
             border: 1px solid #797878;
             background-color: #c0c9ea;
             cursor: pointer;
         }
-        .btn.btn_clear:hover {
+        button[onclick="clearTable()"]:hover {
             background-color: #eac0c0;
         }
         #create_table {
@@ -65,9 +65,10 @@
                     <input type="text" id="colCount" placeholder="열의 개수를 입력하세요.">
                 </div>
             </div>
-            <button type="button" class="btn btn_create" onclick="createTable()">create</button>
-            <button type="button" class="btn btn_clear" onclick="clearTable()">clear</button>
-            <button type="button" class="btn btn_merge" onclick="colMerge()">col merge</button>
+            <button type="button" onclick="createTable()">create</button>
+            <button type="button" onclick="clearTable()">clear</button>
+            <button type="button" onclick="colMerge()">col merge</button>
+            <button type="button" onclick="rowMerge()">rows merge</button>
         </div>
         <div id="create_table"></div>
     </div>
@@ -75,7 +76,7 @@
     <script>
         var tdTag = new Array;
         var indexArray = new Array;
-        
+
         // 'create' button
         function createTable() {
             // 행,열 input 숫자로 변환
@@ -96,15 +97,16 @@
                 elTable.appendChild(elTr);
             }
             create_table.appendChild(elTable);
-            
+
             // 배열같은 객체를 배열로 변환
             tdTag = Array.from(document.getElementsByTagName('td'));
             console.log(Array.isArray(tdTag));
-            
+
             // 선택한 td
             for(var m = 0; m < tdTag.length; m++) {
                 tdTag[m].onclick = function mclick(e) {
                     var targetIndex = tdTag.indexOf(e.target);
+					e.target.style.background = "#aaa";
                     console.log(targetIndex);
                     indexArray.push(targetIndex);
                 }
@@ -126,7 +128,23 @@
                 for(var i = 0; i < removeTd.length; i++){
                     tdTag[removeTd[i]].remove();
                 }
+                indexArray.length = 0;
             }
+            return false;
+        };
+
+		// 'row merge' button
+        function rowMerge() {
+            if (tdTag.length > 1) {
+                tdTag[indexArray[0]].setAttribute("rowspan", indexArray.length);
+                var removeTd = indexArray.splice(1,indexArray.length-1);
+                console.log(removeTd);
+                for(var i = 0; i < removeTd.length; i++){
+                    tdTag[removeTd[i]].remove();
+                }
+                indexArray.length = 0;
+            }
+            return false;
         };
     </script>
 </body>
