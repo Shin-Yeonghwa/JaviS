@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+	<title>DiceGame_0522</title>
+    <link rel="stylesheet" type="text/css" href="DiceGame.css">
+</head>
+<body>
+    <div id="wrap">
+        <h1>-</h1>
+        <div class="container">
+            <div class="container-cube1">
+                <div id="diceCube1">
+                    <div class="front">
+                        <span class="dot dot1"></span>
+                    </div>
+                    <div class="back">
+                        <span class="dot dot1"></span>
+                        <span class="dot dot2"></span>
+                    </div>
+                    <div class="right">
+                        <span class="dot dot1"></span>
+                        <span class="dot dot2"></span>
+                        <span class="dot dot3"></span>
+                    </div>
+                    <div class="left">
+                        <span class="dot dot1"></span>
+                        <span class="dot dot2"></span>
+                        <span class="dot dot3"></span>
+                        <span class="dot dot4"></span>
+                    </div>
+                    <div class="top">
+                        <span class="dot dot1"></span>
+                        <span class="dot dot2"></span>
+                        <span class="dot dot3"></span>
+                        <span class="dot dot4"></span>
+                        <span class="dot dot5"></span>
+                    </div>
+                    <div class="bottom">
+                        <span class="dot dot1"></span>
+                        <span class="dot dot2"></span>
+                        <span class="dot dot3"></span>
+                        <span class="dot dot4"></span>
+                        <span class="dot dot5"></span>
+                        <span class="dot dot6"></span>
+                    </div>
+                </div>
+            </div>
+            <div id="diceBtn">
+                <button type="button">Roll the Dice</button>
+            </div>
+            <div class="container-cube2">
+                <div id="diceCube2">
+                    <div class="front">
+                        <span class="dot dot1"></span>
+                    </div>
+                    <div class="back">
+                        <span class="dot dot1"></span>
+                        <span class="dot dot2"></span>
+                    </div>
+                    <div class="right">
+                        <span class="dot dot1"></span>
+                        <span class="dot dot2"></span>
+                        <span class="dot dot3"></span>
+                    </div>
+                    <div class="left">
+                        <span class="dot dot1"></span>
+                        <span class="dot dot2"></span>
+                        <span class="dot dot3"></span>
+                        <span class="dot dot4"></span>
+                    </div>
+                    <div class="top">
+                        <span class="dot dot1"></span>
+                        <span class="dot dot2"></span>
+                        <span class="dot dot3"></span>
+                        <span class="dot dot4"></span>
+                        <span class="dot dot5"></span>
+                    </div>
+                    <div class="bottom">
+                        <span class="dot dot1"></span>
+                        <span class="dot dot2"></span>
+                        <span class="dot dot3"></span>
+                        <span class="dot dot4"></span>
+                        <span class="dot dot5"></span>
+                        <span class="dot dot6"></span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <ul id="diceBox"></ul>
+
+        <!-- <div class="refer">
+            <a href="https://css-tricks.com/almanac/properties/p/perspective/" target="_blank">참고페이지: perspective</a>
+        </div> -->
+    </div>
+
+    <script>
+        let diceCube1, diceCube2, diceBtn, diceBox;
+        diceCube1 = document.getElementById('diceCube1');
+        diceCube2 = document.getElementById('diceCube2');
+        diceBtn = document.querySelector('#diceBtn button');
+        diceBox = document.getElementById('diceBox');
+
+        let min = 1;
+        let max = 6;
+
+        function getRandom(max, min) {
+            return Math.floor(Math.random() * (max-min));
+        }
+
+        let randomNumberX = 0;
+        let randomNumberY = 0;
+
+        let rotateArray = [
+            [6,6,6,6,6,6],
+            [3,1,4,2,3,1],
+            [5,5,5,5,5,5],
+            [4,2,3,1,4,2],
+            [6,6,6,6,6,6],
+            [3,1,4,2,3,1]        
+        ]
+
+        let boxItem;
+        for(let i=0; i < 50; i++) {
+            boxItem = document.createElement('li');
+            diceBox.appendChild(boxItem);
+        }
+
+        let cubeSum = 0;
+        let btnCount = 0;
+
+        // Roll the Dice 버튼 클릭 이벤트
+        diceBtn.addEventListener('click', function() {
+
+            btnCount++;
+
+            // step1. 주사위 굴려 값 가져오기
+            randomNumberX =  getRandom(max, min);
+            randomNumberY =  getRandom(max, min);
+
+            let xRand = (randomNumberX+ min) * 90;
+            let yRand = (randomNumberY+ min) * 90;
+            // console.log(xRand);
+            // console.log(yRand);
+
+            // 첫번째 주사위 style
+            diceCube1.style.webkitTransform = 'rotateX('+xRand+'deg) rotateY('+yRand+'deg)';
+            diceCube1.style.transform = 'rotateX('+xRand+'deg) rotateY('+yRand+'deg)';
+            console.log(rotateArray[randomNumberX][randomNumberY]);
+            let cubeNum1 = rotateArray[randomNumberX][randomNumberY]
+            console.log(cubeNum1);
+
+            randomNumberX =  getRandom(max, min);
+            randomNumberY =  getRandom(max, min);
+
+            xRand = (randomNumberX+ min) * 90;
+            yRand = (randomNumberY+ min) * 90;
+            // console.log(xRand);
+            // console.log(yRand);
+
+            // 두번째 주사위 style
+            diceCube2.style.webkitTransform = 'rotateX('+xRand+'deg) rotateY('+yRand+'deg)';
+            diceCube2.style.transform = 'rotateX('+xRand+'deg) rotateY('+yRand+'deg)';
+            console.log(rotateArray[randomNumberX][randomNumberY]);
+            let cubeNum2 = rotateArray[randomNumberX][randomNumberY]
+            console.log(cubeNum2);
+            console.log(typeof (cubeNum2));
+
+            // step2. 주사위 값 더하기
+            cubeSum += cubeNum1 + cubeNum2;
+            console.log(cubeSum);
+
+            // step3. 주사위 합 만큼 li 위치로 이동
+            let boxList = document.getElementsByTagName("li");
+            console.log(typeof(boxList));
+            let boxArray = Array.from(boxList);
+            console.log(Array.isArray(boxArray));
+
+            boxArray.forEach(function(item, index){
+                if(index == cubeSum) {
+                    boxArray[index].style.backgroundColor = "Red"
+                }
+            })
+
+            if(50 < cubeSum || 5 < btnCount) {
+                alert('Game over');
+            };
+
+        }, false);
+    </script>
+</body>
+</html>
