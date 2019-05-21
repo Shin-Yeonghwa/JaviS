@@ -58,8 +58,8 @@
 </body>
 
 <script>
-var dataset = [];
 var gameGround = document.querySelector('#wrap .gameground');
+var dataset = [];
 
 //게임 판 생성 
 for (var i = 0; i < 120; i++) {
@@ -71,7 +71,32 @@ for (var i = 0; i < 120; i++) {
 
 }
 
+// 게임판 과 동일한 랜덤 숫자 생성
+var listNumber2 = Array(120)
+    .fill()
+    .map(function(element, index) {
+        return index;
 
+    })
+
+//랜덤으로 뒤로 2칸 생성
+var resultNum2 = [];
+while (listNumber2.length > 115) {
+    var moveResult2 = listNumber2.splice(Math.floor(Math.random() * listNumber2.length), 1)[0];
+    resultNum2.push(moveResult2);
+}
+
+
+//  li의selested clas값 제거하기 함수 
+function clearClass() {
+    var z = document.querySelectorAll('#wrap .gameground li');
+    var i;
+    for (i = 0; i < z.length; i++) {
+        z[i].classList.remove('selected');
+
+    }
+    console.log('실행확인')
+}
 
 var resultWrap = document.getElementById('resultWrap');
 var gameBox = document.querySelectorAll('#wrap .gameground li');
@@ -89,33 +114,28 @@ document.querySelectorAll('#start').forEach(function(btn) {
             var bonus = resultNum[resultNum.length - 1];
             var resultSum = bonus;
         }
-
+        clearClass();
         //화면에 주사위 수 표시 
         resultWrap.innerHTML = Number(resultWrap.innerHTML) + resultSum;
-	        //숫자 가져오기
+        //숫자 가져오기
         var x = document.getElementById("resultWrap").innerText;
 
-        // 즉시실행 함수를 싱행하고 li의selested clas값 제거하기
-        (function myFunction() {
-            var z = document.querySelectorAll('#wrap .gameground li');
-            var i;
-            for (i = 0; i < z.length; i++) {
-                z[i].classList.remove('selected');
-            }
-            console.log('실행확인')
-        })();
-
         console.log(x);
-		// 게임이 판 끝에 도달시 if문 실행
-        if (x >= 120) {
+
+        // gameBox에 x 영역에 selected class추가 
+        if (x > 120) {
             alert('모두 이동하셨습니다. ')
             gameBox[120].className = 'selected';
-           return false;
-        }
-        gameBox[x].className = 'selected';
+            return false;
+        } else if (gameBox[x].textContent === "뒤로 2칸") {
+            alert('걸렸다 뒤로 2칸');
+            gameBox[x - 2].className = 'selected';
 
-		//내 주사위 숫자 화면에 뿌리기 
-		resultWrap2.textContent = resultSum;
+        } else {
+            gameBox[x].className = 'selected';
+        }
+        //내 주사위 숫자 화면에 뿌리기 
+        resultWrap2.textContent = resultSum;
 
 
     })
@@ -125,7 +145,7 @@ document.querySelectorAll('#start').forEach(function(btn) {
             card.classList.add('selected');
         }, 100 + 10 * index);
     });
-	 // 시작시  뒤집는 효과 class 제거
+    // 시작시  뒤집는 효과 class 제거
     setTimeout(function() {
         document.querySelectorAll('#wrap .gameground li').forEach(function(card, index) {
             card.classList.remove('selected');
@@ -133,10 +153,18 @@ document.querySelectorAll('#start').forEach(function(btn) {
 
     }, 2000);
 
+    //벌칙 심기 
+    for (var k = 0; k < resultNum2.length; k++) {
+        var penalty = Math.floor(resultNum2[k]);
+        console.log(penalty);
+        gameBox[penalty].textContent = '뒤로 2칸';
+        gameBox[penalty].style.fontSize = '9px';
+        dataset[penalty] = '뒤로 2칸';
+        console.log(dataset);
+    }
+
 
 })
-
-		
 	
 
 </script>
