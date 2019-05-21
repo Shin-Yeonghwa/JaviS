@@ -7,7 +7,7 @@
 </head>
 <body>
     <div id="wrap">
-        <h1>-</h1>
+        <h1>Roll the Dice</h1>
         <div class="container">
             <div class="container-cube1">
                 <div id="diceCube1">
@@ -88,6 +88,11 @@
             </div>
         </div>
 
+        <div id="diceInfo">
+            <p>두 주사위 수 총 합은 <span id="sumTxt">0</span> 입니다.</p>
+            <p>주사위 던진 횟수는 <span id="countTxt">0</span> 입니다.</p>
+        </div>
+
         <ul id="diceBox"></ul>
 
         <!-- <div class="refer">
@@ -102,6 +107,14 @@
         diceBtn = document.querySelector('#diceBtn button');
         diceBox = document.getElementById('diceBox');
 
+        // 주사위 합만큼 이동하는 판 그리기
+        let boxItem;
+        for(let i=0; i < 50; i++) {
+            boxItem = document.createElement('li');
+            diceBox.appendChild(boxItem);
+        }
+
+        // 주사위 rotate에 적용할 정수 random으로 추출
         let min = 1;
         let max = 6;
 
@@ -112,74 +125,75 @@
         let randomNumberX = 0;
         let randomNumberY = 0;
 
-        let rotateArray = [
-            [6,6,6,6,6,6],
-            [3,1,4,2,3,1],
-            [5,5,5,5,5,5],
-            [4,2,3,1,4,2],
-            [6,6,6,6,6,6],
-            [3,1,4,2,3,1]        
+        // rotateX,rotateY 만큼 회전했을 때 주사위 값
+        let rotateArray = [ // [(rotateX,rotateY), (rotateX,rotateY), (rotateX,rotateY), ...]
+            [6,6,6,6,6,6], // [(90deg,90deg), (90deg,180deg), (90deg,270deg), ..., (90deg,540deg)]
+            [3,1,4,2,3,1], // [(180deg,90deg), (180deg,180deg), (180deg,270deg), ..., (180deg,540deg)]
+            [5,5,5,5,5,5], // [(270deg,90deg), (270deg,180deg), (270deg,270deg), ..., (270deg,540deg)]
+            [4,2,3,1,4,2], // [(360deg,90deg), (360deg,180deg), (360deg,270deg), ..., (360deg,540deg)]
+            [6,6,6,6,6,6], // [(450deg,90deg), (450deg,180deg), (450deg,270deg), ..., (450deg,540deg)]
+            [3,1,4,2,3,1] // [(540deg,90deg), (540deg,180deg), (540deg,270deg), ..., (540deg,540deg)]
         ]
-
-        let boxItem;
-        for(let i=0; i < 50; i++) {
-            boxItem = document.createElement('li');
-            diceBox.appendChild(boxItem);
-        }
 
         let cubeSum = 0;
         let btnCount = 0;
 
+        let boxList = document.getElementsByTagName("li");
+        // boxList[0].textContent = '0';
+        boxList[9].textContent = '10';
+        boxList[19].textContent = '20';
+        boxList[29].textContent = '30';
+        boxList[39].textContent = '40';
+        boxList[49].textContent = 'END';
+
         // Roll the Dice 버튼 클릭 이벤트
         diceBtn.addEventListener('click', function() {
 
-            btnCount++;
-
             // step1. 주사위 굴려 값 가져오기
-            randomNumberX =  getRandom(max, min);
+            randomNumberX =  getRandom(max, min);  // 첫번째 주사위
             randomNumberY =  getRandom(max, min);
 
-            let xRand = (randomNumberX+ min) * 90;
-            let yRand = (randomNumberY+ min) * 90;
-            // console.log(xRand);
-            // console.log(yRand);
-
-            // 첫번째 주사위 style
+            let xRand = (randomNumberX + min) * 90;
+            let yRand = (randomNumberY + min) * 90;
+            
             diceCube1.style.webkitTransform = 'rotateX('+xRand+'deg) rotateY('+yRand+'deg)';
             diceCube1.style.transform = 'rotateX('+xRand+'deg) rotateY('+yRand+'deg)';
-            console.log(rotateArray[randomNumberX][randomNumberY]);
             let cubeNum1 = rotateArray[randomNumberX][randomNumberY]
             console.log(cubeNum1);
 
-            randomNumberX =  getRandom(max, min);
+            randomNumberX =  getRandom(max, min);  // 두번째 주사위
             randomNumberY =  getRandom(max, min);
 
-            xRand = (randomNumberX+ min) * 90;
-            yRand = (randomNumberY+ min) * 90;
-            // console.log(xRand);
-            // console.log(yRand);
+            xRand = (randomNumberX + min) * 90;
+            yRand = (randomNumberY + min) * 90;
 
-            // 두번째 주사위 style
             diceCube2.style.webkitTransform = 'rotateX('+xRand+'deg) rotateY('+yRand+'deg)';
             diceCube2.style.transform = 'rotateX('+xRand+'deg) rotateY('+yRand+'deg)';
-            console.log(rotateArray[randomNumberX][randomNumberY]);
             let cubeNum2 = rotateArray[randomNumberX][randomNumberY]
             console.log(cubeNum2);
-            console.log(typeof (cubeNum2));
+
 
             // step2. 주사위 값 더하기
             cubeSum += cubeNum1 + cubeNum2;
             console.log(cubeSum);
+            
+            let sumTxt = document.getElementById('sumTxt');  // 주사위 합 텍스트 입력
+            sumTxt.textContent = cubeSum;
+
 
             // step3. 주사위 합 만큼 li 위치로 이동
-            let boxList = document.getElementsByTagName("li");
-            console.log(typeof(boxList));
-            let boxArray = Array.from(boxList);
-            console.log(Array.isArray(boxArray));
+            btnCount++;  // 클릭할때마다 클릭수 증가
+
+            let countTxt = document.getElementById('countTxt');  // 주사위 횟수 텍스트 입력
+            countTxt.textContent = btnCount;
+
+            let boxArray = Array.from(boxList);  // 배열 같은 객체를 배열로 변환
+            // console.log(Array.isArray(boxArray));
 
             boxArray.forEach(function(item, index){
                 if(index == cubeSum) {
-                    boxArray[index].style.backgroundColor = "Red"
+                    boxArray[index].style.backgroundColor = "#ff8686";
+                    boxArray[index].textContent = 'Here!';
                 }
             })
 
