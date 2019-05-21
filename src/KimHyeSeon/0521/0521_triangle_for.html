@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>for 삼각형</title>
+    </head>
+    <body>
+        <h1>☆피라미드</h1>
+        <div id="result"></div>
+
+        <script>
+            output = "";
+
+            for(var i = 1; i < 10; i++) {
+                for(var j = 10; j > i; j--) {
+                    output += "&nbsp;";
+                }
+                
+                for(var k = 0; k < 2*i - 1; k++) {
+                    output += "*";
+                }
+                output += "<br>";
+            }
+
+            document.getElementById("result").innerHTML = output;
+        </script>
+    </body>
+</html>
