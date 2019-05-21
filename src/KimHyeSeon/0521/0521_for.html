@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>for 구구단</title>
+        <style>            
+            ul {overflow: hidden; margin:0;padding:5px;}
+            li {float: left; margin-right: 10px; padding: 5px; border: 2px solid #000; list-style: none;}
+            .gugudan {padding: 5px;}  
+            strong {display:block;padding-bottom: 5px;}
+            input, button {height: 24px;vertical-align: middle;}
+        </style>
+    </head>
+    <body>
+        <h1>구구단</h1>
+        <ul id="result"></ul>
+        <hr>
+
+        <div class="gugudan">
+            <strong>확인하고 싶은 구구단 단수를 숫자로 적어주세요.</strong>
+            <input type="text" id="gugudanNumber" placeholder="숫자로 적어주세요" onkeyDown="keyCode()">
+            <button type="button" onClick="gugudan()">확인</button>
+            <p id="result2"></p>
+        </div>
+
+        <script>
+            //구구단 전체
+            var output = "";
+
+            for(var i = 2; i < 10; i++) {
+                output += "<li>"
+                for(var j = 1; j < 10; j++) {
+                    output += i + "x" + j + "=" + i*j + "<br>";
+                }
+                output += "</li>"
+            }
+
+            document.getElementById("result").innerHTML = output;
+
+            //구구단 선택
+            function gugudan() {                
+                var dan = parseInt(document.getElementById("gugudanNumber").value);
+                var choiceGugudan = "";
+
+                //구구단은 2~9단까지만 노출
+                function gugudanCheck() {
+                    if(dan > 1 && dan < 9) {
+                        return true
+                    }
+                    else {
+                        return false
+                    }
+                }
+
+                //구구단 노출
+                if (gugudanCheck()) {
+                    for(var i = 1; i < 10; i++) {
+                        choiceGugudan += dan + "x" + i + "=" + dan * i + "<br>";
+                    }
+
+                    document.getElementById("result2").innerHTML = choiceGugudan;
+                }
+
+                else {
+                    alert("구구단은 2~9단까지 단수를 숫자로 입력해주세요.")
+                }                
+            }
+            
+            function keyCode() {
+                var key = window.event.keyCode;
+
+                //enter 입력시에도 버튼과 동일하게 작동
+                if(key == 13) {
+                    return gugudan();
+                }
+                else {
+                    return false;
+                }
+            }
+        </script>
+    </body>
+</html>
