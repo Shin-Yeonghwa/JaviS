@@ -23,7 +23,7 @@
 	border-width: 1px 1px 0 0;
 	box-sizing: border-box;
 	text-align: center;
-	line-height: 50px;
+	font-size: 13px;
 }
 .dice_box {
 	padding: 20px;
@@ -31,13 +31,23 @@
 	margin-bottom: 30px;
 }
 .dice1, .dice2 {
-	font-size: 40px;
+	font-size: 35px;
+	padding: 10px;
+	border: 1px solid black;
 }
 .dice1 {
 	color: #ff00b6;
+	border-color: #ff00b6;
 }
 .dice2 {
 	color: #9dff00;
+	border-color: #9dff00;
+}
+li.here {
+	background-color: red;
+}
+li.goal {
+	background-color: orange;
 }
 </style>
 </head>
@@ -46,10 +56,17 @@
 	<div class="dice_box">
 		<strong class="dice1"></strong>
 		<strong class="dice2"></strong>
+		<p class="dice_sum">주사위 총 합 : <em class="sum"></em></p>
+		<p class="dice_sum">주사위 던진 횟수 : <em class="count"></em></p>
 		<button type="button" id="btnStop">주사위 멈추기</button>
-		<button type"button" id="btnReset">주사위 다시 던지기</button>
+		<button type"button" id="btnReset">주사위 던지기</button>
+		<ul class="rule_list">
+			<li>1. 주사위를 돌려 '도착'칸까지 도착하면 게임 성공</li>
+			<li>2. 총 6번 안에 '도착'칸에 도착해야 게임 성공 </li>
+			<li>3. '도착'칸을 벗어나면 게임 실패</li>
+		</ul>
 	</div>
-	<button type="button" onClick="window.location.reload()">RESET</button>
+	<button type="button" onClick="window.location.reload()">GAME RESET</button>
 
 	<ul class="dice_area">
 		<li class="unit"></li>
@@ -68,6 +85,7 @@
 		<li class="unit"></li>
 		<li class="unit"></li>
 		<li class="unit"></li>
+		<li class="unit">꽝</li>
 		<li class="unit"></li>
 		<li class="unit"></li>
 		<li class="unit"></li>
@@ -75,6 +93,7 @@
 		<li class="unit"></li>
 		<li class="unit"></li>
 		<li class="unit"></li>
+		<li class="unit">뒤로2칸</li>
 		<li class="unit"></li>
 		<li class="unit"></li>
 		<li class="unit"></li>
@@ -82,9 +101,7 @@
 		<li class="unit"></li>
 		<li class="unit"></li>
 		<li class="unit"></li>
-		<li class="unit"></li>
-		<li class="unit"></li>
-		<li class="unit"></li>
+		<li class="unit">앞으로5칸</li>
 		<li class="unit"></li>
 		<li class="unit"></li>
 		<li class="unit"></li>
@@ -129,23 +146,26 @@ var getNumber = function() {
 	itemDice2.innerHTML = randomNumber2;
 }
 var randomDice = setInterval(getNumber);
-console.log(itemDice1);
 var diceSum = 0;
 var count = 0;
+
 
 
 var btnStop = document.getElementById('btnStop');
 btnStop.addEventListener('click', DicePlay, false);
 
 function DicePlay() {
+	count++
 	//1. 랜덤 함수 값 받고 출력
 	clearInterval(randomDice);
 	var numberDice1 = Number(itemDice1.textContent);
 	var numberDice2 = Number(itemDice2.textContent);
+	var sumNumber = document.querySelector('.sum');
+	var countNumber = document.querySelector('.count');
 
 	//2. 랜덤 함수 값 합
 	diceSum += numberDice1 + numberDice2;
-	console.log(diceSum);
+	sumNumber.innerHTML = diceSum;
 
 	//3. 합만큼 칸 이동하기
 	var unitList = document.querySelectorAll('.unit');// node_list
@@ -157,45 +177,53 @@ function DicePlay() {
 		randomDice = setInterval(getNumber);
 	}
 
-	for(var i = 0; i < unitArray.length; i++) {
-		var unitIndex = unitArray.indexOf(unitArray[i]) + 1;
+	unitArray.forEach(function(item, index) {
+		var indexNumber = index + 1;
 
-		if(unitIndex == diceSum) {
-			console.log('success');
-			unitArray[i].style.backgroundColor = "red";
+		// 이전 위치 제거
+		if(count != 1) {
+			item.classList.remove('here');
+		}
 
-			// 각 칸마다 이벤트
-			if(unitIndex == 5) {
-				alert('축하합니다. 이벤트에 당첨되었습니다');
-				unitArray[i].innerHTML = '당첨';
-			} else if(unitIndex == 17) {
-				alert('꽝! 다시 시작해주세요');
+		// 주사위 합만큼 칸 이동
+		if(indexNumber == diceSum) {
+			item.classList.add('here');
+
+			// 칸 별 이벤트
+			if(indexNumber == 5) {
+				alert('축하합니다!! 보너스 10점!')
+				item.style.backgroundColor = 'pink';
+				item.innerHTML = '당첨';
+			} else if (indexNumber == 17) {
+				alert('게임을 다시 시작해주세요');
 				diceSum = 0;
-				unitArray[i].style.backgroundColor = 'gray';
-				unitArray[i].innerHTML = '꽝';
 				btnReset.disabled = 'disabled';
-			} else if (unitIndex == 33) {
-				alert('축하합니다. 짝짝짝!!! 게임을 성공하셨습니다.');
-				unitArray[50].style.backgroundColor = "red";
+			} else if (indexNumber == 25) {
+				alert('ㅠㅠ 뒤로 2칸 이동');
+				item.classList.remove('here');
+				unitArray[22].classList.add('here');
+			} else if (indexNumber == 33) {
+				alert('짝짝짝! 앞으로 5칸 이동');
+				item.classList.remove('here');
+				unitArray[37].classList.add('here');
 			}
 		}
-	}
+	})
 
-
-
-
-	count++;
+	//게임결과
+	countNumber.innerHTML = count;
 	if(diceSum == 50) {
-		alert('축하합니다. 짝짝짝!!! 게임을 성공하셨습니다.');
-	} else if (diceSum > 51 || count > 7) {
-		// 50번칸 이상이거나 6번 이상 던질 시, 게임종료
-		alert('ㅠㅠ. 안타깝게도 게임을 실패하셨습니다.');
+		alert('축하합니다. 성공 짝짝짝!!!');
+		unitArray[49].style.color = 'white';
+	} else if (count == 6 && diceSum < 50) {
+		alert('게임이 종료되었습니다. ㅠㅠ');
+		btnReset.disabled = 'disabled';
+	} else if (diceSum > 50 || count > 6) {
+		alert('게임이 종료되었습니다. ㅠㅠ')
 		btnReset.disabled = 'disabled';
 	}
-
-
 }
-console.log(diceSum);
+
 
 
 </script>
