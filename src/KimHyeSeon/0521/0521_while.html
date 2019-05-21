@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>while 구구단</title>
+        <style>            
+            ul {overflow: hidden; margin:0;padding:5px;}
+            li {float: left; margin-right: 10px; padding: 5px; border: 2px solid #000; list-style: none;}
+            .gugudan {padding: 5px;}  
+            strong {display:block;padding-bottom: 5px;}
+            input, button {height: 24px;vertical-align: middle;}
+        </style>
+    </head>
+    <body>
+        <h1>구구단</h1>
+        <ul id="result"></ul>
+
+        <script>
+            var i = 2;
+            var output = "";
+
+            while (i < 10) {
+                output += "<li>";    
+                var j = 1;
+                
+                while (j < 10) {
+                    output += i + "x" + j + "=" + i*j + "<br>";                    
+                    j++;
+                }     
+
+                output += "</li>"
+                i++;
+                
+            }
+
+            document.getElementById("result").innerHTML = output;
+        </script>
+    </body>
+</html>
