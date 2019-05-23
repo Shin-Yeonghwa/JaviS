@@ -73,12 +73,12 @@ var clickTime = true;
 var completionCard = [];
 var clickCard = [];
 var startTime;
-function jaejae(){
+
 
 for(var i = 0; colorList.length > 0 ; i += 1){
 	colorBox = colorBox.concat(colorList.splice(Math.floor(Math.random() * colorList.length), 1));
 }
-}
+
 console.log(colorBox);
 	function cardSetting(widthNum , heightNum){
 		clickTime = false;
@@ -147,7 +147,7 @@ console.log(colorBox);
 			}, 5000);
 		
 	}
-	jaejae()
+
 		cardSetting(widthNum , heightNum);
 
 </script>

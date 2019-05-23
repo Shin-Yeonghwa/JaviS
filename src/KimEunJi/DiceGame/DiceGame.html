@@ -1,0 +1,207 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+	<title>DiceGame_0522</title>
+    <link rel="stylesheet" type="text/css" href="DiceGame.css">
+</head>
+<body>
+    <div id="wrap">
+        <h1>Roll the Dice</h1>
+        <div class="container">
+            <div class="container-cube1">
+                <div id="diceCube1">
+                    <div class="front">
+                        <span class="dot dot1"></span>
+                    </div>
+                    <div class="back">
+                        <span class="dot dot1"></span>
+                        <span class="dot dot2"></span>
+                    </div>
+                    <div class="right">
+                        <span class="dot dot1"></span>
+                        <span class="dot dot2"></span>
+                        <span class="dot dot3"></span>
+                    </div>
+                    <div class="left">
+                        <span class="dot dot1"></span>
+                        <span class="dot dot2"></span>
+                        <span class="dot dot3"></span>
+                        <span class="dot dot4"></span>
+                    </div>
+                    <div class="top">
+                        <span class="dot dot1"></span>
+                        <span class="dot dot2"></span>
+                        <span class="dot dot3"></span>
+                        <span class="dot dot4"></span>
+                        <span class="dot dot5"></span>
+                    </div>
+                    <div class="bottom">
+                        <span class="dot dot1"></span>
+                        <span class="dot dot2"></span>
+                        <span class="dot dot3"></span>
+                        <span class="dot dot4"></span>
+                        <span class="dot dot5"></span>
+                        <span class="dot dot6"></span>
+                    </div>
+                </div>
+            </div>
+            <div id="diceBtn">
+                <button type="button">Roll the Dice</button>
+            </div>
+            <div class="container-cube2">
+                <div id="diceCube2">
+                    <div class="front">
+                        <span class="dot dot1"></span>
+                    </div>
+                    <div class="back">
+                        <span class="dot dot1"></span>
+                        <span class="dot dot2"></span>
+                    </div>
+                    <div class="right">
+                        <span class="dot dot1"></span>
+                        <span class="dot dot2"></span>
+                        <span class="dot dot3"></span>
+                    </div>
+                    <div class="left">
+                        <span class="dot dot1"></span>
+                        <span class="dot dot2"></span>
+                        <span class="dot dot3"></span>
+                        <span class="dot dot4"></span>
+                    </div>
+                    <div class="top">
+                        <span class="dot dot1"></span>
+                        <span class="dot dot2"></span>
+                        <span class="dot dot3"></span>
+                        <span class="dot dot4"></span>
+                        <span class="dot dot5"></span>
+                    </div>
+                    <div class="bottom">
+                        <span class="dot dot1"></span>
+                        <span class="dot dot2"></span>
+                        <span class="dot dot3"></span>
+                        <span class="dot dot4"></span>
+                        <span class="dot dot5"></span>
+                        <span class="dot dot6"></span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div id="diceInfo">
+            <p>두 주사위 수 총 합은 <span id="sumTxt">0</span> 입니다.</p>
+            <p>주사위 던진 횟수는 <span id="countTxt">0</span> 입니다.</p>
+        </div>
+
+        <ul id="diceBox"></ul>
+
+        <!-- <div class="refer">
+            <a href="https://css-tricks.com/almanac/properties/p/perspective/" target="_blank">참고페이지: perspective</a>
+        </div> -->
+    </div>
+
+    <script>
+        let diceCube1, diceCube2, diceBtn, diceBox;
+        diceCube1 = document.getElementById('diceCube1');
+        diceCube2 = document.getElementById('diceCube2');
+        diceBtn = document.querySelector('#diceBtn button');
+        diceBox = document.getElementById('diceBox');
+
+        // 주사위 합만큼 이동하는 판 그리기
+        let boxItem;
+        for(let i=0; i < 50; i++) {
+            boxItem = document.createElement('li');
+            diceBox.appendChild(boxItem);
+        }
+
+        // 주사위 rotate에 적용할 정수 random으로 추출
+        let min = 1;
+        let max = 6;
+
+        function getRandom(max, min) {
+            return Math.floor(Math.random() * (max-min));
+        }
+
+        let randomNumberX = 0;
+        let randomNumberY = 0;
+
+        // rotateX,rotateY 만큼 회전했을 때 주사위 값
+        let rotateArray = [ // [(rotateX,rotateY), (rotateX,rotateY), (rotateX,rotateY), ...]
+            [6,6,6,6,6,6], // [(90deg,90deg), (90deg,180deg), (90deg,270deg), ..., (90deg,540deg)]
+            [3,1,4,2,3,1], // [(180deg,90deg), (180deg,180deg), (180deg,270deg), ..., (180deg,540deg)]
+            [5,5,5,5,5,5], // [(270deg,90deg), (270deg,180deg), (270deg,270deg), ..., (270deg,540deg)]
+            [4,2,3,1,4,2], // [(360deg,90deg), (360deg,180deg), (360deg,270deg), ..., (360deg,540deg)]
+            [6,6,6,6,6,6], // [(450deg,90deg), (450deg,180deg), (450deg,270deg), ..., (450deg,540deg)]
+            [3,1,4,2,3,1] // [(540deg,90deg), (540deg,180deg), (540deg,270deg), ..., (540deg,540deg)]
+        ]
+
+        let cubeSum = 0;
+        let btnCount = 0;
+
+        let boxList = document.getElementsByTagName("li");
+        // boxList[0].textContent = '0';
+        boxList[9].textContent = '10';
+        boxList[19].textContent = '20';
+        boxList[29].textContent = '30';
+        boxList[39].textContent = '40';
+        boxList[49].textContent = 'END';
+
+        // Roll the Dice 버튼 클릭 이벤트
+        diceBtn.addEventListener('click', function() {
+
+            // step1. 주사위 굴려 값 가져오기
+            randomNumberX =  getRandom(max, min);  // 첫번째 주사위
+            randomNumberY =  getRandom(max, min);
+
+            let xRand = (randomNumberX + min) * 90;
+            let yRand = (randomNumberY + min) * 90;
+            
+            diceCube1.style.webkitTransform = 'rotateX('+xRand+'deg) rotateY('+yRand+'deg)';
+            diceCube1.style.transform = 'rotateX('+xRand+'deg) rotateY('+yRand+'deg)';
+            let cubeNum1 = rotateArray[randomNumberX][randomNumberY]
+            console.log(cubeNum1);
+
+            randomNumberX =  getRandom(max, min);  // 두번째 주사위
+            randomNumberY =  getRandom(max, min);
+
+            xRand = (randomNumberX + min) * 90;
+            yRand = (randomNumberY + min) * 90;
+
+            diceCube2.style.webkitTransform = 'rotateX('+xRand+'deg) rotateY('+yRand+'deg)';
+            diceCube2.style.transform = 'rotateX('+xRand+'deg) rotateY('+yRand+'deg)';
+            let cubeNum2 = rotateArray[randomNumberX][randomNumberY]
+            console.log(cubeNum2);
+
+
+            // step2. 주사위 값 더하기
+            cubeSum += cubeNum1 + cubeNum2;
+            console.log(cubeSum);
+            
+            let sumTxt = document.getElementById('sumTxt');  // 주사위 합 텍스트 입력
+            sumTxt.textContent = cubeSum;
+
+
+            // step3. 주사위 합 만큼 li 위치로 이동
+            btnCount++;  // 클릭할때마다 클릭수 증가
+
+            let countTxt = document.getElementById('countTxt');  // 주사위 횟수 텍스트 입력
+            countTxt.textContent = btnCount;
+
+            let boxArray = Array.from(boxList);  // 배열 같은 객체를 배열로 변환
+            // console.log(Array.isArray(boxArray));
+
+            boxArray.forEach(function(item, index){
+                if(index == cubeSum) {
+                    boxArray[index].style.backgroundColor = "#ff8686";
+                    boxArray[index].textContent = 'Here!';
+                }
+            })
+
+            if(50 < cubeSum || 5 < btnCount) {
+                alert('Game over');
+            };
+
+        }, false);
+    </script>
+</body>
+</html>
