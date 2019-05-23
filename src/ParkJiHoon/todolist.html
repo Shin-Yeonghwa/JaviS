@@ -1,0 +1,204 @@
+<!DOCTYPE html>
+<html lang="ko">
+
+<head>
+    <meta charset="utf-8">
+    <title>TODO LIST 만들기</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            font-family: Verdana, sans-serif;
+            box-sizing: border-box;
+        }
+        
+        body {
+            color: #333;
+            font-size: 14px;
+        }
+        
+        table {
+            width: 100%;
+            border: 0;
+            border-collapse: collapse;
+            text-align: center;
+        }
+        
+        th,
+        td {
+            padding: 8px 0;
+            vertical-align: middle;
+            border: 1px solid #000;
+        }
+        
+        thead .holiday {
+            color: red
+        }
+        
+        tbody .holiday {
+            background-color: red
+        }
+        .todowrite{width:500px}
+    </style>
+</head>
+
+<body>
+    <div class="todobox">
+        <table class="">
+            <caption>TODO LIST 테이블</caption>
+            <colgroup>
+                <col style="width:100px">
+                <col style="width:30px">
+                <col style="width:30px">
+                <col style="width:30px">
+                <col style="width:30px">
+                <col style="width:30px">
+                <col style="width:30px">
+                <col style="width:30px">
+                <col style="width:30px">
+                <col style="width:30px">
+                <col style="width:30px">
+                <col style="width:30px">
+                <col style="width:30px">
+                <col style="width:30px">
+                <col style="width:30px">
+                <col style="width:30px">
+                <col style="width:30px">
+                <col style="width:30px">
+                <col style="width:30px">
+                <col style="width:30px">
+                <col style="width:30px">
+                <col style="width:30px">
+                <col style="width:30px">
+                <col style="width:30px">
+                <col style="width:30px">
+                <col style="width:30px">
+                <col style="width:30px">
+                <col style="width:30px">
+                <col style="width:30px">
+                <col style="width:30px">
+                <col style="width:30px">
+            </colgroup>
+            <thead>
+                <tr>
+                    <th></th>
+                    <th class="holiday">1</th>
+                    <th class="holiday">2</th>
+                    <th>3</th>
+                    <th>4</th>
+                    <th>5</th>
+                    <th class="holiday">6</th>
+                    <th>7</th>
+                    <th class="holiday">8</th>
+                    <th class="holiday">9</th>
+                    <th>10</th>
+                    <th>11</th>
+                    <th>12</th>
+                    <th>13</th>
+                    <th>14</th>
+                    <th class="holiday">15</th>
+                    <th class="holiday">16</th>
+                    <th>17</th>
+                    <th>18</th>
+                    <th>19</th>
+                    <th>20</th>
+                    <th>21</th>
+                    <th class="holiday">22</th>
+                    <th class="holiday">23</th>
+                    <th>24</th>
+                    <th>25</th>
+                    <th>26</th>
+                    <th>27</th>
+                    <th>28</th>
+                    <th class="holiday">29</th>
+                    <th class="holiday">30</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <th class="name">박지훈</th>
+                    <td class="holiday"></td>
+                    <td class="holiday"></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td class="holiday"></td>
+                    <td></td>
+                    <td class="holiday"></td>
+                    <td class="holiday"></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td class="holiday"></td>
+                    <td class="holiday"></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td class="holiday"></td>
+                    <td class="holiday"></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td class="holiday"></td>
+                    <td class="holiday"></td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+    <div class="todowrite">
+        <form id="" action="#">
+            <table>
+                <colgroup>
+                    <col style="width:100px">
+                    <col style="width:300px">
+                </colgroup>
+                <tr>
+                    <th>서비스명</th>
+                    <td>
+                        <select>
+                            <option>네이버</option>
+                            <option>네이버 뮤직</option>
+                            <option>네이버 홈페이지</option>
+                            <option>네이버 클라우드</option>
+                            <option>네이버 그룹웨어</option>
+                            <option>네이버 검색</option>
+                            <option>네이버 브랜딩</option>
+                        </select>
+                        <input type="text" class="" placeholder="과제명">
+                    </td>
+                </tr>
+                <tr>
+                    <th>세부 작업명</th>
+                    <td>
+                        <input type="text" class="" placeholder="세부작업명">
+                    </td>
+                </tr>
+            </table>
+        </form>
+    </div>
+
+    <script>
+        /* 
+            TODO LIST 만들기 
+            1. 빈 칸을 클릭하면 등록하기 레이어 팝업 노출
+            2. 레이어 팝업 구성
+                - 서비스명 : 서비스 선택 셀렉트 박스 / 과제명 입력하는 input
+                - 세부작업명 : 세부작업명을 입력하는 input
+                - 작업기간 : 작업시작과 완료일을 체크
+                - 작업공수 : 작업MD 입력
+                - 등록과 취소 버튼
+            3. 등록 버튼을 누르면 선택 및 입력한 데이터가 설정한 기간과 공수에 맞춰서 테이블에 뿌려짐
+            4. 취소 버튼을 누르면 레이어 팝업 사라짐
+        */
+    </script>
+
+</body>
+
+
+</html>
