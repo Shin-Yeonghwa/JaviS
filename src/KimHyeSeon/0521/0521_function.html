@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>function</title>
+        <style>
+            [id*="result"] {
+                overflow: hidden;
+                padding-top: 30px;
+            }
+
+            li {
+                float: left;
+                border: 2px solid #000;
+                margin-right: 5px;
+                padding: 5px;
+                list-style: none;
+            }
+        </style>
+    </head>
+    <body>
+        <button type="button" onClick="gugudan()">구구단</button>
+        <button type="button" onClick="pyramid()">피라미드</button>
+        <ul id="result_gugudan"></ul>
+        <div id="result_pyramid"></div>
+
+        <script>
+            //구구단
+            function gugudan() {
+                var output = "";
+                for(var i = 2; i < 10; i++) {
+                    output += '<li>';
+                    for(var j = 1; j < 10; j++) {
+                        output += i + "x" + j + "=" + i * j + "<br>";
+                    }
+                    output += "</li>";
+                }
+                document.getElementById("result_gugudan").innerHTML = output;
+            }
+
+            //피라미드
+            function pyramid() {
+                var output = "";
+                for(var i = 1; i < 15; i++) {
+                    for(var j = 15; j > i; j--) {
+                        output += "&nbsp;";
+                    }
+                    for(var k = 0; k < 2 * i - 1; k++) {
+                        output += "*";
+                    }
+                    output += "<br>";
+                }
+                document.getElementById("result_pyramid").innerHTML = output;
+            }
+        </script>
+    </body>
+</html>
