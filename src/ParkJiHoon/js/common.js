@@ -23,31 +23,33 @@ const victoryConditionData = {
 
 checkerboardGrid.forEach(function (el, index) {
     el.addEventListener('click', e => {
-        if (checkerboardUser === 'black'){
-            el.classList.add('black');
+        clickUserBoard(checkerboardUser);
+    });
+
+    /* user의 데이터에 따라 돌 컬러 클래스 제어와 user를 변경 시켜주는 로직 */
+    function clickUserBoard(value) {
+        if (checkerboardUser === value){
+            el.classList.add(value);
+            clickBoardLogig(value);
+            // blackArrayNumber.push(index);
+            // console.log(blackArrayNumber);
             checkerboardUser = 'white';
-            blackArrayNumber.push(index);
-            console.log(blackArrayNumber);
-            victoryConditionFormula();
-            return;
-        }
-
-        if (checkerboardUser === 'white'){
+        }; 
+         if (checkerboardUser = !value){
             el.classList.add('white');
+            clickBoardLogig(!value);
+            // whiteArrayNumber.push(index);
+            // console.log(whiteArrayNumber);
             checkerboardUser = 'black';
-            whiteArrayNumber.push(index);
-            console.log(whiteArrayNumber);
-            victoryConditionFormula();
-            return;
-        }
-    });      
+        };
+    };
+
+    /* user 데이터에 따라 돌을 두면 클래스 추가되고 해당 index넘버가 빈 배열로 추가되는 로직 */
+    function clickBoardLogig(value) {
+        if(value) return blackArrayNumber.push(index);
+        return whiteArrayNumber.push(index);
+    }
 });
-
-/* user 데이터에 따라 돌을 두면 클래스 추가되고 해당 index넘버가 빈 배열로 추가되는 로직 */
-function clickBoardLogig() {
-
-}
-
 
 function victoryConditionFormula() {
     for(let i = 0; i < blackArrayNumber.length; i++){
