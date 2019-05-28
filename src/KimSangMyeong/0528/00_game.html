@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<title>스탑워치</title>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.0/jquery.min.js"></script>
+<style>
+  .num{
+      font-size: 40px;
+      text-align: center;
+  }
+  button{
+      font-size:30px;
+      width: 140px;
+      height: 60px;
+      border-radius: 5px;
+  }
+  #start{
+      background-color: green;
+      border-color:green;
+  }
+  #stop{
+      background-color: red;
+      border-color:red;
+  }
+  #reset{
+      background-color: #979797;
+      border-color:#979797;
+  }
+  .container{
+      margin:auto;
+      margin-top: 200px;
+      width: 450px;
+      height: 400px;
+  }
+  #controls{
+      margin-left: 7px;
+      width: 440px;
+      height: 70px;
+  }
+
+</style>
+</head>
+<body>
+    <div class="container">
+        <p class="num" id="output">00:00:00:00</p>
+        <div id="controls">
+            <button id="start" onclick="start();"><span id="start">start</span> </button>
+            <button id="stop" onclick="stop();"><span id="stop">stop</span> </button>
+            <button id="reset" onclick="reset();"><span id="reset">reset</span> </button>
+        </div>
+    </div>
+<script type="text/javascript" src="../js/js_0528.js"></script>
+</body>
+</html>
