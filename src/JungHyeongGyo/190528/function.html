@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="ko">
+
+<head>
+    <meta charset="utf-8">
+    <title>구구단 + 피라미드</title>
+</head>
+
+<body>
+    <button onclick="gugu()">구구단</button>
+    <button onclick="pira()">피라미드</button>
+    <div id="box_gugu"></div>
+    <div id="box_pira" style="text-align:center"></div>
+</body>
+<script type="text/javascript">
+    function gugu() {
+        var output1 = "";
+        for (var i = 2; i < 10; i++) {
+            for (var j = 1; j < 10; j++) {
+                output1 += i + "x" + j + " = " + i * j + "<br>";
+            }
+            output1 += "<br>";
+        }
+        document.getElementById("box_gugu").innerHTML = output1;
+    }
+
+    function pira() {
+        var output2 = "";
+        var k = 1;
+        var l = 1;
+        while (k < 11) {
+            while (l <= k) {
+                output2 += "*"
+                l++;
+            }
+            output2 += "<br>"
+            k++;
+            l=1;
+        }
+        document.getElementById("box_pira").innerHTML = output2;
+    }
+</script>
+
+</html>
