@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>5월4주 - 반복문, 함수 </title>
+        <style>
+	        ul{
+	        	margin: 100px 0 0 ;
+	        }
+        	ul,li{
+        		padding:0;
+        		list-style: none;
+        		text-align:center;
+        	}
+        	li{
+        		display:inline-block;
+        		vertical-align:top;
+        	}
+        	li button{
+        		height:50px;
+        		border:3px solid #1088ff;
+        		background-color:#fff;
+        		color:#1088ff;
+        		font-weight:800;
+        		outline:none;
+        		font-size:20px;
+        		line-height:20px;
+        		cursor:pointer;
+        		padding:0 20px;
+        		font-family:'notokr-medium', sans-serif;
+        	}
+        	.result_area{
+        		width:500px;
+        		min-height:400px;
+        		padding:50px 0;
+        		margin:0 auto;
+        		border: 5px solid #1088ff;
+        		margin-top:100px;
+        	}
+        	#result_pira{
+        		width:190px;
+        		margin:0 auto;	
+        	}
+        	#result_gugu{
+        		width:400px;
+        		margin:0 auto;	
+        		font-size:12px;
+        	}  
+        	#result_gugu div{
+        		display:inline-block;
+        		margin-left:10px;
+        	}  
+        	#result_gugu div:first-child{
+        		margin-left:0;
+        	}     
+        	.result_area div+div{
+        		margin-top:20px !important;
+        	}   	    	
+        </style>        
+    </head>
+    <body>
+    	<ul>
+    		<li>
+    			<button type="button" onclick="pira()">피라미드</button>
+    		</li>
+    		<li>
+    			<button type="button" onclick="gugu()">구구단</button>
+    		</li>
+    	</ul>
+    	<div class="result_area">
+    		<div id="result_pira"></div>
+    		<div id="result_gugu"></div>
+    	</div>
+    </body>
+    <script>
+        function gugu() {
+            var output = "";
+            for(var i = 2; i < 10; i++) {
+                output += '<div>';
+                for(var j = 1; j < 10; j++) {
+                    output += i + "x" + j + "=" + i * j + "<br>";
+                }
+                output += "</div>";
+            }
+            document.getElementById("result_gugu").innerHTML = output;
+        }
+
+
+        function pira() {
+            var output = "";
+            for(var i = 0; i < 11; i++) {
+                for(var j = 11; j > i; j--) {
+                    output += "&nbsp;";
+                }
+                for(var k = 0; k < 2 * i - 1; k++) {
+                    output += "*";
+                }
+                output += "<br>";
+            }
+            document.getElementById("result_pira").innerHTML = output;
+        };
+    </script>    
+<body>
+
+
+</body>
+</html>
