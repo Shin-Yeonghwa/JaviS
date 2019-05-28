@@ -61,7 +61,7 @@ function cellTrick(){
     }
 }
 
-// 말 표시 해제 함수 - 'on' class 제거 
+// 셀 표시 해제 함수 - 'on' class 제거 
 function cellClear(){
     var clear = document.querySelectorAll('li.on');
     for (var i = 0; i < clear.length; i += 1){
