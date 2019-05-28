@@ -1,0 +1,222 @@
+<!DOCTYPE html>
+<html lang="ko">
+  <head>
+    <meta charset="utf-8">
+    <title>게시판 만들기</title>
+    <link rel="stylesheet" href="common.css">
+  </head>
+  <body>
+
+	<div id="wrap">
+		<fieldset>
+		<legend>board</legend>
+			<form action="#" id="boardForm">
+                <div class="checkboxArea">
+                    <input type="checkbox" id="secretWriting">
+                    <label for="secretWriting">비밀글</label>
+                </div>
+				<table>
+					<caption></caption>
+					<colgroup>
+						<col style="width:100px" />
+						<col/>
+					</colgroup>
+					<tbody>
+						<tr>
+							<th scope="row">작성자</th>
+							<td><input type="text" id="iptName" name="username" pattern="^[\wㄱ-ㅎㅏ-ㅣ가-힣]{1,20}$" required></td>
+                        </tr>
+						<tr class="row_password">
+							<th scope="row">비밀번호</th>
+							<td><input type="password" id="iptPassword" name="userpassword"></td>
+						</tr>
+						<tr>
+							<th scope="row">제목</th>
+							<td><input type="text" id="iptTitle" name="contenttitle" required minlength="4"></td>
+						</tr>
+						<tr>
+							<th scope="row">내용</th>
+							<td><textarea id="iptCont" name="usercontent" rows="5" cols="10" required maxlength="100"></textarea><p class="numberInfo"><span class="textNumber">0</span>/100</p></td>
+						</tr>
+					</tbody>
+
+				</table>
+                <div class="btn-wrap">
+                    <input type="submit" id="btnRegist" class="btn" value="등록">
+                </div>
+            </form>
+
+		</fieldset>
+
+		<table class="board_list">
+			<thead>
+				<tr>
+					<th>NO</th>
+					<th>제목</th>
+					<th>작성자</th>
+					<th>날짜</th>
+				</tr>
+			</thead>
+			<tbody></tbody>
+		</table>
+
+
+	</div>
+
+
+	<script>
+        /*
+        게시판 만들기
+
+        1. 폼 영역
+            작성자, 비밀번호, 제목, 본문 내용, 등록 버튼이 포함된 등록 폼 만들기
+            input 유효성 검사 - 조건이 부합할 경우 각 input영역 하단에 안내문구 노출
+                작성자 : 특수문자 제한
+                제목 : 글자수 제한 (최소 4글자)
+                본문 : 글자수 제한(최대 100글자)
+            등록 버튼
+                뷰 테이블에 작성한 데이터가 노출되고 폼안에 데이터는 리셋
+
+        2. 게시판 영역
+            형식은 테이블
+            th : 넘버, 제목, 작성자, 날짜
+            td : 작성한 데이터가 들어가고 날짜는 시간까지 나오도록, 클릭시 새창
+
+            비밀글 : 데이터 노출되기전 prompt 로 비밀번호 입력 + 확인
+            ㄴ 조건 만족시 : 데이터 노출
+            ㄴ 조건 불만족시 : alert 노출
+
+        */
+
+        /* 전역변수 */
+        const formBox = document.querySelector('#boardForm');
+        const inputName = document.querySelector('#iptName');
+        const passwordRow = document.querySelector('.row_password');
+        const inputTitle = document.querySelector('#iptTitle');
+        const inputTextarea = document.querySelector('#iptCont');
+        const inputNoticeText = document.querySelectorAll('tr .noticeText');
+        const textNumerCheck = document.querySelector('.textNumber');
+        const inputSecretWriting = document.querySelector('#secretWriting');
+		const boardList = document.querySelector('.board_list');
+		const btnRegist = document.querySelector('#btnRegist');
+		const boardListBody = boardList.getElementsByTagName('tbody')[0];
+
+        /* 전체 data */
+		const boardData = [];
+
+        /* 내용에 대한 실시한 체크 로직 */
+        inputTextarea.addEventListener('input', isOverNumber);
+        /* 글쓰기 버튼을 누르면 실행되는 로직 */
+        formBox.addEventListener('submit', createBoard,false);
+        /* 게시판에 리스트 클릭시 실행되는 로직 */
+		boardList.addEventListener("click",addEventTdOpenWindow);
+
+        /* 비밀글 클릭시 비밀번호 입력 영역 노출되는 로직 */
+        inputSecretWriting.addEventListener('change', function() {
+            if(this.checked) return passwordRow.setAttribute('style','display:table-row')
+            return passwordRow.setAttribute('style','display:none')
+        });
+
+        inputName.addEventListener('input',invalidCheck,false);
+        inputTitle.addEventListener('input',invalidCheck,false);
+        inputTextarea.addEventListener('input',invalidCheck,false);
+
+
+        function invalidCheck(){
+
+            if(this.validity.valid){
+                this.parentNode.setAttribute('title','');
+            }
+
+        }
+
+        /* 내용 글자수 실시간 체크 및 글자수 초과시 작성 안되는 로직 */
+		function isOverNumber() {
+            const textNumber = inputTextarea.value.length;
+            textNumerCheck.innerText = textNumber;
+		}
+
+        /* 글쓰기 버튼 클릭 이벤트 */
+        function createBoard(event) {
+            if(!inputName.validity.valid){
+                inputName.parentNode.setAttribute('title','틀렷어');
+                event.preventDefault();
+            }
+
+            event.preventDefault();
+            //작성자 제목 내용 유효성 검사에 대한 return 값
+            const request = new XMLHttpRequest();
+            // // POST to httpbin which returns the POST data as JSON
+            request.open('POST', 'https://httpbin.org/post', /* async = */ false);
+            //FormData 객체 생성
+            const formData = new FormData(document.getElementById('boardForm'));
+            request.send(formData);
+
+            let data = JSON.parse(request.response)['form'];
+            data['time'] = getCurrentTime();
+
+            /* data 넣기 */
+            boardData.push(data);
+
+            localStorage.setItem('board',JSON.stringify(boardData));
+            /* 게시판 만들기 */
+            createBoardList(data, boardData.length);
+            /* input reset */
+            formBox.reset();
+
+
+        }
+
+
+        /* 글쓰기 버튼 클릭시 작성시간 체크 로직 */
+        function getCurrentTime() {
+            const date = new Date();
+            const year = date.getFullYear();
+            const month = date.getMonth() + 1;
+            const day = date.getDate();
+            const hour = date.getHours();
+            const min = date.getMinutes();
+            const sec = date.getSeconds();
+            const msec = date.getMilliseconds();
+            return fullDate = year + '-' + month + '-' + day + ' ' + hour + ':' + min + ':' + sec;
+        }
+
+        /* 데이터가 들어가는 테이블 */
+		function createBoardList(data,index){
+
+            let infoList = `
+                <tr>
+                    <td>
+                        ${(index)}
+                    </td>
+                    <td>
+                        ${data['contenttitle']}
+                    </td>
+                    <td>
+                        ${data['username']}
+                    </td>
+                    <td>
+                        ${data['time']}
+                    </td>
+                </tr>
+                `;
+
+            boardListBody.innerHTML = infoList;
+		}
+
+
+        /* 게시글 td 클릭했을 때 winodw 창 뜨는 로직*/
+        function addEventTdOpenWindow(event){
+			if(event.target.nodeName == 'TD'){
+				const index = event.target.parentNode.rowIndex - 1;
+
+				window.open("pop_board.html", "_blank",
+                            "toolbar=yes,scrollbars=yes,resizable=yes,top=0,left=0,width=600,height=400");
+				localStorage.setItem('currentIndex',index);
+			}
+		}
+
+	</script>
+
+  </body>
+</html>

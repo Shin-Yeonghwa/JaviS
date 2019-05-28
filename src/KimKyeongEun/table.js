@@ -84,7 +84,6 @@ function resetInput(input){
 
 //생성 버튼 클릭 이벤트
 document.querySelector('.btn_create').addEventListener("click",function(){
-    var tablehtmlCode='';
 
     //caption input에 값이 있는지 체크
     if(allInputValue(allInput)){
@@ -104,7 +103,6 @@ document.querySelector('.btn_create').addEventListener("click",function(){
             return text += '</tr>'
           })
         + '</table>';
-        // document.getElementById('htmlCode').textContent = tablehtmlCode
     }
 });
 
