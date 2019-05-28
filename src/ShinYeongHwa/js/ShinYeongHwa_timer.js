@@ -1,6 +1,4 @@
 // 스톱워치
-
-
 function Clock(){
     
     var today = new Date();
@@ -21,7 +19,4 @@ function init() {
     // 최초에 함수를 한번 실행시켜주고 
     setInterval(Clock, 10);
 }
-
-
-
 init();
