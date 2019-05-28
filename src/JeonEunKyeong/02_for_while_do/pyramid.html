@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="euc-kr">
+        <title>피라미드만들기</title>
+        <script type="text/javascript">
+            var output='';
+            for(var i = 0; i < 5; i++){
+                for(var j = 5; j > i; j--){
+                    output += ' ';
+                }
+                for(var k = 0; k < i * 2 - 1; k++){
+                    output += '*';
+                }
+                output += '\n';
+            }
+            console.log(output);
+        </script>
+    </head>
+    <body>
+    </body>
+</html>
