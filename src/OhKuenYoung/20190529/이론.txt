@@ -1,0 +1,29 @@
+while 반복문
+: while boolean true 이면 실행
+
+var a = 0;
+
+while ( a < 5)  {
+     alert (a + '번째');
+     a ++; 
+}
+
+do while 반복문 
+: 무조건 최초 실행
+
+var a = 0;
+
+do {
+    alert (a + '번째');
+    a ++; 
+} while ( a < 5);
+
+for 반복문
+: 초기식 조건식 종결식으로 구성
+
+초기식 실행 -> 조건식 true 이면 문장 실행 -> 종결식 실행
+
+for (var a = 1; a < 10; a++) {
+    alert (a + '번째');
+    a ++; 
+}

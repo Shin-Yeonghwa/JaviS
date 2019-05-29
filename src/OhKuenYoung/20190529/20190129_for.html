@@ -1,0 +1,75 @@
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>학점 계산기</title>
+    <style type="text/css">
+        #ex_01 {
+            text-align: center;
+        }
+
+        #ex_02 {
+            overflow: hidden;
+        }
+
+        .box {
+            float: left;
+            margin-left: 20px;
+        }
+	</style>
+</head>
+<body>
+    <h2>피라미드</h2>
+    <button onclick="ex01();">피라미드 노출</button>
+
+    <div id="ex_01"></div>
+
+
+    <h2>구구단</h2>
+    <button onclick="ex02();">구구단 노출</button>
+
+    <div id="ex_02"></div>
+    
+    <script>        
+        function ex01() {
+            var output = '';
+
+            for (var i = 1; i < 15; i ++) {
+                output += '<div>';
+                
+                for (var j = 0 ; j < 2 * i - 1; j ++) {
+                    output += '<span>*</span>';
+                }
+
+                output += '</div>';
+            }
+
+            document.getElementById('ex_01').innerHTML = output;  
+        }
+
+        function ex02() {
+            var a = '';
+            var b = '';
+            var output = '';
+
+            for (var i = 2; i < 10; i++) {
+
+                output += '<div class="box">'
+                a = i;
+
+                for (var j = 1; j < 10; j ++) {
+                    b = j;
+
+                    output += a + '*' + b + '=' + a * b + '<br>'  ;
+                }
+
+                output += '</div>'
+            }
+
+            document.getElementById('ex_02').innerHTML = output; 
+
+        }
+    </script>
+</body>
+</html>
