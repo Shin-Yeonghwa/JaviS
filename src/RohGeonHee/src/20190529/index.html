@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+  <html>
+    <head>
+      <meta charset = "utf-8"/>
+      <title>오목</title>
+      <style>
+      body {
+        background-color : rgb(192, 192, 192);
+      }
+      </style>
+    </head>
+    <body>
+      <script>
+      var bdice = Math.floor(Math.random() * 12 + 1);
+      var wdice = Math.floor(Math.random() * 12 + 1);
+
+      if(bdice < wdice) {
+        alert("주사위 결과!\n" + "흑돌 : " + bdice + "\n백돌 : " + wdice + "\n백돌의 선공입니다.");
+        var turn = 2;
+      } else if(bdice > wdice) {
+        alert("주사위 결과!\n" + "흑돌 : " + bdice + "\n백돌 : " + wdice + "\n흑돌의 선공입니다.");
+        var turn = 1;
+      }
+
+      document.write("<p align = \"center\">");
+
+      for(var y = 1; y < 21; y++) {
+        for(var x = 1; x < 21; x++) {
+          document.write("<img src = \"http://dev.ui.naver.com/tmp/?20x20_starbucks_n_FFFFFF_100\" onClick = \"chkTurn(" + x + ", " + y + ", this)\">");
+        }
+        document.write("<br/>");
+      }
+      document.write("</p>");
+
+      var stone = [
+      [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+      [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+      [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+      [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+      [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+      [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+      [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+      [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+      [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+      [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+      [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+      [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+      [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+      [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
+      [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+      [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+      [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+      [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+      [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+      [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
+      ];
+
+      function chkTurn(x, y, playBoard) {
+        if(turn == 3) {
+          alert("흑돌의 승리!");
+        } else if(turn == 4) {
+          alert("백돌의 승리!");
+        } else if(stone[x-1][y-1] == 0) {
+          if(turn == 1) {
+            playBoard.setAttribute("src", "http://dev.ui.naver.com/tmp/?20x20_default_n_000000_50");
+            stone[x-1][y-1] = 1;
+            turn = 2;
+            Check(x-1, y-1, 1);
+          } else if(turn == 2) {
+            playBoard.setAttribute("src", "http://dev.ui.naver.com/tmp/?20x20_starbucks_n_FF0000_0");
+            stone[x-1][y-1] = 2;
+            turn = 1;
+            Check(x-1, y-1, 2);
+          }
+        } else alert("이미 돌이 놓여있습니다.");
+      }
+
+      function Check(x, y, turnChk) {
+        var winChk = [0, 0, 0, 0];
+
+        for(var i = 1; i < 5; i++) {
+          if(x-i >= 0) {
+            if(stone[x-i][y] == turnChk) {
+              winChk[0]++;
+            }
+            console.log('1번' + winChk);
+          }
+          if(x+i < 20) {
+            if(stone[x+i][y] == turnChk) {
+              winChk[1]++;
+            }
+            console.log('2번' + winChk);
+          }
+          if(y-i >= 0) {
+            if(stone[x][y-i] == turnChk) {
+              winChk[2]++;
+            }
+            console.log('3번' + winChk);
+          }
+          if(y+i < 20) {
+            if(stone[x][y+i] == turnChk) {
+              winChk[3]++;
+            }
+            console.log('4번' + winChk);
+          }
+        }
+        for(var chk = 0; chk < 4; chk++) {
+          if(winChk[chk] == 4) {
+            // console.log(winChk[chk]);
+            if(turnChk == 1) {
+              alert("흑돌의 승리입니다.");
+              turn = 3;
+              break;
+            } else {
+              alert("백돌의 승리입니다.");
+              turn = 4;
+              break;
+            }
+          }
+        }
+      }
+    </script>
+  </bdoy>
+</html>
