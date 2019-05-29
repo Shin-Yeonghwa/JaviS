@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="ko">
+
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <title>스탑워치</title>
+    <style>
+        #output {
+            width: 158px;
+            height: 50px;
+            background-color: #ccc;
+            border: 1px solid #999;
+            text-align: center;
+            display: table-cell;
+            vertical-align: middle;
+        }
+
+        #controls {
+            margin-top: 10px;
+        }
+    </style>
+</head>
+
+
+<body onload="printClock()">
+    <div style="border:1px solid #dedede; width:600px; height:250px; line-height:250px; color:#666;font-size:100px; text-align:center;" id="clock">
+    </div>
+    <div id="alarm">
+        00:17:00AM
+    </div>
+</body>
+
+
+
+<script type="text/javascript">
+    function printClock() {
+
+        var clock = document.getElementById("clock"); // 출력할 장소 선택
+        var currentDate = new Date(); // 현재시간
+        var calendar = currentDate.getFullYear() + "-" + (currentDate.getMonth() + 1) + "-" + currentDate.getDate() // 현재 날짜
+        var amPm = 'AM'; // 초기값 AM
+        var currentHours = addZeros(currentDate.getHours(), 2);
+        var currentMinute = addZeros(currentDate.getMinutes(), 2);
+        var currentSeconds = addZeros(currentDate.getSeconds(), 2);
+        var alarm = document.getElementById("alarm")
+
+        if (currentHours >= 12) { // 시간이 12보다 클 때 PM으로 세팅, 12를 빼줌
+            amPm = 'PM';
+            currentHours = addZeros(currentHours - 12, 2);
+        }
+
+        clock.innerHTML = currentHours + ":" + currentMinute + ":" + currentSeconds + amPm; //날짜를 출력해 줌
+
+        setTimeout("printClock()", 1000); // 1초마다 printClock() 함수 호출
+    }
+
+    function addZeros(num, digit) { // 자릿수 맞춰주기
+        var zero = '';
+        num = num.toString();
+        if (num.length < digit) {
+            for (i = 0; i < digit - num.length; i++) {
+                zero += '0';
+            }
+        }
+        return zero + num;
+    }
+
+    function alarm() {
+        if (clock.innerHTML = alarm.innerHTML) {
+            var newDiv = document.createElement("div");
+            var newContent = document.createTextNode("일어나세요!");
+            newDiv.appendChild(newContent);
+        }
+    }
+</script>
+
+</html>

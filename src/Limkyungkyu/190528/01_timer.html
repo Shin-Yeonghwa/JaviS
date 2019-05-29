@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="ko">
+
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <title>스탑워치</title>
+    <style>
+        #output {
+            width: 158px;
+            height: 50px;
+            background-color: #ccc;
+            border: 1px solid #999;
+            text-align:center;
+            display:table-cell;
+            vertical-align: middle;
+        }
+        #controls{
+            margin-top:10px;
+        }
+    </style>
+</head>
+
+
+<body>
+    <p id="output"></p>
+    <div id="controls">
+        <button id="start" onclick="start()">Start</button>
+        <button id="pause" onclick="pause()">Pause</button>
+        <button onclick="reset()">Reset</button>
+    </div>
+    <div id="record_area">
+        <ol id="record"></ol>
+    </div>
+
+</body>
+
+<script type="text/javascript">
+    var time = 0; // 시간 변수
+    var running = 0; //실행 변수
+    var ol = document.getElementById('record'); //기록리스트용 변수
+    var output = document.getElementById('output'); //타이머값 변수
+    var j = 0; //li개수 변수
+    var removeLi = document.getElementById("record"); //기록 삭제변수
+
+
+
+    function start() {
+        running = 1; //타이머 실행
+        increment(); //시간증가 함수 실행
+    }
+
+    function pause() {
+        if (j < 10) { // li개수가 11개 미만일 경우 li 생성
+            li = document.createElement('li');
+            li.innerHTML = output.innerHTML;
+            ol.appendChild(li);
+        } else {
+            running = 0; // li개수가 11개 이상일 경우 실행멈춤
+        }
+        j++;
+    }
+
+    function increment() { //시간증가 함수
+        if (running == 1) { //타이머가 실행될때
+            setTimeout(function() { //시간설정함수
+                time++; //시간증가
+                var hours = Math.floor(time / 100 / 60 / 60); //시간계산
+                var mins = Math.floor(time / 100 / 60); //븐계산
+                var secs = Math.floor(time / 100); //초계산
+                var hundreds = time % 100; //1/100초계산
+
+                if (hours < 10) { // 시간표현
+                    hours = "0" + hours;
+                }
+                if (mins < 10) { // 분표현
+                    mins = "0" + mins;
+                }
+                if (secs < 10) { // 초표현
+                    secs = "0" + secs;
+                }
+                if (hundreds < 10) { // 1/100초 표현
+                    hundreds = "0" + hundreds;
+                }
+                output.innerHTML = hours + ":" + mins + ":" + secs + "." + hundreds; //타이머 표현
+                increment();
+
+            }, 10); //10ms(1/100초)로 숫자 증가
+        }
+    }
+
+    function reset() { // 초기화
+        for (var i = removeLi.childNodes.length - 1; i >= 0; --i) { // 모든 li 삭제, childNOdes : 노드의 자식 노드 컬렉션을 NodeList 객체로 반환
+            removeLi.removeChild(removeLi.childNodes[i]);
+        }
+        output.innerHTML = "00" + ":" + "00" + ":" + "00" + "." + "00"; // 타이머 시간 초기화
+        time = 0;
+        running = 0;
+        j = 0;
+    }
+</script>
+
+
+</html>
