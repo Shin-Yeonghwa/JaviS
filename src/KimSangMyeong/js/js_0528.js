@@ -1,11 +1,18 @@
 
-var time = 0;
-var running = 0;
-var clicknum = 0;
+var time = 0; //시간함수
+var running = 0; //스탑워치 동작관련 함수
+var clicknum = 0; //10번동작 기록 함수
 
+function plusFun() {
+    var plusUl = document.createElement('ul');
+    plusUl.innerHTML =  "<li>"+output.innerHTML + "</li>";
+    document.getElementById('result').appendChild(plusUl);
+}
+
+//START 함수
 function start(){
     clicknum++;
-    if(clicknum > 5){
+    if(clicknum > 10){
         alert('기록끝');
         preventDefault();
     }
@@ -15,10 +22,12 @@ function start(){
     }
 }
 
+//stop 동작함수
 function stop(){
     if(running != 0){
         running = 0;
     }
+    plusFun();
     console.log(output.innerHTML);
 }
 
@@ -26,6 +35,7 @@ function reset(){
     running = 0;
     clicknum= 0;
     document.getElementById('output').innerHTML = "00:00:00:00";
+    $('#result').children('ul').remove();
 }
 
 function increment(){
