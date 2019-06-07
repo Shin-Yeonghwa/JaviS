@@ -1,4 +1,4 @@
-// 시계 함수
+//시계 함수
 // function Clock(){
 // 
 //     var today = new Date();
@@ -15,10 +15,10 @@
 // }
 // 
 // // 시계 함수 호출
-// function init() {
+// function Time() {
 //     setInterval(Clock, 10);
 // }
-// init();
+// Time();
 
 
 // 스톱워치
@@ -40,9 +40,6 @@ var RecordCount = 0;
 var elment_ul = document.createElement('ul');
 elment_ul.id = '_List';
 document.getElementById('_Record_list').append(elment_ul);
-
-
-
 
 // 스톱워치 함수
 function Timer(){
@@ -88,7 +85,8 @@ function Record(){
     document.getElementById('_List').append(elment_li);
     // li에 시간 기입
     elment_li.textContent = hour+' : '+min+' : '+sec+' : '+msec
-    // 기록 10갸까지 진행
+    
+    // 기록 10개 제한
     RecordCount += 1;
     if(RecordCount >= 10){
         document.getElementById('_Record_btn').setAttribute('disabled', '');
@@ -101,7 +99,7 @@ function resetButton(){
     document.getElementById('_form').reset();
 }
 
-
+// setInterval로 함수 호출
 function init() {
     setInterval(Timer, 10);
 }
