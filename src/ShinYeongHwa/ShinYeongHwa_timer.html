@@ -13,8 +13,14 @@
 </head>
 <body>
 	<form id="_form">
-		<span id="_hour"></span> : <span id="_mm"></span> : <span id="_sec"></span> : <span id="_msec"></span>
 		
+		<stron>시계 : </stron><span id="_hr"></span> : <span id="_mm"></span> : <span id="_sec"></span> : <span id="_msec"></span>
+		<div style="margin:10px 0;">
+			<button id="_Record_btn" onclick="Record()"> Record </button>
+			<button id="_Reset_btn" onclick="resetButton()"> Reset </button>
+		</div>
+		<div id="_Record_list">
+		</div>
 	</form>
 	<p style="margin-top:100px;text-align:center;color:#333;font-size:12px;">create. S.Y.H</p>
 	<script type="text/javascript" src="js/ShinYeongHwa_timer.js"></script>
