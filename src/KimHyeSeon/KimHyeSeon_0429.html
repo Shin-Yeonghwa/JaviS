@@ -20,17 +20,23 @@
             margin-top: 10px;
             padding: 7px;
             border: 2px solid #000;
-        }
-        
+        }        
         .cash_information strong {
             float: left;
             clear: both;
         }
-
         .cash_information p {
             overflow: hidden;
             margin: 0;
             padding: 0 0 0 5px;
+        }
+        #warning {
+            display: none;
+        }
+        .warning_text {
+            font-weight: bold;
+            padding: 0!important;
+            color: #f00;
         }
     </style>
 </head>
@@ -39,11 +45,24 @@
     <form>
         <input type="number" id="input_cash" placeholder="돈을 넣어주세요~ 숫자만 입력!" maxlength="4" style="ime-mode:disabled;" onkeydown="onlyNumber()">
         <button type="button" onclick="btn_cash()">확인</button>
+        <button type="button" onclick="btn_reset()">반환</button>
     </form>    
 
     <div class="cash_information">
-        <strong>현재 금액 : </strong>
+        <strong>잔액 : </strong>
         <p class="cash_box_now"><span id="now">0</span>원</p>
+        <div id="warning">
+            <p class="warning_text">※ 잔액부족!! 돈을 더 넣어주세요!</p>
+        </div>
+    </div>
+
+    <div class="menu">
+        <p><strong>모든 메뉴는 아이스로 제공됩니다.</strong></p>
+        <button type="button" id="menu" onClick="btnMenu(250)" disabled>사이다 250원</button>
+        <button type="button" id="menu" onClick="btnMenu(300)" disabled>콜라 300원</button>
+        <button type="button" id="menu" onClick="btnMenu(450)" disabled>아이스티 450원</button>
+        <button type="button" id="menu" onClick="btnMenu(500)" disabled>커피 500원</button>
+        <button type="button" id="menu" onClick="btnMenu(500)" disabled>생수 500원</button>
     </div>
 
     <script>
@@ -58,12 +77,44 @@
         }
         
         //현재 금액 확인
-        function btn_cash() {
-            var nowCash = parseInt(document.getElementById("input_cash").value);    
-            var nowCashSum = parseInt(document.getElementById("now").innerHTML);
+        var nowCash = "";    
+        var nowCashSum = "";
+
+        function btn_cash() {    
+            nowCash = parseInt(document.getElementById("input_cash").value);    
+            nowCashSum = parseInt(document.getElementById("now").innerHTML);        
             nowCashSum += nowCash;
-            document.getElementById("now").innerHTML = nowCashSum;            
+            document.getElementById("now").innerHTML = nowCashSum;
+
+            if(nowCashSum > 250) {
+                
+            }
         }
+
+        function btnMenu(y) {
+            var menuPrice = parseInt(y);
+
+            if(nowCashSum > menuPrice) {
+                console.log("왜안돼냐아아아");
+                document.getElementById("menu").disabled = false;
+            }
+        }
+
+        //반환
+        function btn_reset() {
+            window.location.reload();
+        }
+
+        //메뉴 정보
+        // function btnMenu(y) {
+        //     var menuName = x;
+        //     var menuPrice = parseInt(y);
+
+        //     if(nowCashSum > menuPrice) {
+        //         console.log(nowCashSum);
+        //         document.getElementById("menu").disabled = false;
+        //     }
+        // }
     </script>
 </body>
 </html>
