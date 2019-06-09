@@ -1,0 +1,149 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta http-equiv="x-ua-compatible" content="IE=edge">
+<title>스톱워치</title>
+<style type="text/css">
+.wrap {
+    width: 100%;
+    height: 100%;
+    text-align: center;
+}
+.time_area {
+    display: inline-block;
+    margin: 50px auto 0;
+    font-size: 0;
+}
+.time_area {
+    font-size: 30px;
+    font-weight: bold;
+}
+.time_area .number {
+    display: inline-block;
+    width: 35px;
+    margin-right: 10px;
+    font-weight: 300;
+}
+
+.button_area {
+    margin-top: 20px;
+}
+
+.button_area button {
+    display: inline-block;
+    padding: 10px;
+    border: 1px solid blue;
+    color: blue;
+    margin: 0 5px;
+    background-color: #fff;
+}
+.record_list {
+    list-style: none;
+    font-size: 18px;
+    color: rebeccapurple;
+}
+</style>
+</head>
+<body>
+<div class="wrap">
+    <p class="time_area">
+        <em class="number hour"></em>시<em class="number minute"></em>분<em class="number second"></em>초<em class="number milli"></em>
+    </p>
+
+    <div class="button_area">
+        <button type="button" id="buttonStart">시작</button>
+        <button type="button" id="buttonStop">정지</button>
+        <button type="button" id="buttonRestart">재시작</button>
+    </div>
+
+    <ul class="record_list"></ul>
+</div>
+
+<script>
+
+/*
+1. '시작' 버튼을 누르면, 스톱워치 실행
+2. millisecond(100) = second(1) / second(60) = minute(1) / minute(60) = hour(1) 
+-> 숫자가 0부터 커짐
+3. '정지' 버튼을 누르면, 시간 반환
+4. '재시작' 버튼을 누르면, 이어서 실행
+*/
+
+// 시분초 요소 가져오기
+var objectHour = document.querySelector('.hour');
+var objectMinute = document.querySelector('.minute');
+var objectSecond = document.querySelector('.second');
+var objectMilli = document.querySelector('.milli');
+
+// 타이머 변수 선언
+var time = 0; //시간적용 변수
+var milli = 0;
+var second = 0;
+var minute = 0;
+var hour = 0;
+var startTimer;
+var timer;
+
+// 버튼- 스톱워치 시작
+var buttonStart = document.getElementById('buttonStart');
+buttonStart.addEventListener('click', timerStart, false);
+
+function timerStart() {
+
+    //타이머
+    timer = function() {
+
+        objectMilli.innerHTML = milli;
+        objectSecond.innerHTML = second;
+        objectMinute.innerHTML = minute;
+        objectHour.innerHTML = hour;
+        
+        //증감
+        time ++;
+        // console.log(time);
+        milli = time % 100; // 1~99,0
+        second = Math.floor(time/100) % 60; // time 100일 때, 1 증가
+        minute = Math.floor(time/6000) % 60; // time 6000일 때, 1 증가
+        hour = Math.floor(time/360000) % 24; // time 360000일 때, 1 증가
+    }
+
+   startTimer = setInterval(timer,10);
+    
+}
+
+
+// 버튼- 스톱워치 정지/기록  
+var buttonStop = document.getElementById('buttonStop');
+buttonStop.addEventListener('click', timerStop, false);
+
+var recordArray = [];
+function timerStop() {
+    //정지
+    clearInterval(startTimer);
+
+    //기록
+    var recordList = document.querySelector('.record_list');
+    var recordTime = document.createElement('li');
+
+    recordList.appendChild(recordTime);
+    recordTime.innerHTML = hour + ":" + minute + ":" + second + "." + milli ;
+
+    recordArray.push(recordTime);
+    if(recordArray.length > 10) {
+        alert('스톱워치를 다시 시작해주세요');
+    }
+}
+
+
+// 버튼 - 재시작
+var buttonRestart = document.getElementById('buttonRestart')
+buttonRestart.onclick = function() {
+    startTimer = setInterval(timer,10);
+}
+
+
+</script>
+</body>
+</html>
