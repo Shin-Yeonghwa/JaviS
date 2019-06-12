@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="ko">
+  <head>
+    <meta charset="utf-8">
+    <title>조건문 실습</title>
+    <style>
+        button {height:40px;}
+        #money > button {width:60px;height:40px;margin-right:10px}
+        #calc {height:40px;text-align:right;}
+    </style>
+  </head>
+  <body>
+
+        <div id="money">
+            <button onclick="func1(this)">100</button>
+            <button onclick="func1(this)">500</button>
+            <button onclick="func1(this)">1000</button>
+            <button onclick="func1(this)">10000</button>
+        </div>
+        
+        <p>입금액</p><input id="calc" type="text" name="result" value="">
+
+
+      <div class="content_box">
+          <dl class="drink">
+              <dt class="dname">사이다</dt>
+              <dd class="dprice">500</dd>
+              <dt class="dname">콜라</dt>
+              <dd class="dprice">400</dd>
+              <dt class="dname">식혜</dt>
+              <dd class="dprice">600</dd>
+              <dt class="dname">맥콜</dt>
+              <dd class="dprice">450</dd>
+              <dt class="dname">커피</dt>
+              <dd class="dprice">300</dd>
+              <dt class="dname">탄산수</dt>
+              <dd class="dprice">800</dd>
+          </dl>
+          <div>
+            <div class="">
+                <dl>
+                    <dt class="rest">남은금액</dt>
+                    <dd class="rest_money"></dd>
+                </dl>
+            </div>
+            <div class="">
+                    <dl>
+                        <dt class="order">주문내역</dt>
+                        <dd class="order_form"></dd>
+                    </dl>
+                </div>          
+          </div>
+          
+      </div>
+
+  </body>
+  
+  <script type="text/javascript">
+
+    var inputSum = 0;    // 투입액 합계
+    
+    /* 돈 투입 */
+    function func1(btn){
+        var f1 = document.querySelector('#calc');
+        inputSum += Number(btn.innerHTML);
+        f1.setAttribute('value', inputSum);
+    };
+
+     /* 음료 객체만들기 */
+    var dnameArr = document.getElementsByClassName("dname");
+    var dpriceArr = document.getElementsByClassName("dprice");
+
+      console.log(dnameArr);
+      console.log(dpriceArr);
+
+    function toObject(arr) {
+        var drinkObj = {};
+        for (var i = 0; i < dnameArr.length; ++i)
+            drinkObj[dnameArr[i].textContent] = dpriceArr[i].textContent;           
+        return drinkObj;
+    };
+    toObject(dnameArr);
+    console.log(toObject(dnameArr));
+    
+  </script>
+</html>

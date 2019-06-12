@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="ko">
+
+<head>
+    <meta charset="utf-8">
+    <title>자판기</title>
+</head>
+
+<body>
+
+</body>
+<script type="text/javascript">
+    var money = prompt('돈을 넣어주세요 (200 ~ 1000)');
+    var cola = 300;
+    var sider = 400;
+    var coffee = 200;
+    if (money >= 200 & money <= 1000) {
+        while (money >= 200) {
+            if (money >= 200) {
+                var can = prompt("음료 선택 숫자 입력 1.콜라(300), 2.사이다(400) 3. 커피(200) 잔액" + money + "원");
+            }
+            if (can == 1 && money >= 300) {
+                alert("콜라 나옴");
+                money = money-300;
+            }
+            if (can == 2 && money >= 400) {
+                alert("사이다 나옴");
+                money = money-400;
+            }
+            if (can == 3 && money >= 200) {
+                alert("커피 나옴");
+                money = money-200;
+            }
+            else if (money <200) {
+                alert("잔액 200원 미만 잔돈 반환" + money + "원");
+                break;
+            }
+            else {
+                alert("잘못된 숫자 입력");
+                break;
+            }
+        }
+
+    }
+    else{
+        alert("잘못된 숫자 입력");
+    }
+
+</script>
+
+</html>

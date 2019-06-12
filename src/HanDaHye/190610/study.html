@@ -8,3 +8,27 @@
 
 3.setTimeout(function(), milliseconds) : 일정 시간 후 함수 1번 실행
 
+// 객체
+var object = {} // 객체생성
+var object = {
+    name : {
+        first : 'bob',
+        last : 'jane'
+    }, // 데이터 -> 프로퍼티
+    age : ['22', '30'], // 데이터 -> 프로퍼티
+    school : 'highscholl', //데이터 -> 프로퍼티
+    address : function() {
+        prompt('주소를 입력하세요')
+    } // 함수 -> 메소드 
+}
+// 반환값
+object.name.last; -> jane
+= object['name']['last']
+object.age[1]; -> 30
+= object['age']
+object.school; -> highscholl
+object.address; -> ƒ () {
+    prompt('주소를 입력하세요')
+}
+// 객체 속성,속성값 추가
+object.height = '180'; 

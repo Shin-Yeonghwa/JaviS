@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>자동판매기</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <style>
+        #input_price {width: 200px;padding: 5px;}
+        button {height: 29px;}
+        .price_information {overflow: hidden;display: inline-block;min-width: 245px;margin-top: 10px;padding: 7px;border: 2px solid #000;}        
+        .price_information strong {float: left;clear: both;}
+        .price_information p {overflow: hidden;margin: 0;padding: 0 0 0 5px;}
+        #reset {display:none;}
+        #result {display: none;padding-top: 15px;}
+        #result_list {display: block;width: 245px;margin-top: 10px;padding: 7px;border: 2px solid #000;list-style: none;}
+    </style>
+</head>
+<body>
+    <h1>자동판매기</h1>
+    <form>
+        <input type="number" id="input_price" placeholder="돈을 넣어주세요~ 숫자만 입력!" maxlength="4" style="ime-mode:disabled;" onkeydown="onlyNumber()">
+        <button type="button" onclick="btn_price()">확인</button>
+        <button type="button" onclick="btn_reset()">반환</button>
+    </form>    
+
+    <div class="price_information">
+        <strong>잔액 : </strong>
+        <p class="price_box_now"><span id="now">0</span>원</p>
+        <div id="reset">
+            <strong>반환 금액 : </strong>
+            <p class="price_box_now"><span id="reset_price">0</span>원</p>
+        </div>
+    </div>
+
+    <div class="menu">
+        <button type="button" class="canmenu" data-menu="사이다" data-price="250" onClick="btnMenu(this)" disabled>사이다 250원</button>
+        <button type="button" class="canmenu" data-menu="콜라" data-price="300" onClick="btnMenu(this)" disabled>콜라 300원</button>
+        <button type="button" class="canmenu" data-menu="아이스티" data-price="450" onClick="btnMenu(this)" disabled>아이스티 450원</button>
+        <button type="button" class="canmenu" data-menu="커피" data-price="500" onClick="btnMenu(this)" disabled>커피 500원</button>
+        <button type="button" class="canmenu" data-menu="생수" data-price="500" onClick="btnMenu(this)" disabled>생수 500원</button>
+    </div>
+
+    <div id="result">
+        <strong>주문하신 자판기 음료</strong>
+        <ul id="result_list"></ul>
+    </div>
+
+    <script>
+        //숫자만 입력
+        function onlyNumber() {
+            var key = window.event.keyCode;
+            if((key < 48) || (key > 57)) { //숫자키
+                if((key != 8) || (key != 13)) { //backspace, enter
+                    return false;
+                }
+            }
+        }
+        
+        //현재 금액 확인
+        var nowprice = "";    
+        var nowpriceSum = "";
+
+        function btn_price() {    
+            nowprice = parseInt(document.getElementById("input_price").value); //입력한 금액
+            nowpriceSum = parseInt(document.getElementById("now").innerHTML); //잔액
+            nowpriceSum += nowprice;
+            document.getElementById("now").innerHTML = nowpriceSum;      
+            document.getElementById("reset").style.display="none";
+
+            //현재 금액이 자판기 음료 가격보다 커지면 버튼 활성화
+            for(var i = 0; i < 6; i++) {
+                if(nowpriceSum > document.getElementsByClassName("canmenu")[i].dataset['price']) {
+                    document.getElementsByClassName("canmenu")[i].disabled = false;
+                }
+            }            
+        }
+
+        //현재금액과 메뉴의 가격을 비교
+        var choiceArray = [];
+        var choiceMenu = "";
+        var choicePrice = "";
+
+        function btnMenu(e) { //e는 이벤트가 발생하게 되면 발생된 이벤트에 대한 정보를 가지고 있는 객체
+            choiceMenu = e.dataset['menu'];
+            choicePrice = e.dataset['price'];
+            choiceArray.unshift ({menu : choiceMenu, price : choicePrice});
+
+            nowpriceSum = nowpriceSum - choicePrice;
+            document.getElementById("now").innerHTML = nowpriceSum;      
+
+            //주문리스트 노출
+            document.getElementById("result").style.display="block";
+            document.getElementById("result_list").innerHTML += '<li>' + (choiceArray.length) + '. ' + choiceArray[0].menu + ' ' + choiceArray[0].price + '원</li>';
+            
+            priceCompare();
+        }
+
+        //현재금액보다 메뉴 가격이 적은 경우 버튼 비활성화
+        function priceCompare() {
+            for (var i = 0; i < 6; i++) {
+                if (nowpriceSum < choicePrice) {
+                    document.getElementsByClassName("canmenu")[i].disabled = true;
+                }
+            }            
+        }
+
+        //반환
+        function btn_reset() {
+            document.getElementById("reset").style.display="block";
+            document.getElementById("reset_price").innerHTML = nowpriceSum;
+
+            //잔액 초기화
+            nowpriceSum = 0;
+            document.getElementById("now").innerHTML = 0;
+
+            //주문리스트 초기화
+            choiceArray = [];
+            document.getElementById("result").style.display="none";
+            document.getElementById("result_list").innerHTML = '';
+
+            priceCompare();
+        }
+    </script>
+</body>
+</html>
