@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>6월1주 - 자판기 </title>
+        <style>
+            ul{
+                overflow:hidden;
+                list-style:none;
+                margin:0 0 30px;
+                padding:0 0 30px;
+                border-bottom:5px solid #1088ff;
+                text-align:center;
+            }
+            ul li{
+                margin:0;
+                padding:0;
+                width:125px;
+                display:inline-block;
+                text-align:center;
+            }
+            .drink{
+                display:inline-block;
+                background: none;
+                width:80px;
+                height:80px;
+                font-size:15px;
+                font-weight:bold;
+                color:#fff;
+                outline:none;
+                border:none;
+                padding-top:20px;
+                border-radius:80px;
+                line-height:18px;
+                box-sizing:border-box;
+                -webkit-box-sizing:border-box;
+            }
+            .cola{
+                background-color:red;
+            }
+            .sidar{
+                background-color:green;
+            }
+            .hwanta{
+                background-color:orange;
+            }
+
+            .japangi{
+                width:500px;
+                margin:0 auto;
+                padding:20px;
+                border:5px solid #1088ff;
+            }
+
+            .btn{
+                text-align:center;
+            }
+            .btn button{
+                border:2px solid #1088ff;
+                background:none;
+                width:120px;
+                height:50px;
+                font-weight:bold;
+                font-size:20px;
+            }
+
+        </style>        
+    </head>
+    <body>
+        <div class="japangi">
+            <ul class="product">
+                <li>
+                    <div class="drink cola">콜라<br>500원</div>
+                </li>
+                <li>
+                    <div class="drink sidar">사이다<br>700원</div>
+                </li>  
+                <li>
+                    <div class="drink hwanta">환타<br>1000원</div>
+                </li>                              
+            </ul>
+
+            <div class="btn">
+                <button type="button" id="btn1">100원</button>
+                <button type="button" id="btn2">500원</button>
+                <button type="button" id="btn3">1000원</button>
+            </div>
+        </div>
+    </body>
+    <script>
+        var money = 0;
+        document.getElementById('btn1').addEventListener('click',function(){
+            money += 100;
+            console.log("현재 금액" + money + "원")
+
+            if (money >= 1000){
+                alert('모든 음료수 선택 가능')
+            } else if (money >= 700) {
+                alert('콜라,사이다 선택 가능')
+            } else if (money >= 500){
+                alert('콜라 선택 가능')
+            } else {
+                alert ('선택할 수 있는 음료가 없습니다.')
+            }
+        });
+
+        document.getElementById('btn2').addEventListener('click',function(){
+            money += 500;
+            console.log("현재 금액" + money + "원")
+
+            if (money >= 1000){
+                alert('모든 음료수 선택 가능')
+            } else if (money >= 700) {
+                alert('콜라,사이다 음료 선택 가능')
+            } else if (money >= 500){
+                alert('콜라 선택 가능')
+            } else {
+                alert ('선택할 수 있는 음료가 없습니다.')
+            }
+        }); 
+
+        document.getElementById('btn3').addEventListener('click',function(){
+            money += 1000;
+            console.log("현재 금액" + money + "원")
+
+            if (money >= 1000){
+                alert('모든 음료수 선택 가능')
+            } else if (money >= 700) {
+                alert('콜라,사이다 음료 선택 가능')
+            } else if (money >= 500){
+                alert('콜라 선택 가능')
+            } else {
+                alert ('선택할 수 있는 음료가 없습니다.')
+            }
+        });                
+    </script>    
+<body>
+
+
+</body>
+</html>
