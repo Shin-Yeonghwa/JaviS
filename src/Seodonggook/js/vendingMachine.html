@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="ko" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+  </head>
+  <body>
+    <div ng-app="myApp" ng-controller="vendingMachineController" style="margin-left:20px">
+      <h1>자판기</h1>
+      <p>
+        돈을 넣어주세요. :
+      </p>
+      <p>
+        <input type="button" value="100원" ng-click="insertCoin(200)"></input>
+        <input type="button" value="500원" ng-click="insertCoin(500)"></input>
+        <input type="button" value="1000원" ng-click="insertCoin(1000)"></input>
+      </p>
+      <p>
+        <input type="text" readonly></input>
+        <input type="button" ng-click="dispenseChange()" value="Change" style="width:100px"></input>
+      </p>
+      <p>
+      <input type="text" readonly></input>
+      </p>
+        1: 콜라 - 200원<br/>
+        2: 사이다 - 300원<br/>
+        3: 옥수수차 - 500원<br/>
+        4: 헛개수 - 1000원<br/>
+      <p>
+        <input type="button" value="1" ng-click="selectSlot(0)"></input>
+        <input type="button" value="2" ng-click="selectSlot(1)"></input>
+        <input type="button" value="3" ng-click="selectSlot(2)"></input>
+        <input type="button" value="4" ng-click="selectSlot(3)"></input>
+      </p>
+    </div>
+  </body>
+</html>
