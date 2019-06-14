@@ -65,7 +65,7 @@
 
 /*
 1. '시작' 버튼을 누르면, 스톱워치 실행
-2. millisecond(100) = second(1) / second(60) = minute(1) / minute(60) = hour(1) 
+2. millisecond(100) = second(1) / second(60) = minute(1) / minute(60) = hour(1)
 -> 숫자가 0부터 커짐
 3. '정지' 버튼을 누르면, 시간 반환
 4. '재시작' 버튼을 누르면, 이어서 실행
@@ -89,7 +89,7 @@ var count = 0; // 기록 카운트
 
 // 타임 기록 변수 선언
 var recordList = document.querySelector('.record_list');
-   
+
 
 // 버튼- 스톱워치 시작
 var buttonStart = document.getElementById('buttonStart');
@@ -99,27 +99,26 @@ function timerStart() {
 
     //타이머
     timer = function() {
-
-        objectMilli.innerHTML = milli + 1; //milli는 0 부터 시작
-        objectSecond.innerHTML = second;
-        objectMinute.innerHTML = minute;
-        objectHour.innerHTML = hour;
-        
         //증감
         time ++; // time은 1부터 시작
         milli = time % 100; // 1~99,0
         second = Math.floor(time/100) % 60; // time 100일 때, 1 증가
         minute = Math.floor(time/6000) % 60; // time 6000일 때, 1 증가
         hour = Math.floor(time/360000) % 24; // time 360000일 때, 1 증가
-        
+
+        objectMilli.innerHTML = milli; //milli는 0 부터 시작
+        objectSecond.innerHTML = second;
+        objectMinute.innerHTML = minute;
+        objectHour.innerHTML = hour;
+
     }
 
    startTimer = setInterval(timer,10);
-    
+
 }
 
 
-// 버튼- 스톱워치 정지/기록  
+// 버튼- 스톱워치 정지/기록
 var buttonStop = document.getElementById('buttonStop');
 buttonStop.addEventListener('click', timerStop, false);
 
@@ -129,14 +128,14 @@ function timerStop() {
     clearInterval(startTimer);
 
     //기록
-    var recordTime = document.createElement('li'); 
+    var recordTime = document.createElement('li');
     recordList.appendChild(recordTime);
     recordTime.innerHTML = hour + ":" + minute + ":" + second + "." + milli ;
 
     count++; // 기록 카운트
     if(count > 9) {
         alert('10번 기록이 끝났습니다. 스톱워치를 다시 시작해주세요');
-        buttonStart.disabled = 'false'; //시작 버튼 비활성화 
+        buttonStart.disabled = 'false'; //시작 버튼 비활성화
         buttonStart.style.opacity = 0.5;
     }
 }
@@ -146,11 +145,11 @@ function timerStop() {
 var buttonReset = document.getElementById('buttonReset');
 buttonReset.onclick = function() {
     //시간 재설정
-    time = 0; 
+    time = 0;
     // 기록 횟수 리셋
     count = 0;
     // 시간 표기 리셋
-    objectMilli.innerHTML = 0; 
+    objectMilli.innerHTML = 0;
     objectSecond.innerHTML = 0;
     objectMinute.innerHTML = 0;
     objectHour.innerHTML = 0;
