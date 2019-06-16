@@ -158,10 +158,8 @@ buttonReset.onclick = function() {
         e.remove();
     })
     // 시작 버튼 리셋
-    var test = buttonStart.disabled;
-    console.log(test)
     if(buttonStart.disabled) {
-        buttonStart.disabled = 'fasle';
+        buttonStart.removeAttribute('disabled');
         buttonStart.style.opacity = 1;
     }
 }
