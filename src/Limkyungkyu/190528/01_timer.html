@@ -64,9 +64,9 @@
         if (running == 1) { //타이머가 실행될때
             setTimeout(function() { //시간설정함수
                 time++; //시간증가
-                var hours = Math.floor(time / 100 / 60 / 60); //시간계산
-                var mins = Math.floor(time / 100 / 60); //븐계산
-                var secs = Math.floor(time / 100); //초계산
+                var hours = Math.floor(time / 100 / 60 / 60 % 60); //시간계산
+                var mins = Math.floor(time / 100 / 60 % 60); //븐계산
+                var secs = Math.floor(time / 100 % 60); //초계산
                 var hundreds = time % 100; //1/100초계산
 
                 if (hours < 10) { // 시간표현
