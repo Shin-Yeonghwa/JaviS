@@ -16,16 +16,28 @@ function CashInsert(Price) {
 function BuyDrink(Drink) {
     var DrinkPrice = Drink.innerHTML.replace(/[^0-9]/g,"");
 
+    var CreateLog = document.createElement('div');
+
     if(DrinkPrice > CoinSum) {
         alert('금액이 모자랍니다.');
     } else if (DrinkPrice < CoinSum) {
         CoinSum -= DrinkPrice;
         document.getElementById('Current_amount').innerHTML = CoinSum;
 
-        MachineLog.DrinkBuyLog();
+        CreateLog.className = "coin_log";
+        CreateLog.innerHTML = "<span class='coin'>" + DrinkPrice + "</span>" + "원을 사용하여 ";
+        document.getElementById('Coin_log').appendChild(CreateLog);
 
     };
 };
+
+function ReturnCash() {
+
+    var CurrentAmount = CoinSum;
+    CoinSum -= CurrentAmount;
+
+    document.getElementById('Current_amount').innerHTML = 0;
+}
 
 var MachineLog = {
 
