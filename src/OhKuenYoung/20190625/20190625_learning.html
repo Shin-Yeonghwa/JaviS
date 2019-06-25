@@ -1,0 +1,475 @@
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>브라우저 객체 모델</title>
+    <style type="text/css">
+
+        strong {display: block; margin-top: 20px}
+
+	</style>
+</head>
+<body>
+    <h1>브라우저 객체모델</h1>
+
+    <h2>브라우저 관련 객체</h2>
+
+    <ul>
+        <li><b>window 객체</b></li>
+		<li>navigator 객체</li>
+		<li>history 객체</li>
+		<li>screen 객체</li>
+		<li>document 객체</li>
+	</ul>
+	
+	<h3>window 객체</h3>
+	<p>: 자바스크립트의 브라우저 기반 최상위 객체</p>
+
+    <pre>
+        Wind
+    </pre>
+
+    <script>
+        function ex01() {
+            window.open('www.naver.com', 'child', 'width=600', 'height=300')
+        }
+    </script>
+
+    <button onclick="ex01()">결과보기</button>
+
+    <strong>기본 자료형은 속성 또는 메소드를 추가할 수 없고 객체는 추가할 수 있다.</strong>
+
+    <p>기본 자료형</p>
+
+    <pre>
+        var primitiveNumber = 123;
+
+        primitiveNumber.method = function() {
+            alert('abc');
+        };
+
+        primitiveNumber.method();
+    </pre>
+
+    <script>
+        function ex02() {
+            var primitiveNumber = 123;
+
+            primitiveNumber.method = function() {
+                alert('abc');
+            };
+
+            primitiveNumber.method();
+        }
+    </script>
+
+    <button onclick="ex02()">결과보기</button>
+
+    <p>객체</p>
+
+    <pre>
+        var objectNumber = new Number(123);
+
+        objectNumber.method = function() {
+            alert('abc');
+        };
+
+        objectNumber.method();
+    </pre>
+
+
+    <script>
+        function ex03() {
+            var objectNumber = new Number(123);
+
+            objectNumber.method = function() {
+                alert('abc');
+            };
+
+            objectNumber.method();
+        }
+    </script>
+
+    <button onclick="ex03()">결과보기</button>
+
+    <strong>프로토 타입을 이용한 메서드 추가</strong>
+    <p>객체의 프로토타입에 메소드를 추가하면 기본자료형, 객체 모두 메소드를 사용 가능</p>
+
+    <pre>
+        var primitiveNumber = 123;
+        var objectNumber = new Number(123);
+
+        Number.prototype.method = function() {
+            alert('abc');
+        };
+
+        primitiveNumber.method();   // abc
+        objectNumber.method();      // abc
+    </pre>
+
+    <script>
+        function ex04() {
+            var primitiveNumber = 123;
+            var objectNumber = new Number(123);
+
+            Number.prototype.method = function() {
+                alert('abc');
+            };
+
+            primitiveNumber.method();   // abc
+            objectNumber.method();      // abc
+        }
+    </script>
+
+    <button onclick="ex04()">결과보기</button>
+
+
+    <h2>Object 객체</h2>
+    <p>Object 객체는 자바스크립트의 최상위 객체</p>
+
+    <h3>객체 선언</h3>
+
+    <pre>
+        var object = {};
+
+        var object = new Object();
+    </pre>
+
+		<h3>속성과 메서드</h3>
+		<strong>objcet 객체의 메서드</strong>
+
+		<ul>
+			<li>constructor() : 객체의 생성자 함수를 나타냄</li>
+			<li>hasOwnProperty(name) : 객체 name 속성이 있는지 확인</li>
+			<li>isPrototypeof (object) : 객체 object의 프로토 타입인지 검사</li>
+			<li>propertyisEnumberable(name) : 반복문으로 열거할 수 있는지 확인</li>
+			<li>toLocaleString() : 호스트 환경에 맞는 언어의 문자열로 변경</li>
+			<li>toString() : 객체를 문자열로 변경</li>
+			<li>valueOf() : 객체의 값을 나타냄</li>
+		</ul>
+
+		<strong>construector 메서드</strong>
+
+		<strong>typeof</strong>
+		<pre>
+			var primitiveNumber = 123;
+			var objectNumber = new Number(123);
+
+			if (typeof (primitiveNumber) == 'number') {
+				alert('primitiveNumber은 숫자입니다.');
+			}
+
+			if (typeof (objectNumbe) == 'number') {
+				alert('objectNumber은 숫자입니다.');
+			}
+    </pre>
+
+		<script>
+			function ex05() {
+					var primitiveNumber = 123;
+					var objectNumber = new Number(123);
+
+					if (typeof (primitiveNumber) == 'number') {
+						alert('primitiveNumber은 숫자입니다.');
+					}
+
+					if (typeof (objectNumbe) == 'number') {
+						alert('objectNumber은 숫자입니다.');
+					}
+			}
+		</script>
+
+		<button onclick="ex05()">결과보기</button>
+
+		<strong>typeof</strong>
+		<pre>
+			var primitiveNumber = 123;
+			var objectNumber = new Number(123);
+
+			if (primitiveNumber.construector  == Number) {
+				alert('primitiveNumber은 숫자입니다.');
+			}
+
+			if (objectNumber.construector  == Number) {
+				alert('objectNumber은 숫자입니다.');
+			}
+    </pre>
+
+		<script>
+			function ex06() {
+					var primitiveNumber = 123;
+					var objectNumber = new Number(123);
+
+					if (primitiveNumber.constructor  == Number) {
+						alert('primitiveNumber은 숫자입니다.');
+					}
+
+					if (objectNumber.constructor  == Number) {
+						alert('objectNumber은 숫자입니다.');
+					}
+			}
+		</script>
+
+		<button onclick="ex06()">결과보기</button>
+
+
+		<h2>모든 객체에 메서드 추가</h2>
+		<p>Object 객체는 모든 자바스크립트의 최상위 객체이므로 Object 객체의 프로토 타입에 속성 또는 메서드를 추가하면 모든 객체에서 활용 가능하다.</p>
+
+		<pre>
+			Object.prototype.test = function() {
+				alert(this);
+			}
+
+			var number = 273;
+			number.test();
+    </pre>
+
+		<script>
+			function ex07() {
+					Object.prototype.test = function() {
+						alert(this);
+					}
+
+					var number = 273;
+					number.test();
+			}
+		</script>
+
+		<button onclick="ex07()">결과보기</button>
+
+		<h2>Number 객체</h2>
+		<p>숫자를 표현할 때 사용</p>
+
+		<strong>Number 객체의 메서드</strong>
+		<p>Object 객체가 가지는 일곱가지 메서드 포함 하여 3가지 메서드를 추가로 갖는다.</p>
+
+		<ul>
+			<li>toExponential() : 숫자를 지수 표시로 나타낸 문자열을 리턴</li>
+			<li>toFixed() : 숫자를 고정 소수점 표시로 나타낸 문자열을 리턴</li>
+			<li>toPrecision() : 숫자 길이에 따라 지수 표시 또는 고정 소수점 표시로 나타낸 문자열을 리턴</li>
+		</ul>
+
+		<pre>
+			var number = 273.15212456;
+
+			var output='';
+			output += number.toFixed(1) + '\n';
+			output += number.toFixed(4);
+			alert(output);
+    </pre>
+
+		<script>
+			function ex08() {
+					var number = 273.15212456;
+
+					var output='';
+					output += number.toFixed(1) + '\n';
+					output += number.toFixed(4);
+					alert(output);
+			}
+		</script>
+
+		<button onclick="ex08()">결과보기</button>
+
+		<h2>생성자 함수의 속성</h2>
+		<p>함수는 속성과 메서드를 가질 수 있다.</p>
+
+		<pre>
+			function constructor() {}
+			Constructor.property = 273;
+			Constructor.method - function () {}
+
+			alert(Constructor.property);
+    </pre>
+
+		<script>
+			function ex09() {
+				function Constructor() {}
+				Constructor.property = 273;
+				Constructor.method - function () {}
+
+				alert(Constructor.property);
+			}
+		</script>
+
+		<button onclick="ex09()">결과보기</button>
+
+		<strong>Number 객체 메서드</strong>
+		<ul>
+			<li>MAX_VALUE : 자바스크립트의 숫자가 나타탤 수 있는 최대 숫자</li>
+			<li>MIN_VALUE : 자바스크립트의 숫자가 나타탤 수 있는 최소 숫자</li>
+			<li>NaN : 자바스크립트의 숫자가 나타탤 수 없는 숫자</li>
+			<li>POSITIVE_INFINITY : 양의 무한대 숫자</li>
+			<li>NEGATIVE_INFINITY : 음의 무한대 숫자</li>
+		</ul>
+
+		<h2>String 객체</h2>
+		<p>문자열을 다루는데 사용하는 객체</p>
+
+		<pre>
+			var string01 = 'Hello';
+			var string02 = new String('Hello');
+
+			var output='';
+			output += typeof (string01) + '\n';
+			output += typeof (string02);
+			alert(output);
+    </pre>
+
+		<script>
+			function ex10() {
+					var string01 = 'Hello';
+					var string02 = new String('Hello');
+
+					var output='';
+					output += typeof (string01) + '\n';
+					output += typeof (string02);
+					alert(output);
+			}
+		</script>
+
+		<button onclick="ex10()">결과보기</button>
+
+		<strong>String 객체 속성</strong>
+		<ul>
+			<li>length : 문자열의 길이를 나타냅니다.</li>
+		</ul>
+
+		<strong>String 객체 매서드</strong>
+		<ul>
+			<li>charAt(position) : 지정한 인덱스 값에 해당하는 문자을 알려줌 (값은 0부터 시작하고 공백도 포함됨)</li>
+			<li>charCodeAt(position) : 지정한 인덱스에 해당하는 문자의 유니코드 번호값을 알려줌</li>
+			<li>indexOf(position) : 앞에서 부터 검색 주어진 문자열의 인덱스 값을 알려줌</li>
+			<li>lastIndexOf(position) : 뒤부터검색 주어진 문자의 인덱스 값을 알려줌</li>
+			<li>substr(start,count) : start 부터 count만큼 문자열을 잘라서 리턴</li>
+		</ul>
+
+		<strong>HTML 관련 메서드</strong>
+		<ul>
+			<li>big( ) : big 태그로 감싸 리턴</li>
+			<li>small( ) : small 태그로 감싸 리턴</li>
+			<li>blink( ) : blink 태그로 감싸 리턴</li>
+			<li>bold( ) : b 태그로 감싸 리턴</li>
+			<li>fixed( ) : tt 태그로 감싸 리턴</li>
+			<li>italics( ) : i 태그로 감싸 리턴</li>
+			<li>strike( ) : strike 태그로 감싸 리턴</li>
+			<li>sub( ) : sub 태그로 감싸 리턴</li>
+			<li>sup( ) : sup 태그로 감싸 리턴</li>
+			<li>fontsize(크기) : font 태그로 감싸 리턴 크기 조정가능</li>
+			<li>fontcolor(색상) : font 태그로 감싸 리턴 color 지정 가능</li>
+			<li>anchor() : a 태그로 감싸 리턴</li>
+			<li>link("link") : a 태그로 감싸 리턴 href 속성 지정</li>
+		</ul>
+
+		<h2>Array 객체</h2>
+		<p>여러 가지 자료를 쉽게 관리할 수 있게 도와주는 객체 (배열)</p>
+
+		<strong>생성</strong>
+		<ul>
+			<li>Array() : 빈 배열을 만든다</li>
+			<li>Array(number) : 매개변추만큼의 크기를 가지는 배열을 만든다</li>
+			<li>Array(any,.. ,any) 매개변추를 배열로 만든다.</li>
+		</ul>
+
+		<strong>Array 객체 속성</strong>
+		<ul>
+			<li>length : 요소의 개수를 알아냅니다.</li>
+		</ul>
+
+		<strong>Array 객체 메서드</strong>
+		<ul>
+			<li>cancat() : 매개변수로 입력한 배열의 요소를 모두 합쳐 배열을 만들어 리턴</li>
+			<li>join() : 배열 안의 모든요소를 문자열로 만들어 리턴</li>
+			<li>slice() 요소의 지정한 부분을 리턴</li>
+			<li>--자기 자신을 변화---</li>
+			<li>pop() : 배열의 마지막 요소를 제거하고 리턴</li>
+			<li>push() : 배열의 마지막 부분에 새로운 요소를 추가</li>
+			<li>reverse() : 배열의 요소 순서를 뒤집음</li>
+			<li>sort() : 배열의 요소를 정렬</li>
+			<li>splice() : 요소의 지정한 부분을 삭제하고 삭제한 요소를 리턴</li>
+		</ul>
+
+		<h2>Date 객체</h2>
+		<p>날짜와 시간을 표시하는 객체</p>
+
+		<pre>
+			var date = new Date();
+
+			alert(date);
+    </pre>
+
+		<script>
+			function ex11() {
+				var date = new Date();
+
+				alert(date);
+			}
+		</script>
+
+		<button onclick="ex11()">결과보기</button>
+
+		<strong>Date객체 날짜와 시간을 읽어오는 메소드</strong>
+		<ul>
+			<li>getYear( ) : Date객체에서 연도 구함</li>
+			<li>getMonth( ) :  Date객체에서 월 구함</li>
+			<li>getDate( ) :  Date객체에서 일 구함</li>
+			<li>getDay( ) :  Date객체에서 요일 구함</li>
+			<li>getTime( ) :  1970년 이후 경과된 시간을 1/1,000초 단위로 구함</li>
+			<li>getHours( ) :  Date객체에서 시 구함</li>
+			<li>getMinutes( ) :  Date객체에서 분 구함</li>
+			<li>getSeconds( ) :  Date객체에서 초 구함</li>
+		</ul>
+
+		<strong>Date객체 날짜와 시간을 지정하는 메소드</strong>
+		<ul>
+			<li>setYear( ) : Date객체에서 연도 설정</li>
+			<li>setMonth( ) :  Date객체에서 월 설정</li>
+			<li>setDate( ) :  Date객체에서 일 설정</li>
+			<li>setDay( ) :  Date객체에서 요일 설정</li>
+			<li>setTime( ) :  1970년 이후 경과된 시간을 1/1,000초 단위로 설정</li>
+			<li>setHours( ) :  Date객체에서 시 설정</li>
+			<li>setMinutes( ) :  Date객체에서 분 설정</li>
+			<li>setSeconds( ) :  Date객체에서 초 설정</li>
+			<li>toGMTString( ) : Date객체에서 GMT 기준 날짜 형식으로 알려줌</li>
+			<li>toLocaleString( ) : Date객체에서 날짜와 시간을 "년 월 일 요일 오전/오후 시:분:초" 형태로 알려줌</li>
+			<li>toString( ) Date :  객체의 날짜와 시간을 "요일 월 일 시 시:분:초 연도" 형태로 알려줌</li>
+		</ul>
+
+		<h2>Math 객체</h2>
+		<p>기본 내장 객체중 유일하게 생성자 함수를 사용하지 않는 객체로 수학과 관련된 속성과 메서드를 갖는 객체</p>
+
+		<strong>객체 생성</strong>
+		<p>Math.메소드()</p>
+
+		<strong>Math 객체의 속성</strong>
+		<ul>
+			<li>E : 오일러상수 값</li>
+			<li>PI : 원주율</li>
+			<li>LN10 : 밑수가 10인 상용로그값</li>
+			<li>LN2 : 밑수가 2인 자연로그값</li>
+			<li>SQRT1_2 : 0.5의 제곱근값</li>
+			<li>SQRT2 : 2의 제곱근값</li>
+		</ul>
+
+		<strong>Math 객체의 메서드</strong>	
+		<ul>
+			<li>sin(x) : x의 sine 값 구함</li>
+			<li>cos(x) : x의 cosine 값 구함</li>
+			<li>tan(x) : x의 tangent 값 구함</li>
+			<li>abs(x) : x의 절대값을 구함</li>
+			<li>exp(x) : 지수함수를 구함</li>
+			<li>log(x) : 로그함수를 구함</li>
+			<li>pow(x,y) : x의 y승을 구함</li>
+			<li>sqrt(x) : 제곱근을 구함</li>
+			<li>random( ) : 0에서1사이의 난수를 발생시킴</li>
+			<li>round(x) : x를 반올림한 값 구함</li>
+			<li>floor(x) : x보다 작거나 같은수중 가장큰 정수값 구함</li>
+			<li>ceil(x) : x보다 크거나 같은수중 가장작은 정수값 구함</li>
+			<li>max(x,y) : x와 y중  큰값 구함</li>
+			<li>min(x,y) : x와 y중 작은값 구함</li>
+		</ul>
+
+</body>
+</html>
