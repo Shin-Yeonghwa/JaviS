@@ -68,7 +68,7 @@ var canMenuPrice = [] //메뉴별 가격을 저장할 배열 생성
 function btnDisabled() {
     for(var i = 0; i < canMenuNumber.length; i++) {
         canMenuPrice.push(parseInt(document.getElementById("menu").children[i].dataset.price)); //가격을 배열에 저장
-        if(nowpriceSum > canMenuPrice[i]) { //잔액과 메뉴의 가격을 비교
+        if(nowpriceSum >= canMenuPrice[i]) { //잔액과 메뉴의 가격을 비교
             document.getElementById("menu").children[i].disabled = false; //잔액이 더 크면 버튼 활성
         }
     }    
