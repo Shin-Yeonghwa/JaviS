@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>자동판매기</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" type="text/css" href="vending_machine.css">
+</head>
+<body>
+    <h1>자동판매기</h1>
+    <form>
+        <input type="number" id="input_price" placeholder="돈을 넣어주세요~ 숫자만 입력!" maxlength="4" style="ime-mode:disabled;" onkeydown="onlyNumber()">
+        <button type="button" onclick="btn_price()">확인</button>
+        <button type="button" onclick="btn_reset()">반환</button>
+    </form>    
+
+    <div class="price_information">
+        <strong>잔액 : </strong>
+        <p class="price_box_now"><span id="now">0</span>원</p>
+        <div id="reset">
+            <strong>반환 금액 : </strong>
+            <p class="price_box_now"><span id="reset_price">0</span>원</p>
+        </div>
+    </div>
+
+    <div id="menu">
+        <button type="button" data-menu="아메리카노" data-price="1200" onClick="btnMenu(this)" disabled>아메리카노 1200원</button>
+        <button type="button" data-menu="카페라떼" data-price="1500" onClick="btnMenu(this)" disabled>카페라떼 1500원</button>
+        <button type="button" data-menu="아이스티" data-price="450" onClick="btnMenu(this)" disabled>아이스티 450원</button>
+        <button type="button" data-menu="카푸치노" data-price="1650" onClick="btnMenu(this)" disabled>카푸치노 1650원</button>
+        <button type="button" data-menu="에스프레소" data-price="800" onClick="btnMenu(this)" disabled>에스프레소 800원</button>
+    </div>
+
+    <div id="result">
+        <strong>주문하신 자판기 음료</strong>
+        <ul id="result_list"></ul>
+    </div>
+
+    <script type="text/javascript" src="vending_machine.js"></script>
+</body>
+</html>

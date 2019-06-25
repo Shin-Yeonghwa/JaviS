@@ -1,0 +1,47 @@
+@charset "UTF-8";
+
+#input_price {
+    width: 200px;padding: 5px;
+    }
+    
+    button {
+        height: 29px;
+    }
+
+    .price_information {
+        overflow: hidden;
+        display: inline-block;
+        min-width: 245px;
+        margin-top: 10px;
+        padding: 7px;
+        border: 2px solid #000;
+    }        
+    
+    .price_information strong {
+        float: left;
+        clear: both;
+    }
+
+    .price_information p {
+        overflow: hidden;
+        margin: 0;
+        padding: 0 0 0 5px;
+    }
+    
+    #reset {
+        display:none;
+    }
+        
+    #result {
+        display: none;
+        padding-top: 15px;
+    }
+        
+    #result_list {
+        display: block;
+        width: 245px;
+        margin-top: 10px;
+        padding: 7px;
+        border: 2px solid #000;
+        list-style: none;
+    }
