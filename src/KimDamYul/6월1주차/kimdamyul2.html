@@ -17,6 +17,17 @@
                 width:125px;
                 text-align:center;
             }
+            .input_area{
+                overflow:hidden;
+            }
+            .won.price{
+                width:250px;
+                float:left;
+            }
+            .won.price2{
+                width:250px;
+                float:left;
+            }            
             .drink{
                 background: none;
                 width:80px;
@@ -50,40 +61,79 @@
                 padding:20px;
                 border:5px solid #1088ff;
             }
+            .input_area .title{
+                display:block;
+                width:80px;
+                font-weight:bold;
+            }
+            .drink_list{
+                display:block;
+                margin:5px 0;
+                border:0;
+                outline:none;
+                background-color:#fff;
+            }
         </style>        
     </head>
     <body>
         <div class="japangi">
             <ul class="product">
                 <li>
-                    <div class="drink cola">콜라<br>500원</div>
+                    <div class="drink cola" id="drink1" onclick="add('500');">콜라<br>500원</div>
                 </li>
                 <li>
-                    <div class="drink sidar">사이다<br>600원</div>
+                    <div class="drink sidar" id="drink2" onclick="add('600');">사이다<br>600원</div>
                 </li>  
                 <li>
-                    <div class="drink hwanta">환타<br>400원</div>
+                    <div class="drink hwanta" id="drink3" onclick="add('400');">환타<br>400원</div>
                 </li>
                 <li>
-                    <div class="drink coffee">커피<br>500원</div>
+                    <div class="drink coffee" id="drink4" onclick="add('500');">커피<br>500원</div>
                 </li>                              
             </ul>
-            
-            <div class="won price">
-                <span>투입금액:</span>
-                <input type="text">
-            </div>
-            <div class="use_won">
-                사용금액:
-            </div>
-            <div class="won price2">
-                <span>잔액:</span>
-                <input type="text">
-            </div>            
+            <div class="input_area">
+                <div class="won price">
+                    <span class="title">선택음료:</span>
+                    <input type="text" class="drink_list" id="select1" disabled="disabled">
+                    <input type="text" class="drink_list" id="select2" disabled="disabled">
+                    <input type="text" class="drink_list" id="select3" disabled="disabled">
+                </div>
+                <div class="won price2">
+                    <span class="title">투입금액:</span>
+                    <input type="text">
+                </div> 
+            </div>           
         </div>
     </body>
     <script>
-
+        var dta1Area =null;
+        var data2Area = null;
+        var data3Area = null;
+        var result = null;
+        window.onload = function(){
+         result = document.querySelector('#result');
+        }
+        function add(data){
+         data1Area = document.querySelector('#select1');
+         data2Area = document.querySelector('#select2');
+         data3Area = document.querySelector('#select3');
+         if(data1Area.value == null||data1Area.value == ''){
+          data1Area.value = data;
+         }else{
+          data2Area.value = data;
+         };       
+        };
+        function calc(f){
+         var sum = Number(data1Area.value) + Number(data2Area.value);
+         var money = f.money.value;
+         var cal = Number(money) - sum;
+         if(cal<0){
+          result.innerHTML = '금액이 부족합니다.';
+         }else{
+          result.innerHTML = '거스름돈: '+cal;
+         }
+          
+        };
     </script>    
 <body>
 

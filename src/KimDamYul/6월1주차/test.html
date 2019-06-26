@@ -1,0 +1,305 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>6월1주 - 자판기 </title>
+        <style>
+* {
+    margin: 0;
+    padding: 0;
+}
+li {
+    list-style: none;
+}
+i { font-style: normal;}
+hr { margin: 20px 0 30px;}
+
+.page {
+    width: 500px;
+    margin: 0 auto;
+}
+h2 {
+    font-size: 16px;
+    margin: 20px 0 15px;
+}
+
+/* 기본적으로 자주 사용하는 말줄임 코드 */
+.box0 li {
+    margin-bottom: 10px;
+}
+.box0 .text {
+    display: inline-block;
+    max-width: 95%;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    font-size: 12px;
+    color: #3d3d3d;
+    text-decoration: none;
+    vertical-align: middle;
+}
+.box0 .ico_outer {
+    display: inline-block;
+    vertical-align: middle;
+}
+
+
+/* inline-block 과 감싸는 태그에 white-space와 padding-right를 이용한 말줄임 */
+.box1 {
+    overflow: hidden;
+    padding-right: 22px; /* 말줄임 처리될 때 아이콘이 위치할 공간 정의 */
+    white-space: nowrap;
+}
+.box1 li {
+    margin-bottom: 10px;
+}
+.box1 .text {
+    display: inline-block;
+    overflow: hidden;
+    max-width: 100%; /* 부모 박스의 padding-right 를 제외한 너비가 최대 너비가 100% 로 정의된다. */
+    font-size: 12px;
+    color: #3d3d3d;
+    text-decoration: none;
+    text-overflow: ellipsis;
+    vertical-align: middle;
+}
+.box1 .ico_outer {
+    display: inline-block;
+    vertical-align: middle
+}
+
+
+/* 아이콘에 float:right를 이용하여 뒤로 보낸 후 말줄임 */
+.box2 li {
+    display: inline-block; /* 콘텐츠만큼의 너비만 사용하기 위해 인라인블럭 요소로 정의 */
+    max-width: 100%; /* 부모 요소의 너비까지를 최대 너비로 사용하기 위해 정의 */
+    margin-bottom: 10px;
+}
+.box2 .ico_outer {
+    float: right;
+    margin-top: -2px;
+    margin-left: 4px;
+}
+.box2 .text {
+    /* 아이콘이 플롯 요소(문서에서 부유)이기 때문에 플롯 요소가 아닌 이 요소의 텍스트 노드 영역이 줄어들게 된다. */
+    /* 즉 아이콘이 플롯요소이므로 주변요소 즉, 플롯 다음으로 따라오는 이 해당 요소가 위로 끌려올라오게 된다. */
+    display: block; /* 아이콘이 플롯이므로 블럭요소로 만들어줌 */
+    overflow: hidden;
+    white-space: nowrap;
+    font-size: 12px;
+    color: #3d3d3d;
+    text-decoration: none;
+    text-overflow: ellipsis;
+}
+
+
+/* table-cell과 -webkit-line-clamp 를 이용한 말줄임 */
+.box3 {
+    display: table;
+}
+.box3 li {
+    margin-bottom: 10px;
+}
+.box3 .text_outer,
+.box3 .ico_outer {
+    display: table-cell;
+}
+.box3 .text {
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 1;
+    margin-right: 2px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    font-size: 12px;
+    color: #3d3d3d;
+    text-decoration: none
+}
+/*.ico_outer{
+    display:table-cell;
+    white-space:nowrap
+}*/
+
+
+
+/* 아이콘 absolute 와 inline-block, line-clamp 이용하기 */
+.box4 li {
+    position: relative;
+    display: inline-block;
+    max-width: 100%;
+    margin-bottom: 10px;
+}
+.box4 .text {
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 1;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    margin-right: 30px; /* 아이콘 공간 확보 */
+    font-size: 12px;
+    color: #3d3d3d;
+    text-decoration: none;
+}
+.box4 .ico_outer {
+    position: absolute;
+    bottom: -2px;
+    right: 0;
+}
+
+/* display:flex, line-clamp 이용하기 */
+.box5 li {
+    display: -webkit-flex;
+    display: flex;
+    flex-direction: row;
+    height: 15px;
+    margin-bottom: 10px;
+}
+.box5 .text {
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 1;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    font-size: 12px;
+    color: #3d3d3d;
+    text-decoration: none;
+}
+.box5 .ico_outer {
+    display: inline-block;
+    margin-top: -2px;
+    margin-left:2px;
+    /*white-space: nowrap;*/
+}
+
+.ico {
+    display:inline-block;
+    height:14px;
+    padding:1px 3px 0;
+    border:1px solid #d94242;
+    border-radius:2px;
+    background:#fb5554;
+    line-height:14px;
+    font-size:11px;
+    color:#fff;
+    text-decoration:none;
+    box-shadow:inset 1px 1px 1px rgba(255,255,255,0.08);
+    vertical-align:middle;
+}
+        </style>        
+    </head>
+    <body>
+<div class="page">
+    
+    <h2>기본적으로 많이 사용되는 말줄임 코드</h2>
+    <ul class="box0">
+        <li>
+            <a href="#" class="text">아이콘이 뒤에 오는 말줄임 처리방법, 아이콘이 뒤에 오는 말줄임 처리방법, 아이콘이 뒤에 오는 말줄임 처리방법</a>
+            <span class="ico_outer"><i class="ico">N</i></span>
+        </li>
+        <li>
+            <a href="#" class="text">아이콘이 뒤에 오는 말줄임 처리방법, 아이콘이 뒤에 오는 말줄임 처리방법, 아이콘이 뒤에 오는 말줄임 처리방법</a>
+            <span class="ico_outer"><i class="ico">N</i></span>
+        </li>
+        <li>
+            <a href="#" class="text">아이콘이 뒤에 오는 말줄임 처리방법</a>
+            <span class="ico_outer"><i class="ico">N</i></span>
+        </li>
+    </ul>
+    <hr>
+    <h2>감싸는 태그에 white-space 와 inline-block, padding-right 이용하기</h2>
+    <ul class="box1">
+        <li>
+            <a href="#" class="text">아이콘이 뒤에 오는 말줄임 처리방법, 아이콘이 뒤에 오는 말줄임 처리방법, 아이콘이 뒤에 오는 말줄임 처리방법</a>
+            <span class="ico_outer"><i class="ico">N</i></span>
+        </li>
+        <li>
+            <a href="#" class="text">아이콘이 뒤에 오는 말줄임 처리방법, 아이콘이</a>
+            <span class="ico_outer"><i class="ico">N</i></span>
+        </li>
+        <li>
+            <a href="#" class="text">아이콘이 뒤에 오는 말줄임 처리방법, 아이콘이 뒤에 오는 말줄임 처리방법, 아이콘이 뒤에 오는 말줄임 처리방법</a>
+            <span class="ico_outer"><i class="ico">N</i></span>
+        </li>
+    </ul>
+    <hr>
+    <h2>아이콘에 float:right 이용하기 </h2>
+    <ul class="box2">
+        <li>
+            <span class="ico_outer"><i class="ico">N</i></span>
+            <a href="#" class="text">아이콘이 뒤에 오는 말줄임 처리방법, 아이콘이 뒤에 오는 말줄임 처리방법, 아이콘이 뒤에 오는 말줄임 처리방법</a>
+        </li>
+        <li>
+            <span class="ico_outer"><i class="ico">N</i></span>
+            <a href="#" class="text">아이콘이 뒤에 오는 말줄임 처리방법, 아이콘이 뒤에 오는</a>
+        </li>
+        <li>
+            <span class="ico_outer"><i class="ico">N</i></span>
+            <a href="#" class="text">아이콘이 뒤에 오는 말줄임 처리방법, 아이콘이 뒤에 오는 말줄임 처리방법, 아이콘이 뒤에 오는 말줄임 처리방법</a>
+        </li>
+    </ul>
+    <hr>
+    <h2>table-cell, -webkit-line-clamp 이용하기</h2>
+    <ul class="box3">
+        <li>
+            <span class="text_outer">
+                <a href="#" class="text">아이콘이 뒤에 오는 말줄임 처리방법</a>
+            </span>
+            <span class="ico_outer"><i class="ico">new</i></span>
+        </li>
+        <li>
+            <span class="text_outer">
+                <a href="#" class="text">아이콘이 뒤에 오는 말줄임 처리방법, 아이콘이 뒤에 오는 말줄임 처리방법, 아이콘이 뒤에 오는 말줄임 처리방법</a>
+            </span>
+            <span class="ico_outer"><i class="ico">new</i></span>
+        </li>
+        <li>
+            <span class="text_outer">
+                <a href="#" class="text">아이콘이 뒤에 오는 말줄임 처리방법, 아이콘이 뒤에 오는 말줄임 처리방법</a>
+            </span>
+            <span class="ico_outer"><i class="ico">new</i></span>
+        </li>
+    </ul>
+    
+    <hr>
+    <h2>아이콘 absolute 와 inline-block, line-clamp 이용하기 </h2>
+    <ul class="box4">
+        <li>
+            <a href="#" class="text">아이콘이 뒤에 오는 말줄임 처리방법, 아이콘이 뒤에 오는 말줄임 처리방법, 아이콘이 뒤에 오는 말줄임 처리방법</a></span>
+            <span class="ico_outer"><i class="ico">new</i></span>
+        </li>
+        <li>
+            <a href="#" class="text">아이콘이 뒤에 오는 말줄임 처리방법, 아이콘이 뒤에 오는 말줄임 </a></span>
+            <span class="ico_outer"><i class="ico">new</i></span>
+        </li>
+        <li>
+            <a href="#" class="text">아이콘이 뒤에 오는 말줄임 처리방법, 아이콘이 뒤에 오는 말줄임 처리방법, 아이콘이 뒤에 오는 말줄임 처리방법</a></span>
+            <span class="ico_outer"><i class="ico">new</i></span>
+        </li>
+    </ul>
+    
+    <hr>
+    <h2>display:flex, line-clamp 이용하기</h2>
+    <ul class="box5">
+        <li>
+            <a href="#" class="text">아이콘이 뒤에 오는 말줄임 처리방법</a></span>
+            <span class="ico_outer"><span class="ico">N</span></span>
+        </li>
+        <li>
+            <a href="#" class="text">아이콘이 뒤에 오는 말줄임 처리방법, 아이콘이 뒤에 오는 말줄임 처리방법, 아이콘이 뒤에 오는 말줄임 처리방법</a></span>
+            <span class="ico_outer"><span class="ico">N</span></span>
+        </li>
+        <li>
+            <a href="#" class="text">아이콘이 뒤에 오는 말줄임 처리방법, 아이콘이 뒤에 오는 말줄임 처리방법, 아이콘이 뒤에 오는 말줄임 처리방법</a></span>
+            <span class="ico_outer"><span class="ico">N</span></span>
+        </li>
+    </ul>
+    <hr>
+</div>
+    </body>
+    <script>
+
+    </script>    
+<body>
+
+
+</body>
+</html>
