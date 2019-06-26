@@ -624,18 +624,18 @@
                                 $(".left").addClass("moveRight");
                                 $(".dentL, .dentR").addClass("moveLeft");
                                 // then lock again
-                                setTimeout(function() {
-                                    $(".shackle").removeClass("unlocked");
-                                    $(".top").removeClass("pivot1");
-                                    $(".inner").removeClass("pivot2");
-                                    $(".left").removeClass("moveRight");
-                                    $(".dentL, .dentR").removeClass("moveLeft");
-                                    for (let j = 0; j < combo.length; ++j) {
-                                        if (window.CP.shouldStopExecution(1)) break;
-                                        $(".num" + (j + 1)).removeClass("found");
-                                    }
-                                    window.CP.exitedLoop(1);
-                                }, 2400);
+                                // setTimeout(function() {
+                                //     $(".shackle").removeClass("unlocked");
+                                //     $(".top").removeClass("pivot1");
+                                //     $(".inner").removeClass("pivot2");
+                                //     $(".left").removeClass("moveRight");
+                                //     $(".dentL, .dentR").removeClass("moveLeft");
+                                //     for (let j = 0; j < combo.length; ++j) {
+                                //         if (window.CP.shouldStopExecution(1)) break;
+                                //         $(".num" + (j + 1)).removeClass("found");
+                                //     }
+                                //     window.CP.exitedLoop(1);
+                                // }, 2400);
                             }
                         }
                         break;
@@ -652,10 +652,10 @@
             $(".num" + (i + 1)).html(combo[i]);
         }
         // dial interaction (mouse)
-        window.CP.exitedLoop(2);
-        $(".dial").on("click", function() {
-            findCombo(combo);
-        });
+        // window.CP.exitedLoop(2);
+        // $(".dial").on("click", function() {
+        //     findCombo(combo);
+        // });
         // dial interaction (touch)
         // $(".dial").on("touchend", function() {
         //     findCombo(combo);
