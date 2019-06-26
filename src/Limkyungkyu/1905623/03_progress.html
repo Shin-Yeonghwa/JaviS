@@ -531,7 +531,7 @@
             </div>
             <div class="arrow"></div>
         </div>
-        <div class="dial" style="transform: matrix3d(0.00514, 0.99998, 0, 0, -0.99998, 0.00514, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1); user-select: none; " ontouchend="findCombo(combo)">
+        <div class="dial" style="transform: matrix3d(0.00514, 0.99998, 0, 0, -0.99998, 0.00514, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1); user-select: none; " ontouchend="findCombo()">
             <div class="tick"></div>
             <div class="tick"></div>
             <div class="tick"></div>
@@ -652,14 +652,14 @@
             $(".num" + (i + 1)).html(combo[i]);
         }
         // dial interaction (mouse)
-        // window.CP.exitedLoop(2);
-        // $(".dial").on("click", function() {
-        //     findCombo(combo);
-        // });
+        window.CP.exitedLoop(2);
+        $(".dial").on("click", function() {
+            findCombo(combo);
+        });
         // dial interaction (touch)
-        // $(".dial").on("touchend", function() {
-        //     findCombo(combo);
-        // });
+        $(".dial").on("touchend", function() {
+            findCombo(combo);
+        });
         //# sourceURL=pen.js
     </script>
 
