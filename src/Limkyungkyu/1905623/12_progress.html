@@ -1,22 +1,513 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 
-<body>
+<head>
+    <meta charset="UTF-8">
+    <link rel="shortcut icon" type="image/x-icon" href="https://static.codepen.io/assets/favicon/favicon-aec34940fbc1a6e787974dcd360f2c6b63348d4b1f4e06c77743096d55480f33.ico">
+    <link rel="mask-icon" type="" href="https://static.codepen.io/assets/favicon/logo-pin-8f3771b1072e3c38bd662872f6b673a722f4b3ca2421637d5596661b4e2132cc.svg" color="#111">
+    <title>CodePen - PIN Input prototype (Correct code is 0000)</title>
+    <link href="https://fonts.googleapis.com/css?family=Montserrat:400,600,700,800,900" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/5.0.0/normalize.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
 
-    <h1>DOM touchend Event</h1>
+        body {
+            display: flex;
+            flex-direction: row;
+            justify-content: center;
+            align-items: center;
+            width: 100vw;
+            height: 100vh;
+            background: linear-gradient(to right top, #78009c, #663eba, #4d5ed0, #2f79e1, #1291eb);
+        }
 
-    <p ontouchend="myFunction()">Touch this paragraph, then release the touch to trigger a function that will write "Hello World".</p>
+        .device {
+            position: relative;
+            border-radius: 16px;
+            margin: 0 auto;
+            display: inline-block;
+            transform: scale(1);
+        }
 
-    <p><strong>Note:</strong> This example is for touch devices only.</p>
+        .device .device-bezel {
+            border-radius: inherit;
+            padding: 36px 10px 24px 10px;
+            overflow: hidden;
+            position: relative;
+            box-sizing: content-box;
+        }
 
-    <p id="demo"></p>
+        .device .device-viewport {
+            contain: strict;
+            width: 350px;
+            height: 622.2222222222px;
+            background: white;
+            border-radius: inherit;
+            transform: scale(1);
+        }
 
+        * {
+            font-family: "Montserrat", sans-serif;
+            user-select: none;
+        }
+
+        .container {
+            background: transparent;
+            height: 100%;
+        }
+
+        .content {
+            background: white;
+        }
+
+        .content img {
+            height: 200px;
+            width: 100%;
+            object-fit: cover;
+            object-position: center;
+        }
+
+        .body-content {
+            padding: 16px;
+        }
+
+        .body-content h3 {
+            margin-bottom: 16px;
+        }
+
+        .body-content p {
+            line-height: 1.5em;
+            margin-bottom: 8px;
+        }
+
+        .body-content button {
+            width: 100%;
+            height: 48px;
+            border-radius: 1000px;
+            background: cyan;
+            border: none;
+            outline: none;
+            margin-top: 24px;
+            cursor: pointer;
+        }
+
+        .pin-info {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            background: white;
+            background: #EAEAEA;
+        }
+
+        .pin-display {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background: white;
+        }
+
+        .keypad {
+            padding: 16px;
+            background: white;
+        }
+
+        .keypad--row {
+            display: flex;
+            flex-direction: row;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .keypad--button {
+            font-family: "Montserrat", sans-serif;
+            height: 48px;
+            width: 100%;
+            display: flex;
+            flex-direction: row;
+            justify-content: center;
+            align-items: center;
+            font-size: 24px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 100ms ease-out;
+        }
+
+        .keypad--button:active {
+            background: #EAEAEA;
+        }
+
+        .confirmation-dots {
+            margin-bottom: 48px;
+            display: flex;
+            flex-direction: row;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .confirmation-dots.error {
+            animation-name: shake;
+            animation-duration: 300ms;
+        }
+
+        .confirmation-dots svg {
+            height: 24px;
+            max-height: 24px;
+            width: 139px;
+        }
+
+        .confirmation-dots .pin-circle {
+            transition: all 100ms ease-out;
+            fill: white;
+            stroke-width: 2px;
+            stroke: black;
+            outline-offset: -2px;
+            outline-width: 2px;
+        }
+
+        .confirmation-dots .pin-circle.entered {
+            fill: black;
+        }
+
+        .confirmation-dots .pin-circle.success {
+            fill: green;
+            stroke: green;
+        }
+
+        .confirmation-dots .pin-circle.error {
+            fill: red;
+            stroke: red;
+        }
+
+        .circle-lock--container {
+            height: 72px;
+            position: relative;
+            display: flex;
+            justify-content: center;
+            flex-direction: row;
+        }
+
+        .circle-lock {
+            width: 80px;
+            height: 80px;
+            background: white;
+            border-radius: 1000px;
+            position: relative;
+            top: -40px;
+            box-shadow: 0px 1px 1px 1px rgba(0, 0, 0, 0.12);
+            display: flex;
+            flex-direction: row;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .circle-lock .lock-icon {
+            color: #333;
+        }
+
+        .page-title {
+            font-size: 28px;
+            line-height: 32px;
+            text-align: center;
+            font-weight: 700;
+        }
+
+        .pin-info {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+        }
+
+        @keyframes shake {
+
+            10%,
+            90% {
+                transform: translate3d(-1px, 0, 0);
+            }
+
+            20%,
+            80% {
+                transform: translate3d(2px, 0, 0);
+            }
+
+            30%,
+            50%,
+            70% {
+                transform: translate3d(-4px, 0, 0);
+            }
+
+            40%,
+            60% {
+                transform: translate3d(4px, 0, 0);
+            }
+        }
+    </style>
     <script>
-        function myFunction() {
-            document.getElementById("demo").innerHTML = "Hello World";
+        window.console = window.console || function(t) {};
+    </script>
+    <script>
+        if (document.location.search.match(/type=embed/gi)) {
+            window.parent.postMessage("resize", "*");
         }
     </script>
+</head>
 
-</body>
+<body translate="no">
+    <div class="device">
+        <div class="device-bezel">
+            <div class="device-viewport">
+
+                <div class="content">
+                    <img src="https://www.light-of-truth.org/wp-content/uploads/2018/08/%EC%B2%9C%EA%B5%AD%EC%9D%80-%ED%95%98%EB%8A%98%EC%97%90-%EC%9E%88%EC%9D%84%EA%B9%8C%EC%9A%94-%EB%95%85%EC%97%90-%EC%9E%88%EC%9D%84%EA%B9%8C%EC%9A%94.jpg">
+                    <div class="body-content">
+                        <h1 style="text-align:center">드디어 천성의 성 문 앞에 도착하였습니다.</h1>
+                        <h3 style="text-align:center">믿음의 경주를 인내한 여러분을 축복합니다.</h3>
+                        <p style="text-align:center">이제 문을 열고 나가면 새로운 천로역정이 시작됩니다. 하나님의 사랑을 의지하여 끝까지 믿음의 경주를 인내할수 있길 기원합니다.</p>
+                    </div>
+                </div>
+                <div class="container">
+                    <div class="pin-info" style="height: 160px; transform: translateY(0%);">
+                        <h1 class="page-title">Enter Keyword!</h1>
+                    </div>
+                    <div class="pin-display" style="transform: translateY(0%);">
+                        <div class="circle-lock--container">
+                            <div class="circle-lock">
+                                <i class="material-icons lock-icon">lock</i>
+                            </div>
+                        </div>
+                        <div class="confirmation-dots">
+                            <svg>
+                                <g>
+                                    <circle class="pin-circle" cx="10" cy="10" r="8"></circle>
+                                    <circle class="pin-circle" cx="50" cy="10" r="8"></circle>
+                                    <circle class="pin-circle" cx="90" cy="10" r="8"></circle>
+                                    <circle class="pin-circle" cx="130" cy="10" r="8"></circle>
+                                </g>
+                            </svg>
+                        </div>
+                        <div class="keypad">
+                            <div class="keypad--row">
+                                <div class="keypad--button" data-value="b">b</div>
+                                <div class="keypad--button" data-value="z">z</div>
+                                <div class="keypad--button" data-value="k">k</div>
+                            </div>
+                            <div class="keypad--row">
+                                <div class="keypad--button" data-value="m">m</div>
+                                <div class="keypad--button" data-value="l">l</div>
+                                <div class="keypad--button" data-value="s">s</div>
+                            </div>
+                            <div class="keypad--row">
+                                <div class="keypad--button" data-value="v">v</div>
+                                <div class="keypad--button" data-value="h">h</div>
+                                <div class="keypad--button" data-value="c">c</div>
+                            </div>
+                            <div class="keypad--row">
+                                <div class="keypad--button" data-value="e">e</div>
+                                <div class="keypad--button" data-value="q">q</div>
+                                <div class="keypad--button" data-value="d">d</div>
+                            </div>
+                            <div class="keypad--row">
+                                <div class="keypad--button" data-value="a">a</div>
+                                <div class="keypad--button" data-value="w">w</div>
+                                <div class="keypad--button" data-value="r">r</div>
+                            </div>
+                            <div class="keypad--row">
+                                <div class="keypad--button keyboard--button__back-arrow"><i class="material-icons">arrow_back</i></div>
+                                <div class="keypad--button" data-value="o">o</div>
+                                <div class="keypad--button keyboard--button__x">x</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+    <script src="https://static.codepen.io/assets/common/stopExecutionOnTimeout-de7e2ef6bfefd24b79a3f68b414b87b8db5b08439cac3f1012092b2290c719cd.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/2.2.0/anime.min.js"></script>
+    <script id="rendered-js">
+        (function() {
+            const correctPin = "love";
+            let disableInput = false;
+            _pinArray = [];
+
+            function reset() {
+                closeLock().then(() => {
+                    disableInput = false;
+                    _pinArray = [];
+                    bindPinToDisplay(_pinArray);
+                });
+            }
+
+            function closeLock() {
+                const topSection = document.querySelector(".pin-info");
+                const bottomSection = document.querySelector(".pin-display");
+
+                const promises = [
+                    anime({
+                        targets: bottomSection,
+                        translateY: "0%",
+                        duration: 600,
+                        easing: "easeOutCubic"
+                    }).
+                    finished,
+                    anime({
+                        targets: topSection,
+                        translateY: "0%",
+                        duration: 600,
+                        easing: "easeOutCubic"
+                    }).
+                    finished
+                ];
+
+
+                return Promise.all(promises);
+            }
+
+            function openLock() {
+                const topSection = document.querySelector(".pin-info");
+                const bottomSection = document.querySelector(".pin-display");
+
+                const promises = [
+                    anime({
+                        targets: bottomSection,
+                        translateY: "125%",
+                        duration: 600,
+                        easing: "easeInCubic"
+                    }).
+                    finished,
+                    anime({
+                        targets: topSection,
+                        translateY: "-101%",
+                        duration: 600,
+                        easing: "easeInCubic"
+                    }).
+                    finished
+                ];
+
+
+                return Promise.all(promises);
+            }
+
+            function errorShake() {
+                return Promise.resolve();
+            }
+
+            function bindPinToDisplay(pinArray, pinStatus) {
+                document.querySelectorAll(".pin-circle").forEach((el, index) => {
+                    if (pinStatus === "success") {
+                        el.classList.add("success");
+                    } else if (pinStatus === "error") {
+                        el.classList.add("error");
+                    } else if (index > pinArray.length - 1) {
+                        el.classList.remove("entered");
+                        el.classList.remove("success");
+                        el.classList.remove("error");
+                    } else {
+                        el.classList.add("entered");
+                    }
+                });
+
+                if (pinStatus === "error") {
+                    document.querySelector(".confirmation-dots").classList.add("error");
+                } else {
+                    document.querySelector(".confirmation-dots").classList.remove("error");
+                }
+            }
+
+            function evaluatePin(pinArray) {
+                const enteredPin = pinArray.join("");
+                if (enteredPin === correctPin) {
+                    disableInput = true;
+                    setTimeout(() => {
+                        bindPinToDisplay(pinArray, "success");
+                        setTimeout(() => {
+                            openLock();
+                        }, 500);
+                    }, 250);
+                    console.log("correct PIN");
+                } else {
+                    disableInput = true;
+                    setTimeout(() => {
+                        bindPinToDisplay(pinArray, "error");
+                        setTimeout(() => {
+                            _pinArray = [];
+                            bindPinToDisplay(_pinArray);
+                            disableInput = false;
+                        }, 350);
+                    }, 250);
+                }
+            }
+
+            function initKeypad() {
+                document.querySelectorAll(".keypad--button[data-value]").forEach(el => {
+                    el.addEventListener("click", evt => {
+                        if (disableInput) {
+                            return;
+                        }
+                        const value = evt.target.attributes["data-value"].value;
+                        if (_pinArray.length < 4) {
+                            _pinArray.push(value);
+                            bindPinToDisplay(_pinArray);
+                            if (_pinArray.length === 4) {
+                                evaluatePin(_pinArray);
+                            }
+                        }
+                    });
+                });
+
+                document.
+                querySelector(".keyboard--button__back-arrow").
+                addEventListener("click", () => {
+                    if (disableInput) {
+                        return;
+                    }
+                    _pinArray.pop();
+                    bindPinToDisplay(_pinArray);
+                });
+
+                document.
+                querySelector(".keyboard--button__x").
+                addEventListener("click", () => {
+                    if (disableInput) {
+                        return;
+                    }
+                    _pinArray = [];
+                    bindPinToDisplay(_pinArray);
+                });
+
+                document.querySelector('#reset-button').addEventListener('click', () => {
+                    reset();
+                });
+            }
+
+            function initLayout() {
+                const containerHeight = document.querySelector(".container").offsetHeight;
+                const keypadHeight = document.querySelector(".pin-display").offsetHeight;
+                document.querySelector(".pin-info").style.height = `${containerHeight -
+    keypadHeight +
+    1}px`;
+            }
+
+            function init() {
+                initKeypad();
+                initLayout();
+            }
+
+            init();
+        })();
+        //# sourceURL=pen.js
+    </script>
+
+
+</body><audio src="" id="naver_dic_audio_controller" controls="controls" style="display: none;"></audio>
 
 </html>

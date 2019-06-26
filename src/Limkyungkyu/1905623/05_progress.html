@@ -3,6 +3,11 @@
 
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <meta name="csrf-param" content="authenticity_token">
+    <meta name="csrf-token" content="SSS/wWuouAWXTOOD6z8iqzk9BeDGVxuOu25k49Lun6oA+0T2OPbgA6TWs038fiDSE+VeC9D6vkaY3lmbPi85xg==">
+    <meta name="viewport" content="width=device-width,initial-scale=1.0,user-scalable=no" />
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <script type="text/javascript" charset="utf-8" src="chrome-extension://eobejphpabbjeehffmbiecckpkggpbai/js/content-script/page_context.js"></script>
     <title>천로역정</title>
     <style>
         main{text-align:center}
@@ -14,12 +19,12 @@
      #combo-lock #indicator {
     	 border: 2px solid #070707;
     	 border-radius: 50%;
-    	 height: 32px;
+    	 height: 64px;
     	 margin: 0 auto 24px;
     	 overflow: hidden;
     	 position: absolute;
-    	 right: -50px;
-    	 width: 32px;
+    	 right: -100px;
+    	 width: 64px;
     }
      #combo-lock #indicator.locked svg.unlocked {
     	 transform: translate(-50%, 50%);
@@ -37,7 +42,7 @@
     	 left: 50%;
     	 transform: translate(-50%, -50%);
     	 transition: transform 0.25s ease;
-    	 width: 16px;
+    	 width: 32px;
     }
      #combo-lock #indicator svg.locked {
     	 background: #f56666;
@@ -46,7 +51,7 @@
     	 background: #50ef87;
     }
      #combo-lock #combination {
-    	 max-width: 144px;
+    	 max-width: 288px;
     	 border: 2px solid #070707;
     	 border-radius: 4px;
     	 display: flex;
@@ -62,10 +67,10 @@
     	 border: 2px solid #070707;
     	 border-radius: 50%;
     	 cursor: pointer;
-    	 height: 24px;
+    	 height: 48px;
     	 position: relative;
     	 transition: border-color 0.1s ease;
-    	 width: 24px;
+    	 width: 48px;
     }
      #combo-lock #combination .wheel .increment:active, #combo-lock #combination .wheel .decrement:active {
     	 border-color: #fff;
@@ -82,10 +87,10 @@
     	 width: 24px;
     }
      #combo-lock #combination .wheel .increment {
-    	 margin-top: -14px;
+    	 margin-top: -28px;
     }
      #combo-lock #combination .wheel .decrement {
-    	 margin-bottom: -14px;
+    	 margin-bottom: -28px;
     }
      #combo-lock #combination .wheel .digit {
     	 background: #1d242f;
@@ -100,7 +105,9 @@
     	 text-align: center;
     	 user-select: none;
     	 transition: border-color 0.1s ease;
-    	 width: 24px;
+    	 width: 48px;
+         height:32px;
+         font-size:30px;
     }
      #combo-lock #combination .wheel .digit:focus {
     	 border-color: #fff;
