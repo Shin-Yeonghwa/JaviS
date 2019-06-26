@@ -1,0 +1,339 @@
+<!DOCTYPE html>
+<html lang="ko">
+
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <title>천로역정</title>
+    <style>
+        main{text-align:center}
+        #combo-lock {
+    	 display: inline-block;
+    	 position: relative;
+    	 margin: 50px;
+    }
+     #combo-lock #indicator {
+    	 border: 2px solid #070707;
+    	 border-radius: 50%;
+    	 height: 32px;
+    	 margin: 0 auto 24px;
+    	 overflow: hidden;
+    	 position: absolute;
+    	 right: -50px;
+    	 width: 32px;
+    }
+     #combo-lock #indicator.locked svg.unlocked {
+    	 transform: translate(-50%, 50%);
+    }
+     #combo-lock #indicator.unlocked svg.locked {
+    	 transform: translate(-50%, -100%);
+    }
+     #combo-lock #indicator.unlocked svg.unlocked {
+    	 transform: translate(-50%, -50%);
+    }
+     #combo-lock #indicator svg {
+    	 padding: 16px;
+    	 position: absolute;
+    	 top: 50%;
+    	 left: 50%;
+    	 transform: translate(-50%, -50%);
+    	 transition: transform 0.25s ease;
+    	 width: 16px;
+    }
+     #combo-lock #indicator svg.locked {
+    	 background: #f56666;
+    }
+     #combo-lock #indicator svg.unlocked {
+    	 background: #50ef87;
+    }
+     #combo-lock #combination {
+    	 max-width: 144px;
+    	 border: 2px solid #070707;
+    	 border-radius: 4px;
+    	 display: flex;
+    	 padding: 0 4px;
+    }
+     #combo-lock #combination .wheel {
+    	 font-size: 24px;
+    	 padding: 0 4px;
+    	 text-align: center;
+    }
+     #combo-lock #combination .wheel .increment, #combo-lock #combination .wheel .decrement {
+    	 background: #1d242f;
+    	 border: 2px solid #070707;
+    	 border-radius: 50%;
+    	 cursor: pointer;
+    	 height: 24px;
+    	 position: relative;
+    	 transition: border-color 0.1s ease;
+    	 width: 24px;
+    }
+     #combo-lock #combination .wheel .increment:active, #combo-lock #combination .wheel .decrement:active {
+    	 border-color: #fff;
+    }
+     #combo-lock #combination .wheel .increment.click, #combo-lock #combination .wheel .decrement.click {
+    	 border-color: #fff;
+    	 transition: border-color 0s ease;
+    }
+     #combo-lock #combination .wheel .increment img, #combo-lock #combination .wheel .decrement img {
+    	 position: absolute;
+    	 top: 50%;
+    	 left: 50%;
+    	 transform: translate(-50%, -50%);
+    	 width: 24px;
+    }
+     #combo-lock #combination .wheel .increment {
+    	 margin-top: -14px;
+    }
+     #combo-lock #combination .wheel .decrement {
+    	 margin-bottom: -14px;
+    }
+     #combo-lock #combination .wheel .digit {
+    	 background: #1d242f;
+    	 border: 2px solid #070707;
+    	 border-radius: 24px;
+    	 caret-color: #1d242f;
+    	 color: #fff;
+    	 cursor: pointer;
+    	 margin: 8px 0;
+    	 outline: none;
+    	 padding: 8px 0;
+    	 text-align: center;
+    	 user-select: none;
+    	 transition: border-color 0.1s ease;
+    	 width: 24px;
+    }
+     #combo-lock #combination .wheel .digit:focus {
+    	 border-color: #fff;
+    }
+     #combo-lock #combination .wheel .digit::-webkit-inner-spin-button, #combo-lock #combination .wheel .digit::-webkit-outer-spin-button {
+    	 -webkit-appearance: none;
+    	 margin: 0;
+    }
+     #combo-lock #combination .wheel .digit::selection {
+    	 background: #1d242f;
+    }
+
+    </style>
+</head>
+
+
+<body>
+    <main>
+        <div id="combo-lock">
+            <div id="indicator" class="locked">
+                <svg class="locked" version="1.1" id="Lock" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 20 20" enable-background="new 0 0 20 20" xml:space="preserve">
+                    <path d="M15.8,8H14V5.6C14,2.703,12.665,1,10,1C7.334,1,6,2.703,6,5.6V8H4C3.447,8,3,8.646,3,9.199V17
+    	c0,0.549,0.428,1.139,0.951,1.307l1.197,0.387C5.672,18.861,6.55,19,7.1,19H12.9c0.549,0,1.428-0.139,1.951-0.307l1.196-0.387
+    	C16.571,18.139,17,17.549,17,17V9.199C17,8.646,16.352,8,15.8,8z M12,8H8V5.199C8,3.754,8.797,3,10,3c1.203,0,2,0.754,2,2.199V8z" />
+                </svg>
+                <svg class="unlocked" version="1.1" id="Lock_open" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 20 20" enable-background="new 0 0 20 20" xml:space="preserve">
+                    <path d="M15.8,8H14V5.6C14,2.703,12.665,1,10,1C7.334,1,6,2.703,6,5.6V6h2V5.199C8,3.754,8.797,3,10,3c1.203,0,2,0.754,2,2.199V8H4
+    	C3.447,8,3,8.646,3,9.199V17c0,0.549,0.428,1.139,0.951,1.307l1.197,0.387C5.672,18.861,6.55,19,7.1,19H12.9
+    	c0.549,0,1.428-0.139,1.951-0.307l1.196-0.387C16.571,18.139,17,17.549,17,17V9.199C17,8.646,16.352,8,15.8,8z" />
+                </svg>
+
+            </div>
+            <div id="combination">
+                <div class="wheel">
+                    <div class="increment" index="0">
+                        <svg version="1.1" id="Chevron_small_up" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 20 20" enable-background="new 0 0 20 20" xml:space="preserve">
+                            <path fill="#fff" d="M6.582,12.141c-0.271,0.268-0.709,0.268-0.978,0c-0.269-0.268-0.272-0.701,0-0.969l3.908-3.83
+    	c0.27-0.268,0.707-0.268,0.979,0l3.908,3.83c0.27,0.267,0.27,0.701,0,0.969c-0.271,0.268-0.709,0.268-0.979,0L10,9L6.582,12.141z" />
+                        </svg>
+                    </div>
+                    <input class="digit" index="0" type="number" value="0" min="0" max="9">
+                    <div class="decrement" index="0">
+                        <svg version="1.1" id="Chevron_small_down" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 20 20" enable-background="new 0 0 20 20" xml:space="preserve">
+                            <path fill="#fff" d="M13.418,7.859c0.271-0.268,0.709-0.268,0.978,0c0.27,0.268,0.272,0.701,0,0.969l-3.908,3.83
+    	c-0.27,0.268-0.707,0.268-0.979,0l-3.908-3.83c-0.27-0.267-0.27-0.701,0-0.969c0.271-0.268,0.709-0.268,0.978,0L10,11L13.418,7.859z
+    	" />
+                        </svg>
+                    </div>
+                </div>
+                <div class="wheel">
+                    <div class="increment" index="1">
+                        <svg version="1.1" id="Chevron_small_up" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 20 20" enable-background="new 0 0 20 20" xml:space="preserve">
+                            <path fill="#fff" d="M6.582,12.141c-0.271,0.268-0.709,0.268-0.978,0c-0.269-0.268-0.272-0.701,0-0.969l3.908-3.83
+    	c0.27-0.268,0.707-0.268,0.979,0l3.908,3.83c0.27,0.267,0.27,0.701,0,0.969c-0.271,0.268-0.709,0.268-0.979,0L10,9L6.582,12.141z" />
+                        </svg>
+                    </div>
+                    <input class="digit" index="1" type="number" value="0" min="0" max="9">
+                    <div class="decrement" index="1">
+                        <svg version="1.1" id="Chevron_small_down" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 20 20" enable-background="new 0 0 20 20" xml:space="preserve">
+                            <path fill="#fff" d="M13.418,7.859c0.271-0.268,0.709-0.268,0.978,0c0.27,0.268,0.272,0.701,0,0.969l-3.908,3.83
+    	c-0.27,0.268-0.707,0.268-0.979,0l-3.908-3.83c-0.27-0.267-0.27-0.701,0-0.969c0.271-0.268,0.709-0.268,0.978,0L10,11L13.418,7.859z
+    	" />
+                        </svg>
+                    </div>
+                </div>
+                <div class="wheel">
+                    <div class="increment" index="2">
+                        <svg version="1.1" id="Chevron_small_up" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 20 20" enable-background="new 0 0 20 20" xml:space="preserve">
+                            <path fill="#fff" d="M6.582,12.141c-0.271,0.268-0.709,0.268-0.978,0c-0.269-0.268-0.272-0.701,0-0.969l3.908-3.83
+    	c0.27-0.268,0.707-0.268,0.979,0l3.908,3.83c0.27,0.267,0.27,0.701,0,0.969c-0.271,0.268-0.709,0.268-0.979,0L10,9L6.582,12.141z" />
+                        </svg>
+                    </div>
+                    <input class="digit" index="2" type="number" value="0" min="0" max="9">
+                    <div class="decrement" index="2">
+                        <svg version="1.1" id="Chevron_small_down" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 20 20" enable-background="new 0 0 20 20" xml:space="preserve">
+                            <path fill="#fff" d="M13.418,7.859c0.271-0.268,0.709-0.268,0.978,0c0.27,0.268,0.272,0.701,0,0.969l-3.908,3.83
+    	c-0.27,0.268-0.707,0.268-0.979,0l-3.908-3.83c-0.27-0.267-0.27-0.701,0-0.969c0.271-0.268,0.709-0.268,0.978,0L10,11L13.418,7.859z
+    	" />
+                        </svg>
+                    </div>
+                </div>
+                <div class="wheel">
+                    <div class="increment" index="3">
+                        <svg version="1.1" id="Chevron_small_up" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 20 20" enable-background="new 0 0 20 20" xml:space="preserve">
+                            <path fill="#fff" d="M6.582,12.141c-0.271,0.268-0.709,0.268-0.978,0c-0.269-0.268-0.272-0.701,0-0.969l3.908-3.83
+    	c0.27-0.268,0.707-0.268,0.979,0l3.908,3.83c0.27,0.267,0.27,0.701,0,0.969c-0.271,0.268-0.709,0.268-0.979,0L10,9L6.582,12.141z" />
+                        </svg>
+                    </div>
+                    <input class="digit" index="3" type="number" value="0" min="0" max="9">
+                    <div class="decrement" index="3">
+                        <svg version="1.1" id="Chevron_small_down" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 20 20" enable-background="new 0 0 20 20" xml:space="preserve">
+                            <path fill="#fff" d="M13.418,7.859c0.271-0.268,0.709-0.268,0.978,0c0.27,0.268,0.272,0.701,0,0.969l-3.908,3.83
+    	c-0.27,0.268-0.707,0.268-0.979,0l-3.908-3.83c-0.27-0.267-0.27-0.701,0-0.969c0.271-0.268,0.709-0.268,0.978,0L10,11L13.418,7.859z
+    	" />
+                        </svg>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+</body>
+
+<script type="text/javascript">
+    // ***
+    // Combination Lock
+    // ***
+
+    var combinationLock = {
+        combination: 3186,
+        locked: true,
+        wheels: [0, 0, 0, 0],
+        increment: function(wheel) {
+            if (this.wheels[wheel] === 9) {
+                this.wheels[wheel] = 0;
+            } else {
+                this.wheels[wheel]++;
+            }
+        },
+        decrement: function(wheel) {
+            if (this.wheels[wheel] === 0) {
+                this.wheels[wheel] = 9;
+            } else {
+                this.wheels[wheel]--;
+            }
+        },
+        check: function() {
+            if (this.combination === parseInt(this.wheels.join(''))) {
+                this.locked = false;
+            } else {
+                this.locked = true;
+            }
+        },
+        spin: function() {
+            // randomize the wheels
+            for (i = 0; i < 4; i++) {
+                this.wheels[i] = getRandomInt(10, -1);
+            }
+        }
+    }
+
+    // ***
+    // Reusable Functions
+    // ***
+
+    function getRandomInt(min, max) {
+        min = Math.ceil(min);
+        max = Math.floor(max);
+        return Math.floor(Math.random() * (max - min + 1)) + min;
+    }
+
+
+    // ***
+    // Presentation
+    // ***
+
+    // Increment buttons
+    var increments = document.getElementsByClassName('increment');
+
+    for (var i = 0; i < increments.length; i++) {
+        increments[i].addEventListener('click', function() {
+            let wheelIndex = parseInt(this.getAttribute('index'));
+            combinationLock.increment(wheelIndex);
+            document.querySelectorAll('.digit')[wheelIndex].value = combinationLock.wheels[wheelIndex];
+            checkLock();
+        });
+    }
+
+    // Decrement buttons
+    var decrements = document.getElementsByClassName('decrement');
+
+    for (var i = 0; i < decrements.length; i++) {
+        decrements[i].addEventListener('click', function() {
+            let wheelIndex = parseInt(this.getAttribute('index'));
+            combinationLock.decrement(wheelIndex);
+            document.querySelectorAll('.digit')[wheelIndex].value = combinationLock.wheels[wheelIndex];
+            checkLock();
+        });
+    }
+
+    // Keypress
+    var wheels = document.getElementsByClassName('digit');
+
+    for (var i = 0; i < wheels.length; i++) {
+        wheels[i].addEventListener('keyup', function(e) {
+
+            // arrow key up
+            if (e.which === 38) {
+                let wheelIndex = parseInt(this.getAttribute('index'));
+                combinationLock.increment(wheelIndex);
+                document.querySelectorAll('.digit')[wheelIndex].value = combinationLock.wheels[wheelIndex];
+                checkLock();
+            }
+
+            // arrow key down
+            if (e.which === 40) {
+                let wheelIndex = parseInt(this.getAttribute('index'));
+                combinationLock.decrement(wheelIndex);
+                document.querySelectorAll('.digit')[wheelIndex].value = combinationLock.wheels[wheelIndex];
+                checkLock();
+            }
+
+            // number key (0 - 9)
+            if (e.which > 47 && e.which < 58) {
+                let wheelIndex = parseInt(this.getAttribute('index'));
+                combinationLock.wheels[wheelIndex] = parseInt(document.querySelectorAll('.digit')[wheelIndex].value);
+                checkLock();
+            }
+
+            // if number is longer than 1 digit
+            if (this.value.length > 1) {
+                this.value = 0;
+            }
+
+            // if number is less that 1 digit
+            if (this.value.length < 1) {
+                this.value = 0;
+            }
+        });
+    }
+
+    // Check lock
+    function checkLock() {
+        combinationLock.check();
+        if (combinationLock.locked === false) {
+            document.querySelector('#indicator').classList.remove('locked');
+            document.querySelector('#indicator').classList.add('unlocked');
+        } else {
+            document.querySelector('#indicator').classList.add('locked');
+            document.querySelector('#indicator').classList.remove('unlocked');
+        }
+    }
+</script>
+
+
+</html>

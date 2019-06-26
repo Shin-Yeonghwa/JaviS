@@ -1,0 +1,297 @@
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>브라우저 객체 모델</title>
+    <style type="text/css">
+
+        strong {display: block; margin-top: 20px}
+
+	</style>
+</head>
+<body>
+  <h1>브라우저 객체모델</h1>
+
+  <h2>브라우저 관련 객체</h2>
+
+  <ul>
+      <li><b>window 객체</b></li>
+      <li>location 객체</li>
+  		<li>navigator 객체</li>
+  		<li>history 객체</li>
+  		<li>screen 객체</li>
+  		<li>document 객체</li>
+  </ul>
+
+	<h3>window 객체</h3>
+	<p>: 자바스크립트의 브라우저 기반 최상위 객체</p>
+
+  <pre>
+  window.open('https://www.naver.com', 'child', 'width=600', 'height=300', 'true' );
+  </pre>
+
+  <script>
+      function ex01() {
+          window.open('https://www.naver.com', 'child', 'width=600', 'height=300', 'true' );
+      }
+  </script>
+
+  <button onclick="ex01()">결과보기</button>
+
+  <h3>screen 객체</h3>
+  <p>운영체제 화면의 속성을 갖는 객체 (웹브라우저의 화면 X)</p>
+
+  <pre>
+  var child = window.open('','','width=300, height=200');
+  var width = screen.width;
+  var height = screen.height;
+
+  child.moveTo(0, 0);
+  child.resizeTo(width, height);
+
+  setIntervar (function () {
+    child.resizeBy(-20, -20);
+    child.moveBy(10, 10);
+  }, 1000 );
+  </pre>
+
+  <script>
+      function ex02() {
+          var child = window.open('','','width=300, height=200');
+          var width = screen.width;
+          var height = screen.height;
+
+          child.moveTo(0, 0);
+          child.resizeTo(width, height);
+
+          setIntervar (function () {
+            child.resizeBy(-20, -20);
+            child.moveBy(10, 10);
+          }, 1000 );
+      }
+  </script>
+
+  <button onclick="ex02()">결과보기</button>
+
+  <h3>location 객체</h3>
+  <p>주소 표시줄과 관련된 객체</p>
+
+  <pre>
+  location.reload();
+  </pre>
+
+
+  <script>
+      function ex03() {
+        location.reload();
+      }
+  </script>
+  <button onclick="ex03()">결과보기</button>
+
+  <h3>navigator 객체</h3>
+  <p>웹 페이지를 실행하고 있는 브라우저에 대한 정보</p>
+
+  <pre>
+      window.alert(navigator.userAgent);
+  </pre>
+
+  <script>
+      function ex04() {
+          window.alert(navigator.userAgent);
+      }
+  </script>
+
+  <button onclick="ex04()">결과보기</button>
+
+
+  <h1>문서 객체 모델</h1>
+
+  <h2>요소노드</h2>
+  <p>HTML 태그</p>
+
+  <h2>텍스트 노드</h2>
+  <p>요소노드 안에 있는 글자</p>
+
+  <h2>객체의 노드 생성 메서드</h2>
+  <ul>
+    <li>createElement(tagName) : 요소노드 생성</li>
+    <li>createTextNode(text) : 텍스트노드 생성</li>
+  </ul>
+
+  <h2>문서 객체의 연결 메서드</h2>
+  <p>appendChild(node)</p>
+
+	<pre>
+    var header = document.createElement('h1');
+    var textNode = document.createTextNode('hello DOM');
+
+    header.appendChild(textNode);
+    document.body.appendChild(header);
+  </pre>
+
+	<script>
+		function ex05() {
+				var header = document.createElement('h1');
+        var textNode = document.createTextNode('hello DOM');
+
+        header.appendChild(textNode);
+        document.body.appendChild(header);
+		}
+	</script>
+
+	<button onclick="ex05()">결과보기</button>
+
+	<h2>문서 객체의 속성 메서드</h2>
+  <ul>
+    <li>setAttribute(name, value) : 객체의 속성을 지정</li>
+    <li>getAttribute(name) : 객체의 속성을 가져옴</li>
+  </ul>
+	<pre>
+    var atag = document.createElement('a');
+    var atagtext = document.createTextNode('hello DOM');
+
+    atag.appendChild(atagtext);
+    atag.setAttribute('href', 'www.naver.com');
+
+    document.body.appendChild(atag);
+  </pre>
+
+	<script>
+		function ex06() {
+				var atag = document.createElement('a');
+        var atagtext = document.createTextNode('naver');
+        var atag2 = document.createElement('a');
+        var atagtext2 = document.createTextNode('naver2');
+
+        atag.appendChild(atagtext);
+        atag.setAttribute('href', 'https://www.naver.com');
+
+        var get = atag.getAttribute('href');
+
+        atag2.appendChild(atagtext2);
+        atag2.setAttribute('href', get);
+
+        document.body.appendChild(atag);
+        document.body.appendChild(atag2);
+		}
+	</script>
+
+	<button onclick="ex06()">결과보기</button>
+
+
+	<h2>innerHTML</h2>
+	<p>태그의 내부</p>
+
+	<pre>
+    var output = '';
+
+    output += '<ul>';
+    output += '<li>안녕</li>';
+    output += '<li>안녕</li>';
+    output += '</ul>';
+
+    document.body.innerHTML = output;
+  </pre>
+
+	<script>
+		function ex07() {
+			  var output = '';
+
+        output += '<ul>';
+        output += '<li>안녕</li>';
+        output += '<li>안녕</li>';
+        output += '</ul>';
+
+        document.body.innerHTML = output;
+		}
+	</script>
+
+	<button onclick="ex07()">결과보기</button>
+
+  <h2>문서 객체의 선택 메서드</h2>
+
+  <ul>
+    <li>getElementById(id) : 태그의 ID 속성이 ID 매개변수와 일치하는 문서 객체를 가져옴</li>
+    <li>getElementByName(name) : 태그의 name 속성이 name 매개변수와 일치하는 문서 객체를 배열로 가져옴</li>
+    <li>getElementTagName(tagName) : 태그의 name 속성이 name 매개변수와 일치하는 문서 객체를 배열로 가져옴</li>
+    <li>querySelector(선택자) : 선택자로 가장 처음 선택되는 문서 객체를 가져옴</li>
+    <li>querySelectorAll(선택자) : 선택자를 통해 선택되는 문서 객체를 배열로 가져옴</li>
+  </ul>
+
+  <span id="test" name="test2" class="test3">안녕</span>
+  <span class="test3">안녕</span>
+
+	<pre>
+    span id="test" name="test2" class="test3"안녕 span
+    span class="test3" 안녕 span
+
+    var getID = document.getElementById('test');
+    var getName = document.getElementsByName('test2');
+    var getTag = document.getElementsByTagName('span');
+    var query = document.querySelector('.test3');
+    var queryall = document.querySelectorAll('.test3');
+
+    window.alert('getElementById : ' + getID);
+    window.alert('getElementByName : ' + getName);
+    window.alert('getElementTagName : ' + getTag);
+    window.alert('querySelector : ' + query);
+    window.alert('querySelectorAll : ' + queryall);
+  </pre>
+
+	<script>
+		function ex08() {
+				var getID = document.getElementById('test');
+        var getName = document.getElementsByName('test2');
+        var getTag = document.getElementsByTagName('span');
+        var query = document.querySelector('.test3');
+        var queryall = document.querySelectorAll('.test3');
+
+        window.alert('getElementById : ' + getID);
+        window.alert('getElementByName : ' + getName);
+        window.alert('getElementTagName : ' + getTag);
+        window.alert('querySelector : ' + query);
+        window.alert('querySelectorAll : ' + queryall);
+		}
+	</script>
+
+	<button onclick="ex08()">결과보기</button>
+
+	<h2>문서 객체의 스타일 조작</h2>
+	<p>style.속성으로 조작 가능</p>
+
+	<pre>
+    var getID = document.getElementById('test');
+    getID.style.fontSize = '30px';
+  </pre>
+
+	<script>
+		function ex09() {
+			var getID = document.getElementById('test');
+      getID.style.fontSize = '30px';
+		}
+	</script>
+
+	<button onclick="ex09()">결과보기</button>
+
+	<h2>문서 객체 제거</h2>
+	<p>removeChild(child) : 문서 객체의 자식노드를 제거</p>
+
+	<pre>
+    var getID = document.getElementById('test');
+
+    document.body.removeChild(getID);
+  </pre>
+
+	<script>
+		function ex10() {
+				var getID = document.getElementById('test');
+
+        document.body.removeChild(getID);
+		}
+	</script>
+
+	<button onclick="ex10()">결과보기</button>
+
+</body>
+</html>
