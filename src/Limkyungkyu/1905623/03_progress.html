@@ -4,31 +4,10 @@
 <head>
     <meta charset="UTF-8">
     <title>Combination Lock</title>
-    <meta name="twitter:card" content="summary_large_image">
-    <meta name="twitter:site" content="@CodePen">
-    <meta name="twitter:title" content="Combination Lock">
-    <meta name="twitter:description" content="An interactive lock made with the Draggable library from GreenSock. Drag the dial to the numbers below to open!  Note: The unlock animation might be gl...">
-    <meta name="twitter:image" content="https://screenshot.codepen.io/2565154.wZRVvM.1e215857-97fa-48a9-8b4f-0cbf7ec187ec.png">
-    <meta property="og:image" content="https://codepen.io/devcline/pen/wZRVvM/image/large.png" itemprop="thumbnailUrl">
-    <meta property="og:title" content="Combination Lock">
-    <meta property="og:url" content="https://codepen.io/devcline/details/wZRVvM">
-    <meta property="og:site_name" content="CodePen">
-    <meta property="og:description" content="An interactive lock made with the Draggable library from GreenSock. Drag the dial to the numbers below to open!  Note: The unlock animation might be gl...">
-    <link rel="alternate" type="application/json+oembed" href="https://codepen.io/api/oembed?url=https://codepen.io/devcline/pen/wZRVvM&amp;format=json" title="Combination Lock">
-    <link href="https://fonts.googleapis.com/css?family=Lato:300,400,400italic,700,700italic" rel="stylesheet">
-    <link rel="stylesheet" media="all" href="https://static.codepen.io/assets/global/global-c06c9ade2eac3f3842bb17c39f85cfd4cff0059953fdbc708b16b7dfb8971197.css">
-    <link rel="stylesheet" media="screen" href="https://static.codepen.io/assets/packs/css/everypage-2a9ecec1.css">
-    <link rel="stylesheet" media="all" href="https://static.codepen.io/assets/editor/editor-2d7d990a178e78f7b7a78a17685e2a96960c38623e5f18747168e53f860cae18.css">
-    <meta name="description" content="An interactive lock made with the Draggable library from GreenSock. Drag the dial to the numbers below to open!  Note: The unlock animation might be gl...">
-    <link rel="stylesheet" media="screen" href="https://static.codepen.io/assets/editor/themes/twilight-86b2d8d64ce08f901b8946aeefde8b37185c1b1699748e443c7040ab6fc223e4.css" id="cm-theme">
-    <link rel="shortcut icon" type="image/x-icon" href="https://static.codepen.io/assets/favicon/favicon-aec34940fbc1a6e787974dcd360f2c6b63348d4b1f4e06c77743096d55480f33.ico">
-    <link rel="mask-icon" type="" href="https://static.codepen.io/assets/favicon/logo-pin-8f3771b1072e3c38bd662872f6b673a722f4b3ca2421637d5596661b4e2132cc.svg" color="#111">
     <meta name="csrf-param" content="authenticity_token">
     <meta name="csrf-token" content="Q/8dwufwGUV+3h70bM+JNd+lNXaV5Ak4A5kFKVR6c+oKIOb1tK5BQ01ETjp7jotM9X1unYNJrPAgKThRuLvVhg==">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="apple-mobile-web-app-capable" content="yes">
-    <script>/* Firefox needs this to prevent FOUC. Wow. */</script>
-    <link type="text/css" rel="stylesheet" href="chrome-extension://eobejphpabbjeehffmbiecckpkggpbai/style.css">
     <script type="text/javascript" charset="utf-8" src="chrome-extension://eobejphpabbjeehffmbiecckpkggpbai/js/content-script/page_context.js"></script>
     <style>
         body {
@@ -538,7 +517,8 @@
     </script>
 </head>
 
-<body translate="no">
+<body translate="no" sandbox="allow-forms allow-modals allow-pointer-lock allow-popups allow-presentation allow-same-origin allow-scripts" allow="geolocation; microphone; camera; midi; vr; accelerometer; gyroscope; payment; ambient-light-sensor; encrypted-media"
+    scrolling="auto" allowtransparency="true" allowpaymentrequest="true" allowfullscreen="true">
     <div class="container">
         <div class="lock">
             <div class="shackle">
