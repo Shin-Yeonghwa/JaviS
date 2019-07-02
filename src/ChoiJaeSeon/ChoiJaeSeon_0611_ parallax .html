@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="ko">
+
+<head>
+	<meta charset="utf-8">
+	<title>스탑워치</title>
+<link rel="stylesheet" href="https://ssl.pstatic.net/sstatic/search/pc/css/search1_190221.css">
+
+<style type="text/css">
+
+#wrap li{
+	width:40px;
+	height:40px;
+	line-height:40px;
+	float:left;
+	text-align:center;
+	border:1px solid red; 
+	border-width:0 0 1px 1px;
+}
+#wrap li:first-child{
+	border-left:1px solid red;
+}
+#wrap li.selected{
+	background:Red;
+}
+#wrap ul{
+    overflow: hidden;
+    width: 984px;
+    border: 1px solid red;
+    border-width: 1px 1px 1px 0
+}
+#wrap{
+	padding:100px 0 0 100px;
+}
+#timeinput > div{
+	float:left;
+}
+.btn{
+	clear:both;
+	display:block;
+}
+</style>
+</head>
+<body>
+<div id="wrap">
+
+	<div id="timeinput">
+		<div><span id="hour"></span>:시</div>
+		<div><span id="minute"></span>:분</div>
+		<div><span id="second"></span>:초</div>
+		<div><span id="rotation"></span></div>
+	</div>
+<button class="btn">타이머 시작</button>
+</div>
+				
+				
+			
+		
+
+</body>
+
+<script>
+const hour = 24;
+const minute = 60;
+const second = 60;
+const rotation =60;
+
+var hourNumber = document.querySelector('#hour');
+var minuteNumber = document.querySelector('#minute');
+var secondNumber = document.querySelector('#second');
+var rotationNumber = document.querySelector('#rotation');
+
+
+function intervalMaker(time,position){
+	for (let k = second; k >= 1; k--) {
+    setTimeout(() => {
+		position.innerHTML = k;
+    }, (k) * time);
+  }
+}
+
+function secondNum() {
+	intervalMaker(1000,secondNumber)
+
+}
+
+function minuteNum() {
+	intervalMaker(100000,minuteNumber)
+}
+function rotationNum() {
+	clearInterval(intervalMaker);
+	intervalMaker(10,rotationNumber)
+}
+
+document.querySelectorAll('.btn').forEach(function(btn) {
+	btn.addEventListener('click', function() {
+		secondNum();
+		minuteNum();
+		
+		rotationNum();
+	})
+})
+
+
+console.log()
+</script>
+
+</html>

@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="ko">
+
+<head>
+	<meta charset="utf-8">
+	<title>페럴럭스</title>
+<link rel="stylesheet" href="https://ssl.pstatic.net/sstatic/search/pc/css/search1_190221.css">
+
+<script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+<style type="text/css">
+
+#scrollValue{
+	position:fixed;
+	top:50px;
+	right:40px;
+}
+html,body,#wrap{
+	height:100%;
+}
+#first,#second,#third,#theend{
+height: 100%;
+}
+#first{
+	background:url(./img/img1.jpg) 50% 0 no-repeat fixed;    background-size: cover;
+}
+#second{
+background:url(./img/img2.jpg) 50% 0 no-repeat fixed;    background-size: cover;
+}
+#third{
+background:url(./img/img3.jpg) 50% 0 no-repeat ;    background-size: cover;
+}
+#theend{
+	background:url(./img/img4.jpg)  50% 0 no-repeat fixed;    background-size: cover;
+}
+img{
+	width:100%;
+	height:100%;
+}
+</style>
+
+<script>
+	$(function() {
+	$(window).scroll(function() {
+	  var value = $(this).scrollTop(); 
+	  $('#scrollValue').text(value);
+	  console.log(value);
+	});
+  });
+</script>
+</head>
+<body>
+	<p id="scrollValue">dd </p>
+<div id="wrap">
+		<section id="first" class="content">
+			</section>
+		
+			<section id="second" class="content">
+			</section>
+		
+			<section id="third" class="content">
+
+			</section>
+		
+			<section id="theend" class="content">
+			</section>
+		
+</div>
+
+
+
+
+
+</body>
+
+
+</html>

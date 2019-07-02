@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="ko">
+
+<head>
+	<meta charset="utf-8">
+	<title>페럴럭스</title>
+<link rel="stylesheet" href="https://ssl.pstatic.net/sstatic/search/pc/css/search1_190221.css">
+
+<script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+<style type="text/css">
+
+#scrollValue{
+	position:fixed;
+	top:50px;
+	right:40px;
+}
+html,body,#wrap{
+	height:100%;
+}
+#wrap > div{
+height: 100%;
+}
+.area{
+	background:url(./img/img1.jpg) 50% 0 no-repeat ;    background-size: cover;
+}
+.area2{
+background:url(./img/img2.jpg) 50% 0 no-repeat ;    background-size: cover;
+}
+.area3{
+	background:url(./img/img3.jpg)  50% 0 no-repeat ;    background-size: cover;
+}
+.area4{
+	background:url(./img/img4.jpg) 50% 0 no-repeat ;    background-size: cover;
+}
+
+img{
+	width:100%;
+	height:100%;
+}
+</style>
+
+<script>
+	$(function() {
+	//스크롤 값 받아오기 
+	  var areaTop2 = $('.area2').offset().top;
+	  var areaTop3 = $('.area3').offset().top;
+	  var areaTop4 = $('.area4').offset().top;
+
+
+	$(window).scroll(function() {
+	  var value = $(this).scrollTop(); 
+	  $('#scrollValue').text(value);
+	  
+	  $('.area').css('background-position-y',value);
+
+	//area2번째 영역 컨트롤하기
+	if(value > areaTop2){
+		$('.area2').css('background-position-y',value - areaTop2);
+	}else{
+		$('.area2').css('background-position-y',top)
+	}
+     //area3번째 영역 컨트롤하기
+	if(value > areaTop3){
+		$('.area3').css('background-position-y',(value - areaTop3) * 2);
+	}else{
+		$('.area3').css('background-position-y',top)
+	}
+	});
+  });
+</script>
+</head>
+<body>
+	<p id="scrollValue">dd </p>
+<div id="wrap">
+		<div class="area"></div>
+		<div class="area2"></div>
+		<div class="area3"></div>
+		<div class="area4"></div>
+		
+</div>
+
+
+
+
+
+</body>
+
+
+</html>
