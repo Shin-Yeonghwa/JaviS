@@ -1,0 +1,27 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8" />
+<title>제이쿼리</title>
+<script type="text/javascript" src="http://code.jquery.com/jquery-2.1.0.min.js" ></script>
+<script type="text/javascript">
+$(function(){
+	$('.hello').animate({
+		top:100,
+		left:200
+	},function(){
+		$('.hello').animate({
+			top:0,
+			left:0
+		})
+	});
+});
+</script>
+<style type="text/css">
+.hello{width:100px; height:50px; background:pink; position:absolute; top:50px; left:50px}
+</style>
+</head>
+<body>
+<div class="hello"></div>
+</body>
+</html>

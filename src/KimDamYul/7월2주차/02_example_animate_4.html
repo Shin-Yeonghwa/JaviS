@@ -1,0 +1,27 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8" />
+<title>제이쿼리</title>
+<script type="text/javascript" src="http://code.jquery.com/jquery-2.1.0.min.js" ></script>
+<script type="text/javascript">
+	$(document).ready(function () {
+		$('div').each(function (index){
+			//index * 500초 후 animate() 메서드 실행
+			$(this).delay(index * 500).animate({
+				left:500
+			}, 'slow');
+		});		
+	});
+</script>
+<style type="text/css">
+div{width:100px; height:50px; background:pink; position:relative;}
+</style>
+</head>
+<body>
+	<div></div><div></div>
+	<div></div><div></div>
+	<div></div><div></div>
+	<div></div><div></div>
+</body>
+</html>

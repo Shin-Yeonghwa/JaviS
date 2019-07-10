@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>02_이론정리_효과</title>
+    </head>
+    <body>
+        <H1>jQuery 효과</H1>
+		jQuery 라이브러리를 사용하면 손쉽게 문서 객체에 효과를 줄 수 있습니다.<BR> CSS3로 애니메이션 효과를 적용하면 성능은 좋지만 구 버전의 인터넷 익스플로러에서는 작동하지 않습니다. 
+        <H2>효과 메소드</H2>
+        show(속도) - 문서 객체를 크게 하면서 표시<br>
+        hide(속도) - 문서 객체를 작게 하면서 표시<br>
+        toggle(속도) - show() 메소드와 hide() 메소드를 번갈아 실행 <br>
+        slideDown(속도) - 문서 객체를 슬라이드 효과와 함께 보여 표시 <br>
+        slideUp(속도) - 문서 객체를 슬라이드 효과와 함께 사라지게 함 <br>
+        slideToggle(속도) - slideDown() 메소드와 slideUp() 메소드를 번갈아 실행  <br>
+        fadeln(속도) - 문서 객체를 선명하게 하면서 표시  <br>
+        fadeOut(속도) - 문서 객체를 흐리게 하면서 사라지게 함  <br>
+        fadeToggle(속도) - fadeln() 메소드와 fadeOut() 메소드를 번갈아 실행 <br><br>
+        * 속도를 입력하지 않으면 기본값인 500 밀리초가 적용. <br>
+        (밀리초 숫자나 slow(600밀리초), normal(500밀리초), fast(400밀리초))<BR><bR>
+        <h2>innerfade 플러그인(<a href="./01_example_innerfade.html">01_example_innerfade.html</a>)</h2>
+        innerfade 플러그인(화면전환효과): http://medienfreunde.com/lab/innerfade 다운로드<br>
+        innerfade 플러그인은 ul태그에 적용하는 플러그인, 내부의 li를 자동으로 전환한다.<br><br>
+        <h3>innerfade() 매서드 옵션</h3>
+        animationtype = 내용물의 변경 효과 - 'fade','slide'<br>
+        speed = 내용물의 변경 속도 - 'slow', 'normal', 'fast', 숫자<br>
+        timeout = 변경 효과가 적용되는 속도 - 숫자<br>
+        type = 내용물의 변경 방식 - 'sequence', 'random', 'random_start'<br>
+        containerheight = 내용물의 높이 - 'auto', 숫자<br><br>
+
+        <h2>사용자 정의 효과 - animate()(<a href="./02_example_animate.html">02_example_animate.html</a>)</h2>
+        animate() 메서드는 첫 번째 매개변수에 객체가 들어간다는 것을 제외하면<br>저수준의 시각 효과 메서드와 같은 매개변수 이다.<br><br>
+        메서드의 원형 : $(선택자).animate(스타일 [,지속시간] [,시간당속도함수] [,콜백 함수]);
+        첫번째 매개변수인 객체에 입력할 수 있는 속성은 아래와같다. <br>
+        - opacity<br>- height<br>- top<br>- width<br>- left<br>- margin<br>- right<br>- padding<br>- bottom<br><br>
+        <h2>animate() - 상대적 애니메이션(<a href="./02_example_animate_2.html">02_example_animate_2.html</a>)</h2>
+        += 연산자나 -= 연산자를 사용하여 상대적 속성 변경 가능<br>
+        
+        <h2>animate() - 애니메이션 큐</h2>
+        jquery의 효과 메서드는 계속 누적된다.<br>
+        누적된 효과 명령은 큐(queue)에 누적된다.<br>
+        큐에 있는 내용을 제거하고 싶으면 clearQueue() 메서드를 사용한다.<br>
+        ex)
+        <pre>
+        $(document).ready(function () {<br>
+            $('div').animate({ left: '+=60' }, 2000);   <br>
+            $('div').animate({ width: '+=60' }, 2000);  <br> 
+            $('div').animate({ height: '+=60' }, 2000);  <br> 
+            //3초후에 함수를 실행<br>
+            setTimeout(function (){<br>
+               //애니메이션 큐 제거<br>
+                $('div').clearQueue();<br>
+                //효과메서드 사용<br>
+                $('div').hide();<br>
+            })<br>
+        });      <br>  
+        </pre>
+        <h2>animate() - 애니메이션 정지(<a href="./02_example_animate_3.html">02_example_animate_3.html</a>)</h2>  
+        애니메이션을 정지하고 싶으면 stop() 메서드를 사용한다.<br>
+        <h3>stop() 매서드의 사용형태</h3>
+        1. $(selector).stop(); - 입력하지 않을 시 자동으로 false 입력한것으로 간주<br>
+        2. $(selector).stop(clearQueue);<br>
+        3. $(selector).stop(clearQueue,goToEnd);<br>
+        <br>
+        <h2>animate() - 애니메이션 지연(<a href="./02_example_animate_4.html">02_example_animate_4.html</a>)</h2>  
+        애니메이션을 지연 시 delay() 메서드를 사용한다.
+    </body>
+
+<body>
+
+
+</body>
+</html>
+
+

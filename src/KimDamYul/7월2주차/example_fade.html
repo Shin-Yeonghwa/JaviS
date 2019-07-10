@@ -1,0 +1,31 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8" />
+<title>제이쿼리</title>
+<script type="text/javascript" src="http://code.jquery.com/jquery-3.2.0.min.js" ></script>
+<script type="text/javascript">
+$(function(){
+  var ex_show_3000 = $('.ex_show_3000');
+  var ex_hide_fast = $('.ex_hide_fast');
+  var ex_box_3f = $('.ex_box_3f');
+  ex_show_3000.click(function(){
+    ex_box_3f.fadeIn(3000);
+  });
+  ex_hide_fast.click(function(){
+    ex_box_3f.fadeOut('fast');
+  });
+});
+</script>
+<style type="text/css">
+.ex_show_3000{float:left;margin-right:20px;cursor:pointer}
+.ex_hide_fast{float:left;cursor:pointer}
+.ex_box_3f{clear:both; float:left; width:100px; height:50px; background-color:yellow; border:1px solid skyblue; margin:50px;border-radius:10px}
+</style>
+</head>
+<body>
+<b class="ex_show_3000">show click!!</b>
+<b class="ex_hide_fast">hide click!!</b>
+<div class="ex_box_3f"></div>
+</body>
+</html>

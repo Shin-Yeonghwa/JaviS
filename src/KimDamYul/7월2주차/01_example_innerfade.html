@@ -1,0 +1,28 @@
+<html><head><meta charset="utf-8"/>
+<style>
+* {margin:0px; padding:0px;}
+ul { list-style:none; }
+img { width:200px; height:150px;"}
+</style>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+<!--  플러그인은 jquery.js 다음에 -->
+<script src="./js/jquery.innerfade.js"></script> 
+<script type="text/javascript">
+$(document).ready(function() {
+//inner fade plugin 적용, ul태그를 대상으로,innerfade 메소드의 첫매개변수에는 객체입력
+$("#innerfade").innerfade({
+animationtype: 'fade', <!-- 내용의변경효과 slide, fade -->
+speed: 750,
+timeout:2000, <!-- 변경효과 적용되는 속도 -->
+type:'random', <!-- 내용변경방식, auto, 숫자 -->
+containerheight:'200px'
+});     });
+</script>
+<body>  
+<ul id="innerfade">
+<li><img src="http://dev.ui.naver.com/tmp/?100x100_man"/></li>
+<li><img src="http://dev.ui.naver.com/tmp/?105x105_default_y_FF0000_50"/></li>
+<li><img src="http://dev.ui.naver.com/tmp/?105x105_default_y_F9CB9C_50"/></li>
+</ul>
+</body>
+</html>

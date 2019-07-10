@@ -1,0 +1,216 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<title>자판기</title>
+<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
+<script type="text/javascript" src="automachine.js"></script>
+<style type="text/css"> 
+body,p,h1,h2,h3,h4,h5,h6,menu,ul,ol,li,dl,dt,dd,table,th,td,form,fieldset,legend,input,textarea,button,select{margin:0;padding:0}
+body,input,textarea,select,button,table{font-family:'나눔고딕',NanumGothic,'돋움',Dotum,AppleGothic,sans-serif;font-size:12px}
+img,fieldset{border:0}
+menu,ul,ol{list-style:none}
+em,address{font-style:normal}
+a{text-decoration:none}
+
+.wrap{position:relative;overflow:hidden;width:438px;margin:50px auto 0}
+.sct_product{position:relative;overflow:hidden;border:1px solid #666;padding:3px}
+.sct_product .lst_drink>li{position:relative;float:left;overflow:hidden;text-align:center;margin-right:10px}
+.sct_product .lst_drink>li:nth-child(n+5){margin-top:10px}
+.sct_product .lst_drink>li:nth-child(4n){margin-right:0}
+.sct_product .lst_drink>li:nth-child(4n+1){clear:both}
+.sct_product .lst_drink .btn_drink{display:block;width:100px;padding:15px 0;background:#eee;color:#999}
+.sct_product .lst_drink .btn_drink:hover{color:#eee;background:#999}
+.sct_product .lst_drink .btn_drink>span{display:block}
+.sct_product .lst_drink .btn_drink>em{font-weight:bold}
+.sct_product .lst_drink .btn_drink.soldout{background:#000;color:#666}
+.sct_product .lst_drink .btn_drink.soldout+span{position:absolute;top:0;left:0;text-align:center;width:100px;color:#fff;height:100%;line-height:53px;z-index:10;}
+.sct_coin{position:relative;overflow:hidden;border:1px solid #666;border-top:0;padding:3px} 
+.sct_coin .lst_coin{overflow:hidden}
+.sct_coin .lst_coin>li{float:left}
+.sct_coin .lst_coin>li:nth-child(odd){clear:both}
+.sct_coin .lst_coin .btn_coin{position:relative;display:block;border:1px solid #000;border-radius:30px;width:50px;height:50px;line-height:50px;text-align:center;color:#000;background:#fff}
+.sct_coin .lst_coin .btn_coin:hover{color:#fff;background:#000}
+
+.sct_coin .lst_my{overflow:hidden;clear:both;position:absolute;top:10px;left:250px}
+.sct_coin .lst_my dt{float:left;width:100px;margin-bottom:5px}
+.sct_coin .lst_my dd{text-align:right;margin-bottom:15px}
+.sct_coin .lst_my dt,.sct_coin .lst_my dd{font-size:14px}
+.sct_coin .btn_return{display:block;position:absolute;top:0;right:0;padding:10px;color:#fff;background:#999}
+.sct_console{position:relative;overflow-y:auto;border:1px solid #666;border-top:0;padding:3px;height:60px}  
+</style>
+</head>
+<body>
+<div class="wrap">
+    <div class="sct_product">
+        <ul class="lst_drink">
+        </ul>
+    </div>
+    <div class="sct_coin">
+        <ul class="lst_coin">
+            <li><a href="#" class="btn_coin" data-coin="50">50원</a></li>
+            <li><a href="#" class="btn_coin" data-coin="100">100원</a></li>
+            <li><a href="#" class="btn_coin" data-coin="500">500원</a></li>
+            <li><a href="#" class="btn_coin" data-coin="1000">1000원</a></li>
+        </ul>
+        <dl class="lst_my">
+        <dt>insert coin,plz</dt>
+        <dd>0원</dd>
+        <dt>내 지갑</dt>
+        <dd>0원</dd>
+        </dl>
+        <a href="#" class="btn_return">반환</a>
+    </div>
+    <div class="sct_console">
+        <div class="txt_bx">
+            <p>자판기 판매 시작!!!</p>
+        </div>
+    </div>
+</div>
+<script>
+// 음료수 종류
+var drink_kind = ['펩시','맥콜','망고','물','환타','식혜','비타','봉봉','사이다','맥스웰','칸타타','컨디션','감귤','알로에','헛개수','율무차'];
+
+// 자판기 객체
+function automacine(drink){
+    this.maxdrink = 8; // 자판기에 전시되는 음료갯수
+    this.min_price=100; // 최소 가격
+    this.max_price=800; // 최대 가격
+    this.mypoket=10000; // 내지갑
+    this.i_coin=0; // 투입된 동전
+    this.drink_info = make_drink(this.maxdrink, drink_kind, this.min_price, this.max_price); // 음료수 객체 생성
+}
+
+// 최소/최대 가격으로 랜덤하게 가격 책정
+function rand_price(min_price, max_price, maxdrink) {
+    var chk_price=[]; // 가격정보가 저장될 배열
+    
+    for(var i=0;i<maxdrink;i++) {  // 자판기 음료갯수만큼 반복
+        var rand = (Math.floor(Math.random()*maxdrink)+1)*100;  // 100~800 까지의 난수 발생
+        chk_price[i]=rand; // 가격정보 저장
+    }
+    return chk_price; // 음료가격 리턴
+}
+
+// 판매할 음료수 종류 결정
+function rand_name(drink, maxdrink) {
+    var chk_drink=[]; // 음료 이름이 저장될 배열
+
+    for(var i=0;i<maxdrink;i++) { // 자판기 음료갯수만큼 반복
+        var chk=false; // 동일한 음료 체크를 위한 변수
+        do {
+            chk=false;
+            var rand = Math.floor(Math.random()*drink_kind.length); /// drink_kind의 크기만큼 난수 발생
+            for(var j in chk_drink) { // 현재 저장된 음료갯수만큼 반복
+                if(chk_drink[j] == drink[rand]) { // 자판기 음료수에 난수로 선택된 음료수가 있는지 확인
+                    chk=true;                     // 동일한 이름이 있다면 다시 반복
+                    break;
+                }
+            }
+        } while(chk);
+        chk_drink[i] = drink[rand]; // 동일한 이름이 없다면 난수로 선택된 음료를 자판기 음료수에 저장
+    }
+    return chk_drink;
+}
+
+// 랜덤하게 생성된 음료수와 가격을 매칭시켜 음료수 객체를 만듬
+function make_drink(maxdrink, drink,min_price, max_price) {
+    var drink_name = rand_name(drink, maxdrink); // 랜덤하게 선택된 음료이름 배열
+    var drink_price =  rand_price(min_price, max_price, maxdrink); // 랜덤하게 생성된 가격 배열
+    var drink_info = []; // 음료의 정보가 들어갈 객체
+
+    for(var i=0;i<maxdrink;i++) {
+        var rand = Math.floor(Math.random()*3)+1; /// 음료수 재고 랜덤발생
+        drink_info[i] = { name : drink_name[i], price : drink_price[i], cnt : rand }; //음료객체에 이름,가격,재고 정보를 저장
+    }
+    
+    return drink_info;
+}
+
+function init_automachine(mech) {
+    refresh_machine(mech); // 지갑과 동전의 값 리플래쉬
+    
+    // 진열대 생성
+    for(var i=0;i<mech.maxdrink;i++) {
+        $('.lst_drink').append('<li><a href="#" class="btn_drink"><span>'+mech.drink_info[i].name+'</span><em>'+mech.drink_info[i].price+'원</em></a></li>');
+    }
+}
+
+// 지갑과 코인의 값 리플래쉬
+function refresh_machine(mech) {
+    $('.lst_my>dd:nth-child(2)').text(mech.i_coin+'원'); // 코인 초기값 입력
+    $('.lst_my>dd:nth-child(4)').text(mech.mypoket+'원'); // 지갑 초기값 입력
+}
+
+// 콘솔 영역에 메세지 표시
+function ins_message(msg) {
+    $('.txt_bx').append('<p>'+msg+'</p>');// html형식 텍스트를 추가
+    $('.sct_console').scrollTop($('.txt_bx').height()); // div.txt_bx의 높이를 계산해서 스크롤바를 항상 하단으로 내림
+}
+
+$(document).ready(function(){
+    var machine1 = new automacine(drink_kind);
+    
+    init_automachine(machine1); // 자판기 초기화
+
+    // 음료 선택
+    $('.btn_drink').on('mousedown', function(event){
+        var drink_num = $('.btn_drink').index(this); // 어떤 음료를 선택했는지
+        
+        // 동전이 부족할 경우
+        if(machine1.i_coin-machine1.drink_info[drink_num].price < 0) { // 투입된 동전이 모자를 경우
+            ins_message('동전 부족');   
+        }
+        else if(machine1.drink_info[drink_num].cnt <= 0){ // 재고가 부족할 경우
+            ins_message('재고 부족');   
+        }
+        else {
+            machine1.i_coin-=machine1.drink_info[drink_num].price; // 가격만큼 코인에서 뻄
+            machine1.drink_info[drink_num].cnt-=1;  // 재고에서 하나 뺌
+            
+            // 재고가 0이 되었으면 sold out 표시
+            if(machine1.drink_info[drink_num].cnt <= 0) {
+                $(this).addClass('soldout'); // 음료수 버튼에 soldout 클래스 추가
+                $(this).after('<span>sold out</span>'); // a태그 뒤에 span 추가
+                ins_message(machine1.drink_info[drink_num].name+' 음료가 품절됨');    
+            }
+            refresh_machine(machine1); // 동전/내지갑 정보 새로고침
+            ins_message(machine1.drink_info[drink_num].name+' 선택('+machine1.drink_info[drink_num].cnt+')'); 
+        }
+    });
+    
+    
+    // 동전 투입
+    $('.btn_coin').on('mousedown', function(event) {
+        var coin_value = Number($(this).attr('data-coin')); // 어떤 동전을 넣었는지 확인(문자열을 숫자로 변환)
+        
+        
+        if(machine1.mypoket-coin_value < 0) { // 지갑에 돈이 모자를 경우
+            ins_message('지갑에 돈이 모자름');  
+        }
+        else {
+            machine1.i_coin+=coin_value; // 선택한 동전만큼 자판기 동전 추가
+            machine1.mypoket-=coin_value;  // 지갑에서 금액을 뺌에서 하나 뺌
+            ins_message(coin_value+'원 투입'); 
+        }
+        
+        refresh_machine(machine1); // 동전/내지갑 정보 새로고침
+    });
+    
+    // 반환 버튼
+    $('.btn_return').on('mousedown', function(event) {
+        if(machine1.i_coin <= 0) { // 투입된 동전이 없으면
+            ins_message('투입된 동전이 없음');  
+        }
+        else { // 동전이 있으면
+            machine1.mypoket+=machine1.i_coin; // 지갑에 동전을 더함
+            machine1.i_coin=0; // 투입동전은 0으로 초기화
+            ins_message('동전을 반환 받음');   
+        }
+        refresh_machine(machine1); // 동전/내지갑 정보 새로고침
+    });
+});    
+    
+</script>
+</body>
+</html>
