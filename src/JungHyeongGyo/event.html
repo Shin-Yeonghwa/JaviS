@@ -1,0 +1,399 @@
+<!DOCTYPE html>
+<html>
+    <body style="width: 1000px;margin: 0 auto;background: #f2f2f2">
+        <h1>이벤트</h1>
+        <p style="font-size: 16px">이벤트란 키보드를 이용해 버튼을 입력하거나 <br>
+                마우스 클릭과 같이 다른것에 영향을 미치는것을 의미한다</p>
+
+                <br>
+                 <h2>이벤트 용어 정리</h2>
+
+                 <div class="txc-textbox" style="border: 1px solid rgb(193, 193, 193); background-color: rgb(238, 238, 238); padding: 10px;"><pre><p><font face="Verdana"><font color="#000099">&lt;script </font><font color="#000099">type</font><font color="#000099">=</font><font color="#cc0000">"text/javascript"</font><font color="#000099">&gt;</font>
+        <font color="#000099">window</font><font color="#000000">.onload = </font><font color="#000099">function</font><font color="#000000">() {};</font>
+<font color="#000099">&lt;/script&gt;</font></font>
+                </p></pre></div>
+                <ul>
+                    <li>이벤트 연결 :&nbsp;window 객체의 onload 속성에 함수 자료형을 할당하는 것</li>
+                    <li>이벤트 이름(타입) : load</li>
+                    <li>이벤트 속성 : onload</li>
+                    <li>이벤트 리스너(핸들러) : 이벤트 속성에 할당한 함수</li>
+                    <li>이벤트 모델 : 문서 객체에 이벤트를 연결하는 방법</li>
+                </ul>
+                <br>
+                <h2>
+                        이벤트의 종류</h2>
+                        <ul style="line-height: 1.5">
+                            <dt>마우스 이벤트</dt>
+                            <dd>click (onclick) : 마우스 클릭</dd>
+                            <dd>mouseover (onmouseover) : 마우스 포인터가 요소 위에 올라감</dd>
+                            <dd>mouseout (onmouseout) : 마우스 포인터가 요소 밖으로 벗어남</dd>
+                            <br>
+                            <dt>키보드 이벤트</dt>
+                            <dd>keydown (onkeydown) : 키보드 버튼 누름</dd>
+                            <dd>keyup (onkeyup) : 키보드 버튼 뗌</dd>
+                            <br>
+                            <dt>HTML 프레임 이벤트</dt>
+                            <dd>load (onload)  : HTML 문서 및 추가 자원(이미지 등)들을 모두 불러왔을 때 발생</dd>
+                            <dd>resize (onresize) : 요소 크기의 변동시</dd>
+                            <dd>scroll (onscroll) : 페이지 스크롤 이동 </dd>
+                            <br>
+                            <dt>HTML 입력양식 이벤트</dt>
+                            <dd>submit (onsubmit)</dd>
+                            <dd>reset (onrest)</dd>
+                            <dd>focus (onfocus)</dd>
+                            <dd>blur (onblur) : 다른 영역 선택</dd>
+                            <br>
+                            <dt>유저 인터페이스 이벤트</dt>
+                            <dt>구조 변화 이벤트</dt>
+                            <dt>터치 이벤트</dt>
+                        </ul>
+                        <br>
+
+
+                        <table border="1" cellspacing="0" cellpadding="3">
+                                <tbody>
+                                <tr>
+                                <td><strong>이벤트</strong></td>
+                                <td><strong>발생</strong></td></tr>
+                                <tr>
+                                <td>onabort</td>
+                                <td>이미지 로딩에서 이탈하였을 때(다른 연결로 이동)</td></tr>
+                                <tr>
+                                <td>onactivate</td>
+                                <td>개체의 activeElement 속성을 설정하였을 때</td></tr>
+                                <tr>
+                                <td>onafterprint</td>
+                                <td>관련된 문서를 인쇄하거나 인쇄 미리보기를 후 즉시</td></tr>
+                                <tr>
+                                <td>onafterupdate</td>
+                                <td>데이터 원본이 있는 개체가 성공적으로 업데이트되면</td></tr>
+                                <tr>
+                                <td>onbeforeactivate</td>
+                                <td>개체의 activeElement 속성이 설정되기 바로 전에</td></tr>
+                                <tr>
+                                <td>onbeforecopy</td>
+                                <td>선택된 내용이 시스템 클립보드(clipboard)로 복사하기 바로 전에</td></tr>
+                                <tr>
+                                <td>onbeforecut</td>
+                                <td>선택된 내용이 시스템 클립보드(clipboard)로 잘라내기 바로 전에</td></tr>
+                                <tr>
+                                <td>onbeforedeactivate</td>
+                                <td>activeElement가 다른 개체로 이동하기 바로 전에</td></tr>
+                                <tr>
+                                <td>onbeforeeditfocus</td>
+                                <td>편집할 수 있는 용기 개체의 제어가 선택되기 바로 전에</td></tr>
+                                <tr>
+                                <td>onbeforepaste</td>
+                                <td>시스템 클립보드로부터 데이터를 붙여넣기하기 바로 전에</td></tr>
+                                <tr>
+                                <td>onbeforeprint</td>
+                                <td>관련된 문서를 인쇄하거나 인쇄 미리보기하기 바로 전에</td></tr>
+                                <tr>
+                                <td>onbeforeunload</td>
+                                <td>페이지가 언로드되기 바로 전에</td></tr>
+                                <tr>
+                                <td>onbeforeupdate</td>
+                                <td>연관된 데이터가 업데이트되기 바로 전에</td></tr>
+                                <tr>
+                                <td>onbegin</td>
+                                <td>이벤트에서 시간이 시작되면 엘레멘트에 발생된다.</td></tr>
+                                <tr>
+                                <td>onblur</td>
+                                <td>마우스나 탭에 의한 항해로 개체가 초점(포커스)을 상실 했을 때</td></tr>
+                                <tr>
+                                <td>onbounce</td>
+                                <td>내용이 개체의 한쪽 한계선에 도달하였을 때</td></tr>
+                                <tr>
+                                <td>oncellchange</td>
+                                <td>데이터 제공자에서 데이터의 내용이 변경되었을 때</td></tr>
+                                <tr>
+                                <td>onchange</td>
+                                <td>입력폼의 필드 내용이 변경되고 초점을 상실했을 때 발생</td></tr>
+                                <tr>
+                                <td>onchange</td>
+                                <td>colorpick 비헤이버에서 색상이 변경되면 발생된다.</td></tr>
+                                <tr>
+                                <td>onclick</td>
+                                <td>왼쪽 마우스가 개체 위를 클릭하였을 때</td></tr>
+                                <tr>
+                                <td>oncontentready</td>
+                                <td>비헤이버 첨부된 엘레멘트의 내용이 파싱(parse) 완료되면 발생</td></tr>
+                                <tr>
+                                <td>oncontentsave</td>
+                                <td>비헤이버 첨부된 엘레멘트의 내용이 저장이나 복사되기 전에 발생</td></tr>
+                                <tr>
+                                <td>oncontextmenu</td>
+                                <td>사용자 지역에서 오른쪽 마우스를 클릭하였을 때</td></tr>
+                                <tr>
+                                <td>oncontrolselect</td>
+                                <td>사용자가 개체의 제어(control) 선택들 하려고 할 때</td></tr>
+                                <tr>
+                                <td>oncopy</td>
+                                <td>선택된 내용이 시스템 클립보드(clipboard)로 복사하기 하였을 때</td></tr>
+                                <tr>
+                                <td>oncut</td>
+                                <td>선택된 내용이 시스템 클립보드(clipboard)로 잘라내기 하였을 때</td></tr>
+                                <tr>
+                                <td>ondataavailable</td>
+                                <td>데이터 원천 개체로 부터 데이터가 도착하면 주기적으로 발생</td></tr>
+                                <tr>
+                                <td>ondatasetchanged</td>
+                                <td>데이터 원천 개체의 변경에 의한 감지가 있을 때</td></tr>
+                                <tr>
+                                <td>ondatasetcomplete</td>
+                                <td>데이터 원천 개체로부터 모든 데이터를 받아 사용할 수 있을 때</td></tr>
+                                <tr>
+                                <td>ondatasetcomplete</td>
+                                <td>dataselect 비헤이버가 select의 내용을 차지하였을 때 발행</td></tr>
+                                <tr>
+                                <td>ondblclick</td>
+                                <td>마우스가 개체 위를 두번 클릭하였을 때</td></tr>
+                                <tr>
+                                <td>ondeactivate</td>
+                                <td>activeElement가 현재의 개체에서 다른 개체로 이동하였을 때</td></tr>
+                                <tr>
+                                <td>ondetach</td>
+                                <td>엘레멘트에서 첨부된 비헤이버가 제거되기 바로전에 발생</td></tr>
+                                <tr>
+                                <td>ondocumentready</td>
+                                <td>비헤이버를 포함하는 문서가 파싱(parse)을 완료되었을 때 발생</td></tr>
+                                <tr>
+                                <td>ondrag</td>
+                                <td>마우스를 눌러 끄는 동안 계속해서 원본 개체에 발생</td></tr>
+                                <tr>
+                                <td>ondragdrop</td>
+                                <td>NS 화일등의 개체를 창에 드롭다운 시켰을 때</td></tr>
+                                <tr>
+                                <td>ondragend</td>
+                                <td>마우스를 눌러 끄는 동안 계속해서 원본 개체에 발생</td></tr>
+                                <tr>
+                                <td>ondragenter</td>
+                                <td>사용자가 드래그하는 개체를 유효한 목표 드롭에서 놓았을 때</td></tr>
+                                <tr>
+                                <td>ondragleave</td>
+                                <td>드래그하는 마우스를 유효한 목표에서 놓지 않고 이탈했을 때</td></tr>
+                                <tr>
+                                <td>ondragover</td>
+                                <td>유효한 목표 위에서 드래그하는 동안 연속적으로 발생</td></tr>
+                                <tr>
+                                <td>ondragstart</td>
+                                <td>개체를 왼쪽 마우스를 누른 상태에서 드래그를 시작하면</td></tr>
+                                <tr>
+                                <td>ondrop</td>
+                                <td>드래그드롭 작업 중 마우스단추를 놓았을 때</td></tr>
+                                <tr>
+                                <td>onend</td>
+                                <td>엘레멘트에서 시간이 중지되면 발생</td></tr>
+                                <tr>
+                                <td>onerror</td>
+                                <td>런다임 오류가 발생하였을 때</td></tr>
+                                <tr>
+                                <td>onerror</td>
+                                <td>무효한 속성값을 할당하거나 읽기전용에 할당하면 발생</td></tr>
+                                <tr>
+                                <td>onerror</td>
+                                <td>무효한 속성값을 할당하거나 읽기전용에 할당하면 발생</td></tr>
+                                <tr>
+                                <td>onerror</td>
+                                <td>속성에 무효한 값을 할당하거나 읽기전용에 할당할 때 발생</td></tr>
+                                <tr>
+                                <td>onerrorupdate</td>
+                                <td>관련된 데이터가 업데이트되는 동안에 오류가 발생되면 발생</td></tr>
+                                <tr>
+                                <td>onfilterchange</td>
+                                <td>스타일 필터가 변경되거나 변환을 완료하면 발생</td></tr>
+                                <tr>
+                                <td>onfinish</td>
+                                <td>마퀴(MARQUEE)의 루프가 완료되면 발생</td></tr>
+                                <tr>
+                                <td>onfocus</td>
+                                <td>마우스나 탭에 의한 항해로개체에 초점(포커스)이 주어 졌을 때</td></tr>
+                                <tr>
+                                <td>onfocusin</td>
+                                <td>엘레멘트가 초점을 받았을 때</td></tr>
+                                <tr>
+                                <td>onfocusout</td>
+                                <td>엘레멘트가 초점을 잃었을 때</td></tr>
+                                <tr>
+                                <td>onhelp</td>
+                                <td>활성 윈도우에서 도움말을 위하여 F1 키를 누르면 발생</td></tr>
+                                <tr>
+                                <td>onhide</td>
+                                <td>메디어 플레이어가 감춰지면 발생된다.</td></tr>
+                                <tr>
+                                <td>onkeydown</td>
+                                <td>키를 개체 위에서 눌렀을 때 발생</td></tr>
+                                <tr>
+                                <td>onkeypress</td>
+                                <td>키(key)를 개체 위에서 눌렀다 놓았을 때 발생</td></tr>
+                                <tr>
+                                <td>onkeyup</td>
+                                <td>키를 개체 위에서 놓았을 때 발생</td></tr>
+                                <tr>
+                                <td>onlayoutcomplete</td>
+                                <td>채워넣기가 끝나고 인쇄하거나 인쇄미리보기를 실행하면 발생</td></tr>
+                                <tr>
+                                <td>onload</td>
+                                <td>개체를 로딩이 다 되었을 때</td></tr>
+                                <tr>
+                                <td>onload</td>
+                                <td>문서를 다시 로딩할 때 원래의 엘레멘트에서 발생</td></tr>
+                                <tr>
+                                <td>onlosecapture</td>
+                                <td>마우스에 의한 캡쳐(capture)가 상실되었을 때 발생</td></tr>
+                                <tr>
+                                <td>onmediacomplete</td>
+                                <td>메디어와 연관된 엘레멘트의 로딩이 완료되면 발생</td></tr>
+                                <tr>
+                                <td>onmediaerror</td>
+                                <td>엘레멘트의 메디어 파일의 로딩이 실패되었을 때 발생</td></tr>
+                                <tr>
+                                <td>onmedialoadfailed</td>
+                                <td>(불량)엘레멘트의 메디어 파일의 로딩이 실패되었을 때 발생</td></tr>
+                                <tr>
+                                <td>onmousedown</td>
+                                <td>마우스가 개체 위를 눌렀을 때 발생</td></tr>
+                                <tr>
+                                <td>onmouseenter</td>
+                                <td>사용자가 마우스포인터로 개체 위에 들어갔을 때 발생</td></tr>
+                                <tr>
+                                <td>onmouseleave</td>
+                                <td>마우스포인터가 개체의 범위 밖으로 이동하면 발생</td></tr>
+                                <tr>
+                                <td>onmousemove</td>
+                                <td>마우스가 개체 위에서 이동하였을 때</td></tr>
+                                <tr>
+                                <td>onmouseout</td>
+                                <td>마우스가 개체 위에서 이탈하였을 때</td></tr>
+                                <tr>
+                                <td>onmouseover</td>
+                                <td>마우스가 개체 위로 이동하였을 때</td></tr>
+                                <tr>
+                                <td>onmouseup</td>
+                                <td>마우스가 개체 위 누른 것을 해제하였을 때</td></tr>
+                                <tr>
+                                <td>onmousewheel</td>
+                                <td>마우스 굴림단추가 개체 위에서 회전할 때 발생</td></tr>
+                                <tr>
+                                <td>onmove</td>
+                                <td>사용자나 스크립트로 창의 위치를 이동하였을 때</td></tr>
+                                <tr>
+                                <td>onmoveend</td>
+                                <td>편집할 수 있는 개체의 이동이 중지되었을 때 발생</td></tr>
+                                <tr>
+                                <td>onmovestart</td>
+                                <td>개체를 이동하기 시작하면 발생</td></tr>
+                                <tr>
+                                <td>onopenstatechange</td>
+                                <td>메디어바 플레이어의 열린 상태가 변경될 때 발생</td></tr>
+                                <tr>
+                                <td>onoutofsync</td>
+                                <td>엘레렌트가 연관된 시간과의 동기성을 상실하면 발생</td></tr>
+                                <tr>
+                                <td>onpaste</td>
+                                <td>시스템 클립보드(clipboard)로부터 데이터를 붙여넣기하였을 때</td></tr>
+                                <tr>
+                                <td>onpause</td>
+                                <td>엘레멘트의 시간이 일시중지(pause)하면 발생</td></tr>
+                                <tr>
+                                <td>onplaystatechange</td>
+                                <td>메디어바 플레이어에서 그 연주 상태가 변경되었을 때 발생</td></tr>
+                                <tr>
+                                <td>onpropertychange</td>
+                                <td>개체의 속성을 변경하면 그 개체에 발생</td></tr>
+                                <tr>
+                                <td>onreadystatechange</td>
+                                <td>개체의 상태(state)가 변경되면 발생된다.</td></tr>
+                                <tr>
+                                <td>onrepeat</td>
+                                <td>시간이 엘레멘트에서 반복되거나 다음번 작동이 시작될 때 발생</td></tr>
+                                <tr>
+                                <td>onreset</td>
+                                <td>입력폼이 리셋트(reset) 되었을 때</td></tr>
+                                <tr>
+                                <td>onreset</td>
+                                <td>시간이 begin 값이 되거나 resetElement가 호출되면 발생</td></tr>
+                                <tr>
+                                <td>onresize</td>
+                                <td>사용자나 스크립트로 창의 크기를 조절하였을 때</td></tr>
+                                <tr>
+                                <td>onresizeend</td>
+                                <td>사용자가 제어 선택된 개체의 크기 변경을 완료하면 발생</td></tr>
+                                <tr>
+                                <td>onresizestart</td>
+                                <td>사용자가 제어 선택된 개체의 크기를 변경하기 시작하면 발생</td></tr>
+                                <tr>
+                                <td>onresume</td>
+                                <td>시간개체가 일시중지에서 다시시작으로 회복되면 발생</td></tr>
+                                <tr>
+                                <td>onreverse</td>
+                                <td>엘레멘트에서 시간 개체가 뒤로 플레이되면 발생</td></tr>
+                                <tr>
+                                <td>onrowclick</td>
+                                <td>rowover 비헤이버에서 마우스 커서가 줄을 선택하면 발생</td></tr>
+                                <tr>
+                                <td>onrowenter</td>
+                                <td>줄이 변경되고 개체에 새로운 값이 있음을 나타내기 위하여 발생</td></tr>
+                                <tr>
+                                <td>onrowexit</td>
+                                <td>현재 줄을 변경하기의 위한 데이터 원천 제어 바로 전에 발생</td></tr>
+                                <tr>
+                                <td>onrowout</td>
+                                <td>rowover 비헤이버에서 마우스 커서가 줄에서 나가면 발생</td></tr>
+                                <tr>
+                                <td>onrowover</td>
+                                <td>rowover 비헤이버에서 마우스 커서가 줄에 들어오면 발생</td></tr>
+                                <tr>
+                                <td>onrowsdelete</td>
+                                <td>리코드세트(recordset)에서 줄들이 삭제될 상황이 되면 발생</td></tr>
+                                <tr>
+                                <td>onrowsinserted</td>
+                                <td>현재의 리코드세트에 새로운 줄들이 삽입된 직후에 발생</td></tr>
+                                <tr>
+                                <td>onsave</td>
+                                <td>웹페이지가 저장, 북마크되거나 다른 페이지로 항해해 가면 발생</td></tr>
+                                <tr>
+                                <td>onscroll</td>
+                                <td>스크롤되는 개체에서 스크롤 바의 위치를 변경하였을 때 발생</td></tr>
+                                <tr>
+                                <td>onseek</td>
+                                <td>엘레멘트에서 탐색(seek) 작업이 수행되면 발생</td></tr>
+                                <tr>
+                                <td>onselect</td>
+                                <td>입력폼에서 입력 필드에서 문자열을 선택(select)하였을 때</td></tr>
+                                <tr>
+                                <td>onselectionchange</td>
+                                <td>문서의 선택된 부분의 상태가 변경되었을 때 발생</td></tr>
+                                <tr>
+                                <td>onselectstart</td>
+                                <td>개체가 선택되기 시작하면 발생</td></tr>
+                                <tr>
+                                <td>onshow</td>
+                                <td>메디어바 플레이어가 보이게 되면 발생된다.</td></tr>
+                                <tr>
+                                <td>onstart</td>
+                                <td>MARQUEE 개체에서 반복하는 각 루프가 시작될 때 발생</td></tr>
+                                <tr>
+                                <td>onstop</td>
+                                <td>사용자가 중지 단추를 클릭하거나 웹 페이지를 닫을 때 발생한다</td></tr>
+                                <tr>
+                                <td>onsubmit</td>
+                                <td>입력폼(form)이 송신(submit) 되었을 때</td></tr>
+                                <tr>
+                                <td>onsyncrestored</td>
+                                <td>엘레멘트와 그 관련 시간 사이의 동기화가 회복되면 발생</td></tr>
+                                <tr>
+                                <td>ontimeerror</td>
+                                <td>시간을 지정하는 오류가 일어나면 발생</td></tr>
+                                <tr>
+                                <td>ontrackchange</td>
+                                <td>ASX 파일에서 정의한 playList에서 트랙이 변경되면 발생된다.</td></tr>
+                                <tr>
+                                <td>onunload</td>
+                                <td>사용자가 페이지에서 이탈했을 때</td></tr>
+                                <tr>
+                                <td>onurlflip</td>
+                                <td>+time t:MEDIA 태그에 의해 ASF 파일이 플레이되면 발생 </td></tr></tbody></table>
+    </body>
+</html>
+
