@@ -12,47 +12,47 @@
         <ul>
             <li>
                 <strong>사과주스</strong>
-                <button onclick="BuyDrink(this);">500원</button>
+                <button class="drinkprice" disabled onclick="BuyDrink(this);">500원</button>
             </li>
 
             <li>
                 <strong>딸기주스</strong>
-                <button onclick="BuyDrink(this);">1000원</button>
+                <button class="drinkprice" disabled onclick="BuyDrink(this);">1000원</button>
             </li>
 
             <li>
                 <strong>박카스</strong>
-                <button onclick="BuyDrink(this);">800원</button>
+                <button class="drinkprice" disabled onclick="BuyDrink(this);">800원</button>
             </li>
 
             <li>
                 <strong>아침헛개</strong>
-                <button onclick="BuyDrink(this);">2000원</button>
+                <button class="drinkprice" disabled onclick="BuyDrink(this);">2000원</button>
             </li>
 
             <li>
                 <strong>핫식스</strong>
-                <button onclick="BuyDrink(this);">1200원</button>
+                <button class="drinkprice" disabled onclick="BuyDrink(this);">1200원</button>
             </li>
 
             <li>
                 <strong>초코우유</strong>
-                <button onclick="BuyDrink(this);">500원</button>
+                <button class="drinkprice" disabled onclick="BuyDrink(this);">500원</button>
             </li>
 
             <li>
                 <strong>딸기우유</strong>
-                <button onclick="BuyDrink(this);">500원</button>
+                <button class="drinkprice" disabled onclick="BuyDrink(this);">500원</button>
             </li>
 
             <li>
                 <strong>바나나우유</strong>
-                <button onclick="BuyDrink(this);">700원</button>
+                <button class="drinkprice" disabled onclick="BuyDrink(this);">700원</button>
             </li>
 
             <li>
                 <strong>녹차</strong>
-                <button onclick="BuyDrink(this);">900원</button>
+                <button class="drinkprice" disabled onclick="BuyDrink(this);">900원</button>
             </li>
         </ul>
     </div>
@@ -77,12 +77,13 @@
     <div class="cash_result">
         <strong>투입된 금액</strong>
         <div class="cash_box">
-            <p id="Current_amount">0</p>
+            <p id="Current_amount" onchange="DrinkCheck(this);">0</p>
             <button onclick="ReturnCash();">반환하기</button>
         </div>
     </div>
 
     <div id="Coin_log"></div>
+
 
     <script type="text/javascript" src="js/vending_machine.js"></script>
 </body>
