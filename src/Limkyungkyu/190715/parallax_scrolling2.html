@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Parallax Scrolling Example</title>
+    <style>
+        * {
+            border: 0;
+            padding: 0;
+            margin: 0;
+        }
+
+        div {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            width: 100%;
+            height: 100vh;
+        }
+
+        h2 {
+            font-size: 60px;
+            background: #eee;
+            padding: 8px 24px;
+        }
+
+        div:nth-child(1) {
+            background: url(img/main.jpg);
+            background-size: cover;
+        }
+
+        div:nth-child(2) {
+            background: orangered;
+        }
+
+        div:nth-child(3) {
+            background: url(img/main2.jpg);
+            background-size: cover;
+        }
+
+        div:nth-child(4) {
+            background: green;
+        }
+
+        div:nth-child(5) {
+            background: url(img/main3.jpg);
+            background-size: cover;
+        }
+
+        div:nth-child(6) {
+            background: navy;
+        }
+    </style>
+</head>
+
+<body naver_screen_capture_injected="true">
+
+    <div id="parallax1">
+        <h2>DIV 1</h2>
+    </div>
+    <div>
+        <h2>DIV 2</h2>
+    </div>
+    <div id="parallax2">
+        <h2>DIV 3</h2>
+    </div>
+    <div>
+        <h2>DIV 4</h2>
+    </div>
+    <div id="parallax3">
+        <h2>DIV 5</h2>
+    </div>
+    <div>
+        <h2>DIV 6</h2>
+    </div>
+
+    <script>
+        var parallax1 = document.getElementById("parallax1");
+        var parallax2 = document.getElementById("parallax2");
+        var parallax3 = document.getElementById("parallax3");
+
+        window.addEventListener("scroll", function() {
+            var offset = window.pageYOffset;
+            parallax1.style.backgroundPositionY = offset * 2 + "px";
+            parallax2.style.backgroundPositionY = offset * 4 + "px";
+            parallax3.style.backgroundPositionY = offset * 6 + "px";
+        })
+    </script>
+
+</body><audio src="" id="naver_dic_audio_controller" controls="controls" style="display: none;"></audio>
+
+</html>
