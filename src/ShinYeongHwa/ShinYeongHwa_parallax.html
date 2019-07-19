@@ -1,0 +1,85 @@
+<!doctype html>
+<html lang="ko">
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width,initial-scale=1.0,maximum-scale=1.0,minimum-scale=1.0,user-scalable=no,target-densitydpi=medium-dpi">
+	<meta http-equiv="Content-Script-Type" content="text/javascript">
+	<meta http-equiv="Content-Style-Type" content="text/css">
+	<title>parallax</title>
+	<style type="text/css">
+		body, p, h1, h2, h3, h4, h5, h6, ul, ol, li, dl, dt, dd, table, th, td, form, fieldset, legend, input, textarea, button, select {
+			margin: 0;
+			padding: 0
+		}
+		body {
+			font-family:'나눔고딕',NanumGothic,HelveticaNeue-Light,Helvetica,'돋움',Dotum,AppleGothic,sans-serif;
+			font-size:14px;
+		}
+		ul, ol {
+			list-style: none
+		}
+		em, address {
+			font-style: normal
+		}
+		a, a:hover, a:active, a:focus {
+			text-decoration: none;
+			cursor: pointer
+		}
+		img {
+			border: 0;
+			vertical-align: top
+		}
+		.blind {
+			overflow: hidden !important;
+			position: absolute !important;
+			clip: rect(0 0 0 0) !important;
+			width: 1px !important;
+			height: 1px !important;
+			margin: -1px !important;
+		}
+		section{
+			position:relative;
+			padding:20px;
+		}
+		.sct_spot{
+			height:600px;
+		}
+		.sct_event{
+			height:600px;
+		}
+		.pannel{
+			position:absolute;
+			width:100px;
+			height:100px;
+			background-color:#555;
+		}
+		#log{
+			position:fixed;
+			top:10px;
+			right:10px;	
+		}
+	</style>  
+	
+</head>
+<body>
+	<div class="wrap">
+		<section class="sct_spot">
+			<h1>메인 타이틀</h1>
+			<div class="pannel pn_1" style="top:50px;left:10px;">pannel_1</div>
+			<div class="pannel pn_2"style="top:200px;left:50px;">pannel_1</div>
+			<div class="pannel pn_3"style="top:350px;left:70px;">pannel_1</div>
+		</section>
+		
+		<section class="sct_event">
+			<h2>보조 타이틀</h2>
+			<div class="pannel pn_1" style="top:50px;right:10px;">pannel_1</div>
+			<div class="pannel pn_2"style="top:200px;right:50px;">pannel_1</div>
+			<div class="pannel pn_3"style="top:350px;right:70px;">pannel_1</div>
+		</section>
+		<p id="log"></p>
+	</div>
+	
+	<script type="text/javascript" src="js/ShinYeongHwa_parallax.js"></script>
+</body>
+
+</html>
