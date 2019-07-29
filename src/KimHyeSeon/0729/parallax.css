@@ -1,0 +1,103 @@
+@charset "UTF-8";
+
+html, body, h1 {
+    margin: 0;
+    padding: 0;
+}
+.main_scroll {
+    overflow: scroll;
+    height: 100%;
+}
+
+#title {
+    position: relative;
+    top: 40%;
+    left: 0;
+    padding: 20px 0 0 25px;
+    font-size: 40px;
+    color: #3d406B;
+    opacity:.9;
+}
+
+#title.fixed {
+    position: fixed;
+    top: 0;
+    width: 100%;
+}
+
+.move_down {
+    animation-name: titleDown;
+    animation-duration: 3s;
+    animation-fill-mode: forwards;    
+}
+
+.move_up {
+    animation-name: titleUp;
+    animation-duration: 3s;
+    animation-fill-mode: forwards;
+}
+
+@keyframes titleDown {
+  0%   {top: 40%;color:#3d406B;opacity:.9;}
+  100% {top: 90%;color: #fff;opacity:1;}
+}
+
+@keyframes titleUp {
+  0%   {top: 90%;color: #fff;opacity:1;}
+  100% {top: 40%;color:#3d406B;opacity:.9;}
+}
+
+.bg_parallax {
+    position: relative;
+    height: 100vh;
+    background-attachment: fixed;
+    background-size: cover;
+}
+
+#main {background-image: url(img/bg_main.jpg)}
+#sub {background-image: url(img/bg_sub.jpg)}
+#sub2 {background-image: url(img/bg_sub2.jpg)}
+#sub3 {background-image: url(img/bg_sub3.jpg)}
+#sub4 {background-image: url(img/bg_sub4.jpg)}
+
+#square {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 100px;
+    height: 100px;
+    margin: -50px 0 0 -50px;
+    background-color: #fff;
+}
+
+#square.rotation {
+    animation-name: rotation;
+    animation-duration: 3s;
+    animation-iteration-count: infinite;
+}
+
+@keyframes rotation {
+    0% {transform: rotateZ(0deg);}
+    100% {transform: rotateZ(180deg);}
+}
+
+#nav {
+    position: fixed;
+    top: 50%;
+    right: 20px;
+    transform: translateY(-50%);
+}
+
+#nav li {
+    overflow: hidden;
+    width: 20px;
+    height: 20px;
+    margin: 5px 0;
+    border-radius: 50%;
+    background-color: #fff;
+    list-style: none;
+    color: rgba(0,0,0,.0);
+    line-height: 100px;
+}
+
+#nav .on {background-color: #f2c752;}
