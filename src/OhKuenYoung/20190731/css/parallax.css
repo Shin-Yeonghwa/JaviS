@@ -1,0 +1,117 @@
+@charset "UTF-8";
+
+body {
+    margin: 0;
+    padding: 0;
+    font-family: '굴림',gulim,helvetica,sans-serif;
+    text-align: left;
+    font-size: 13px;
+    color: #000
+}
+
+input,select,textarea {
+    font-family: '굴림',gulim,helvetica,sans-serif;
+    font-size: 13px;
+    color: #000
+}
+
+address,dd,div,dl,dt,em,fieldset,form,h1,h2,h3,h4,iframe,input,li,object,ol,p,select,textarea,ul {
+    margin: 0;
+    padding: 0
+}
+
+fieldset,iframe,img {
+    border: none
+}
+
+iframe {
+    display: block
+}
+
+ol,ul {
+    list-style-type: none
+}
+
+table {
+    clear: both;
+    border-collapse: collapse
+}
+
+address,em {
+    font-style: normal
+}
+
+select {
+    height: 20px;
+    font-size: 12px
+}
+
+#Coin_log {
+    overflow: auto;
+    position: absolute;
+    padding: 20px;
+    top: 0;
+    left: 500px;
+    width: 360px;
+    height: 200px;
+    border: 3px solid #000;
+}
+
+.machine {
+    padding: 0 20px 20px 20px;
+    width: 300px;
+    border: 3px solid #000;
+}
+
+.machine ul {
+    overflow: hidden;
+}
+
+.machine ul li {
+    float: left;
+    margin-top: 20px;
+    width: 100px;
+    text-align: center;
+}
+
+.machine ul li button{
+    display: block;
+    margin: 10px auto 0;
+}
+
+.amount_status {
+    margin-top: 20px;
+}
+
+.cash_list {
+    overflow: hidden;
+    margin-top: 10px;
+}
+
+.cash_list li {
+    float: left;
+}
+
+.cash_list li + li{
+    margin-left: 10px;
+}
+
+.amount_status legend{
+    font-size: 16px;
+    font-weight: bold;
+}
+
+.cash_result {
+    overflow: hidden;
+    margin-top: 10px;
+}
+
+.cash_box {
+    overflow: hidden;
+    margin-top: 10px;
+}
+
+#Current_amount {
+    float: left;
+    margin-right: 20px;
+}
