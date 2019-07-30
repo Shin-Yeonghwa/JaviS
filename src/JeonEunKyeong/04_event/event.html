@@ -1,0 +1,118 @@
+<!doctype html>
+<html>
+<head>
+  <style>
+    body {
+      margin: 0;
+    }
+    .scene {
+      height: 100vh;
+      overflow: hidden;
+      background-attachment: fixed;
+      background-size: cover;
+      font-family: 'Source Sans Pro', sans-serif;
+      font-weight: 200;
+    }
+    .scene.one{
+      background-image: url(img/01.jpg);
+    }
+    .scene.two{
+      background-image: url(img/02.jpg);
+    }
+    .scene.three{
+      background-image: url(img/03.jpg);
+    }
+    .scene header{
+      color:white;
+      max-width: 80%;
+      position: relative;
+      left:50%;
+      top:50%;
+      transform:translateX(-50%) translateY(-50%);
+      font-size:1.5rem;
+      text-align: center;
+    }
+    .scene header h1{
+      font-size:2rem;
+      margin-bottom: 1rem;
+      font-weight: 300;
+    }
+    .scene header h1:after{
+      content:'';
+      border-bottom:1px solid white;
+      width:8rem;
+      display: block;
+      margin:0 auto;
+      margin-top:1rem;
+    }
+    .btn_box{
+      position: fixed;
+      top:50%;
+      right:50px;
+      transform: translateX(-50%) ;
+    }
+    .btn_box button{
+      display: block;
+      width: 20px;
+      height: 20px;
+      background: rgba(0,0,0,.3);
+      border-radius: 100%;
+      outline: none;
+      border:none;
+      margin-bottom: 15px;
+    }
+    .btn_box button:hover,.btn_box button.on{
+      background: rgba(0,0,0,.5);
+    }
+  </style>
+</head>
+ 
+<body>
+  <section class="scene one">
+    <header>
+      <h1>Lorem ipsum dolor sit amet.</h1> Lorem ipsum dolor sit amet, consectetur adipisicing elit. Totam suscipit sint ab beatae nihi
+    </header>
+  </section>
+  <section class="scene two">
+    <header>
+      <h1>Lorem ipsum dolor sit amet.</h1> Lorem ipsum dolor sit amet, consectetur adipisicing elit. Totam suscipit sint ab beatae nihi
+    </header>
+  </section>
+  <section class="scene three">
+    <header>
+      <h1>Lorem ipsum dolor sit amet.</h1> Lorem ipsum dolor sit amet, consectetur adipisicing elit. Totam suscipit sint ab beatae nihi
+    </header>
+  </section>
+  <div class="btn_box">
+      <button class="btn1 on"></button>
+      <button class="btn2"></button>
+      <button class="btn3"></button>
+  </div>
+
+  <script type="text/javascript" src="http://code.jquery.com/jquery-latest.js"></script>
+
+  <script>
+    $(document).ready(function() {
+    $('.btn_box button').bind('click', function() {
+      $('html, body').animate({scrollTop: '0'}, 680);
+      $('.btn_box button').removeClass('on');
+      $(this).addClass('on');
+    });
+    // 애니메이션 효과로 자연스럽게 이동됨, 0.68초
+  
+    $('.btn1').on('click', function() {
+      $('html').animate( { scrollTop : $('.scene.one').offset().top });
+    });
+    $('.btn2').on('click', function() {
+      $('html').animate( { scrollTop : $('.scene.two').offset().top });
+    });
+    $('.btn3').on('click', function() {
+      $('html').animate( { scrollTop : $('.scene.three').offset().top });
+    });
+    // 애니메이션 효과없이 즉시 해당 위치 0 지점으로 이동함
+  });
+  </script>      
+   
+</body>
+ 
+</html>
