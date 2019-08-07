@@ -4,6 +4,7 @@ html, body, h1 {
     margin: 0;
     padding: 0;
 }
+
 .main_scroll {
     overflow: scroll;
     height: 100%;
@@ -47,6 +48,16 @@ html, body, h1 {
   100% {top: 40%;color:#3d406B;opacity:.9;}
 }
 
+#circle {
+    position: absolute;
+    top: 10px;
+    left: 10px;
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;    
+    background-color: #db9e5b;
+}
+
 .bg_parallax {
     position: relative;
     height: 100vh;
@@ -56,18 +67,18 @@ html, body, h1 {
 
 #main {background-image: url(img/bg_main.jpg)}
 #sub {background-image: url(img/bg_sub.jpg)}
-#sub2 {background-image: url(img/bg_sub2.jpg)}
+#sub2 {background-image: url(img/bg_sub2.jpg); background-repeat: repeat; background-position: 0 0;}
 #sub3 {background-image: url(img/bg_sub3.jpg)}
 #sub4 {background-image: url(img/bg_sub4.jpg)}
 
-#square {
+#square, #small_square {
     position: absolute;
     top: 50%;
     left: 50%;
     width: 100px;
     height: 100px;
-    margin: -50px 0 0 -50px;
     background-color: #fff;
+    transform: translate(-50%, -50%);
 }
 
 #square.rotation {
@@ -76,9 +87,32 @@ html, body, h1 {
     animation-iteration-count: infinite;
 }
 
+#small_square {
+    top: 50%;
+    left: 50%;
+    width: 60px;
+    height: 60px;
+    background-color: #9f797a;
+    transform: rotateZ(-45deg)
+}
+#small_square.rotation {
+    animation-name: rotationInner;
+    animation-duration: 2s;
+    animation-iteration-count: infinite;
+}
+
 @keyframes rotation {
-    0% {transform: rotateZ(0deg);}
-    100% {transform: rotateZ(180deg);}
+    0% {width:100px;height:100px;transform: rotateZ(0deg);}
+    50% {width:50px;height:50px;transform: rotateZ(90deg);}
+    100% {width:100px;height:100px;transform: rotateZ(180deg);}
+}
+
+@keyframes rotationInner {
+    0% {left: 50%;transform: rotateZ(-45deg);background-color: #9f797a;}
+    25% {left: 10%;transform: rotateZ(-135deg);background-color: #db9e5b;}
+    50% {left: 50%;transform: rotateZ(-270deg);background-color: #a77e7d;}
+    75% {left: 90%;transform: rotateZ(-135deg);background-color: #db9e5b;}
+    100% {left: 50%;transform: rotateZ(-45deg);background-color: #9f797a;}
 }
 
 #nav {
