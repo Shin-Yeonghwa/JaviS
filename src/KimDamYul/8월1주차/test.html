@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="ko">
+
+<head>
+	<meta charset="utf-8">
+	<title>페럴럭스</title>
+<link rel="stylesheet" href="https://ssl.pstatic.net/sstatic/search/pc/css/search1_190221.css">
+
+<script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+<style type="text/css">
+
+#scrollValue{
+	position:fixed;
+	top:50px;
+	right:40px;
+}
+html,body,#wrap{
+	height:100%;
+}
+#wrap > div{
+height: 100%;
+}
+.area{
+	background:url(./img/img1.jpg) 50% 0 no-repeat ;    background-size: cover;
+}
+.area2{
+background:url(./img/img2.jpg) 50% 0 no-repeat ;    background-size: cover;
+}
+.area3{
+	background:url(./img/img3.jpg)  50% 0 no-repeat ;    background-size: cover;
+}
+.area4{
+	background:url(./img/img4.jpg) 50% 0 no-repeat ;    background-size: cover;
+}
+
+img{
+	width:100%;
+	height:100%;
+}
+.test_box li{
+	position:absolute;
+	width:50px;
+	height:50px;
+	top:500px;
+	left:20px;
+	border-radius:50px;
+	-webkit-border-radius:50px;
+	background:red;
+}
+.test_box li:nth-child(2){
+	background:pink;
+	left:140px;
+	}
+.test_box li:nth-child(3){
+	background-color: purple;
+	left:260px;
+}
+.test_box li:nth-child(4){
+	background-color: #fff;
+	left:380px;
+}
+.test_box li:nth-child(5){
+	background-color:yellow;
+	left:500px;
+}
+#scrollValue{
+	z-index: 100;;
+}
+.area4{
+	position:relative;
+}
+.text{
+	position: sticky;
+	top:400px;
+	font-size:60px;
+	color:#fff;
+	font-weight:bold;
+	text-align:center;
+}
+</style>
+
+<script>
+	$(function() {
+
+		//아이템 좌표값 받기 
+	  var top = $('.item').offset().top;
+	  var left = $('.item').offset().left;
+	  var left2 = $('.item2').offset().left;
+	  var left3 = $('.item3').offset().left;
+	  var left4 = $('.item4').offset().left;
+	  var left5 = $('.item5').offset().left;
+	
+		//sction 스크롤 값 받아오기 
+	  var areaTop2 = $('.area2').offset().top;
+	  var areaTop3 = $('.area3').offset().top;
+	  var areaTop4 = $('.area4').offset().top;
+
+
+	$(window).scroll(function() {
+		// scrolltop값을 value로 받기 
+	  var value = $(this).scrollTop(); 
+
+	  //  event변수지정
+	  var event = value * 0.001 + 0.5 ;
+	  var event2 = value * 0.0009 ;
+		// 스크롤 값 화면에 뿌리기 
+	  $('#scrollValue').text(value);
+	
+	  //아이템 좌표값 및 style 컨트롤 하기   
+	  $('.item').css({"top": top + value/2 });
+	  $('.item2').css({"top": top + value/3,"left":left2 +value/6 });
+	  $('.item3').css({"top": top + value/4,"left":left3 +value/5  });
+	  $('.item3').css("transform", "perspective(1000px) rotateY(" + value + "deg)");
+	  $('.item4').css({"top": top + value/5,"left":left4 +value/4  });
+	  $('.item4').css ("transform", "scale("+ event +") rotate(" + value + "deg)");
+	  $('.item5').css({"left": left5 + value /2 });
+	  
+
+	  //area 1번째 값
+	  $('.area').css('background-position-y',value);
+
+	//area2번째 영역 컨트롤하기
+	if(value > areaTop2){
+		$('.area2').css('background-position-y',value - areaTop2);
+	}
+     //area3번째 영역 컨트롤하기
+	if(value > areaTop3){
+		$('.area3').css('background-position-y',(value - areaTop3) * 2);
+	}
+	});
+  });
+</script>
+</head>
+<body>
+<div id="wrap">
+	<div class="area">
+		<ul class="test_box">
+			<li class="item"></li>
+			<li class="item2"></li>
+			<li class="item3"></li>
+			<li class="item4"></li>
+			<li class="item5"></li>
+		</ul>
+	</div>
+	<div class="area2"></div>
+	<div class="area3"></div>
+	<div class="area4"></div>
+</div>
+</body>
+
+
+</html>
