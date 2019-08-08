@@ -2,6 +2,25 @@
 <html lang="ko" dir="ltr">
   <head>
     <meta charset="utf-8">
+    <script>
+
+      var inputSum = 0;    // 투입액 합계
+      var productSum = 0;    // 상품 합계
+      var change = 0;        // 거스름돈
+
+      var obj = function(name, count, price){    // 상품 Object
+          this.name = name;
+          this.count = count;
+          this.price = price;
+      };
+  /* 돈 투입 */
+  function func1(btn){
+      var f1 = document.querySelector('#calc');
+      inputSum += Number(btn.innerHTML);
+      f1.setAttribute('value', inputSum);
+  };
+
+  </script>
   </head>
   <body>
     <div ng-app="myApp" ng-controller="vendingMachineController" style="margin-left:20px">
@@ -9,14 +28,16 @@
       <p>
         돈을 넣어주세요. :
       </p>
+      <div id="money">
+        <button onclick="func1(this)">100</button>
+        <button onclick="func1(this)">500</button>
+        <button onclick="func1(this)">1000</button>
+        <button onclick="func1(this)">10000</button>
+        <br>
+      </div>
       <p>
-        <input type="button" value="100원" ng-click="insertCoin(200)"></input>
-        <input type="button" value="500원" ng-click="insertCoin(500)"></input>
-        <input type="button" value="1000원" ng-click="insertCoin(1000)"></input>
-      </p>
-      <p>
-        <input type="text" readonly></input>
-        <input type="button" ng-click="dispenseChange()" value="Change" style="width:100px"></input>
+        <input id="calc" type="text" name="result" value="" style="text-align: right;">
+        <input type="button" value="Change" style="width:100px"></input>
       </p>
       <p>
       <input type="text" readonly></input>
@@ -26,10 +47,10 @@
         3: 옥수수차 - 500원<br/>
         4: 헛개수 - 1000원<br/>
       <p>
-        <input type="button" value="1" ng-click="selectSlot(0)"></input>
-        <input type="button" value="2" ng-click="selectSlot(1)"></input>
-        <input type="button" value="3" ng-click="selectSlot(2)"></input>
-        <input type="button" value="4" ng-click="selectSlot(3)"></input>
+        <input type="button" value="1"></input>
+        <input type="button" value="2"></input>
+        <input type="button" value="3"></input>
+        <input type="button" value="4"></input>
       </p>
     </div>
   </body>
