@@ -93,24 +93,36 @@
 
   <script>
     $(document).ready(function() {
-    $('.btn_box button').bind('click', function() {
-      $('html, body').animate({scrollTop: '0'}, 680);
-      $('.btn_box button').removeClass('on');
-      $(this).addClass('on');
+      $('.btn_box button').bind('click', function() {
+        $('html, body').animate({scrollTop: '0'}, 680);
+        $('.btn_box button').removeClass('on');
+        $(this).addClass('on');
+      });
+      // 애니메이션 효과로 자연스럽게 이동됨, 0.68초
+    
+      $('.btn1').on('click', function() {
+        $('html').animate( { scrollTop : $('.scene.one').offset().top });
+      });
+      $('.btn2').on('click', function() {
+        $('html').animate( { scrollTop : $('.scene.two').offset().top });
+      });
+      $('.btn3').on('click', function() {
+        $('html').animate( { scrollTop : $('.scene.three').offset().top });
+      });
+      // 애니메이션 효과없이 즉시 해당 위치 0 지점으로 이동함
     });
-    // 애니메이션 효과로 자연스럽게 이동됨, 0.68초
-  
-    $('.btn1').on('click', function() {
-      $('html').animate( { scrollTop : $('.scene.one').offset().top });
-    });
-    $('.btn2').on('click', function() {
-      $('html').animate( { scrollTop : $('.scene.two').offset().top });
-    });
-    $('.btn3').on('click', function() {
-      $('html').animate( { scrollTop : $('.scene.three').offset().top });
-    });
-    // 애니메이션 효과없이 즉시 해당 위치 0 지점으로 이동함
-  });
+
+    const section = document.querySelector('section');
+    let currentPos = window.pageYOffset;
+    const update = () => {
+        const newPos = window.pageYOffset;
+        const diff = newPos - currentPos;
+        const speed = diff * 0.2;
+        section.style.transform = `skewY(${ speed }deg)`;
+        currentPos = newPos;
+        requestAnimationFrame(update);
+    }
+update();
   </script>      
    
 </body>
