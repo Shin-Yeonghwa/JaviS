@@ -46,72 +46,29 @@ select {
     font-size: 12px
 }
 
-#Coin_log {
-    overflow: auto;
-    position: absolute;
-    padding: 20px;
+#box {
+    position: fixed;
     top: 0;
-    left: 500px;
-    width: 360px;
-    height: 200px;
-    border: 3px solid #000;
+    left: 0;
+    width: 100%;
+    background-color: cornflowerblue;
+    z-index: 10;
 }
 
-.machine {
-    padding: 0 20px 20px 20px;
-    width: 300px;
-    border: 3px solid #000;
+#box2 {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: cornsilk;
 }
 
-.machine ul {
-    overflow: hidden;
-}
-
-.machine ul li {
-    float: left;
-    margin-top: 20px;
-    width: 100px;
-    text-align: center;
-}
-
-.machine ul li button{
-    display: block;
-    margin: 10px auto 0;
-}
-
-.amount_status {
-    margin-top: 20px;
-}
-
-.cash_list {
-    overflow: hidden;
-    margin-top: 10px;
-}
-
-.cash_list li {
-    float: left;
-}
-
-.cash_list li + li{
-    margin-left: 10px;
-}
-
-.amount_status legend{
-    font-size: 16px;
-    font-weight: bold;
-}
-
-.cash_result {
-    overflow: hidden;
-    margin-top: 10px;
-}
-
-.cash_box {
-    overflow: hidden;
-    margin-top: 10px;
-}
-
-#Current_amount {
-    float: left;
-    margin-right: 20px;
+#box3 {
+    width: 20px;
+    height: 20px;
+    background-color: red;
+    position: absolute;
+    top: 500px;
+    left: 200px;
 }
