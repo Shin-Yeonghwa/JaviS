@@ -1,57 +1,124 @@
 <!DOCTYPE html>
-<html lang="ko" dir="ltr">
-  <head>
-    <meta charset="utf-8">
-    <script>
+<html>
 
-      var inputSum = 0;    // 투입액 합계
-      var productSum = 0;    // 상품 합계
-      var change = 0;        // 거스름돈
+<head>
+  <meta charset="utf-8">
+  <title>Insert title here</title>
+  <style>
+    button {
+    height: 40px;
+}
+#money {
+  margin-bottom: 20px;
+}
+#money > button {
+    width: 60px;
+    height: 40px;
+}
+#calc {
+    height: 40px;
+    text-align: right;
+}
+#menu {
+  margin: 0 0 20px;
+}
+#menu > button {
+    width: 80px;
+    height: 60px;
+}
+#spend {
+    height: 40px;
+    text-align: right;
+}
+#change {
+    height: 40px;
+    text-align: right;
+}
+</style>
+<script>
 
-      var obj = function(name, count, price){    // 상품 Object
-          this.name = name;
-          this.count = count;
-          this.price = price;
-      };
-  /* 돈 투입 */
-  function func1(btn){
-      var f1 = document.querySelector('#calc');
-      inputSum += Number(btn.innerHTML);
-      f1.setAttribute('value', inputSum);
-  };
+var inputSum = 0;    // 투입액 합계
+var productSum = 0;    // 상품 합계
+var change = 0;        // 거스름돈
 
-  </script>
-  </head>
-  <body>
-    <div ng-app="myApp" ng-controller="vendingMachineController" style="margin-left:20px">
-      <h1>자판기</h1>
-      <p>
-        돈을 넣어주세요. :
-      </p>
-      <div id="money">
-        <button onclick="func1(this)">100</button>
-        <button onclick="func1(this)">500</button>
-        <button onclick="func1(this)">1000</button>
-        <button onclick="func1(this)">10000</button>
-        <br>
-      </div>
-      <p>
-        <input id="calc" type="text" name="result" value="" style="text-align: right;">
-        <input type="button" value="Change" style="width:100px"></input>
-      </p>
-      <p>
-      <input type="text" readonly></input>
-      </p>
-        1: 콜라 - 200원<br/>
-        2: 사이다 - 300원<br/>
-        3: 옥수수차 - 500원<br/>
-        4: 헛개수 - 1000원<br/>
-      <p>
-        <input type="button" value="1"></input>
-        <input type="button" value="2"></input>
-        <input type="button" value="3"></input>
-        <input type="button" value="4"></input>
-      </p>
-    </div>
-  </body>
+var obj = function(name, count, price){    // 상품 Object
+    this.name = name;
+    this.count = count;
+    this.price = price;
+};
+
+var objArr = [];    // 상품들의 배열
+
+/* 돈 투입 */
+function func1(btn){
+    var f1 = document.querySelector('#calc');
+    inputSum += Number(btn.innerHTML);
+    f1.setAttribute('value', inputSum);
+};
+
+
+/* 지출액 계산 */
+function func2(x){    // x: 선택된 button
+    var btn = x.querySelector('span');    // span은 금액 부분을 담고있다
+    var f2 = document.querySelector('#spend');    // 지출 총액을 출력할 부분
+    productSum += Number(btn.innerHTML);    // 금액 부분만 빼냄
+    f2.setAttribute('value', productSum);    // 지출 총액 출력
+
+    var str = x.innerHTML;    // 상품 설명
+    var name = str.substring(0, str.indexOf('<'));    // 상품 설명에서 이름만 추출
+    var price = Number(btn.innerHTML);    // 금액 부분
+
+    if(objArr.length==0){    // 상품을 담은 배열이 존재하지 않는다면
+        objArr.push(new obj(name, 1, price));    // 새로 넣는다
+        printScreen(name); return;    // 출력 함수 호출
+    }
+    else{                        // 상품을 담은 배열이 있다면
+        for(var i in objArr){    // 배열에서
+            if(objArr[i].name == name){    // 선택한 상품이 배열에 존재하는지 확인
+                objArr[i].count += 1;    // 있으면 갯수와 가격만 올림
+                objArr[i].price += price;
+                printScreen(name); return;    // 출력 함수 호출
+            }
+        }
+        objArr.push(new obj(name, 1, price));    // 선택한 상품이 배열에 없다면 새로 넣음
+        printScreen(name);    // 출력 함수 호출
+    }
+
+};
+
+/* 거스름 계산 */
+function calc(){
+    var f = document.querySelector('#change');
+    change = inputSum-productSum;    // 투입액-상품액
+    f.setAttribute('value', change);
+};
+
+/* 상품 삭제 */
+
+</script>
+</head>
+
+<body>
+<h1>자판기</h1>
+<p>돈을 넣어주세요:</p>
+  <div id="money">
+    <button onclick="func1(this)">100</button>
+    <button onclick="func1(this)">500</button>
+    <button onclick="func1(this)">1000</button>
+    <button onclick="func1(this)">5000</button>
+  </div>
+
+  투입액 <input id="calc" type="text" name="result" value="">
+<p>메뉴를 선택해주세요:</p>
+  <div id="menu">
+    <button onclick="func2(this)">콜라<br><span>500</span></button>
+    <button onclick="func2(this)">사이다<br><span>800</span></button>
+    <button onclick="func2(this)">헛개수<br><span>1000</span></button>
+    <button onclick="func2(this)">커피<br><span>2000</span></button>
+  </div>
+
+  <div>지출액 <input id="spend" type="text" value=""><button onclick="calc()">계산</button></div>
+  <div>거스름 <input id="change" type="text" value=""></div>
+</body>
+
 </html>
