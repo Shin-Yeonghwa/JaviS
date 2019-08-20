@@ -41,13 +41,13 @@ var inputSum = 0;    // 투입액 합계
 var productSum = 0;    // 상품 합계
 var change = 0;        // 거스름돈
 
-var obj = function(name, count, price){    // 상품 Object
+var obj = function(name, count, price){
     this.name = name;
     this.count = count;
     this.price = price;
 };
 
-var objArr = [];    // 상품들의 배열
+var objArr = [];
 
 /* 돈 투입 */
 function func1(btn){
@@ -58,30 +58,30 @@ function func1(btn){
 
 
 /* 지출액 계산 */
-function func2(x){    // x: 선택된 button
-    var btn = x.querySelector('span');    // span은 금액 부분을 담고있다
-    var f2 = document.querySelector('#spend');    // 지출 총액을 출력할 부분
-    productSum += Number(btn.innerHTML);    // 금액 부분만 빼냄
-    f2.setAttribute('value', productSum);    // 지출 총액 출력
+function func2(x){
+    var btn = x.querySelector('span');
+    var f2 = document.querySelector('#spend');
+    productSum += Number(btn.innerHTML);
+    f2.setAttribute('value', productSum);
 
-    var str = x.innerHTML;    // 상품 설명
-    var name = str.substring(0, str.indexOf('<'));    // 상품 설명에서 이름만 추출
-    var price = Number(btn.innerHTML);    // 금액 부분
+    var str = x.innerHTML;
+    var name = str.substring(0, str.indexOf('<'));
+    var price = Number(btn.innerHTML);
 
-    if(objArr.length==0){    // 상품을 담은 배열이 존재하지 않는다면
-        objArr.push(new obj(name, 1, price));    // 새로 넣는다
-        printScreen(name); return;    // 출력 함수 호출
+    if(objArr.length==0){
+        objArr.push(new obj(name, 1, price));
+        printScreen(name); return;
     }
-    else{                        // 상품을 담은 배열이 있다면
-        for(var i in objArr){    // 배열에서
-            if(objArr[i].name == name){    // 선택한 상품이 배열에 존재하는지 확인
-                objArr[i].count += 1;    // 있으면 갯수와 가격만 올림
+    else{
+        for(var i in objArr){
+            if(objArr[i].name == name){
+                objArr[i].count += 1;
                 objArr[i].price += price;
-                printScreen(name); return;    // 출력 함수 호출
+                printScreen(name); return;
             }
         }
-        objArr.push(new obj(name, 1, price));    // 선택한 상품이 배열에 없다면 새로 넣음
-        printScreen(name);    // 출력 함수 호출
+        objArr.push(new obj(name, 1, price));
+        printScreen(name);
     }
 
 };
@@ -89,11 +89,9 @@ function func2(x){    // x: 선택된 button
 /* 거스름 계산 */
 function calc(){
     var f = document.querySelector('#change');
-    change = inputSum-productSum;    // 투입액-상품액
+    change = inputSum-productSum;
     f.setAttribute('value', change);
 };
-
-/* 상품 삭제 */
 
 </script>
 </head>
