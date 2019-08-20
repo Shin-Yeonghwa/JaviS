@@ -48,3 +48,13 @@ $('#btnSelector8').click(function() {
 });
 
 //필터 선택자
+$('#btnSelector9').click(function() {
+    codeClear();
+    var value = $('select > option:selected').val(); //val()를 매개변수 없이 사용하면 vlaue 속성을 알아낼 수 있음
+    alert(value);
+});
+
+$('#btnSelector10').click(function() {
+    codeClear();
+    $('.selector_code:eq(0) li:even').css('background-color','#ff0');
+});

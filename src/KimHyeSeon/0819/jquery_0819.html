@@ -6,6 +6,7 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Jquery</title>
     <style>
+        body {padding-bottom:300px}
         .box {
             width:300px;
             padding: 10px;
@@ -13,20 +14,27 @@
             }
         .center {text-align: center;}
         .ex_code {
+            overflow: hidden;
             position: fixed;
+            left: 0;
             right: 0;
-            top: 0;
             bottom: 0;
-            width: 300px;
-            border-left: 2px solid #000;
+            border-top: 2px solid #000;
         }
-        .ex_code input {
+        .ex_code input, .ex_code select {
             display: block;
             width: 100%;
             margin: 5px 0;
         }
-        .selector_code {padding: 10px;}
-        .selector_code + .selector_code {border-top: 2px solid #000;}
+        .selector_code {
+            float: left;
+            min-width: 200px;
+            height: 100%;
+            padding: 10px;
+            border-right: 2px solid #000;
+            box-sizing: border-box;
+            }
+        .selector_code:last-child {border-right:0}
     </style>
 </head>
 <body>
@@ -71,13 +79,12 @@
 
         <div class="selector_code">
             <strong id="title">예시 3</strong>
-            <div>
-                <input name="nationality" type="text" title="Tomorrow" value="nationality / Tomorrow">
-                <input name="nation" type="text" title="tomorrow" value="nation / tomorrow">
-                <input name="country" type="text" title="Tom" value="country / Tom">
-                <input name="countrynation" type="text" title="See You Tomorrow" value="country / See You Tomorrow">
-                <input name="anothernation" type="text" title="Tomorrow-the day after today" value="anothernation / Tomorrow-the day after today">
-            </div>
+            <select>
+                <option>AAAAAAAA</option>
+                <option>BBBBBBBB</option>
+                <option>CCCCCCCC</option>
+                <option>DDDDDDDD</option>
+            </select>
         </div>
     </div>
 
@@ -132,7 +139,7 @@
     <h3>위치 필터 선택자</h3>
     <ul>
         <li><strong>요소:odd</strong> 홀수 번째에 위치한 문서 객체를 선택</li>
-        <li><strong>요소:even</strong> 짝수 번째에 위치한 문서 객체를 선택</li>
+        <li><strong>요소:even</strong> 짝수 번째에 위치한 문서 객체를 선택 <button type="button" id="btnSelector10">예제</button></li>
         <li><strong>요소:first</strong> 첫 번째에 위치한 문서 객체를 선택</li>
         <li><strong>요소:last</strong> 마지막에 위치한 문서 객체를 선택</li>
     </ul>
