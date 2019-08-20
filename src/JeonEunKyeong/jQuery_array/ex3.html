@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+
+</head>
+<body>
+
+  <script src="https://code.jquery.com/jquery-3.1.1.slim.min.js"></script>
+  <script>
+   var object = {name: '홍길동'};
+
+   $.extend(object,{   //(추가하고자할 객체, 넣어주고 싶은 객체{})
+         gender: '남자',
+         part: '영업'
+   });
+
+   var output = '';
+   $.each(object, function(index, item){
+         output += index + ' : ' +item+ '\n';
+   });
+     alert(output);
+
+  </script>
+
+</body>

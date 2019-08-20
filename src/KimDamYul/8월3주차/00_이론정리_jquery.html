@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>jQuery 스터디</title>
+    </head>
+    <body>
+        <H1>jQuery</H1>
+        <H2>1. 기본</H2>
+		jQuery는 모든 브라우저에서 동작하는 클라이언트 자바스크립트 라이브러리 입니다.<br>무료로 사용 가능한 오픈 소스 라이브러리이며 아래 기능을 위해 제작하였습니다.<br><br></H2>
+        - 문서 객체 모델과 관련된 처리 쉽게 구현<br>
+        - 일관된 이벤트 연결 쉽게 구현<br>
+        - 시각적 효과를 쉽게 구현<br>
+        - Ajax 애플리케이션을 쉽게 개발<br>
+        <br>
+        <br>
+        jQuery를 사용하면 웹 표준만으로도 플래시와 실버라이트를 구현한 웹 사이트와 비슷한 수준의 시각적 효과를 구현할 수 있습니다.<br>
+        이렇게 jQuery를 사용하여 시각적 효과를 구현하면?<br><br>
+        1. 플래시,실버라이트를 작동하지 않는 아이폰,아이패드 장치에서도 작동합니다.<br>
+        2. 브라우저의 차이로 발생하는 문제를 쉽게 해결할 수 있음<br>
+        <b>(jQuery로 만든 홈페이지 예시: CJ제일제당 홈페이지:<a href="https://www.cj.co.kr/kr/index">https://www.cj.co.kr/kr/index</a>)</b>
+
+        <h2>2. 다운로드</h2>
+        
+        * jQuery 다운로드: <a href="http://jquery.com">http://jquery.com</a> 접속<br>
+        - 1.x 버전으로 다운로드하기(2.x 버전은 IE8버전 적용이안됨.)<br><br><br>
+        <h3>다운로드 - jQuery 사용방법</h3>
+        1) CDN호스트 사용: 사용자에게 간편하게 콘텐츠를 제공하는 방식<br>
+        html페이지 내 script 태그의 src 속성에 제공되는 CDN호스트를 입력하여 사용<br>
+        <pre>
+            < script src="http;//code.jquery.com/jquery-1.10.2.js" >
+            < /script >
+        </pre>
+        <BR>
+        2) 직접 내려받기:<br>
+        <pre>
+            < script src="jquery-1.10.2.js" >
+            < /script >
+        </pre>        
+        <h2>3. $(document).ready()</h2>
+        jQuery를 사용하는 모든 웹 페이지는 다음코드로 시작합니다.<br>
+        <pre>
+            < script >
+                $(document).ready (function (){
+
+                });
+            < /script >            
+        </pre>
+        $(document).ready() 는 문서가 준비되면 매개변수로 넣을 콜백 함수를 실행하라는 의미입니다. 이벤트 메서드 중 하나로 이 메서드는 다음과 비슷한 기능을 수행합니다.<br>
+        1) 객체의 load 이벤트 연결<br>
+        2) 복수 개의 이벤트의 연결<br>
+        3) 간단한 형식의 $(document).ready()<br>
+        <br>
+        
+        <h2>4. 기본 선택자</h2>
+        * 메서드의 기본형태<br>
+        $('h1').css('color','red');<br>
+        & + 선택자 + 메서드<br><br>
+        <b>1)전체 선택자: 페이지에 있는 모든 문서 객체를 선택하는 선택자</b><br><BR>
+        $('*').css('color','red');
+        <br><br>
+        <b>2)태그 선택자: 특정한 태그를 선택하는 선택자, 태그의 이름을 그냥 사용합니다.</b><br><BR>
+        $('h1').css('color','red');
+        <br><br>
+        <b>3) 아이디 선택자: ID속성이 있는 문서 객체를 선택하는 선택자.</b><BR><BR>
+        $('h1#target').css('color','red');
+        <br><br>
+        <b>4) 클래스 선택자: class속성이 있는 문서 객체를 선택하는 선택자.</b><BR><BR>
+        $('h1.target').css('color','red');<br>
+        $('.target').css('color','red');<br>
+        <br><br>  
+        <b>5) 자손 선택자: 자손을 선택하는 선택자.</b><BR><BR>
+        $('body > *').css('color','red');<br>
+        <br><br>
+        <b>6) 후손 선택자: 후손을 선택하는 선택자.</b><BR><BR>
+        $('body *').css('color','red');<br>
+        <br><br>    
+        <b>7) 속성 선택자: 속성을 선택하는 선택자, 기본선택자 뒤에 붙여 사용</b><BR><BR>
+        $('input[type="text"]').css('color','red');<br>
+        <br><br>   
+        <b>8) 필터 선택자: 선택자 중에 : 기호를 포함하는 선택자 </b><BR><BR>
+        $('input:text').css('color','red');<br>
+        * 필터 선택자는 기본 선택자에 비해 활용도가 떨어지므로 외우기보다는 필요할때 찾아쓰는것을 추천
+        <br><br>           
+        <b>9) 위치 필터 선택자: 위치와 관련된 필터 선택자 </b><BR><BR>
+        요소:odd - 홀수번째에 위치한 문서 객체 <br>
+        요소:even - 짝수번째에 위치한 문서 객체 <br>
+        요소:first - 첫 번째에 위치한 문서 객체 <br>
+        요소:last - 마지막에 위치한 문서 객체 <br>
+        <br><br>      
+        <b>10) 힘스 필터 선택자: 함수형태의 필터 선택자 </b><BR><BR>
+        요소:contains(문자열) - 특정 문자열을 포함하는 문서 객체를 선택 <br>
+        요소:eq(n) - n번째에 위치하는 문서 객체를 선택  <br>
+        요소:gt(n) - n번째 초과에 위치하는 문서 객체를 선택 <br>
+        요소:has(h1) - h1 태그가 있는 문서 객체를 선택 <br>
+        요소:lt(n) - n번째 미만에 위치하는 문서 객체를 선택 <br>
+        요소:not(선택자) - 선택자와 일치하지 않는 문서 객체를 선택<br>
+        요소:nth-child(3n+1) - 3n+1번쨰에 위치하는 문서 객체를 선택<br>
+        <br><br>                                                
+
+    </body>
+
+<body>
+
+
+</body>
+</html>
+
+
