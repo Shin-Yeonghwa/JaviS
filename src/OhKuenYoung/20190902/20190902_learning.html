@@ -1,0 +1,406 @@
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>문서 객체 조작</title>
+    <style type="text/css">
+
+        strong {display: block; margin-top: 20px}
+
+        .red {color: red}
+
+	</style>
+</head>
+<body>
+    <h1>문서 객체 조작</h1>
+    <p>기존의 자바스크립트만으로 문서 객체를 다루려면 정말 복잡하지만 jQuery를 사용하면 간단하게 적용할 수 있다.</p>
+
+    <h2>2.문서 객체의 클래스 속성 추가</h2>
+
+	<p>addClass() : 객체의 클래스 속성을 추가할 때 사용하는 메서드</p>
+
+    <pre>
+	$(document).ready(function(){
+		$('p').addClass('item');
+	});
+    </pre>
+
+    <!-- <script src="//code.jquery.com/jquery-3.3.1.min.js">
+		$(document).ready(function ex01(){
+			$('p').addClass('item');
+		});
+    </script> -->
+
+    <button onclick="ex01()">결과보기</button>
+
+	<h2>3.문서 객체의 클래스 제거</h2>
+
+	<p>removeClass() : 객체의 클래스 속성을 제거할 때 사용하는 메서드</p>
+
+	<pre>
+	$(document).ready(function(){
+		$('p').removeClass('item');
+	});
+	</pre>
+
+	<!-- <script src="//code.jquery.com/jquery-3.3.1.min.js">
+		$(document).ready(function ex02(){
+			$('p').removeClass('item');
+		});
+	</script> -->
+
+  <button onclick="ex02()">결과보기</button>
+
+	<h2>4.문서 객체의 속성</h2>
+
+	<p title="123">attr() : 속성과 관련된 모든 기능을 수행합니다.</p>
+
+	<strong>속성 검사</strong>
+
+	<pre>
+	$(document).ready(function ex03(){
+		var tit = $('.test').attr('title');
+
+		alert(tit);
+	});
+	</pre>
+
+	<!-- <script src="//code.jquery.com/jquery-3.3.1.min.js">
+		$(document).ready(function ex03(){
+			var tit = $('.test').attr('title');
+
+			alert(tit);
+		});
+	</script> -->
+
+  <button onclick="ex03()">결과보기</button>
+
+	<strong>속성 추가</strong>
+  <ul>
+    <li class="attr_ex01">1. $(selector).attr(name, value);</li>
+    <li class="attr_ex01">2. $(selector).attr(name, function(index, attr){});</li>
+    <li class="attr_ex01">3. $(selector).attr(object);</li>
+  </ul>
+
+  <pre>
+    $(document).ready(function ex04(){
+			$('.attr_ex01').attr('title', HI);
+		});
+	</pre>
+
+	<!-- <script src="//code.jquery.com/jquery-3.3.1.min.js">
+		$(document).ready(function ex04(){
+			$('.attr_ex01').attr('title', HI);
+		});
+	</script> -->
+
+  <button onclick="ex04()">결과보기</button>
+
+  <pre>
+    $(document).ready(function ex05(){
+			$('.attr_ex01').attr('title', function (index) {
+        return (index + 1) + 'hi';
+      });
+		});
+	</pre>
+
+	<!-- <script src="//code.jquery.com/jquery-3.3.1.min.js">
+		$(document).ready(function ex05(){
+			$('.attr_ex01').attr('title', function (index) {
+        return (index + 1) + 'hi';
+      });
+		});
+	</script> -->
+
+  <button onclick="ex05()">결과보기</button>
+
+  <pre>
+    $(document).ready(function ex06(){
+			$('.attr_ex01').attr({
+        title: function (index) {
+            return (index + 1) + 'hi';
+        },
+        value: 'hi2';
+      });
+		});
+	</pre>
+
+	<!-- <script src="//code.jquery.com/jquery-3.3.1.min.js">
+		$(document).ready(function ex06(){
+			$('.attr_ex01').attr({
+        title: function (index) {
+            return (index + 1) + 'hi';
+        },
+        value: 'hi2';
+      });
+		});
+	</script> -->
+
+  <button onclick="ex06()">결과보기</button>
+
+  <h2>5.속성 제거</h2>
+
+  <p class="attr_ex02" title="hello">removeAttr(name) 문서 객체의 속성을 제거</p>
+
+  <pre>
+    $(document).ready(function ex07(){
+      $('.attr_ex01').removeAttr('title');
+    });
+  </pre>
+
+  <!-- <script src="//code.jquery.com/jquery-3.3.1.min.js">
+    $(document).ready(function ex07(){
+      $('.attr_ex01').removeAttr('title');
+    });
+  </script> -->
+
+  <button onclick="ex07()">결과보기</button>
+
+  <h2>6.스타일</h2>
+
+  <strong>스타일 검사</strong>
+
+  <p class="red">css() : 스타일과 관련된 모든 기능을 수행</p>
+
+  <pre>
+    $(document).ready(function ex08(){
+      var colr = $('.red').css('color');
+
+      alert(color);
+    });
+  </pre>
+
+  <!-- <script src="//code.jquery.com/jquery-3.3.1.min.js">
+    $(document).ready(function ex08(){
+      var colr = $('.red').css('color');
+
+      alert(color);
+    });
+  </script> -->
+
+  <button onclick="ex08()">결과보기</button>
+
+  <strong>스타일 추가</strong>
+  <ul>
+    <li>1. $(selector).attr(name, value);</li>
+    <li>2. $(selector).attr(name, function(index, attr){});</li>
+    <li>3. $(selector).attr(object);</li>
+  </ul>
+
+  <h2>7.문서 객체의 내부</h2>
+
+  <p>innerHTML, textContent 와 동일한 기능</p>
+
+  <ul>
+    <li>html() : 문서 객체 내부의 글자와 관련된 모든 기능을 수행 (HTML 태그 인식)</li>
+    <li>text() : 문서 객체 내부의 글자와 관련된 모든 기능을 수행</li>
+  </ul>
+
+  <strong>내부 검사</strong>
+
+  <p class="text_02">안녕1</p>
+  <p class="text_02">안녕2</p>
+
+  <pre>
+    $(document).ready(function ex09(){
+      var html = $('.text_02').html();
+
+      alert(html);
+    });
+  </pre>
+
+  <!-- <script src="//code.jquery.com/jquery-3.3.1.min.js">
+    $(document).ready(function ex09(){
+      var html = $('.text_02').html();
+
+      alert(html);
+    });
+  </script> -->
+
+  <button onclick="ex09()">결과보기</button>
+
+  <pre>
+    $(document).ready(function ex10(){
+      var text = $('.text_02').text();
+
+      alert(text);
+    });
+  </pre>
+
+  <!-- <script src="//code.jquery.com/jquery-3.3.1.min.js">
+    $(document).ready(function ex10(){
+      var text = $('.text_02').text();
+
+      alert(text);
+    });
+  </script> -->
+
+  <button onclick="ex10()">결과보기</button>
+
+  <strong>내부 추가</strong>
+
+  <ul>
+    <li>1/$(selector).html(value)</li>
+    <li>2.$(selector).text(value)</li>
+    <li>3.$(selector).html(function(index, html){})</li>
+    <li>4.$(selector).text(function(index, text){})</li>
+  </ul>
+
+  <div class="html_test">
+
+  </div>
+
+  <div class="text_test">
+
+  </div>
+
+  <pre>
+    $(document).ready(function ex11(){
+      $('html_test').html('<h1>$().html()안녕~~</h1>')
+    });
+  </pre>
+
+  <!-- <script src="//code.jquery.com/jquery-3.3.1.min.js">
+    $(document).ready(function ex11(){
+      $('html_test').html('<h1>$().html()안녕~~</h1>')
+    });
+  </script> -->
+
+  <button onclick="ex11()">결과보기</button>
+
+  <pre>
+    $(document).ready(function ex12(){
+      $('html_test').text('<h1>$().html()안녕~~</h1>')
+    });
+  </pre>
+
+  <!-- <script src="//code.jquery.com/jquery-3.3.1.min.js">
+    $(document).ready(function ex12(){
+      $('html_test').text('<h1>$().html()안녕~~</h1>')
+    });
+  </script> -->
+
+  <button onclick="ex12()">결과보기</button>
+
+
+  <h2>8.문서 객체 제거</h2>
+
+  <ul>
+    <li>remove() : 문서 객체를 제거</li>
+    <li>empty() : 문서 내부를 비움</li>
+  </ul>
+
+  <div class="remove">
+    <h1>remove</h1>
+    <h1>empty</h1>
+  </div>
+
+  <pre>
+    $(document).ready(function ex13(){
+      $('.div h1').first().remove();
+    });
+  </pre>
+
+  <!-- <script src="//code.jquery.com/jquery-3.3.1.min.js">
+    $(document).ready(function ex13(){
+      $('.remove h1').first().remove();
+    });
+  </script> -->
+
+  <button onclick="ex13()">결과보기</button>
+
+  <pre>
+    $(document).ready(function ex14(){
+      $('.remove').empty();
+    });
+  </pre>
+
+  <!-- <script src="//code.jquery.com/jquery-3.3.1.min.js">
+    $(document).ready(function ex14(){
+      $('.remove').empty();
+    });
+  </script> -->
+
+  <button onclick="ex14()">결과보기</button>
+
+  <h2>9.문서 객체 생성</h2>
+
+  <p>$() : 문서 객체를 생성합니다.</p>
+
+  <pre>
+    $(document).ready(function ex15(){
+      $('<h1></h1>');
+    });
+  </pre>
+
+  <!-- <script src="//code.jquery.com/jquery-3.3.1.min.js">
+    $(document).ready(function ex15(){
+      $('<h1></h1>');
+    });
+  </script> -->
+
+  <button onclick="ex15()">결과보기</button>
+
+  <h2>10.문서 객체 삽입, 이동</h2>
+
+  <ul>
+    <li>$(A).appendTo(B) : A를 B의 뒷부분에 추가</li>
+    <li>$(A).prependTo(B) : A를 B의 앞부분에 추가</li>
+    <li>$(A).insertAfter(B) : A를 B의 뒷부분에 추가</li>
+    <li>$(A).insertBefore(B) : A를 B의 앞부분에 추가</li>
+  </ul>
+
+  <ul>
+    <li>$(A).append(B) : B를 A의 뒷부분에 추가</li>
+    <li>$(A).prepend(B) : B를 A의 앞부분에 추가</li>
+    <li>$(A).After(B) : B를 A의 뒷부분에 추가</li>
+    <li>$(A).Before(B) : B를 A의 앞부분에 추가</li>
+  </ul>
+
+  <div class="">
+    before()<br />
+    prepend()<br />
+    A<br />
+    append() <br />
+    after() <br />
+  </div>
+
+  <pre>
+    $(document).ready(function ex16(){
+      $('<h1></h1>').html('HI').appendTo('body');
+    });
+  </pre>
+
+  <!-- <script src="//code.jquery.com/jquery-3.3.1.min.js">
+    $(document).ready(function ex16(){
+      $('<h1></h1>').html('HI').appendTo('body');
+    });
+  </script> -->
+
+  <button onclick="ex16()">결과보기</button>
+
+  <h2>11.문서 객체 복제</h2>
+  <p>clone() : 문서 객체를 복제</p>
+
+  <div class="clone">
+    clone
+  </div>
+
+  <pre>
+    $(document).ready(function ex17(){
+      $('.clone').append($('.clone').clone());
+    });
+  </pre>
+
+  <script src="//code.jquery.com/jquery-3.3.1.min.js">
+    $(document).ready(function ex17(){
+      $('.clone').append($('.clone').clone());
+    });
+  </script>
+
+  <button onclick="ex17()">결과보기</button>
+
+
+</body>
+</html>
