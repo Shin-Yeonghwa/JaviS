@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="ko">
+
+<head>
+	<meta charset="utf-8">
+	<title>javascript study</title>
+<link rel="stylesheet" href="https://ssl.pstatic.net/sstatic/search/pc/css/search1_190221.css">
+
+<script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+<style type="text/css">
+
+
+</style>
+
+<script>
+var funcs = [];
+
+for (var i = 0; i < 3; i++) {     // var, let에 따라 결과가 다르다.
+  funcs.push(function () { console.log(i); });
+}
+
+for (let j = 0; j < 3; j++) {
+  funcs[j]();
+}
+
+let jaejae =(a, b) =>{
+	return a+ b; 
+}
+
+console.log(jaejae(4, 4))
+
+</script>
+<body>
+        <button class = "btn" id = "ID">버튼</button>
+</body>
+<script>
+        let obj1 = {
+                id:"nts",
+                init:function(){
+                        let dummy = "dummy"
+                        let btn = document.querySelector(".btn");
+                        btn.addEventListener("click", function(){
+                                console.log(dummy, this, this.id);
+                        })
+                }
+        }
+        obj1.init(); //dummy <button class=​"btn" id=​"ID">​버튼​</button>​ ID
+
+        let obj2 = {
+                id:"nts",
+                init:function(){
+                        let dummy = "dummy"
+                        let btn = document.querySelector(".btn");
+                        btn.addEventListener("click", ()=>{
+                                console.log(dummy, this, this.id);
+                        })
+                }
+        }
+        obj2.init(); //dummy {id: "nts", init: ƒ} nts
+
+        let obj3 = {
+                id:"nts",
+                init:()=>{
+                        let dummy = "dummy"
+                        let btn = document.querySelector(".btn");
+                        btn.addEventListener("click", ()=>{
+                                console.log(dummy, this, this.id);
+                        })
+                }
+        }
+        obj3.init(); // dummy Window {postMessage: ƒ …} undefined
+
+        let obj4 = {
+                id:"nts",
+                init:()=>{
+                        let dummy = "dummy"
+                        let btn = document.querySelector(".btn");
+                        btn.addEventListener("click", function(){
+                                console.log(dummy, this, this.id);
+                        })
+                }
+        }
+        obj4.init(); // dummy <button class=​"btn" id=​"ID">​버튼​</button>​ ID
+
+</script>
+
+
+</html>
