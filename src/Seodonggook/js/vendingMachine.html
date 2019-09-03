@@ -63,27 +63,6 @@ function func2(x){
     var f2 = document.querySelector('#spend');
     productSum += Number(btn.innerHTML);
     f2.setAttribute('value', productSum);
-
-    var str = x.innerHTML;
-    var name = str.substring(0, str.indexOf('<'));
-    var price = Number(btn.innerHTML);
-
-    if(objArr.length==0){
-        objArr.push(new obj(name, 1, price));
-        printScreen(name); return;
-    }
-    else{
-        for(var i in objArr){
-            if(objArr[i].name == name){
-                objArr[i].count += 1;
-                objArr[i].price += price;
-                printScreen(name); return;
-            }
-        }
-        objArr.push(new obj(name, 1, price));
-        printScreen(name);
-    }
-
 };
 
 /* 거스름 계산 */
