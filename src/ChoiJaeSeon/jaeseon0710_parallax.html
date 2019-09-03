@@ -76,33 +76,7 @@ left:140px;
 	text-align:center;
 }
 a { -webkit-tap-highlight-color:red;}
-@keyframes slideDown {
-  0% {
-    -moz-transform: translateY(0);
-    -webkit-transform: translateY(0);
-    transform: translateY(0);
-  }
-  to {
-    -moz-transform: translateY(50px);
-    -webkit-transform: translateY(50px);
-    transform: translateY(50px);
-  }
-}
 
-@keyframes slideUp {
-  from {
-    -moz-transform: translateY(0);
-    -webkit-transform: translateY(0);
-    transform: translateY(0);
-  }
-  to {
-    -moz-transform: translateY(-50px);
-    -webkit-transform: translateY(-50px);
-    transform: translateY(-50px);
-  }
-}
-.test{background-color:darkcyan !important; animation: slideUp 0.5s ease-in-out forwards;}
-.test2{background-color:chartreuse !important; animation: slideDown 0.5s ease-in-out forwards;}
 .area2{
 	position:relative;
 }
@@ -124,37 +98,13 @@ a { -webkit-tap-highlight-color:red;}
 	height: 200px;
 	background-color:blueviolet;
 }
-.widthParallax{
-position:absolute;
-top:0;
-left:0;
-overflow:Hidden;
-white-space:nowrap;
-font-size:0;
-}
-.widthParallax li{
-	display:inline-block;
-	width:400px;
-	height:400px;
-	box-sizing:border-box;
-	background:red;
-}
-.widthParallax li:nth-child(2n){
-	background-color: coral;
-}
-.area4{
-	position:relative;
-}
-
 </style>
 
 <script>
 	$(function() {
-	setInterval(function(){
-		$('.item2').toggleClass('test');
-		}, 1000) 
+
 		//아이템 좌표값 받기 
-	  
+	  var top = $('.item').offset().top;
 	  var left = $('.item').offset().left;
 	  var left2 = $('.item2').offset().left;
 	  var left3 = $('.item3').offset().left;
@@ -167,9 +117,6 @@ font-size:0;
 	  var areaTop2 = $('.area2').offset().top;
 	  var areaTop3 = $('.area3').offset().top;
 	  var areaTop4 = $('.area4').offset().top;
-	  var leftParallaxLeft = $('.widthParallax').offset().left;
-	  var leftParallax = $('.widthParallax').width();
-	  console.log(leftParallax,leftParallaxLeft);
 
 	$(window).scroll(function() {
 		// scrolltop값을 value로 받기 
@@ -178,7 +125,7 @@ font-size:0;
 	  //  event변수지정
 	  var event = value * 0.001 + 0.5 ;
 	  var event2 = value * 0.0009 ;
-	  var zero = 0;
+	
 		// 스크롤 값 화면에 뿌리기 
 	  $('#scrollValue').text(value);
 	
@@ -197,34 +144,24 @@ font-size:0;
 		// $('.test_box3').css({"top": test_top });
 	
 	  }
-	  $('.area2').css('background-position-y',value - areaTop2);
 
-	 //리스트 width값 받아서 ul에 적용하기 
-	  $('.widthParallax').css('width',leftParallax);
-	  //가로 페럴랙스 작동 
+ 
+	  //area 1번째 값
+	  $('.area').css('background-position-y',value);
 
 	//area2번째 영역 컨트롤하기
 	if(value > areaTop2){
-		$('.widthParallax').css({"left":leftParallaxLeft - value});
-			$('.area2').css('background-position-y',value - areaTop2);
-			$('.test_box2').addClass('test').removeClass('test2');
-			$('.test_box3').addClass('test2').removeClass('test');
-		}else{
-			$('.test_box2').removeClass('test').addClass('test2');;
-			$('.test_box3').removeClass('test2').addClass('test');;
-	
+		$('.area2').css('background-position-y',value - areaTop2);
+		$('.test_box2').addClass('test');
+		$('.test_box2').removeClass('test2');
+	}else{
+		$('.test_box2').removeClass('test');
+		$('.test_box2').addClass('test2');
 	}
      //area3번째 영역 컨트롤하기
 	if(value > areaTop3){
-		console.log("작동확인")
 		$('.area3').css('background-position-y',(value - areaTop3) * 2);
-	
 	}
-
-	if(value > areaTop4){
-	
-	}
-
 	});
   });
 </script>
@@ -232,9 +169,7 @@ font-size:0;
 <body>
 	<p id="scrollValue">스크롤값 </p>
 <div id="wrap">
-	<header>나는 상단헤더다</header>
 		<div class="area">
-			
 			<ul class="test_box">
 				<li class="item"><a href="" style="display:block;height:100%">링크테스트</a></li>
 				<li class="item2"></li>
@@ -249,22 +184,9 @@ font-size:0;
 			<div class="test_box2"></div>
 			<div class="test_box3"></div>
 		</div>
-	
 		<div class="area3"></div>
 		<div class="area4">
-			<P class="text">가로 페럴럭스</P>
-			<ul class="widthParallax">
-					<li></li>
-					<li></li>
-					<li></li>
-					<li></li>
-					<li></li>
-					<li></li>
-					<li></li>
-					<li></li>
-					<li></li>
-					<li></li>
-				</ul>
+			<P class="text">페럴럭스 완료</P>
 		</div>
 		
 </div>

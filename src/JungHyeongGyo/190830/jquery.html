@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html>
+
+<body>
+    <div style="width:1000px;margin: 0 auto">
+        <h1>jquery</h1>
+        <h2>문서객체조작</h2>
+        <hr>
+        <h3>문서 객체의 클래스 속성 추가</h3>
+        <dl>
+            <dt>addClass()</dt>
+            <dd>문서 객체의 클래스 속성을 추가합니다.</dd>
+        </dl>
+        <p>
+            클래스 값은 큰 따옴표 또는 작은 따옴표로 감쌉니다.
+        </p>
+        <p>$( 'h1' ).addClass( 'abc' );</p>
+        <p>띄어쓰기로 구분하여 여러 개의 값을 추가할 수 있습니다.</p>
+        <p>$( 'h1' ).addClass( 'ab cd ef' );</p>
+        <p> 결과 : &lt;h1&gt; ->&lt;h1 class="ab cd ef"&gt;</p>
+        <hr>
+        <h3>문서 객체의 클래스 속성 제거</h3>
+        <dl>
+            <dt>removeClass()</dt>
+            <dd>문서 객체의 클래스 속성을 제거합니다.</dd>
+        </dl>
+        <p>$( 'h1' ).removeClass( 'abc' );</p>
+        <p> 결과 : &lt;h1 class="abc"&gt; -> &lt;h1&gt;</p>
+
+        <hr>
+        <h3>문서 객체의 속성 검사</h3>
+        <dl>
+            <dt>attr()</dt>
+            <dd>속성과 관련된 모든 기능을 수행합니다.</dd>
+        </dl>
+        <p>&lt;img src="abcd.jpg"&gt;</p>
+        <p>var src = $('img').attr('src')</p>
+        <p>alert(src)</p>
+        <p> 결과 : abcd.jpg 출력</p>
+
+        <hr>
+        <h3>문서 객체의 속성 추가</h3>
+        <dl>
+            <dt>attr()</dt>
+            <dd>속성과 관련된 모든 기능을 수행합니다.</dd>
+        </dl>
+        <p>$('img').attr('width', 200)</p>
+
+        <p> 결과 : &lt;img src="abcd.jpg"&gt; -> &lt;img src="abcd.jpg" width="200"&gt;</p>
+
+        <hr>
+        <h3>문서 객체의 속성 제거</h3>
+        <dl>
+            <dt>removeAttr(name)</dt>
+            <dd>문서 객체의 속성을 제거</dd>
+        </dl>
+        <p>$('h1').removeAttr('data-index')</p>
+        <p></p>
+        <p> 결과 : &lt;h1 data-index="0"&gt; -> &lt;h1&gt;</p>
+
+        <hr>
+        <h3>문서 객체의 스타일 추가</h3>
+        <dl>
+            <dt>css()</dt>
+            <dd>스타일과 관련된 기능을 수행</dd>
+        </dl>
+        <p>$('h1').css('color', 'red')</p>
+        <p> 결과 : &lt;h1&gt; -> &lt;h1 style="color:red"&gt;</p>
+
+        <hr>
+        <h3>문서 객체의 내부검사</h3>
+        <dl>
+            <dt>html()</dt>
+            <dd>문서 객체 내부의 글자와 관련된 모든 기능을 수행합니다</dd>
+        </dl>
+        <p>&lt;h1&gt;안녕하세요&lt;/h1&gt;</p>
+        <p>var html = $('h1').html()</p>
+        <p>alert(html)</p>
+        <p> 결과 : 안녕하세요 출력</p>
+    </div>
+
+</body>
+
+</html>
