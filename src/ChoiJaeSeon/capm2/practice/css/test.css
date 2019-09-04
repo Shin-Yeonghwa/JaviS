@@ -1,9 +1,10 @@
 @charset "utf-8";
 /* common */
 body {
+    /* header 우측 탭 폰트이슈(음찔거리는 현상)로 font-family 변경 */
     margin: 0;
     padding: 0;
-    font-family: -apple-system,BlinkMacSystemFont,helvetica,Apple SD Gothic Neo,'굴림',gulim,sans-serif;
+    font-family: '나눔고딕',NanumGothic,'맑은고딕',MalgunGothic,'돋움',Dotum,Helvetica,sans-serif;
     text-align: left;
     font-size: 13px;
 	line-height:20px;
@@ -12,11 +13,6 @@ body {
 }
 
 
-input,select,textarea {
-    font-family: -apple-system,BlinkMacSystemFont,helvetica,Apple SD Gothic Neo,'굴림',gulim,sans-serif;
-    font-size: 13px;
-    color: #000
-}
 
 address,dd,div,dl,dt,em,fieldset,form,h1,h2,h3,h4,iframe,input,li,object,ol,p,select,textarea,ul {
     margin: 0;
@@ -118,11 +114,13 @@ table caption {
     height:100%;
     padding-top:24px;
     box-sizing:border-box;
+    -webkit-box-sizing:border-box;
 
 }
 
 /* header 오른쪽 메뉴영역 */
 .header_wrap .menu_list{
+    overflow:hidden;
     float:right;
     height:70px;
     line-height:70px;
@@ -140,23 +138,12 @@ table caption {
 .header_wrap .menu_list li.selected a{
     font-weight:bold;
 }
-/* 마우스 오버시 음찔 현상 개선을 위한 코드 수정 */
-/* 첫번째 li width값지정 */
-.header_wrap .menu_list li:nth-child(1){
-    width:82px;
-}
-/* 두번째 li width값지정 */
-.header_wrap .menu_list li:nth-child(2){
-    width:74px;
-}
-/* 세번째 li width값지정 */
-.header_wrap .menu_list li:nth-child(3){
-    width:97px;
-}
+
 /* header 오른쪽 영역 a링크 스타일링 */
 .header_wrap .menu_list li a{
     display:block;
     height:100%;
+    padding:0 13px;
 }
 /* header 오른쪽 영역 마우스 오버스 스타일링  */
 .header_wrap .menu_list li a:hover{

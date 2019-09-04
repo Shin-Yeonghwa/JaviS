@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta http-equiv="Content-Script-Type" content="text/javascript">
+<meta name="viewport" content="width=device-width,initial-scale=1.0,maximum-scale=2.0,minimum-scale=1.0,user-scalable=yes">
+<title>UI캠프 실습</title>
+<script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+<link rel="stylesheet" type="text/css" href="css/test.css">
+<script>
+    //spot 탭 메뉴 활성화를 위한 jquery코드
+    $(document).ready(function(){
+        $('.menu_list').find('li').click(function(){
+        $(this).parent().parent().find('li').removeClass('selected');
+        $(this).addClass('selected');
+        return false; });
+    });
+
+</script>
+</head>
+<body>
+	<div class="wrap">
+        <!-- header -->
+        <div class="header">
+            <div class="inner">
+                <div class="header_wrap">
+                    <h1 class="logo"><a href="#"><img src="./img/logo_pc.png" width="107" height="22" alt="foodWith"></a></h1>
+                    <!--[D] 활성화 되는 경우 li에 selected 추가  -->
+                    <ul class="menu_list">
+                        <li class="selected"><a href="#">About</a></li>
+                        <li><a href="#">Work</a></li>
+                        <li><a href="#">Contack</a></li>
+                    </ul>
+                </div>
+
+            </div>
+
+        </div>
+        <!-- //header -->
+        <!-- containner -->
+        <div class="containner">
+            <div class="content">
+                <div class="spot">
+                    <div class="inner">
+                        <div class="img_wrap">
+                            <img src="./img/banner_strawberry.png" alt="" width="500" height="360" alt="딸기이미지">
+                        </div>
+                        <div class="spot_title_wrap">
+                            <h2 class="spot_title">오븐없이도 베이킹 가능 달콤살콤 노오븐 딸기 케이크 만들기</h2>
+                            <div class="name_section">
+                                <div class="img_box">
+                                    <img src="./img/thumbnail_profile.jpg" width="40" height="40" alt="프로필사진">
+                                </div>
+                                <strong class="name">jaeseon.choi</strong>
+                            </div>
+                            </div>
+                    </div>
+                </div>       
+            </div>
+        </div>
+        <!-- //containner -->
+
+        <!-- footer -->
+        <div class="footer">
+            <div class="inner"></div>
+        </div>
+        <!-- //footer -->
+    </div>
+</body>
+</html>
