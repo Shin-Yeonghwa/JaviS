@@ -149,3 +149,150 @@ table caption {
 .header_wrap .menu_list li a:hover{
     font-weight:bold;
 }
+.spot{
+    overflow:hidden;
+    background-color:#ffee02;.
+}
+.spot .img_wrap{
+    float:right;
+    margin-top:30px;
+}
+
+.spot .spot_title_wrap{
+    padding-top:80px;
+}
+
+.spot .spot_title{
+    font-size:40px;
+    line-height:52px;
+    color:#333;
+    overflow:hidden;
+    font-weight:normal;
+    display:-webkit-box;
+    -webkit-line-clamp: 3;
+    -webkit-box-orient: vertical;
+    text-overflow:ellipsis;
+}
+
+.spot .name_section{
+    overflow:hidden;
+    position:relative;
+}
+
+.spot .name_section:before{
+    content:'';
+    display:block;
+    width:40px;
+    height:1px;
+    margin:37px 0;
+    background-color:#000;
+
+}
+.spot .img_box{
+    float:left;
+    width:40px;
+    height:40px;
+    border-radius:100%;
+    background:url(../img/thumbnail_profile_none.jpg) no-repeat;
+    background-size:40px 40px;
+
+}
+.spot .img_box img{
+    border-radius:100%;
+}
+.spot .name{
+    font-size:18px;
+    display:inline-block;
+    vertical-align: top;
+    margin:11px 0 0 10px;
+}
+
+/* 이미지 섹션 */
+
+.image_lst{
+    overflow:hidden;
+    margin-top:20px;
+}
+.image_lst li{
+    overflow:hidden;
+    float:left;
+    width:316px;
+    height:316px;
+    margin:0 20px 20px 0;
+}
+.image_lst li:nth-child(3n){
+    margin-right:0;
+}
+.image_lst li a{
+    position:relative;
+    display:block;
+    height:100%;
+    box-sizing: border-box;
+    
+}
+
+.image_lst li a:after{
+    content:'';
+    position:absolute;
+    top:0;
+    left:0;
+    bottom:0;
+    right:0;
+    border:1px solid #000;
+    opacity: .1;
+}
+
+.image_lst li a:hover:after{
+    background-color:rgba(255, 255, 255, 0.9)
+}
+
+
+
+.image_lst li strong{
+    overflow:hidden;
+    text-overflow:ellipsis;
+    white-space: nowrap;
+    position:absolute;
+    bottom:0;
+    left:0;
+    right:0;
+    display:none;
+    height:60px;
+    line-height:60px;
+    text-align:center;
+    background-color:#fff;
+    font-size:18px;
+    color:#333;
+
+}
+
+.image_lst li a:hover strong{
+    display:block;
+}
+
+.list_more{
+    display:block;
+    width:100%;
+    height:60px;
+    line-height:60px;
+    text-align:center;
+    border:1px solid #c1c1c1;
+    font-size:16px;
+}
+
+.list_more span{
+    display:inline-block;
+}
+
+.list_more span:before{
+    content:'';
+    display: inline-block;
+    vertical-align: middle;
+    margin: -3px 10px 0 0;
+    width:16px;
+    height:16px;
+    background:url(../img/icon_arrow_more.png) no-repeat;
+
+    background-size:16px 16px;
+    
+}
