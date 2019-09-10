@@ -11,10 +11,16 @@
 <link rel="stylesheet" type="text/css" href="css/test.css">
 
 <script>
+
 	$(function() {
+		
+		// 모바일 햄버거 메뉴 스크립트
 		$(".menu_button").click(function(){
 			$(".menu_list").toggleClass("open_list");
 		})  
+
+
+
 	});
 </script>
 </head>
@@ -49,12 +55,12 @@
 								<div class="editor_img">
 									<img src="./img/thumbnail_profile.jpg" width="60" height="60" alt="작성자 프로필사진">
 								</div>
-								<div class="name">FULLMOON</div>
+								<strong class="name">FULLMOON</strong>
 							</div>
 						</div>
 					</div>
 				</div>
-				<div class="section">
+				<div class="section" id="section1"> 
 					<div class="inner">
 						<ul class="image_list">
 							<li>
@@ -121,7 +127,7 @@
 						<button type="button" class="list_add"><span class="text">더보기</span></button>
 					</div>
 				</div>
-				<div class="section2">
+				<div class="section2"  id="section2">
 					<div class="inner">
 						<div class="notice_box">
 							<div class="notice_text">
@@ -166,7 +172,7 @@
 					</div>
 				</div>
 	
-				<div class="section3">
+				<div class="section3"  id="section3">
 					<div class="inner">
 						<div class="info_box">
 							<h3 class="info_title">공지사항</h3>

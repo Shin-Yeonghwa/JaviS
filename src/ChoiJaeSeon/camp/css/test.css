@@ -84,7 +84,12 @@ body{
 }
 /* herder */
 .header{
+    position:fixed;
+    width:100%;
+    top:0;
+    left:0;
     background-color:#fff;
+    z-index:100;
 }
 .header .inner{
     height:70px;
@@ -201,6 +206,7 @@ body{
     overflow:hidden;
     float:left;
     margin:21px 0 0 10px;
+    font-weight:normal;
     font-size:18px;
 }
 
@@ -283,9 +289,6 @@ body{
     border:1px solid #c1c1c1;
     background-color:#fff;
 
-}
-.list_add .text{
-    position:relative;
 }
 
 .list_add .text:before{
@@ -446,7 +449,6 @@ body{
     overflow:hidden;
 }
 .section3 .offer dd a{
-    position:relative;
     float:left;
 }
 .section3 .offer dd a + a:before{
