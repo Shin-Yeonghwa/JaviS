@@ -7,7 +7,7 @@ body, p, h1, h2, h3, h4, h5, h6, ul, ol, li, dl, dt, dd, table, th, td, form, fi
 }
 
 body, input, textarea, select, table, button, code {
-	font-family: -apple-system,BlinkMacSystemFont,helvetica,Apple SD Gothic Neo,sans-serif;
+    font-family:'나눔고딕',NanumGothic,'맑은고딕',MalgunGothic,'돋움',Dotum,Helvetica,sans-serif;
 	font-size: 1.6rem;
     line-height: 2rem;
 }
@@ -84,12 +84,8 @@ body{
 }
 /* herder */
 .header{
-    position:fixed;
-    width:100%;
-    top:0;
-    left:0;
     background-color:#fff;
-    z-index:100;
+
 }
 .header .inner{
     height:70px;
@@ -145,13 +141,12 @@ body{
 }
 .header .menu_list li a{
     display:block;
-
-    height:100%;
-    box-sizing:border-box;
-    -webkit-box-sizing:border-box;
 }
 .header .menu_list li:first-child{
     margin-left:0;
+}
+.header .menu_list li a:hover{
+    font-weight:bold;
 }
 
 /* spot */
@@ -177,6 +172,7 @@ body{
     -webkit-line-clamp: 3;
     text-overflow: ellipsis;
     font-size:40px;
+    font-weight:normal;
     line-height:52px;
 }
 
@@ -197,6 +193,11 @@ body{
 
 .spot .editor_box .editor_img{
     float:left;
+    width:60px;
+    height:60px;
+    border-radius:100%;
+    -webkit-border-radius:100%;
+    background:url(../img/thumbnail_profile_none.jpg) no-repeat;
 }
 .spot .editor_box .editor_img img{
     border-radius:100%;
@@ -678,6 +679,8 @@ body{
 
 .spot .editor_box .editor_img{
     float:left;
+    width:30px;
+    height:30px;
 }
 .spot .editor_box .editor_img img{
     width:30px;

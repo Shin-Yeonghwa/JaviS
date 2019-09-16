@@ -82,6 +82,9 @@ table caption {
     margin: -1px!important
 }
 
+.wrap{
+    min-width:1200px;
+}
 /* header 영역 */
 .header{
     background-color:#fff;
