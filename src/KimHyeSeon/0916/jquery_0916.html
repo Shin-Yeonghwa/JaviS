@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Jquery</title>
+    <style>
+        body{padding-bottom: 100px;}
+        .center {text-align: center;}
+
+        .ex_code {
+            width: 400px;
+            padding: 5px;
+            border: 2px solid #000;
+        }
+        .ex_code strong {display: block;}
+
+        .selector_code {
+            width: 300px;
+            box-sizing: border-box;
+            }
+
+        .selector_code * {
+            padding: 5px;
+            border: 3px solid #000;
+        }
+        .outer {
+            width: 300px;
+            height: 200px;
+            background-color: orange;
+            padding: 20px;
+            margin: 10px;
+        }
+        .inner {
+            width: 100px;
+            height: 100px;
+            margin: 30px;
+            background-color: red;
+        }
+    </style>
+</head>
+<body>
+    <h1>Jquery</h1>
+    
+    <h2>1. 기본 이벤트와 이벤트 전달</h2>
+    <ul>
+        <li><strong>preventDefault()</strong> 기본 이벤트를 제거 <button type="button" id="ex1-1">예제1-1</button></li>
+        <li><strong>stopPropagation()</strong> 이벤트 전달들 제거 <button type="button" id="ex1-2">예제1-2</button></li>
+    </ul>
+    <p>- 위 두개의 메서드는 함께 사용하는 경우가 많으므로, return false를 사용하면 함께 적용하는 것으로 인식 <button type="button" id="ex1-3">예제1-3</button></p>
+
+    <div class="ex_code" id="ex1">
+        <strong>예제. h3 > a</strong>
+        <div class="selector_code">            
+            <h3><a href="#">H3 - m.naver</a></h3>
+        </div>
+    </div>
+
+    <h2>2. 이벤트 연결 범위 한정</h2>
+    <p>on() 메서드는 selector 매게변수로 이벤트 범위를 한정할 수 있음 → delegate 방식</p>
+    <p>상위 개념이 애매한 태그는 document객체에 이벤트를 연결함</p>
+    <div class="ex_code" id="ex2">
+        <strong>예제. header 증가</strong>
+        <button type="button" id="ex2-1">예제2-1 (h3에 연결)</button>
+        <button type="button" id="ex2-2">예제2-2 (상위 태그에 연결)</button> 
+        <h3>Header</h3>
+    </div>
+
+    <h2>3. 마우스 이벤트</h2>
+    <ul>
+        <li><strong>clidk</strong> 마우스를 클릭할 때 발생</li>
+        <li><strong>dblclick</strong> 마우스를 더블클릭할 때 발생</li>
+        <li><strong>mousedown</strong> 마우스 버튼을 누를 때 발생</li>
+        <li><strong>mouseup</strong> 마우스 버튼을 땔 때 발생</li>
+        <li><strong>mouseenter</strong> 마우스가 요소의 경계 외부에서 내부로 이동할 때 발생</li>
+        <li><strong>mouseleave</strong> 마우스가 요소의 경계 내부에서 외부로 이동할 때 발생</li>
+        <li><strong>mousemove</strong> 마우스를 움직일 때 발생</li>
+        <li><strong>mouseout</strong> 마우스가 요소를 벗어날 때 발생</li>
+        <li><strong>mouseover</strong> 마우스를 요소 안에 들어올 때 발생 (거의 사용하지 않음)</li>
+    </ul>
+    <div class="ex_code" id="ex3">            
+        <strong>예제. mouseenter vs. mouseover</strong>
+        <div class="outer">
+            outer
+            <div class="inner">inner</div>
+        </div>       
+        <div class="result"></div>    
+    </div>
+
+    <h2>4. 키보드 이벤트</h2>
+    <ul>
+        <li><strong>keydown</strong> 키보드를 누를 때 발생</li>
+        <li><strong>keypress</strong> 글자가 입력될 때 발생 (한글은 사용불가)</li>
+        <li><strong>keyup</strong> 키보드를 뗄 때 발생 (입력한 글자수 표시할 경우 사용)</li>
+    </ul>
+    <div class="ex_code" id="ex4">
+        <h3>100</h3>
+        <textarea cols="53" rows="5"></textarea>
+    </div>
+    <h3>키보드 이벤트 발생 순서 :</h3>
+    <p>사용자가 키보드를 누름 → keydown 이벤트 발생 → 글자가 입력됨 → keypress 이벤트가 발생 → 사용자가 키보드에서 손을 뗌 → keyup 이벤트 발생</p>
+
+    <h2>5. 윈도우 이벤트</h2>
+    <p>- window객체와 document객체 외에 img 태그 등이 사용할 수 있는 이벤트</p>
+    <ul>
+        <li><strong>ready</strong> 문서 객체가 준비 완료되면</li>
+        <li><strong>load</strong> window(document)를 불러들일 때 발생</li>
+        <li><strong>unload</strong> window(document를 닫을 때 발생</li>
+        <li><strong>resize</strong> window의 크기를 변화시킬 때 발생</li>
+        <li><strong>scroll</strong> window를 스크롤할 때 발생</li>
+        <li><strong>error</strong> 에러가 있을 때 발생</li>
+    </ul>
+    <div class="ex_code" id="ex5">
+        <strong>예제. window의 창 크기</strong>
+        <span class="windowWidth"></span> <span class="windowHeight"></span>
+    </div>
+
+    <h2>6. 입력 양식 이벤트</h2>    
+    <ul>
+        <li><strong>change</strong> 입력 양식의 내용을 변경할 때 발생 </li>
+        <li><strong>focus</strong> 입력 양식에 초점을 맞추면 발생 <button type="button" id="exFocus">예제</button></li>
+        <li><strong>focusin</strong> 입력 양식에 초점이 맞추어지기 바로 전에 발생</li>
+        <li><strong>focusout</strong> 입력 양식에 초점이 사라지기 바로 전에 발생</li>
+        <li><strong>blur</strong> 입력 양식에 초점이 사라지면 발생 <button type="button" id="exBlur">예제</button></li>
+        <li><strong>select</strong> 입력 양식을 선택할 때 발생 (input type="text" 및 textarea 제외) <button type="button" id="exSelect">예제</button></li>
+        <li><strong>submit</strong> submit 버튼을 누르면 발생</li>
+        <li><strong>reset</strong> reset 버튼을 누르면 발생</li>
+    </ul>
+    <button type="button" id="exForm">예제 - change / focus / blur</button>
+    <div class="ex_code" id="ex6">        
+        <strong>예제. 입력 양식</strong>        
+        <input type="text" id="ex6-1" placeholder="change">
+        <input type="checkbox" id="ex6-2"><label for="ex6-2">focus</label>
+        <input type="radio" id="ex6-3"><label for="ex6-3">blur</label>
+    </div>
+
+    <script type="text/javascript" src="//code.jquery.com/jquery-1.10.2.js"></script>
+    <script type="text/javascript" src="jquery_0916.js"></script>
+</body>
+</html>
