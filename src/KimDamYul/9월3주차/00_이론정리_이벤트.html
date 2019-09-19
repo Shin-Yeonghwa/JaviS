@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>이벤트</title>
+    </head>
+    <body>
+        <H1>1. 이벤트</H1>
+		jQuery를 이용할때 다음 구문을 사용한다.
+        <pre>
+        $(document).ready(function (event) {
+
+        });
+        </pre>
+        <H2>이벤트 연결방법 (기본)</H2>
+        on() - 이벤트를 연결합니다.<br><br>
+        <b>on() 메서드</b><br>
+        <b>1.</b> $(selector).on(eventName, function(event) {})<br>
+        <b>2.</b> $(selector).on(object)<br>
+        <pre>
+        <b>$(selector).on(eventName, function(event) {}) 형식</b><br>
+        $(document).ready(function (
+
+            첫번째 매개변수에 이벤트 이름을 입력하고 두 번째 매개변수에 이벤트 리스너를 입력합니다.
+            이벤트 리스너 안에서 this 키워드는 이벤트가 발생한 객체를 의미합니다.
+
+            $('h1').on('click', function(){
+                $(this).html(function (index, html) {
+                    return html + '+';
+                });
+            });
+        });
+        </pre>  
+        <pre>
+        <b>$(selector).on(object) 형식</b><br>
+        $(document).ready(function (
+
+            첫번째 매개변수에 이벤트 이름을 입력하고 두 번째 매개변수에 이벤트 리스너를 입력합니다.
+            이벤트 리스너 안에서 this 키워드는 이벤트가 발생한 객체를 의미합니다.
+            
+            $('h1').on({
+                mouseenter: function () { $(this).addClass('reverse'); },
+                mouseleave: function () { $(this)/removeClass('reverse'); }
+                });
+            });
+        </pre>                 
+
+        <h2>이벤트종류</h2>
+        <pre>
+ <b>$(selector).method(function(event { });</b>
+        </pre>
+        blur<br>
+        focus<br>
+        focusin<br>
+        focusout<br>
+        load<br>
+        resize<br>
+        scroll<br>
+        unload<br>
+        click<br>
+        dblclick<br>
+        mousedown<br>
+        mouseup<br>
+        mousemove<br>
+        mouseover<br>
+        mouseout<br>
+        mouseenter<br>
+        mouseleave<br>
+        change<br>
+        select<br>
+        submit<br>
+        keydown<br>
+        keypress<br>
+        keyup<br>
+        error<br>
+        ready<br>
+        <h3>hover() 메서드 - mouseenter 이벤트와 mouseleave 이벤트를 동시에 연결합니다.</h3>
+$(selector).hover(function(event { }, function(event) { });
+
+         <h3>off() 메서드 - 이벤트를 제거합니다.</h3>
+        <b>1.</b> $(selector).off() - 해당 문서 객체와 관련된 모든 이벤트 제거 <br>
+        <b>2.</b> $(selector).off(eventName) - 해당 문서 객체의 특정 이벤트와 관련된 모든 이벤트를 제거<br>
+        <b>3.</b> $(selector).off(eventName,function) - 특정 이벤트 리스너를 제거<br>
+
+        <h3>one() 메서드 - 이벤트를 한 번만 연결합니다.</h3>
+        사용방법은 on() 메서드 사용과 같음
+
+        <h3>매개변수 context</h3>
+        <b>$(selector, context)</b><br>
+        매개변수 context는 selector가 적용하는 범위를 한정합니다.(일반적으로 이벤트와 함께사용)<br>   
+        <pre>
+            $(document).ready(function (){
+            //이벤트 연결
+            $('div').click(function (){
+                //변수 선언
+                var header = $('h1', this).text();
+                var paragraph = $('p', this).text();
+
+                //출력합니다.
+                alert(header + '\n' + paragraph);
+            });
+        });
+        </pre>
+
+        <h3>이벤트 객체</h3>
+        <b>이벤트객체 속성</b><br>
+        event.pageX - 브라우저의 화면을 기준으로 한 마우스의 X 좌표 위치<br>
+        event.pageY - 브라우저의 화면을 기준으로 한 마우스의 Y 좌표 위치<br>
+        event.preventDefault() - 기본 이벤트를 제거합니다<br>
+        event.stopPropagation() - 이벤트 전달을 제거합니다<br>
+        <pre>
+            <b>사용예시</b>
+            mousedown: function (event){
+                var position = $(this).offset();
+                var x = event.pageX - position.left;
+                var y = event.pageY - position.top;
+            }
+        </pre>
+
+        <h3>이벤트 강제 발생</h3>
+        trigger() - 이벤트를 강제로 발생시킵니다. <br>
+        <b>1.</b> $(selector).trigger(eventName)<br>
+        <b>2.</b> $(selector).trigger(eventName, data)<br>
+        <pre>
+            <b>사용예시</b>
+            $(document).ready(function () {
+            //이벤트를 연결합니다.
+            $('h1').click(function (event, data1, data2) {
+                alert(data1 + ' : ' + data2);
+            });
+            //이벤트를 강제로 발생시킵니다.
+            $('h1').eq(1).trigger('click', [273, 52]);
+        });
+        </pre>
+    </body>
+
+<body>
+
+
+</body>
+</html>
+
+
