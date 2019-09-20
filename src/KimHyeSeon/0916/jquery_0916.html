@@ -25,6 +25,12 @@
             padding: 5px;
             border: 3px solid #000;
         }
+        .js_code {
+            width: 350px;
+            margin: 10px 0;
+            padding: 10px;
+            background-color: #eee;
+        }
         .outer {
             width: 300px;
             height: 200px;
@@ -45,10 +51,49 @@
     
     <h2>1. 기본 이벤트와 이벤트 전달</h2>
     <ul>
-        <li><strong>preventDefault()</strong> 기본 이벤트를 제거 <button type="button" id="ex1-1">예제1-1</button></li>
-        <li><strong>stopPropagation()</strong> 이벤트 전달들 제거 <button type="button" id="ex1-2">예제1-2</button></li>
+        <li>
+            <strong>preventDefault()</strong> 기본 이벤트를 제거 <button type="button" id="ex1-1">예제1-1</button>
+            <div class="js_code">
+<pre>
+$('#ex1 a').click(function(event) {
+    $(this).css('background-color','blue');
+    event.preventDefault();
+});    
+$('#ex1 h3').click(function() {
+    $(this).css('background-color','red');
+});
+</pre>
+    </div>
+        </li>
+        <li>
+            <strong>stopPropagation()</strong> 이벤트 전달들 제거 <button type="button" id="ex1-2">예제1-2</button>
+            <div class="js_code">
+<pre>
+$('#ex1 a').click(function(event) {
+    $(this).css('background-color','blue');
+    event.stopPropagation();
+    event.preventDefault();
+});    
+$('#ex1 h3').click(function() {
+    $(this).css('background-color','red');
+});
+</pre>
+    </div>
+        </li>
+        <li>위 두개의 메서드는 함께 사용하는 경우가 많으므로, return false를 사용하면 함께 적용하는 것으로 인식        <button type="button" id="ex1-3">예제1-3</button>
+            <div class="js_code">
+<pre>
+$('#ex1 a').click(function(event) {
+    $(this).css('background-color','blue');
+});    
+$('#ex1 h3').click(function() {
+    $(this).css('background-color','red');
+    return false;
+});
+</pre>
+            </div>
+        </li>
     </ul>
-    <p>- 위 두개의 메서드는 함께 사용하는 경우가 많으므로, return false를 사용하면 함께 적용하는 것으로 인식 <button type="button" id="ex1-3">예제1-3</button></p>
 
     <div class="ex_code" id="ex1">
         <strong>예제. h3 > a</strong>
@@ -60,6 +105,26 @@
     <h2>2. 이벤트 연결 범위 한정</h2>
     <p>on() 메서드는 selector 매게변수로 이벤트 범위를 한정할 수 있음 → delegate 방식</p>
     <p>상위 개념이 애매한 태그는 document객체에 이벤트를 연결함</p>
+    <div class="js_code" style="width: 530px;">
+<pre>
+<strong>[ 2-1 ]</strong>
+$('#ex2 h3').on('click', function() { //h3에 이벤트 연결
+    var length = $('#ex2 h3').length;
+    var targetHTML = $(this).html();
+    $('#ex2').append('&lt;h3&gt;' + length + ' - ' + targetHTML + '&lt;/h3&gt;');
+});
+
+<strong>[ 2-2 ]</strong>
+$('#ex2-2').click(function() {
+    $('#ex2').on('click', 'h3', function() { //h3의 상위 id="ex2"에 이벤트 연결
+        var length = $('h3').length;
+        var targetHTML = $(this).html();
+        $('#ex2').append('&lt;h3&gt;' + length + ' - ' + targetHTML + '&lt;/h3&gt;');
+    });
+});
+</pre>
+    </div>
+
     <div class="ex_code" id="ex2">
         <strong>예제. header 증가</strong>
         <button type="button" id="ex2-1">예제2-1 (h3에 연결)</button>
@@ -69,7 +134,7 @@
 
     <h2>3. 마우스 이벤트</h2>
     <ul>
-        <li><strong>clidk</strong> 마우스를 클릭할 때 발생</li>
+        <li><strong>click</strong> 마우스를 클릭할 때 발생</li>
         <li><strong>dblclick</strong> 마우스를 더블클릭할 때 발생</li>
         <li><strong>mousedown</strong> 마우스 버튼을 누를 때 발생</li>
         <li><strong>mouseup</strong> 마우스 버튼을 땔 때 발생</li>
@@ -79,6 +144,15 @@
         <li><strong>mouseout</strong> 마우스가 요소를 벗어날 때 발생</li>
         <li><strong>mouseover</strong> 마우스를 요소 안에 들어올 때 발생 (거의 사용하지 않음)</li>
     </ul>
+    <div class="js_code">
+<pre>
+$('.outer').mouseover(function() {
+    $('.result').append('&lt;p&gt;mouseover&lt;/p&gt;');
+}).mouseenter(function() {
+    $('.result').append('&lt;p&gt;mouseenter&lt;/p&gt;');
+});
+</pre>
+    </div>
     <div class="ex_code" id="ex3">            
         <strong>예제. mouseenter vs. mouseover</strong>
         <div class="outer">
@@ -94,6 +168,18 @@
         <li><strong>keypress</strong> 글자가 입력될 때 발생 (한글은 사용불가)</li>
         <li><strong>keyup</strong> 키보드를 뗄 때 발생 (입력한 글자수 표시할 경우 사용)</li>
     </ul>
+    <div class="js_code">
+<pre>
+$('#ex4 textarea').keyup(function() {
+    //남은 글자 수를 구함
+    var inputLength = $(this). val().length;
+    var remain = 100 - inputLength;
+
+    //문서객체에 입력
+    $('#ex4 h3').html(remain);
+})
+</pre>
+    </div>
     <div class="ex_code" id="ex4">
         <h3>100</h3>
         <textarea cols="53" rows="5"></textarea>
@@ -111,6 +197,16 @@
         <li><strong>scroll</strong> window를 스크롤할 때 발생</li>
         <li><strong>error</strong> 에러가 있을 때 발생</li>
     </ul>
+    <div class="js_code" style="width: 420px;">
+<pre>
+$(window).resize(function() {
+    var windowWidth = $(window).width();
+    var windowHeight = $(window).height();
+    $('.windowWidth').html('width: ' + windowWidth + 'px /');
+    $('.windowHeight').html('height : ' + windowHeight + 'px');
+});
+</pre>
+    </div>
     <div class="ex_code" id="ex5">
         <strong>예제. window의 창 크기</strong>
         <span class="windowWidth"></span> <span class="windowHeight"></span>
@@ -119,11 +215,38 @@
     <h2>6. 입력 양식 이벤트</h2>    
     <ul>
         <li><strong>change</strong> 입력 양식의 내용을 변경할 때 발생 </li>
-        <li><strong>focus</strong> 입력 양식에 초점을 맞추면 발생 <button type="button" id="exFocus">예제</button></li>
+        <li>
+            <strong>focus</strong> 입력 양식에 초점을 맞추면 발생 <button type="button" id="exFocus">예제</button>
+            <div class="js_code">
+<pre>
+$('#ex6-1').change(function() {
+    $('#ex6-1').css('border','2px solid #1dbe00');
+});
+</pre>
+            </div>
+        </li>
         <li><strong>focusin</strong> 입력 양식에 초점이 맞추어지기 바로 전에 발생</li>
         <li><strong>focusout</strong> 입력 양식에 초점이 사라지기 바로 전에 발생</li>
-        <li><strong>blur</strong> 입력 양식에 초점이 사라지면 발생 <button type="button" id="exBlur">예제</button></li>
-        <li><strong>select</strong> 입력 양식을 선택할 때 발생 (input type="text" 및 textarea 제외) <button type="button" id="exSelect">예제</button></li>
+        <li>
+            <strong>blur</strong> 입력 양식에 초점이 사라지면 발생 <button type="button" id="exBlur">예제</button>
+            <div class="js_code">
+<pre>
+$('#ex6-2').focus(function() {
+    $('#ex6-2 + label').css('color','red');
+});
+</pre>
+            </div>
+        </li>
+        <li>
+            <strong>select</strong> 입력 양식을 선택할 때 발생 (input type="text" 및 textarea 제외) <button type="button" id="exSelect">예제</button>
+            <div class="js_code">
+<pre>
+$('#ex6-3').blur(function() {
+    $('#ex6-3 + label').css('color','red');
+});
+</pre>
+            </div>
+        </li>
         <li><strong>submit</strong> submit 버튼을 누르면 발생</li>
         <li><strong>reset</strong> reset 버튼을 누르면 발생</li>
     </ul>
