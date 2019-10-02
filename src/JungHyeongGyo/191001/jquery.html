@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html>
+
+<body>
+    <div style="width:1000px;margin: 0 auto">
+        <h1>jquery</h1>
+        <h2>효과</h2>
+        <hr>
+        <h3>기본 시각 효과</h3>
+        <dl>
+            <dt>show()</dt>
+            <dd>문서 객체를 크게 하며 보여줍니다.</dd>
+            <dt>hide()</dt>
+            <dd>문서 객체를 작게 하며 사라지게 합니다.</dd>
+            <dt>togle()</dt>
+            <dd>show() 메서드와 hide() 메서드를 번갈아 실행합니다.</dd>
+            <dt>slideDown()</dt>
+            <dd>문서 객체를 슬라이드 효과와 함께 보여줍니다.</dd>
+            <dt>slideUp()</dt>
+            <dd>문서 객체를 슬라이드 효과와 함께 사라지게 합니다.</dd>
+            <dt>slideToggle()</dt>
+            <dd>slideDown() 메서드와 slideUp() 메서드를 번갈아 실행합니다.</dd>
+            <dt>fadeIn()</dt>
+            <dd>문서 객체를 선명하게 보여줍니다.</dd>
+            <dt>fadeOut()</dt>
+            <dd>문서 객체를 흐리게 사라지게 합니다.</dd>
+            <dt>fadeToggle()</dt>
+            <dd>fadeIn() 메서드와 fadeOut() 메서드를 번갈아 실행합니다.</dd>
+        </dl>
+        <br>
+        <p>사용 예시 : $(selector).method(speed, easing, callback)</p>
+        <br>
+        <dl>
+            <dt>speed</dt>
+            <dd>효과를 진행할 속도를 지정합니다.</dd>
+            <dd>밀리 초 단위의 숫자 또는 문자열 slow, normal, fast를 입력합니다.</dd>
+            <dt>callback</dt>
+            <dd>효과를 모두 완료하고 실행할 함수를 지정합니다.</dd>
+            <dt>easing</dt>
+            <dd>애니메이션 easing 형태를 지정합니다.</dd>
+            <dd>별도의 플러그인을 사용하지 않으면 문자열 linear와 swing만 입력 가능합니다.</dd>
+        </dl>
+        <hr>
+        <h3>사용자 정의 효과</h3>
+        <dl>
+            <dt>animate()</dt>
+            <dd>사용자 지정 효과를 생성합니다.</dd>
+        </dl>
+        <p>$(selector).animate(object, speed, easing, callback);</p>
+        <br>
+        <p>속성</p>
+        <ul>
+            <li>opacity</li>
+            <li>height</li>
+            <li>top</li>
+            <li>width</li>
+            <li>left</li>
+            <li>margin</li>
+            <li>right</li>
+            <li>padding</li>
+            <li>bottom</li>
+        </ul>
+        <hr>
+        <h3>상대적 애니메이션</h3>
+        <p>현재 상태에서 상대적으로 애니메이션을 적용</p>
+        <p>예시1 : width: parseInt(width) + 50</p>
+        <p>예시2 : width: '+=50'</p>
+
+        <hr>
+        <h3>애니메이션 큐</h3>
+        <dl>
+            <dt>clearQueue()</dt>
+            <dd>큐의 내용을 제거합니다.</dd>
+        </dl>
+        <p>제이쿼리의 효과 메서드는 계속 누적된다.</p>
+
+        <hr>
+        <h3>애니메이션 정지</h3>
+        <dl>
+            <dt>stop()</dt>
+            <dd>효과 및 애니메이션을 정지</dd>
+        </dl>
+        <p>$(selector).stop(clearQueue, goToEnd);</p>
+
+        <hr>
+        <h3>애니메이션 지연</h3>
+        <dl>
+            <dt>delay()</dt>
+            <dd>큐에 있는 명령을 잠시 중지합니다.</dd>
+        </dl>
+
+    </div>
+
+</body>
+
+</html>
