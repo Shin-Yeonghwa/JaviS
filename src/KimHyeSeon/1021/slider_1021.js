@@ -7,7 +7,7 @@ $(document).ready(function() {
         $('.control_button[data-index!=' + index + ']').removeClass('active');
 
         $('.slider_text[data-index=' + index + ']').show().animate({
-            left:0;
+            left:0,
         }, 'slow');
 
         $('.slider_text[data-index!=' + index + ']').hide('slow', function() {
