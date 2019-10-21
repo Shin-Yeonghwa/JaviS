@@ -4,3 +4,53 @@
     margin: 0;
     padding: 0;
 }
+
+.animation_canvas {
+    overflow: hidden;
+    position: relative;
+    width: 600px;
+    height: 400px;
+}
+
+.slider_panel {
+    width: 3000px;
+    position: relative;
+}
+
+.slider_image {
+    float: left;
+    width: 600px;
+    height: 400px;
+}
+
+.slider_text_panel {
+    position: absolute;
+    top: 200px;
+    left: 50px;
+}
+
+.slider_text {
+    position: absolute;
+    width: 250px;
+    height: 150px;
+}
+
+.control_panel {
+    overflow: hidden;
+    position: absolute;
+    top: 380px;
+    left: 270px;
+    height: 13px;
+}
+.control_button {
+    position: relative;
+    float: left;
+    width: 12px;
+    height: 12px;
+    margin: 0 3px;
+    border-radius: 6px;
+    background-color: rgba(255,255,255,.3);
+    cursor: pointer;
+}
+
+.control_button:hover, .control_button:active {background-color: #fff;}
