@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <script src="https://policy.naver.com/policy-mobile/js/jquery-3.2.1.min.js"></script>
+
+        <title>10월4주 - 이미지슬라이더실습 </title>
+        <style>
+            *{
+                margin:0; padding:0;
+            }
+            .animation_canvas{
+                position: relative;
+                width:600px;
+                height:400px;
+            }
+
+            .slider_panel{
+                width:3000px;
+                position:relative;
+            }
+
+            .slider_image{
+                float:left;
+                width:600px;
+                height:400px;
+            }
+
+            .slider_text_panel{
+                position: absolute;
+                top:200px;
+                left:50px;
+            }
+
+            .slider_text{
+                position: absolute;
+                width:250px;
+                height:150px;
+            }
+
+            .control_panel{
+                position: absolute;
+                top:380px;
+                left:270px;
+                height:13px;
+                overflow:hidden;
+            }
+
+            .control_button{
+                width:12px;
+                height:12px;
+                position: relative;
+                float:left;
+                cursor:pointer;
+                background:red;
+                margin:0 3px;
+                border-radius:12px;
+            }
+
+            .control_button:hover{
+                top:-16px;
+            }
+
+            .control_button.active{
+                top:-31px;
+            }
+        </style>       
+    </head>
+    <body>
+        <h1>test header</h1>
+        <div class="animation_canvas">
+            <div class="slider_panel">
+                <img class="slider_image" />
+                <img class="slider_image" />
+                <img class="slider_image" />
+                <img class="slider_image" />
+                <img class="slider_image" />
+            </div>
+            <div class="slider_text_panel">
+                <div class="slider_text">
+                    <h1>title</h1>
+                    <p>text test</p>
+                </div>
+                <div class="slider_text">
+                    <h1>title</h1>
+                    <p>text test</p>
+                </div>
+                <div class="slider_text">
+                    <h1>title</h1>
+                    <p>text test</p>
+                </div>
+                <div class="slider_text">
+                    <h1>title</h1>
+                    <p>text test</p>
+                </div>
+                <div class="slider_text">
+                    <h1>title</h1>
+                    <p>text test</p>
+                </div>                                                                
+            </div>
+            <div class="control_panel">
+                <div class="control_button"></div>
+                <div class="control_button"></div>
+                <div class="control_button"></div>
+                <div class="control_button"></div>
+                <div class="control_button"></div>
+            </div>
+        </div>
+        <h1>test header</h1>
+    </body>
+    <script>
+        $(document).ready(function (){
+
+            function moveSlider(index){
+                $('.slider_text').css('left',-300).each(function (index){
+                    $(this).attr('data-index', index);
+                });
+                            
+                var willMoveLeft = -(index * 600);
+                $('.slider_panel').animate({ left:willMoveLeft }, 'slow');
+
+                $('control_button[data-index=' + index = ']').addClass('active');
+                $('control_button[data-index!=' + index + ']').removeClass('active');
+
+                $('.slider_text[data-index=' + index + ']').show().animate({
+                    left:0
+                }, 'slow');
+
+                $('.slider_text[data-index!=' + index + ']').hide('slow', function () {
+                    $(this).css('left',-300);
+                });
+            }
+
+
+            $('control_button').each(function (index) {
+                $(this).attr('data-index', index);
+            }).click(function () {
+                var index = $(this).attr('data-index');
+                moveSlider(index);
+            }); 
+        
+        var randomNumber = Math.round(Math.random() * 4);
+        moveSlider(randomNumber);
+
+        });
+    </script>    
+<body>
+
+
+</body>
+</html>
