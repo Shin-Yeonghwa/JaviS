@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="ko">
+  <head>
+    <meta charset="utf-8">
+    <title>이미지 슬라이더</title>
+    <style>
+      #box_wrap {
+        overflow: hidden;
+        position: relative;
+        width: 600px;
+        height: 400px;
+      }
+
+      .slider_panel {
+        width: 3000px;
+        position: relative;;
+      }
+
+      .box {
+        float: left;
+        width: 600px;
+        height: 400px;
+        background: orange;
+        vertical-align: top;
+      }
+
+      .slider_panel_text {
+        position: absolute;
+        top: 200px;
+        left: 50px;
+      }
+
+      .slider_text {
+        position: absolute;
+        width: 250px;
+        height: 150px;
+      }
+
+      .control_panel {
+        position: absolute;
+        top: 380px;
+        left: 270px;
+        height: 13px;
+        overflow: hidden;
+      }
+
+      .control_button {
+        width: 12px;
+        height: 12px;
+        position: relative;
+        float: left;
+        cursor: pointer;
+        background: red
+      }
+
+      + .control_button {
+        margin-left: 10px;
+      }
+
+      .control_button:hover {
+        background: blue
+      }
+
+      .control_button.active {
+        background: gray;
+      }
+
+    </style>
+  </head>
+  <body>
+    <div id="box_wrap">
+      <div class="slider_panel">
+        <div class="box"></div>
+        <div class="box" style="background:blue"></div>
+        <div class="box" style="background:green"></div>
+        <div class="box" style="background:gray"></div>
+        <div class="box" style="background:block"></div>
+      </div>
+
+      <div class="slider_panel_text">
+        <div class="slider_text">
+          <h1>안녕</h1>
+        </div>
+        <div class="slider_text">
+          <h1>안녕2</h1>
+        </div>
+        <div class="slider_text">
+          <h1>안녕3</h1>
+        </div>
+        <div class="slider_text">
+          <h1>안녕4</h1>
+        </div>
+        <div class="slider_text">
+          <h1>안녕5</h1>
+        </div>
+      </div>
+
+      <div class="control_panel">
+        <div class="control_button">
+          1
+        </div>
+        <div class="control_button">
+          2
+        </div>
+        <div class="control_button">
+          3
+        </div>
+        <div class="control_button">
+          4
+        </div>
+        <div class="control_button">
+          5
+        </div>
+      </div>
+    </div>
+  </body>
+
+  <script  src="http://code.jquery.com/jquery-latest.min.js"></script>
+  <script type="text/javascript">
+    $(document).ready(function () {
+
+      function moveSlider(index) {
+        var willMoveLeft = -(index * 600);
+        $('.slider_panel').animate({left: willMoveLeft}, 'slow');
+
+        $('.control_button[data-index ='+ index + ']').addClass('active');
+        $('.control_button[data-index !='+ index + ']').removeClass('active');
+
+
+        $('.slider_text[data-index =' + index + ']').show().animate ({
+          left: 0
+        }, 'slow');
+
+        $('.slider_text[data-index !=' + index + ']').hide('slow', function() {
+          $(this).css('left', -300);
+        });
+      }
+
+      $('.slider_text').css('left', -300).each(function (index) {
+        $(this).attr('data-index', index);
+      });
+
+      $('.control_button').each(function(index) {
+        $(this).attr('data-index', index);
+      }).click(function (){
+        var index = $(this).attr('data-index');
+        moveSlider(index);
+      });
+
+      var randomNumber = Math.round(Math.random() * 4);
+      moveSlider(randomNumber);
+    });
+  </script>
+</html>
