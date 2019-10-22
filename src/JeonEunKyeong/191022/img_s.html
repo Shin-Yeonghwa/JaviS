@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="tw">
+
+<head>
+    <meta charset="UTF-8">
+    <title>이미지 슬라이드</title>
+    <style>
+    * {margin: 0;padding: 0;}
+    a {text-decoration: none;}
+    li {list-style: none;}
+    img {width: 100%;height: auto;}
+    body {background: #333;}
+    h2 {color: #2edf19;font-family: 'lato'; font-weight: 300;padding: 20px;}
+
+    .slide_wrap {width: 100%;padding: 10px 20px;background: rgba(0,0,0,0.1);position: absolute;left: 50%;top: 50%;transform: translate(-50%, -50%);box-sizing: border-box;}
+    .slide_show {width: 860px;overflow: hidden;position: relative;margin: 10px auto;}
+    .slide_show .slide_img {width: 5000px;overflow: hidden;}
+    .slide_show .slide_img > div {float: left;width: 280px;padding: 5px;}
+    .slide_btn a {position: absolute;top: 50%;transform: translatey(-50%);color: #fff;width: 60px;height: 60px;background-color: rgba(255,255,255,0.1);border-radius: 50%;text-align: center;line-height: 60px;font-size: 28px;transition: all 0.3s ease-in-out;}
+    .slide_btn a:hover {background-color: rgba(255,255,255,0.3);}
+    .slide_btn a.prev {left: 10px;}
+    .slide_btn a.next {right: 10px;}
+    </style>
+</head>
+
+<body>
+    <div class="slide_wrap">
+      <div class="slide_show">
+        <div class="slide_img">
+          <div class="slide"><img src="http://dev.ui.naver.com/tmp/?768x450_img2_y_FFB4B4_50" width="768" height="450" alt="임시 이미지"></div>
+          <div class="slide"><img src="http://dev.ui.naver.com/tmp/?768x450_lovetempjongimg_y_FFB4B4_50" width="768" height="450" alt="임시 이미지"></div>
+          <div class="slide"><img src="http://dev.ui.naver.com/tmp/?768x450_kj_y_FFB4B4_50" width="768" height="450" alt="임시 이미지"></div>
+          <div class="slide"><img src="http://dev.ui.naver.com/tmp/?768x450_bob_y_FFB4B4_50" width="768" height="450" alt="임시 이미지"></div>
+          <div class="slide"><img src="http://dev.ui.naver.com/tmp/?768x450_ecupman3_y_FFB4B4_50" width="768" height="450" alt="임시 이미지"></div>
+        </div>
+      </div>
+
+      <div class="slide_btn">
+        <a href="#" class="prev"><i class="fas fa-angle-left"></i></a>
+        <a href="#" class="next"><i class="fas fa-angle-right"></i></a>
+      </div>
+    </div>
+
+
+<script src="https://code.jquery.com/jquery-2.2.4.min.js"></script>
+<script>
+$(function(){
+  var container = $(".slide_wrap");
+  var slideShow = container.find(".slide_show");    //.find(하위 요소 중)
+  var slideImg = slideShow.find(".slide_img");
+  var slides = slideImg.find(">div");               //슬라이드 이미지
+  var slideBtn = container.find(".slide_btn");      //슬라이드 버튼
+
+  var slideCount = slides.length;                   //슬라이드 개수
+  var slideWidth = slides.innerWidth();             //내부 너비
+  var show_num = 3;
+  var num = 0;
+
+  var slideCopy = $(".slide:lt("+show_num+")").clone(); //.clone 앞에값을 위에 요소에 복제하여 넣습니다.
+  slideImg.append(slideCopy);   //선택한 요소의 끝에 콘텐츠를 추가합니다.
+
+  //이미지 움직이기
+  function back(){
+    if(num == 0){
+      num = slideCount;
+      slideImg.css("margin-left",-num * slideWidth+"px");
+    }
+    num--;
+    slideImg.animate({"margin-left": -slideWidth * num +"px"},500);
+  }
+
+  function next(){
+    if(num == slideCount){
+      num = 0;
+      slideImg.css("margin-left",num);
+    }
+    num++;
+    slideImg.animate({"margin-left": -slideWidth * num +"px"},500);     //.animate 합수는 css속성을 제어하여 에니메이션 효과를 만들어냄
+  }
+
+  //버튼 클릭하기
+  slideBtn.on("click","a",function(){
+    if($(this).hasClass("prev")){
+      back();
+    } else {
+      next();
+    }
+  });
+});
+</script>
+</body>
+</html>
