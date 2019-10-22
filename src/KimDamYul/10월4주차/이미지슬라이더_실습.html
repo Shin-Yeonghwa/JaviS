@@ -1,7 +1,6 @@
 <!DOCTYPE html>
 <html>
     <head>
-        <script src="https://policy.naver.com/policy-mobile/js/jquery-3.2.1.min.js"></script>
 
         <title>10월4주 - 이미지슬라이더실습 </title>
         <style>
@@ -9,6 +8,7 @@
                 margin:0; padding:0;
             }
             .animation_canvas{
+                overflow: hidden;
                 position: relative;
                 width:600px;
                 height:400px;
@@ -56,14 +56,7 @@
                 border-radius:12px;
             }
 
-            .control_button:hover{
-                top:-16px;
-            }
-
-            .control_button.active{
-                top:-31px;
-            }
-        </style>       
+        </style>
     </head>
     <body>
         <h1>test header</h1>
@@ -95,7 +88,7 @@
                 <div class="slider_text">
                     <h1>title</h1>
                     <p>text test</p>
-                </div>                                                                
+                </div>
             </div>
             <div class="control_panel">
                 <div class="control_button"></div>
@@ -107,6 +100,7 @@
         </div>
         <h1>test header</h1>
     </body>
+    <script  src="http://code.jquery.com/jquery-latest.min.js"></script>
     <script>
         $(document).ready(function (){
 
@@ -114,12 +108,12 @@
                 $('.slider_text').css('left',-300).each(function (index){
                     $(this).attr('data-index', index);
                 });
-                            
+
                 var willMoveLeft = -(index * 600);
                 $('.slider_panel').animate({ left:willMoveLeft }, 'slow');
 
-                $('control_button[data-index=' + index = ']').addClass('active');
-                $('control_button[data-index!=' + index + ']').removeClass('active');
+                $('.control_button[data-index=' + index + ']').addClass('active');
+                $('.control_button[data-index!=' + index + ']').removeClass('active');
 
                 $('.slider_text[data-index=' + index + ']').show().animate({
                     left:0
@@ -131,18 +125,18 @@
             }
 
 
-            $('control_button').each(function (index) {
+            $('.control_button').each(function (index) {
                 $(this).attr('data-index', index);
             }).click(function () {
                 var index = $(this).attr('data-index');
                 moveSlider(index);
-            }); 
-        
+            });
+
         var randomNumber = Math.round(Math.random() * 4);
         moveSlider(randomNumber);
 
         });
-    </script>    
+    </script>
 <body>
 
 
