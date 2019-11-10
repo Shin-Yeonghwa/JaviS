@@ -5,37 +5,67 @@
 	<meta name="viewport" content="width=device-width,initial-scale=1.0,maximum-scale=1.0,minimum-scale=1.0,user-scalable=no,target-densitydpi=medium-dpi">
 	<title></title>
 	<style type="text/css">
+	.test p{
+	  color:blue;
+	}
 
+	.test.test2 p{
+	  background:yellow;
+	}
+	.test.test3 p{
+	  background:tomato;
+	}
 	</style>
+	<script src="https://code.jquery.com/jquery-1.12.4.js"></script>
 	<script type="text/javascript">
-    //평가자 이름을 prompt로 받음
-		var User_Name = prompt('이름을 입력하세요.');
-		//평가자 점수를 prompt로 받음
-		var Grade_Number = Number(prompt('당신이 받은 점수는 몇점인가요?' , '숫자만 입력하라잉'));
+$(function(){
+	$(".test").click(function(){
+		var currentClass = $(this).attr("class");
 
+		if(currentClass == "test2 test"){
+			$(this).removeClass("test2 test");
+			$(this).addClass("test3 test");
 
-   //점수에 따른 조건문
-	 if(Grade_Number >= 90){
-		 alert( User_Name +'님의 평가 점수는 A 입니다.');
-	 }else if(Grade_Number >=  80){
-		 alert(User_Name +'님의 평가 점수는 B 입니다.')
-	 }
-	 else if(Grade_Number >=  70){
-		 alert(User_Name +'님의 평가 점수는 C 입니다.')
-	 }
-	 else if(Grade_Number >=  60){
-		 alert(User_Name +'님의 평가 점수는 D 입니다.')
-	 }
-	 else if(Grade_Number >=  50){
-		 alert('당신의 평가 점수는 E 입니다.')
-	 }
-	 else{
-		 alert('망했다고 봐야지')
-	 }
+		}else{
+			$(this).removeClass("test3 test");
+			$(this).addClass("test2 test");
+
+		}
+	})
+})
+
+   //  //평가자 이름을 prompt로 받음
+		// var User_Name = prompt('이름을 입력하세요.');
+		// //평가자 점수를 prompt로 받음
+		// var Grade_Number = Number(prompt('당신이 받은 점수는 몇점인가요?' , '숫자만 입력하라잉'));
+	 //
+	 //
+   // //점수에 따른 조건문
+	 // if(Grade_Number >= 90){
+		//  alert( User_Name +'님의 평가 점수는 A 입니다.');
+	 // }else if(Grade_Number >=  80){
+		//  alert(User_Name +'님의 평가 점수는 B 입니다.')
+	 // }
+	 // else if(Grade_Number >=  70){
+		//  alert(User_Name +'님의 평가 점수는 C 입니다.')
+	 // }
+	 // else if(Grade_Number >=  60){
+		//  alert(User_Name +'님의 평가 점수는 D 입니다.')
+	 // }
+	 // else if(Grade_Number >=  50){
+		//  alert('당신의 평가 점수는 E 입니다.')
+	 // }
+	 // else{
+		//  alert('망했다고 봐야지')
+	 // }
 
 	</script>
+
 </head>
 <body>
-	<p>나의 점수는 망한 각이네요. </p>
+<div class="test2 test">
+	<p><a href="#">최재선</a></p>
+	<p>이소진</p>
+</div>
 </body>
 </html>
