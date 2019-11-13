@@ -1,0 +1,41 @@
+
+body, p, h1, h2, h3, h4, h5, h6, ul, ol, li, dl, dt, dd, table, th, td, form, fieldset, legend, input, textarea, button, select {
+  margin: 0;
+  padding: 0
+}
+
+body, input, textarea, select, button, table {
+  font-family: '나눔고딕', NanumGothic, '맑은고딕', MalgunGothic, '돋움', Dotum, Helvetica, sans-serif;
+  font-size: 12px
+}
+
+img, fieldset {
+  border: 0
+}
+
+ul, ol {
+  list-style: none
+}
+
+em, address {
+  font-style: normal
+}
+
+a {
+  text-decoration: none
+}
+
+a:hover, a:active, a:focus {
+  text-decoration: underline
+}
+
+.blind, .u_skip {
+  overflow: hidden;
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 1px;
+  height: 1px;
+  font-size: 0;
+  line-height: 0
+}
