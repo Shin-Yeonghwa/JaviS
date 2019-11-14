@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>node.js</title>
+    <style>
+        body{padding-bottom: 100px;}
+        .ex_code {
+            width: 500px;
+            padding: 10px;
+            border: 2px solid #000;
+        }
+    </style>
+</head>
+<body>
+    <h1>node.js</h1>
+
+    <h2>1. Ajax</h2>
+    <ul>
+        <li>페이지를 전환하지 않고 서버에서 데이터를 받아와 사용자에게 보여줌</li>
+        <li>현재 대부분의 웹사이트가 Ajax를 도입</li>
+    </ul>
+
+    <h2>2-1. 데이터 전송 형식 - CSV형식</h2>
+    <ul>
+        <li>다른 형식에 비해 매우 짧고, 많은 양의 데이터를 전송할 때 활용</li>
+        <li>데이터의 가독성이 떨어지는 단점 (각 데이터가 무엇을 나타내는지 알기 힘듦)</li>
+        <li>split() 메서드로 분해</li>
+    </ul>
+
+    <h2>2-2. 데이터 전송 형식 - XML 형식</h2>
+    <ul>
+        <li>HTML처럼 태그로 데이터를 표현
+            <div class="ex_code">
+                &lt;name&gt;김혜선&lt;/name&gt;<br>
+                &lt;age&gt;37&lt;/age&gt;
+            </div>
+        </li>
+        <li>대부분의 정보 제공 사이트에서 제공하는 RSS형식도 XML 형식을 기반으로 만듦</li>
+        <li>용량이 크고, 데이터의 양이 커지면 분석 속도가 떨어짐</li>
+    </ul>
+
+    <h2>2-3.데이터 전송 형식 - JSON 형식 </h2>
+    <ul>
+        <li>자바스크립트에서 사용하는 객체 형태로 데이터를 표현 (Ajax사용시 표준으로 사용됨)
+            <div class="ex_code">
+                [(
+                    "name": "김혜선",
+                    "age": "37"
+                )]
+            </div>
+        </li>
+        <li>객체, 배열, 문자열, 숫자, 불, null만 들어갈 수 있음 (문자열은 큰따옴표 사용)</li>
+        <li>가독성이 좋고 적은 용량으로 데이터를 전달할 수 있어 가장 많이 사용됨</li>
+        <li>데이터의 양이 커지면 분석 속도가 떨어짐</li>
+        <li></li>
+    </ul>
+
+    <h2>Node.js 내부 모듈</h2>
+    <ul>
+        <li>Node.js에 기본적으로 있는 모듈</li>
+    </ul>
+
+    <h2>Node.js 외부 모듈</h2>
+    <ul>
+        <li>기본적으로 갖지 않고, 개인 또는 단체가 만들어 배포하는 모듈</li>
+        <li>npm install 모듈명</li>
+    </ul>
+
+    <h2>서버 생성 및 실행</h2>
+    <ul>
+        <li>express라는 외부모듈 사용</li>
+        <li>웹 서버에 기능을 부여할 때는 app.use() 메서드를 사용</li>
+    </ul>
+
+    <h2>미들웨어</h2>
+    <ul>
+        <li>사용자의 요청을 처리하면서 지나가는 app.use()메서드의 콜백함수</li>
+        <li>위에서 아래로 실행됨</li>
+    </ul>
+
+    <h2>정적 파일 제공</h2>
+    <ul>
+        <li>static 미들웨어 - 정적 파일을 제공할 떄 사용</li>
+    </ul>
+</body>
+</html>
