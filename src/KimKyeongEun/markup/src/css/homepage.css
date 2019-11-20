@@ -533,15 +533,7 @@ main {
   left: 8px;
   z-index: 10;
 }
-
-.footer {
-  height: 80px;
-  background: #fff;
-  font-size: 12px;
-  text-align: center;
-  color: #999;
-  line-height: 80px;
-}
+ 
 
 .labels {
   display: inline-block;
