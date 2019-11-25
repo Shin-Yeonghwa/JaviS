@@ -9,6 +9,7 @@
  */
 
 html {
+    height: 100%;
     line-height: 1.15;
     /* 1 */
     -webkit-text-size-adjust: 100%;
@@ -23,6 +24,7 @@ html {
  */
 
 body {
+    height: 100%;
     margin: 0;
 }
 
@@ -378,6 +380,9 @@ template {
     display: none;
 }
 
+address {
+    font-style: normal;
+}
 
 ul {
     list-style: none;

@@ -7,6 +7,7 @@
  * 2. Prevent adjustments of font size after orientation changes in iOS.
  */
 html {
+  height: 100%;
   line-height: 1.15;
   /* 1 */
   -webkit-text-size-adjust: 100%;
@@ -18,6 +19,7 @@ html {
  * Remove the margin in all browsers.
  */
 body {
+  height: 100%;
   margin: 0; }
 
 /**
@@ -304,6 +306,9 @@ template {
 [hidden] {
   display: none; }
 
+address {
+  font-style: normal; }
+
 ul {
   list-style: none;
   padding: 0;
@@ -311,13 +316,16 @@ ul {
 
 /* service page */
 #wrap {
+  display: flex;
+  flex-direction: column;
   height: 100%;
-  min-width: 1280px;
+  min-width: 1000px;
   font-family: NanumSquare, 나눔스퀘어, NanumGothic, "나눔고딕", sans-serif; }
 
 .footer {
   height: 80px;
-  background: #fff;
+  margin-top: auto;
+  background: #101010;
   font-size: 12px;
   text-align: center;
   color: #999;
@@ -444,12 +452,12 @@ ul {
   -webkit-appearance: none;
   box-sizing: border-box; }
 
-.button_translucence {
+.translucence {
   color: #000;
   border: 0;
   background: rgba(255, 255, 255, 0.7); }
 
-.button_white_border {
+.white_outline {
   color: #fff;
   border: 1px solid #fff;
   background: rgba(255, 255, 255, 0); }
