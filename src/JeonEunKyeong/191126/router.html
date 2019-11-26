@@ -1,0 +1,257 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta http-equiv="x-ua-compatible" content="IE=edge">
+<title>라우터</title>
+</head>
+<body>
+    <div style="max-width:900px;margin:0 auto;">
+        <h1>19.10 라우터</h1>
+        <p>사용자의 요청에 따라 사용자가 필요한 정보를 제공하는 것을 '라우트(route)한다'고 표현한다. 그리고 이러한 기능을 수행하는 미들웨어를 '라우터(router)'라고 한다.<br>
+        router 미들웨어는 다음과 같이 사용합니다.</p>
+        <div style="border:1px solid #999;padding:10px">
+<pre>// 모듈을 추출합니다.
+var http = require('http');
+var express = require('express');
+
+// 웹 서버를 생성합니다.
+var app = express();
+app.use(express.static('public'));
+app.use(app.router);
+
+// 웹 서버를 생성합니다.
+http.createServer(app).listen(52273, function(){
+    console.log('Server Running at http://127.0.0.1:52273');
+});</pre>
+        </div>
+        <p style="margin-bottom:10px"><strong>객체의 메서드</strong></p>
+        <dl style="margin-top:0">
+            <dt  style="float:left;margin-right:5px"><strong>app.get()</strong></dt>
+            <dd style="margin:0 0 10px 0">클라이언트의 GET 요청을 처리합니다.</dd>
+            <dt  style="float:left;margin-right:5px"><strong>app.post()</strong></dt>
+            <dd style="margin:0 0 10px 0">클라이언트의 POST 요청을 처리합니다.</dd>
+            <dt style="float:left;margin-right:5px"><strong>app.put()</strong></dt>
+            <dd style="margin:0 0 10px 0">클라이언트의 PUT 요청을 처리합니다.</dd>
+            <dt style="float:left;margin-right:5px"><strong>app.del()</strong></dt>
+            <dd style="margin:0 0 10px 0">클라이언트의 DELETE 요청을 처리합니다.</dd>
+            <dt style="float:left;margin-right:5px"><strong>app.all()</strong></dt>
+            <dd style="margin:0 0 10px 0">클라이언트의 모든 요청을 처리합니다.</dd>
+        </dl>
+
+        <h1>19.11 응답과 응답 형식</h1>
+        <p>send()메서드는 html 형식과 json형식으로 데이터를 제공하는 기능만 있습니다. 따라서 다른 형식으로 데이터를 제공하고 싶을 때는 response.type() 메서드로 데이터 응답 형식을 지정해주어야 합니다. 그냥 사용해도 익스플로러가 xml형식의 문자열을 xml 형식으로 출력하므로 정상적으로 보이지만 jquery를 포함한 대부분의 라이브러리는 요청을 완료하고 Content-type 속성을 확인해 어떤 형식의 데이터를 수신했는지 알아냅니다. 따라서 되도록 속성을 맞춰주는 것이 좋습니다. 방법은 response.type() 메서드를 사용하고 매개변수에 문자열 "text/xml"을 넣어주면 됩니다.<p>
+            <p style="margin-bottom:10px"><strong>send() 메서드의 매개변수에 따른 응답 형식</strong></p>
+            <dl style="margin-top:0">
+                <dt style="float:left;margin-right:5px"><strong>문자열</strong></dt>
+                <dd style="margin:0 0 10px 0">- html</dd>
+                <dt style="float:left;margin-right:5px"><strong>배열</strong></dt>
+                <dd style="margin:0 0 10px 0">- json</dd>
+                <dt style="float:left;margin-right:5px"><strong>객체</strong></dt>
+                <dd style="margin:0 0 10px 0">- json</dd>
+            </dl>
+
+        <p>기본 서버 구성</p>
+        <div style="border:1px solid #999;padding:10px">
+<pre>// 모듈을 추출합니다.
+var http = require('http');
+var express = require('express');
+
+// 변수를 선언합니다.
+var items = [];
+
+// 웹 서버를 생성합니다.
+var app = express();
+app.use(express.static('public'));
+app.use(app.router);
+
+// 라우트합니다.
+app.all('/data.html', function (request, response) {});
+app.all('/data.json', function (request, response) {});
+app.all('/data.xml', function (request, response) {});
+
+// 웹 서버를 실행합니다.
+http.createServer(app).listen(52273, function () {
+    console.log('Server Running at http://127.0.0.1:52273');
+});</pre>
+        </div>
+
+
+    <p>실습파일</p>
+    <div style="border:1px solid #999;padding:10px">
+<pre>﻿﻿// 모듈을 추출합니다.
+var http = require('http');
+var express = require('express');
+
+// 변수를 선언합니다.
+var items = [{
+    name: '우유',
+    price: '2000'
+}, {
+    name: '홍차',
+    price: '5000'
+}, {
+    name: '커피',
+    price: '5000'
+}];
+
+// 웹 서버를 생성합니다.
+var app = express();
+app.use(express.static('public'));
+app.use(express.bodyParser());
+app.use(app.router);
+
+// 라우트합니다.
+app.all('/data.html', function (request, response) {
+    var output = '';
+    output += '&lt;!DOCTYPE html&gt;';
+    output += '&lt;html&gt;';
+    output += '&lt;head&gt;';
+    output += '    &lt;title&gt;Data HTML&lt;/title&gt;';
+    output += '&lt;/head&gt;';
+    output += '&lt;body&gt;';
+    items.forEach(function (item) {
+        output += '&lt;div&gt;';
+        output += '    &lt;h1&gt;' + item.name + '&lt;/h1&gt;';
+        output += '    &lt;h2&gt;' + item.price + '&lt;/h2&gt;';
+        output += '&lt;/div&gt;';
+    });
+    output += '&lt;/body&gt;';
+    output += '&lt;/html&gt;';
+    response.send(output);
+});
+
+app.all('/data.json', function (request, response) {
+    response.send(items);
+});
+
+app.all('/data.xml', function (request, response) {
+    var output = '';
+    output += '&lt;?xml version="1.0" encoding="UTF-8" ?&gt;';
+    output += '&lt;products&gt;';
+    items.forEach(function (item) {
+        output += '&lt;product&gt;';
+        output += '    &lt;name&gt;' + item.name + '&lt;/name&gt;';
+        output += '    &lt;price&gt;' + item.price + '&lt;/price&gt;';
+        output += '&lt;/product&gt;';
+    });
+    output += '&lt;/products&gt;';
+    response.type('text/xml');
+    response.send(output);
+});
+
+app.all('/parameter', function (request, response) {
+    // 변수를 선언합니다.
+    var name = request.param('name');
+    var region = request.param('region');
+
+    // 응답합니다.
+    response.send('&lt;h1&gt;' + name + ':' + region + '&lt;/h1&gt;');
+});
+
+app.all('/parameter/:id', function (request, response) {
+    // 변수를 선언합니다.
+    var id = request.param('id');
+
+    // 응답합니다.
+    response.send('&lt;h1&gt;' + id + '&lt;/h1&gt;');
+});
+
+app.get('/products', function (request, response) {
+    response.send(items);
+});
+
+app.get('/products/:id', function (request, response) {
+    // 변수를 선언합니다.
+    var id = Number(request.param('id'));
+
+    if (isNaN(id)) {
+        // 오류: 잘못된 경로
+        response.send({
+            error: '숫자를 입력하세요!'
+        });
+    } else if (items[id]) {
+        // 정상
+        response.send(items[id]);
+    } else {
+        // 오류: 요소가 없을 경우
+        response.send({
+            error: '존재하지 않는 데이터입니다!'
+        });
+    }
+});
+
+app.post('/products', function (request, response) {
+    // 변수를 선언합니다.
+    var name = request.param('name');
+    var price = request.param('price');
+    var item = {
+        name: name,
+        price: price
+    };
+
+    // 데이터를 추가합니다.
+    items.push(item);
+
+    // 응답합니다.
+    response.send({
+        message: '데이터를 추가했습니다.',
+        data: item
+    });
+});
+
+app.put('/products/:id', function (request, response) {
+    // 변수를 선언합니다.
+    var id = Number(request.param('id'));
+    var name = request.param('name');
+    var price = request.param('price');
+
+    if (items[id]) {
+        // 데이터를 수정합니다.
+        if (name) { items[id].name = name; }
+        if (price) { items[id].price = price; }
+
+        // 응답합니다.
+        response.send({
+            message: '데이터를 수정했습니다.',
+            data: items[id]
+        });
+    } else {
+        // 오류: 요소가 없을 경우
+        response.send({
+            error: '존재하지 않는 데이터입니다!'
+        });
+    }
+});
+
+app.del('/products/:id', function (request, response) {
+    // 변수를 선언합니다.
+    var id = Number(request.param('id'));
+
+    if (isNaN(id)) {
+        // 오류: 잘못된 경로
+        response.send({
+            error: '숫자를 입력하세요!'
+        });
+    } else if (items[id]) {
+        // 정상: 데이터 삭제
+        items.splice(id, 1);
+        response.send({
+            message: '데이터를 삭제했습니다.'
+        });
+    } else {
+        // 오류: 요소가 없을 경우
+        response.send({
+            error: '존재하지 않는 데이터입니다!'
+        });
+    }
+});
+
+// 웹 서버를 실행합니다.
+http.createServer(app).listen(52273, function () {
+    console.log('Server Running at http://127.0.0.1:52273');
+});</pre>
+    </div>
+</body>
+</html>
