@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="ko">
+  <head>
+    <meta charset="utf-8">
+    <title>어드민</title>
+	<style>
+		* {
+			margin:0;
+			padding:0;
+			font-family:Verdana,sans-serif;
+			box-sizing:border-box;
+		}
+		body {color:#333;font-size:14px;}
+		#wrap {width:600px;}
+		/* table, ul */
+		table {width:100%;border:0; border-collapse:collapse;}
+		th,td {padding:8px 0;vertical-align:middle}
+		th {text-align:left;}
+		ul, li {margin:0;padding:0;list-style:none;}
+		/* input */
+		input[type=text],input[type=password]{display:inline-block;width:100%;height:32px;padding:0 10px;border:1px solid #ccc;font-size:14px;}
+		textarea {display:inline-block;width:100%;padding:10px;border:1px solid #ccc;font-size:14px;}
+		textarea:disabled{background-color: #fff}
+        input[type=button],input[type=submit], button {border:0;font-size:14px;}
+		/* button */
+		.btn-wrap {margin:10px 0 0 0;text-align:right}
+		.btn {display:inline-block;padding:12px 20px;background-color:#333;color:#fff;text-align:center;line-height:1;}
+		fieldset {border:1px solid #ccc;padding:16px;}
+		legend {display:none}
+		.cont {overflow:hidden;height:27px;}
+		#btnCommt {display:block;flex:0 0 60px;height:32px;margin-left:8px;background:#666;color:#fff;line-height:1;}
+		#btnCommtInput {flex:1}
+		#btnCommtName {flex:0 0 100px;margin-right:8px}
+	</style>
+  </head>
+  <body>
+
+	<div id="wrap">
+		<div id="resultWrap"></div>
+
+		<fieldset>
+		<legend>board</legend>
+			<form action="#" id="boardForm">
+				<table>
+					<caption></caption>
+					<colgroup>
+						<col style="width:100px" />
+						<col/>
+					</colgroup>
+					<tbody>
+						<tr>
+							<th scope="row">작성자</th>
+							<td>
+                                <div><input type="text" id="iptName" name="username"></div>
+                            </td>
+                        </tr>
+						<tr>
+							<th scope="row">문제</th>
+							<td>
+                                <div><input type="text" id="iptTitle" name="quiztitle"></div>
+                            </td>
+						</tr>
+						<tr>
+                            <th scope="row">정답</th>
+							<td>
+                                <div>
+                                    <input type="text" id="iptTitle" name="correctanswer">
+                                    <input type="text" id="iptTitle" name="correctanswer">
+                                    <input type="text" id="iptTitle" name="correctanswer">
+                                    <input type="text" id="iptTitle" name="correctanswer">
+                                </div>
+                                
+                            </td>
+						</tr>
+					</tbody>
+
+				</table>
+                <div class="btn-wrap">
+                    <input type="submit" id="btnRegist" class="btn" value="업로드">
+                </div>
+            </form>
+
+		</fieldset>
+
+		<table class="board_list">
+			<thead>
+				<tr>
+					<th>NO</th>
+					<th>작성자</th>
+					<th>문제</th>
+					<th>정답</th>
+				</tr>
+			</thead>
+			<tbody></tbody>
+		</table>
+
+
+	</div>
+
+	<script>
+        /* 전역변수 */
+        const formBox = document.querySelector('#boardForm');
+        const inputName = document.querySelector('#iptName');
+        const inputTitle = document.querySelector('#iptTitle');
+		const boardList = document.querySelector('.board_list');
+		const boardListBody = boardList.getElementsByTagName('tbody')[0];
+
+        /* 전체 data */
+		const boardData = [];
+
+        formBox.addEventListener('submit', createBoard);
+
+        /* form에 대한 submit 힘수 */
+        function createBoard(event) {
+            event.preventDefault();
+            
+            const request = new XMLHttpRequest();
+            // // POST to httpbin which returns the POST data as JSON
+            request.open('POST', 'https://httpbin.org/post', /* async = */ false); //초기화
+
+            const formData = new FormData(document.getElementById('boardForm')); //입력 form을 가져오는 영역
+            request.send(formData); //입력 form을 서버에 전달
+
+            const data = JSON.parse(request.response)['form']; //string >> json file로 변환
+
+            /* data 넣기 */
+            boardData.push(data); //배열에 form값 + 작성일을 넣는 영역
+            /* localstorage에 저장하기 */
+            localStorage.setItem('board',JSON.stringify(boardData)); //json file을 로컬에서 사용할 수 있도록 string값을 변환
+            /* 게시판 만들기 */
+            createBoardList(boardData);
+            /* input reset */
+            formBox.reset();
+        }
+
+        /* 데이터가 들어가는 테이블 */
+		function createBoardList(data){
+
+            let infoList = '';
+
+            for(let i = 0;i < data.length; i++){
+
+                infoList += `
+                <tr>
+                    <td>
+                        <div>${(i + 1)}</div>
+                    </td>
+                    <td>
+                        <div>${data[i]['username']}</div>
+                    </td>
+                    <td>
+                        <div>${data[i]['quiztitle']}</div>
+                    </td>
+                    <td>
+                        <div>${data[i]['correctanswer']}</div>
+                    </td>
+                </tr>
+                `
+            }
+            boardListBody.innerHTML = infoList;
+		}
+
+	</script>
+
+  </body>
+</html>
